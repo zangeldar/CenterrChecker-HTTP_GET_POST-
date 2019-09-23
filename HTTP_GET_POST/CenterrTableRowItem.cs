@@ -52,20 +52,21 @@ namespace HTTP_GET_POST
         }
         public override string ToString()
         {
+            string baseUri = "http://bankrupt.centerr.ru";
             string result = "";
 
-            result = String.Format("\n" +
-                @"{0}" + "\t|\t" +
-                @"{1}" + "\t|\t" +
-                @"{2}" + "\t|\t" +
-                @"{3}" + "\t|\t" +
-                @"{4}" + "\t|\t" +
-                @"{5}" + "\t|\t" +
-                @"{6}" + "\t|\t" +
-                @"{7}" + "\t|\t" +
-                @"{8}" + "\t|\t" +
-                @"{9}" + "\t|\t" +
-                @"{10}" + "\t|\t",
+            result = String.Format(@"<table border=""1""><tr><th>" +
+                @"{0}" + "</th><th>" +
+                @"{1}" + "</th><th>" +
+                @"{2}" + "</th><th>" +
+                @"{3}" + "</th><th>" +
+                @"{4}" + "</th><th>" +
+                @"{5}" + "</th><th>" +
+                @"{6}" + "</th><th>" +
+                @"{7}" + "</th><th>" +
+                @"{8}" + "</th><th>" +
+                @"{9}" + "</th><th>" +
+                @"{10}" + "</th><tr>",
                 "№",
                 "Торги",
                 "№ лота",
@@ -79,27 +80,28 @@ namespace HTTP_GET_POST
                 "Тип торга"
                 );
 
-            result += String.Format("\n" +
-                @"<a href =""{0}"">{1}</a>"      + "\t|\t" +
-                @"<a href =""{2}"">{3}</a>"      + "\t|\t" +
-                @"<a href =""{4}"">{5}</a>"      + "\t|\t" +
-                @"<a href =""{6}"">{7}</a>"      + "\t|\t" +
-                @"{8}"                           + "\t|\t" +
-                @"<a href =""{9}"">{10}</a>"     + "\t|\t" +
-                @"{11}"                          + "\t|\t" +
-                @"{12}"                          + "\t|\t" +
-                @"{13}"                          + "\t|\t" +
-                @"<a href =""{14}"">{15}</a>"    + "\t|\t",
-                TorgNumber.ItemUri, TorgNumber.ItemString,
-                TorgName.ItemUri, TorgName.ItemString,
-                LotNumber.ItemUri, LotNumber.ItemString,
-                LotName.ItemUri, LotName.ItemString,
+            result += String.Format("<tr><td>" +
+                @"<a href =""{0}"">{1}</a>"      + "</td><td>" +
+                @"<a href =""{2}"">{3}</a>"      + "</td><td>" +
+                @"<a href =""{4}"">{5}</a>"      + "</td><td>" +
+                @"<a href =""{6}"">{7}</a>"      + "</td><td>" +
+                @"{8}"                           + "</td><td>" +
+                @"<a href =""{9}"">{10}</a>"     + "</td><td>" +
+                @"{11}"                          + "</td><td>" +
+                @"{12}"                          + "</td><td>" +
+                @"{13}"                          + "</td><td>" +
+                @"<a href =""{14}"">{15}</a>"    + "</td><td>" +
+                @"{16}"                          + "</td></tr></table>",
+                baseUri + TorgNumber.ItemUri.Replace("\'","").Replace("class",""), TorgNumber.ItemString,
+                baseUri + TorgName.ItemUri.Replace("\"",""), TorgName.ItemString,
+                baseUri + LotNumber.ItemUri.Replace("\"", "").Replace("\'", ""), LotNumber.ItemString,
+                baseUri + LotName.ItemUri.Replace("\"", ""), LotName.ItemString,
                 PriceStart,
-                Organizer.ItemUri, Organizer.ItemString,
+                baseUri + Organizer.ItemUri.Replace("\"", ""), Organizer.ItemString,
                 DateAcceptFinish,
                 DateAuctionStart,
                 Status,
-                Winner.ItemUri, Winner.ItemString,
+                baseUri + Winner.ItemUri.Replace("\"", ""), Winner.ItemString,
                 TorgType
                 );
 

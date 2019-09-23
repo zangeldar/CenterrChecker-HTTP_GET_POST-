@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
+using System.Xml.Serialization;
 
 namespace HTTP_GET_POST
 {
@@ -16,6 +17,7 @@ namespace HTTP_GET_POST
         static List<string> MailRecipients = new List<string>();
         static void Main(string[] args)
         {
+            string requestFileName = "lastrequest.req";
             if (args.Length > 0)
                 foreach (string argItem in args)
                     if (argItem == "test")
@@ -27,11 +29,19 @@ namespace HTTP_GET_POST
                         & argItem.Contains('.') 
                         & argItem.IndexOf('@')>0 
                         & argItem.IndexOf('@')+1 < argItem.IndexOf('.', argItem.IndexOf('@')))
+                    {
                         MailRecipients.Add(argItem);
-
-            MyClass myObject = new MyClass();
-            string checkDate;
+                    }
+                    else if (argItem.Contains("request="))
+                    {
+                        requestFileName = argItem.Substring(7);
+                    }                        
             
+
+            MyClass myObject = null;
+            string checkDate;
+
+            /*
             //  Запрос АСВ по имуществу ПРБ в отношении ПИРИТ
             myObject.MyParameters["Party_contactName"] = "асв";
             myObject.MyParameters["vPurchaseLot_fullTitle"] = "прб";
@@ -46,11 +56,22 @@ namespace HTTP_GET_POST
             myObject.MyParameters["vPurchaseLot_lotTitle"] = "";
             checkDate = "";   // для СОЮЗНЫЙ
             DoOneCheck(myObject, checkDate);
+            */
 
-            myObject.ResetParameters();
-            myObject.MyParameters["Party_contactName"] = "асв";
-            myObject.MyParameters["vPurchaseLot_fullTitle"] = "";
-            myObject.MyParameters["vPurchaseLot_lotTitle"] = "";
+            if (File.Exists(requestFileName))
+                myObject = LoadMyRequestObjectXML(requestFileName);
+
+            if (myObject == null)
+            {
+                myObject = new MyClass();
+                //Запрос АСВ по имуществу ПРБ в отношении ПИРИТ
+                myObject.ResetParameters();
+                myObject.MyParameters["Party_contactName"] = "асв";
+                myObject.MyParameters["vPurchaseLot_fullTitle"] = "";
+                myObject.MyParameters["vPurchaseLot_lotTitle"] = "";                
+                SaveMyRequestObjectXML(myObject, GenerateFileName(myObject, true));
+            }
+            SaveMyRequestObjectXML(myObject, "lastrequest.req");
 
             CenterrRequestResponseObject checkData = null;// = LoadMyCenterrObject(GenerateFileName(myObject));
             if (File.Exists(GenerateFileName(myObject)))
@@ -122,7 +143,7 @@ namespace HTTP_GET_POST
             return SendMailRemind(PrepareMailBody(myObject, CurrentObj.LastResponse.ToString()));
         }
 
-        static string GenerateFileName(MyClass inpObj)
+        static string GenerateFileName(MyClass inpObj, bool request = false)
         {
             string result = "";
 
@@ -133,8 +154,32 @@ namespace HTTP_GET_POST
                 
                 result += item.Value;
             }
+            if (request)
+                return result + ".req";
 
             return result + ".bcntr";
+        }
+
+        static bool SaveMyRequestObjectXML(MyClass curObj, string fileName = "lastrequest.req")
+        {
+            bool result = false;
+            try
+            {
+                XmlSerializer formatter = new XmlSerializer(typeof(MyClass));
+                
+                using (Stream output = File.OpenWrite(fileName))
+                {
+                    formatter.Serialize(output, curObj);
+                }
+                result = true;
+            }
+            catch (Exception e)
+            {
+                result = false;
+                //throw;
+            }
+
+            return result;
         }
 
         static bool SaveMyCenterrObject(CenterrRequestResponseObject curObj, string fileName = "lastresponse.bcntr")
@@ -155,6 +200,26 @@ namespace HTTP_GET_POST
                 //throw;
             }
 
+            return result;
+        }
+
+        static MyClass LoadMyRequestObjectXML(string fileName = "lastrequest.req")
+        {
+            MyClass result = null;
+
+            try
+            {
+                XmlSerializer formatter = new XmlSerializer(typeof(MyClass));
+                using (Stream input = File.OpenRead(fileName))
+                {
+                    result = (MyClass)formatter.Deserialize(input);
+                }
+            }
+            catch (Exception e)
+            {
+                result = null;
+                //throw;
+            }
             return result;
         }
 
@@ -213,7 +278,9 @@ namespace HTTP_GET_POST
             if (parSet.Length > 2)
                 parSet = parSet.Remove(0, 2);
 
-            messageBody = String.Format(@"По Вашему запросу: ""{0}"" были обнаружены новые записи:\n{1}", parSet, inpRows);
+            messageBody = String.Format("<html>По Вашему запросу: \"{0}\" были обнаружены новые записи:\n{1}", parSet, inpRows);
+            messageBody += "\n\n Здесь приведена только самая последняя запись! \nВозможно, кроме нее есть и другие, обязательно проверьте на сайте!!";
+            messageBody += "</html>";
 
             return messageBody;
         }
