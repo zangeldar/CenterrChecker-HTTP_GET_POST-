@@ -240,12 +240,12 @@ namespace HTTP_GET_POST
             return result;
         }
 
-        private List<List<string>> getProtoTable(Tag inpTag)
+        private List<List<StringUri>> getProtoTable(Tag inpTag)
         {
             if (inpTag.Name != "table")
                 return null;
 
-            List<List<string>> myProtoTable = new List<List<string>>();
+            List<List<StringUri>> myProtoTable = new List<List<StringUri>>();
 
             foreach (Tag rowTag in inpTag.InnerTags)              
                 myProtoTable.Add(getOneRow(rowTag));
@@ -253,21 +253,24 @@ namespace HTTP_GET_POST
             return myProtoTable;
         }
 
-        private List<List<String>> NormalizeProtoTable(List<List<string>> inpProtoTable)
+        private List<List<StringUri>> NormalizeProtoTable(List<List<StringUri>> inpProtoTable)
         {
-            List<List<String>> resList = new List<List<string>>();
-            string myStr;
-            foreach (List<string> itemList in inpProtoTable)
+            List<List<StringUri>> resList = new List<List<StringUri>>();
+            String myStr;
+            foreach (List<StringUri> itemList in inpProtoTable)
             {
-                List<string> newList = new List<string>();
-                foreach (string item in itemList)
+                List<StringUri> newList = new List<StringUri>();
+                foreach (StringUri item in itemList)
                 {
-                    myStr = item.Replace("\n","");
+                    /*  // Refactor to NormalizeString()
+                    myStr = item.ItemString.Replace("\n","");
                     myStr = myStr.Replace("\t", "");
                     myStr = myStr.Replace("\r", "");
                     myStr = myStr.Replace("&quot;", "\"");
                     myStr = myStr.Replace("&#160;", " ");
-                    newList.Add(myStr);
+                    */
+
+                    newList.Add(new StringUri { ItemString = NormalizeString(item.ItemString), ItemUri = NormalizeString(item.ItemUri) });
                 }
                 resList.Add(newList);
             }
@@ -275,43 +278,79 @@ namespace HTTP_GET_POST
             return resList;
         }
 
-        public List<List<string>> getOutTable(Tag inpTag)
+        private string NormalizeString(string inpStr)
         {
-            return NormalizeProtoTable(getProtoTable(inpTag));
-        }
+            if (inpStr == null)
+                return "";
 
-        
+            string result;
 
-        private string EachRowRec(Tag inpTag)
-        {
-            string result = "";
-            if (!inpTag.HasInnerTags)
-                return inpTag.Value;
-
-            List<string> outList = new List<string>();
-            foreach (Tag inTag in inpTag.InnerTags)
-            {
-                if (inTag.HasInnerTags)
-                    outList.Add(EachRowRec(inTag));
-                    //continue;
-                outList.Add(inTag.Value);
-            }
-
-            foreach (string item in outList)
-            {
-                if (item == "")
-                    continue;
-                result += (item);
-            }
-                
+            result = inpStr.Replace("\n", "");
+            result = result.Replace("\t", "");
+            result = result.Replace("\r", "");
+            result = result.Replace("&quot;", "\"");
+            result = result.Replace("&#160;", " ");
 
             return result;
         }
 
-        private List<string> getOneRow(Tag inpTag)
+
+        public List<List<StringUri>> getOutTable(Tag inpTag)
+        {
+            return NormalizeProtoTable(getProtoTable(inpTag));
+        }
+
+
+
+        private StringUri EachRowRec(Tag inpTag)
+        {
+            StringUri result = new StringUri { ItemString = "" };
+            if (!inpTag.HasInnerTags)
+            {
+                result.ItemString = inpTag.Value;
+                return result;
+            }
+
+            List<StringUri> outList = new List<StringUri>();
+            foreach (Tag inTag in inpTag.InnerTags)
+            {
+                if (inTag.HasInnerTags)
+                    outList.Add(EachRowRec(inTag));
+                //continue;
+                outList.Add(new StringUri { ItemString = inTag.Value, ItemUri = GetUriFromHref(inTag) });
+            }
+
+            foreach (StringUri item in outList)
+            {
+                if (item.ItemString == "")
+                    continue;
+                result.ItemString += (item.ItemString);
+                result.ItemUri += (item.ItemUri);
+            }
+
+            return result;
+        }            
+
+        private string GetUriFromHref(Tag inTag)
+        {
+            string result = "";
+
+            foreach (tagAttribute itemAtt in inTag.Attributes)
+            {
+                if (itemAtt.Name == "href")
+                {
+                    result = itemAtt.Value;
+                    break;
+                }                    
+            }
+
+            return result;
+        }
+
+        private List<StringUri> getOneRow(Tag inpTag)
         {
             //DataRow result = null;// = new DataRow();
-            List<string> outList = new List<string>();
+            List<StringUri> outList = new List<StringUri>();
             foreach (Tag inTag in inpTag.InnerTags)
             {
                 outList.Add(EachRowRec(inTag));

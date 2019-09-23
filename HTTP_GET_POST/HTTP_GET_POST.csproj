@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CenterrTableRowItem.cs" />
     <Compile Include="MyClass.cs" />
     <Compile Include="myHTMLParser.cs" />
     <Compile Include="Program.cs" />

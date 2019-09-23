@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HTTP_GET_POST
 {    
-
+    [Serializable]
     class MyClass
     {
         public MyClass()
