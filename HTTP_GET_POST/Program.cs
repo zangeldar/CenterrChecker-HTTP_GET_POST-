@@ -105,7 +105,7 @@ namespace HTTP_GET_POST
             // Проверка на наличие новых сообщений и отправка почты            
             resultString = GetNewRowsString(myLT, checkDate);
             if (resultString.Length > 0)
-                return SendMailRemind(PrepareMailBody(myObject, resultString));
+                return SendMailRemind(PrepareMailBody(myObject, resultString, 1));
             // Конец запроса
 
             return false;
@@ -130,17 +130,76 @@ namespace HTTP_GET_POST
             List<List<StringUri>> myLT = GetResultTableAsList(myTable);
             List<CenterrTableRowItem> myCrObjects = GetResultTableAsListOfMyObjects(myLT);
 
-            CurrentObj = new CenterrRequestResponseObject(myObject, myCrObjects[0]);
+            List<CenterrTableRowItem> newItems = new List<CenterrTableRowItem>();
+
+            CurrentObj = new CenterrRequestResponseObject(myObject, myCrObjects);
             if (checkData != null)
                 //if (myObject.MyParameters == checkData.MyRequest.MyParameters)
                 if (Enumerable.SequenceEqual(myObject.MyParameters, checkData.MyRequest.MyParameters))
-                    if (CurrentObj.LastResponse.ToString() == checkData.LastResponse.ToString())
+                {
+                    newItems = GetListOfNewRecords(CurrentObj.ListResponse, checkData.ListResponse[0]);
+                    if (newItems.Count < 1)
                         return false;
+                } else
+                    newItems = myCrObjects;
+            else
+                newItems = myCrObjects;            
 
             // сохранить сериализованный CurrentObj для дальнейших проверок
             SaveMyCenterrObject(CurrentObj, GenerateFileName(CurrentObj.MyRequest));
 
-            return SendMailRemind(PrepareMailBody(myObject, CurrentObj.LastResponse.ToString()));
+            return SendMailRemind(PrepareMailBody(myObject, CreateTableForMailing(newItems), newItems.Count));
+        }
+
+        static List<CenterrTableRowItem> GetListOfNewRecords(List<CenterrTableRowItem> inpList, CenterrTableRowItem checkRowItem)
+        {
+            List<CenterrTableRowItem> result = new List<CenterrTableRowItem>();
+
+            for (int i = 0; i < inpList.Count; i++)
+            {
+                if (inpList[i].ToString() == checkRowItem.ToString())
+                    break;
+                result.Add(inpList[i]);
+            }
+
+            return result;
+        }
+
+        static string CreateTableForMailing(List<CenterrTableRowItem> inpListResponses)
+        {
+            string result = @"<table border=""1"">";
+
+            result += String.Format(@"<tr><th>" +
+                @"{0}" + "</th><th>" +
+                @"{1}" + "</th><th>" +
+                @"{2}" + "</th><th>" +
+                @"{3}" + "</th><th>" +
+                @"{4}" + "</th><th>" +
+                @"{5}" + "</th><th>" +
+                @"{6}" + "</th><th>" +
+                @"{7}" + "</th><th>" +
+                @"{8}" + "</th><th>" +
+                @"{9}" + "</th><th>" +
+                @"{10}" + "</th></tr>",
+                "№",
+                "Торги",
+                "№ лота",
+                "Лот",
+                "Нач.цена",
+                "Организатор",
+                "Дата приема заявок",
+                "Дата проведения",
+                "Статус",
+                "Победитель",
+                "Тип торга"
+                );
+
+            foreach (CenterrTableRowItem item in inpListResponses)
+                result += item.ToString();
+
+            result += @"</table>";
+
+            return result;
         }
 
         static string GenerateFileName(MyClass inpObj, bool request = false)
@@ -265,7 +324,7 @@ namespace HTTP_GET_POST
             return false;
         }
 
-        static string PrepareMailBody(MyClass myObject, string inpRows)
+        static string PrepareMailBody(MyClass myObject, string inpRows, int rowsCount)
         {
             string messageBody;
 
@@ -276,16 +335,17 @@ namespace HTTP_GET_POST
                     parSet += ", " + item;
             }
             if (parSet.Length > 2)
-                parSet = parSet.Remove(0, 2);
+                parSet = parSet.Remove(0, 2);           
 
             messageBody = String.Format("<html>По Вашему запросу: \"{0}\" были обнаружены новые записи:\n{1}", parSet, inpRows);
-            messageBody += "\n\n Здесь приведена только самая последняя запись! \nВозможно, кроме нее есть и другие, обязательно проверьте на сайте!!";
+            if (rowsCount >= 20)
+                messageBody += "\n\n<br> Возможно, есть и другие новые записи! Обязательно проверьте на сайте!!";
             messageBody += "</html>";
 
             return messageBody;
         }
 
-        static bool SendMailRemind(string outText, string outSubj="[Центр Реализации] Появилось новое предложение по Вашему запросу!", List<string> recpList=null)
+        static bool SendMailRemind(string outText, string outSubj="[Центр Реализации] Появились новые предложения по Вашему запросу!", List<string> recpList=null)
         {
             string mailFrom = "bot@nazmi.ru";
 

@@ -9,7 +9,23 @@ namespace HTTP_GET_POST
     [Serializable]
     public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IXmlSerializable, ISerializable
     {
-        protected SerializableDictionary<TKey, TValue>(SerializationInfo info, StreamingContext context) : base(){}
+        public SerializableDictionary()
+        {
+        }
+
+        //public SerializableDictionary<TKey, TValue>(SerializationInfo info, StreamingContext context) : base(){}
+
+        public SerializableDictionary (SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            
+        }
+
+        /*
+        public void GetObjectData (SerializationInfo info, StreamingContext context)
+        {
+
+        }
+        */
 
         public System.Xml.Schema.XmlSchema GetSchema()
         {

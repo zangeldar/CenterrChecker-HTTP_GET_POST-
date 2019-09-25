@@ -10,11 +10,11 @@ namespace HTTP_GET_POST
     class CenterrRequestResponseObject
     {
         public MyClass MyRequest { get; private set; }
-        public CenterrTableRowItem LastResponse { get; private set; }
-        public CenterrRequestResponseObject(MyClass myReq, CenterrTableRowItem lastResp)
+        public List<CenterrTableRowItem> ListResponse { get; private set; }
+        public CenterrRequestResponseObject(MyClass myReq, List<CenterrTableRowItem> listResp)
         {
             this.MyRequest = myReq;
-            this.LastResponse = lastResp;
+            this.ListResponse = listResp;
         }
     }
     [Serializable]
@@ -55,7 +55,9 @@ namespace HTTP_GET_POST
             string baseUri = "http://bankrupt.centerr.ru";
             string result = "";
 
-            result = String.Format(@"<table border=""1""><tr><th>" +
+            /*
+            //result = String.Format(@"<table border=""1""><tr><th>" +
+            result = String.Format(@"<tr><th>" +
                 @"{0}" + "</th><th>" +
                 @"{1}" + "</th><th>" +
                 @"{2}" + "</th><th>" +
@@ -79,6 +81,7 @@ namespace HTTP_GET_POST
                 "Победитель",
                 "Тип торга"
                 );
+                */
 
             result += String.Format("<tr><td>" +
                 @"<a href =""{0}"">{1}</a>"      + "</td><td>" +
@@ -91,7 +94,8 @@ namespace HTTP_GET_POST
                 @"{12}"                          + "</td><td>" +
                 @"{13}"                          + "</td><td>" +
                 @"<a href =""{14}"">{15}</a>"    + "</td><td>" +
-                @"{16}"                          + "</td></tr></table>",
+                //@"{16}"                          + "</td></tr></table>",
+                @"{16}" + "</td></tr>",
                 baseUri + TorgNumber.ItemUri.Replace("\'","").Replace("class",""), TorgNumber.ItemString,
                 baseUri + TorgName.ItemUri.Replace("\"",""), TorgName.ItemString,
                 baseUri + LotNumber.ItemUri.Replace("\"", "").Replace("\'", ""), LotNumber.ItemString,
