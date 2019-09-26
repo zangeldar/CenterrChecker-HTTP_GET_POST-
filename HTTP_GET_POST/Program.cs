@@ -38,7 +38,7 @@ namespace HTTP_GET_POST
                     }                        
             
 
-            CenterrRequest myObject = null;
+            CenterrRequest myRequestObject = null;
             string checkDate;
 
             /*
@@ -59,25 +59,35 @@ namespace HTTP_GET_POST
             */
 
             if (File.Exists(requestFileName))
-                myObject = LoadMyRequestObjectXML(requestFileName);
+                myRequestObject = LoadMyRequestObjectXML(requestFileName);
 
-            if (myObject == null)
+            if (myRequestObject == null)
             {
-                myObject = new CenterrRequest();
+                myRequestObject = new CenterrRequest();
                 //Запрос АСВ по имуществу ПРБ в отношении ПИРИТ
-                myObject.ResetParameters();
-                myObject.MyParameters["Party_contactName"] = "асв";
-                myObject.MyParameters["vPurchaseLot_fullTitle"] = "";
-                myObject.MyParameters["vPurchaseLot_lotTitle"] = "";                
-                SaveMyRequestObjectXML(myObject, GenerateFileName(myObject, true));
+                myRequestObject.ResetParameters();
+                myRequestObject.MyParameters["Party_contactName"] = "асв";
+                myRequestObject.MyParameters["vPurchaseLot_fullTitle"] = "";
+                myRequestObject.MyParameters["vPurchaseLot_lotTitle"] = "";                
+                SaveMyRequestObjectXML(myRequestObject, GenerateFileName(myRequestObject, true));
             }
-            SaveMyRequestObjectXML(myObject, "lastrequest.req");
+            SaveMyRequestObjectXML(myRequestObject, "lastrequest.req");
 
             CenterrResponse checkData = null;// = LoadMyCenterrObject(GenerateFileName(myRequestObj));
-            if (File.Exists(GenerateFileName(myObject)))
-                checkData = LoadMyCenterrObject(GenerateFileName(myObject));
+            if (File.Exists(GenerateFileName(myRequestObject)))
+                checkData = LoadMyCenterrObject(GenerateFileName(myRequestObject));
 
-            DoOneCheck(myObject, checkData);
+            //DoOneCheck(myRequestObject, checkData);
+            CenterrResponse curData = new CenterrResponse(myRequestObject);
+            List<CenterrTableRowItem> newResultsList = DoOneCheck(curData, checkData);
+            SaveMyCenterrObject(curData, GenerateFileName(curData.MyRequest));
+
+            if (newResultsList.Count > 0)
+            {
+                string itemsTableHtml = CreateTableForMailing(newResultsList);
+                string mailText = PrepareMailBody(curData.MyRequest, itemsTableHtml, newResultsList.Count);
+                SendMailRemind(mailText);
+            }            
 
             Console.WriteLine("Well done!");
             //Console.ReadKey();
@@ -113,10 +123,10 @@ namespace HTTP_GET_POST
 
         static bool DoOneCheck(CenterrRequest myRequestObj, CenterrResponse checkData=null)
         {
-            string myWorkAnswer;           
+                       
             CenterrResponse CurrentObj;
 
-            myWorkAnswer = myRequestObj.GetResponse;
+            string myWorkAnswer = myRequestObj.GetResponse;
 
             //  Разбор результатов
             myHTMLParser myHtmlParser = new myHTMLParser();
@@ -124,13 +134,14 @@ namespace HTTP_GET_POST
             List<List<StringUri>> myTable = new List<List<StringUri>>();
             foreach (var item in myTagRes)
                 myTable = myHtmlParser.getOutTable(item);
-            // LAST myTable - is RIGHT table!
-            List<List<StringUri>> myLT = GetResultTableAsList(myTable);
-            List<CenterrTableRowItem> myCrObjects = GetResultTableAsListOfMyObjects(myLT);
+            // LAST myTable - is RIGHT table!            
+            //List<CenterrTableRowItem> myCrObjects = GetResultTableAsListOfMyObjects(GetResultTableAsList(myTable));
+            List<CenterrTableRowItem> myCrObjects = CenterrResponse.GetResultTableAsListOfMyObjects(GetResultTableAsList(myTable));
 
             List<CenterrTableRowItem> newItems = new List<CenterrTableRowItem>();
 
             CurrentObj = new CenterrResponse(myRequestObj, myCrObjects);
+            
             if (checkData != null)
                 //if (myRequestObj.MyParameters == checkData.MyRequest.MyParameters)
                 if (Enumerable.SequenceEqual(myRequestObj.MyParameters, checkData.MyRequest.MyParameters))
@@ -147,6 +158,15 @@ namespace HTTP_GET_POST
             SaveMyCenterrObject(CurrentObj, GenerateFileName(CurrentObj.MyRequest));
 
             return SendMailRemind(PrepareMailBody(myRequestObj, CreateTableForMailing(newItems), newItems.Count));
+        }
+
+        static List<CenterrTableRowItem> DoOneCheck(CenterrResponse newData, CenterrResponse checkData=null)
+        {
+            if (checkData != null)
+                if (Enumerable.SequenceEqual(newData.MyRequest.MyParameters, checkData.MyRequest.MyParameters))
+                    return GetListOfNewRecords(newData.ListResponse, checkData.ListResponse[0]);
+
+            return newData.ListResponse;
         }
 
         static List<CenterrTableRowItem> GetListOfNewRecords(List<CenterrTableRowItem> inpList, CenterrTableRowItem checkRowItem)
@@ -404,33 +424,28 @@ namespace HTTP_GET_POST
             // 1. Calculate MAX columns count
             int colCount = 0;
             foreach (List<StringUri> itemList in inpList)
-            {
                 colCount = Math.Max(colCount, itemList.Count);
-            }
 
             // 2. Fill result rows
             foreach (List<StringUri> itemListRows in inpList)
             {
                 if (itemListRows.Count != colCount)     // Skip all rows that have not another count of columns instead MAX columns count
                     continue;
-
                 resList.Add(itemListRows);
             }
 
             return resList;
         }
-
+        
         static List<CenterrTableRowItem> GetResultTableAsListOfMyObjects(List<List<StringUri>> inpList)
         {
             List<CenterrTableRowItem> resList = new List<CenterrTableRowItem>();
 
             for (int i = 1; i < inpList.Count; i++)
-            {
                 resList.Add(new CenterrTableRowItem(inpList[i]));
-            }
 
             return resList;
-        }
+        }        
 
         static DataTable GetTableAsDT(List<List<StringUri>> inpTable)
         {
@@ -444,6 +459,5 @@ namespace HTTP_GET_POST
 
             return resDT;
         }
-
     }
 }

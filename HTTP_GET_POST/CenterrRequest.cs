@@ -130,8 +130,7 @@ namespace HTTP_GET_POST
 
             return lastAnswer;
         }
-
-
+        
         // GET a fresh result
         public string GetResponse { 
             get 
@@ -147,6 +146,7 @@ namespace HTTP_GET_POST
         private string lastAnswer;
 
         // GET a cached last result
+        /*
         public string GetResponseCached {
             get
             {
@@ -156,6 +156,7 @@ namespace HTTP_GET_POST
             }
             private set { lastAnswer = value; }
         }
+        */
         
         private SerializableDictionary<string, string> myPar;
         public SerializableDictionary<string, string> MyParameters { get { return myPar; } set { myPar = value; } }
@@ -189,9 +190,6 @@ namespace HTTP_GET_POST
         {
             InitialiseParameters();
         }
-        
-       
-
 
         //private Dictionary<string, string> myPar;
         //public Dictionary<string, string> MyParameters { get { return myPar; } set { myPar = value; } }
