@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace HTTP_GET_POST
 {
-    class Program
+    public class Program
     {
         static List<string> MailRecipients = new List<string>();
         static void Main(string[] args)
@@ -324,28 +324,40 @@ namespace HTTP_GET_POST
             return false;
         }
 
-        static string PrepareMailBody(MyClass myObject, string inpRows, int rowsCount)
+        public static string PrepareMailBody(MyClass myObject, string inpRows, int rowsCount)
         {
             string messageBody;
 
             string parSet = "";
-            foreach (string item in myObject.MyParameters.Values)
+            if (myObject != null)
             {
-                if (item.Length > 0 & item != "10,11,12,111,13")
-                    parSet += ", " + item;
+                foreach (string item in myObject.MyParameters.Values)
+                    if (item.Length > 0 & item != "10,11,12,111,13")
+                        parSet += ", " + item;
+                if (parSet.Length > 2)
+                    parSet = parSet.Remove(0, 2);
             }
-            if (parSet.Length > 2)
-                parSet = parSet.Remove(0, 2);           
+            
+            //
+            messageBody = String.Format(@"<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Transitional//EN"" ""http://www.=w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"">");
 
-            messageBody = String.Format("<html>По Вашему запросу: \"{0}\" были обнаружены новые записи:\n{1}", parSet, inpRows);
+            messageBody += String.Format(@"<html xmlns=""http://www.w3.org/1999/xhtml"">");
+
+            messageBody += String.Format(@"<head>");
+            messageBody += String.Format(@"<meta http-equiv=""Content-Type"" content=""text/html; charset=iso-8859-=1"" />");
+            messageBody += String.Format(@"</head>");
+
+            messageBody += String.Format(@"<body marginwidth=""0"" marginheight=""0"" leftmargin=""0"" topmargin=""0"" style=""width: 100 % !important"">");
+            messageBody += String.Format("По Вашему запросу: \"{0}\" были обнаружены новые записи:\n{1}", parSet, inpRows);
             if (rowsCount >= 20)
                 messageBody += "\n\n<br> Возможно, есть и другие новые записи! Обязательно проверьте на сайте!!";
-            messageBody += "</html>";
+            messageBody += String.Format(@"</body>");
 
+            messageBody += "</html>";
             return messageBody;
         }
 
-        static bool SendMailRemind(string outText, string outSubj="[Центр Реализации] Появились новые предложения по Вашему запросу!", List<string> recpList=null)
+        public static bool SendMailRemind(string outText, string outSubj="[Центр Реализации] Появились новые предложения по Вашему запросу!", List<string> recpList=null)
         {
             string mailFrom = "bot@nazmi.ru";
 
@@ -360,7 +372,8 @@ namespace HTTP_GET_POST
                 foreach (string item in recpList)
                     myMessage.To.Add(new MailAddress(item));
             myMessage.Subject = outSubj;
-            myMessage.Body = outText;            
+            myMessage.Body = outText;
+            myMessage.IsBodyHtml = true;
 
             try
             {
