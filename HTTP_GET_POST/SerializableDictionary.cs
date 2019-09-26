@@ -9,22 +9,11 @@ namespace HTTP_GET_POST
     [Serializable]
     public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IXmlSerializable, ISerializable
     {
-        public SerializableDictionary()
-        {
-        }
+        public SerializableDictionary() { }
 
-        //public SerializableDictionary<TKey, TValue>(SerializationInfo info, StreamingContext context) : base(){}
-
-        public SerializableDictionary (SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-            
-        }
-
+        public SerializableDictionary(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /*
-        public void GetObjectData (SerializationInfo info, StreamingContext context)
-        {
-
-        }
+        public void GetObjectData (SerializationInfo info, StreamingContext context){}
         */
 
         public System.Xml.Schema.XmlSchema GetSchema()
@@ -34,7 +23,6 @@ namespace HTTP_GET_POST
 
         public void ReadXml(System.Xml.XmlReader reader)
         {
-
             XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
             XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
 
@@ -86,7 +74,7 @@ namespace HTTP_GET_POST
             }
         }
     }
-
+}
     /*
     public static string Serialize(SerializableDictionary<string, object> data)
     {
@@ -145,4 +133,3 @@ namespace HTTP_GET_POST
 // System.InvalidOperationException: The type System.Int32[] may not be used in this context.
 // System.InvalidOperationException: There was an error generating the XML document.
 //                                   method WriteXml valueSerializer.Serialize(writer, value);
-}

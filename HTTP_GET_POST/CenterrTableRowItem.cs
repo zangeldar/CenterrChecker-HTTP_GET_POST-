@@ -7,17 +7,6 @@ using System.Threading.Tasks;
 namespace HTTP_GET_POST
 {
     [Serializable]
-    class CenterrRequestResponseObject
-    {
-        public MyClass MyRequest { get; private set; }
-        public List<CenterrTableRowItem> ListResponse { get; private set; }
-        public CenterrRequestResponseObject(MyClass myReq, List<CenterrTableRowItem> listResp)
-        {
-            this.MyRequest = myReq;
-            this.ListResponse = listResp;
-        }
-    }
-    [Serializable]
     class CenterrTableRowItem
     {
         public StringUri TorgNumber { get; private set; }

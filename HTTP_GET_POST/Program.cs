@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace HTTP_GET_POST
 {
-    public class Program
+    class Program
     {
         static List<string> MailRecipients = new List<string>();
         static void Main(string[] args)
@@ -38,24 +38,24 @@ namespace HTTP_GET_POST
                     }                        
             
 
-            MyClass myObject = null;
+            CenterrRequest myObject = null;
             string checkDate;
 
             /*
             //  Запрос АСВ по имуществу ПРБ в отношении ПИРИТ
-            myObject.MyParameters["Party_contactName"] = "асв";
-            myObject.MyParameters["vPurchaseLot_fullTitle"] = "прб";
-            myObject.MyParameters["vPurchaseLot_lotTitle"] = "пирит";
+            myRequestObj.MyParameters["Party_contactName"] = "асв";
+            myRequestObj.MyParameters["vPurchaseLot_fullTitle"] = "прб";
+            myRequestObj.MyParameters["vPurchaseLot_lotTitle"] = "пирит";
             checkDate = "19.12.2017 14:00";   // для ПИРИТ по ПРБ
-            DoOneCheck(myObject, checkDate);
+            DoOneCheck(myRequestObj, checkDate);
 
             //  Запрос АСВ по имуществу СОЮЗНЫЙ
-            myObject.ResetParameters();
-            myObject.MyParameters["Party_contactName"] = "асв";
-            myObject.MyParameters["vPurchaseLot_fullTitle"] = "союзный";
-            myObject.MyParameters["vPurchaseLot_lotTitle"] = "";
+            myRequestObj.ResetParameters();
+            myRequestObj.MyParameters["Party_contactName"] = "асв";
+            myRequestObj.MyParameters["vPurchaseLot_fullTitle"] = "союзный";
+            myRequestObj.MyParameters["vPurchaseLot_lotTitle"] = "";
             checkDate = "";   // для СОЮЗНЫЙ
-            DoOneCheck(myObject, checkDate);
+            DoOneCheck(myRequestObj, checkDate);
             */
 
             if (File.Exists(requestFileName))
@@ -63,7 +63,7 @@ namespace HTTP_GET_POST
 
             if (myObject == null)
             {
-                myObject = new MyClass();
+                myObject = new CenterrRequest();
                 //Запрос АСВ по имуществу ПРБ в отношении ПИРИТ
                 myObject.ResetParameters();
                 myObject.MyParameters["Party_contactName"] = "асв";
@@ -73,7 +73,7 @@ namespace HTTP_GET_POST
             }
             SaveMyRequestObjectXML(myObject, "lastrequest.req");
 
-            CenterrRequestResponseObject checkData = null;// = LoadMyCenterrObject(GenerateFileName(myObject));
+            CenterrResponse checkData = null;// = LoadMyCenterrObject(GenerateFileName(myRequestObj));
             if (File.Exists(GenerateFileName(myObject)))
                 checkData = LoadMyCenterrObject(GenerateFileName(myObject));
 
@@ -83,13 +83,13 @@ namespace HTTP_GET_POST
             //Console.ReadKey();
         }
         
-        static bool DoOneCheck(MyClass myObject, string checkDate)
+        static bool DoOneCheck(CenterrRequest myRequestObj, string checkDate)
         {
             string myWorkAnswer;
             string resultString;
             //string checkDate;
 
-            myWorkAnswer = myObject.getResponse;
+            myWorkAnswer = myRequestObj.GetResponse;
 
             //  Разбор результатов
             myHTMLParser myHtmlParser = new myHTMLParser();
@@ -105,20 +105,18 @@ namespace HTTP_GET_POST
             // Проверка на наличие новых сообщений и отправка почты            
             resultString = GetNewRowsString(myLT, checkDate);
             if (resultString.Length > 0)
-                return SendMailRemind(PrepareMailBody(myObject, resultString, 1));
+                return SendMailRemind(PrepareMailBody(myRequestObj, resultString, 1));
             // Конец запроса
 
             return false;
         }
 
-        static bool DoOneCheck(MyClass myObject, CenterrRequestResponseObject checkData=null)
+        static bool DoOneCheck(CenterrRequest myRequestObj, CenterrResponse checkData=null)
         {
-            string myWorkAnswer;
-            string resultString;
-            //string checkDate;            
-            CenterrRequestResponseObject CurrentObj;
+            string myWorkAnswer;           
+            CenterrResponse CurrentObj;
 
-            myWorkAnswer = myObject.getResponse;
+            myWorkAnswer = myRequestObj.GetResponse;
 
             //  Разбор результатов
             myHTMLParser myHtmlParser = new myHTMLParser();
@@ -132,10 +130,10 @@ namespace HTTP_GET_POST
 
             List<CenterrTableRowItem> newItems = new List<CenterrTableRowItem>();
 
-            CurrentObj = new CenterrRequestResponseObject(myObject, myCrObjects);
+            CurrentObj = new CenterrResponse(myRequestObj, myCrObjects);
             if (checkData != null)
-                //if (myObject.MyParameters == checkData.MyRequest.MyParameters)
-                if (Enumerable.SequenceEqual(myObject.MyParameters, checkData.MyRequest.MyParameters))
+                //if (myRequestObj.MyParameters == checkData.MyRequest.MyParameters)
+                if (Enumerable.SequenceEqual(myRequestObj.MyParameters, checkData.MyRequest.MyParameters))
                 {
                     newItems = GetListOfNewRecords(CurrentObj.ListResponse, checkData.ListResponse[0]);
                     if (newItems.Count < 1)
@@ -148,7 +146,7 @@ namespace HTTP_GET_POST
             // сохранить сериализованный CurrentObj для дальнейших проверок
             SaveMyCenterrObject(CurrentObj, GenerateFileName(CurrentObj.MyRequest));
 
-            return SendMailRemind(PrepareMailBody(myObject, CreateTableForMailing(newItems), newItems.Count));
+            return SendMailRemind(PrepareMailBody(myRequestObj, CreateTableForMailing(newItems), newItems.Count));
         }
 
         static List<CenterrTableRowItem> GetListOfNewRecords(List<CenterrTableRowItem> inpList, CenterrTableRowItem checkRowItem)
@@ -202,7 +200,7 @@ namespace HTTP_GET_POST
             return result;
         }
 
-        static string GenerateFileName(MyClass inpObj, bool request = false)
+        static string GenerateFileName(CenterrRequest inpObj, bool request = false)
         {
             string result = "";
 
@@ -219,12 +217,12 @@ namespace HTTP_GET_POST
             return result + ".bcntr";
         }
 
-        static bool SaveMyRequestObjectXML(MyClass curObj, string fileName = "lastrequest.req")
+        static bool SaveMyRequestObjectXML(CenterrRequest curObj, string fileName = "lastrequest.req")
         {
             bool result = false;
             try
             {
-                XmlSerializer formatter = new XmlSerializer(typeof(MyClass));
+                XmlSerializer formatter = new XmlSerializer(typeof(CenterrRequest));
                 
                 using (Stream output = File.OpenWrite(fileName))
                 {
@@ -241,7 +239,7 @@ namespace HTTP_GET_POST
             return result;
         }
 
-        static bool SaveMyCenterrObject(CenterrRequestResponseObject curObj, string fileName = "lastresponse.bcntr")
+        static bool SaveMyCenterrObject(CenterrResponse curObj, string fileName = "lastresponse.bcntr")
         {
             bool result = false;
             try
@@ -262,16 +260,16 @@ namespace HTTP_GET_POST
             return result;
         }
 
-        static MyClass LoadMyRequestObjectXML(string fileName = "lastrequest.req")
+        static CenterrRequest LoadMyRequestObjectXML(string fileName = "lastrequest.req")
         {
-            MyClass result = null;
+            CenterrRequest result = null;
 
             try
             {
-                XmlSerializer formatter = new XmlSerializer(typeof(MyClass));
+                XmlSerializer formatter = new XmlSerializer(typeof(CenterrRequest));
                 using (Stream input = File.OpenRead(fileName))
                 {
-                    result = (MyClass)formatter.Deserialize(input);
+                    result = (CenterrRequest)formatter.Deserialize(input);
                 }
             }
             catch (Exception e)
@@ -282,15 +280,15 @@ namespace HTTP_GET_POST
             return result;
         }
 
-        static CenterrRequestResponseObject LoadMyCenterrObject(string fileName = "lastresponse.bcntr")
+        static CenterrResponse LoadMyCenterrObject(string fileName = "lastresponse.bcntr")
         {
-            CenterrRequestResponseObject result = null;
+            CenterrResponse result = null;
             try
             {
                 BinaryFormatter bf = new BinaryFormatter();
                 using (Stream input = File.OpenRead(fileName))
                 {
-                    result = (CenterrRequestResponseObject)bf.Deserialize(input);
+                    result = (CenterrResponse)bf.Deserialize(input);
                 }
             }
             catch (Exception e)
@@ -324,7 +322,7 @@ namespace HTTP_GET_POST
             return false;
         }
 
-        public static string PrepareMailBody(MyClass myObject, string inpRows, int rowsCount)
+        static string PrepareMailBody(CenterrRequest myObject, string inpRows, int rowsCount)
         {
             string messageBody;
 
@@ -357,7 +355,7 @@ namespace HTTP_GET_POST
             return messageBody;
         }
 
-        public static bool SendMailRemind(string outText, string outSubj="[Центр Реализации] Появились новые предложения по Вашему запросу!", List<string> recpList=null)
+        static bool SendMailRemind(string outText, string outSubj="[Центр Реализации] Появились новые предложения по Вашему запросу!", List<string> recpList=null)
         {
             string mailFrom = "bot@nazmi.ru";
 

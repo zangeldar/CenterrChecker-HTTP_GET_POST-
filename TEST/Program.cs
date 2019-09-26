@@ -8,7 +8,7 @@ namespace TEST
         {
             //Console.WriteLine("Hello World!");
 
-            HTTP_GET_POST.Program.SendMailRemind(HTTP_GET_POST.Program.PrepareMailBody(null, "", 20));
+            //HTTP_GET_POST.Program.SendMailRemind(HTTP_GET_POST.Program.PrepareMailBody(null, "", 20));
         }
     }
 }
