@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HTMLParserNew\HTMLParserNew.csproj" />
     <ProjectReference Include="..\HTTP_GET_POST\HTTP_GET_POST.csproj" />
+    <ProjectReference Include="..\TorgiASV\TorgiASV.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace HTTP_GET_POST
 {
-    class Tag
+    public class Tag
     {
         private string tagName;
         private string tagValue;
@@ -167,7 +167,7 @@ namespace HTTP_GET_POST
         }
     }
 
-    class tagAttribute
+    public class tagAttribute
     {
         private string tagAttrName;
         private string tagAttrValue;
@@ -187,7 +187,7 @@ namespace HTTP_GET_POST
         }
     }
 
-    class myHTMLParser
+    public class myHTMLParser
     {
         //const string table_pattern = "<table.*?>(.*?)</table>";
         const string table_pattern = "<table.*?>(?<tegData>.+?)</table>";

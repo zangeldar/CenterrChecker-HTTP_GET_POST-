@@ -103,7 +103,7 @@ namespace HTTP_GET_POST
     }
 
     [Serializable]
-    struct StringUri
+    public struct StringUri
     {
         public string ItemString;
         public string ItemUri;
