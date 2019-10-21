@@ -56,10 +56,6 @@
       <Project>{ed16e334-860e-4a6b-bc5d-c8e3ae0a66d5}</Project>
       <Name>CenterrRu</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyHTMLParser\MyHTMLParser.csproj">
-      <Project>{8D0ED4B9-7A1A-40B0-92EA-E5399C2CFEE3}</Project>
-      <Name>MyHTMLParser</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
