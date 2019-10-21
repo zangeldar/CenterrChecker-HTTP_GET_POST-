@@ -6,6 +6,6 @@ namespace TEST
 {
     interface ITest
     {
-        string GetTest(string testData);
+        string GetTest(string testData, bool cached = true);
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 
 namespace TorgiASV
 {    
+    [Serializable]
     public class ASVRequest
     {
         private string postData;

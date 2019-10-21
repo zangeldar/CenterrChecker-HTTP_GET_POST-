@@ -32,13 +32,19 @@ namespace HTTP_GET_POST
 
             int startTag = inputStr.IndexOf('<');
             int endTag = inputStr.IndexOf('>',startTag+1);
-            int endTagNameNextTag = inputStr.Substring(startTag + 1).IndexOf('<');
-            int endTagNameSpace = inputStr.IndexOf(' ');
+            int endTagNameNextTag = inputStr.IndexOf('<', startTag + 1);
+            int endTagNameSpace = inputStr.IndexOf(' ', startTag + 1);
             endTagName = endTagNameSpace;
             if (endTagNameSpace < startTag)
                 endTagName = endTagNameNextTag;
 
-            int length = Math.Min(endTag, endTagName) - startTag - 1;
+            int length;
+            if (endTag < 0)
+                length = endTagName;
+            else if (endTagName < 0)
+                length = endTag;
+            else
+                length = Math.Min(endTag, endTagName) - startTag - 1;
 
             result = inputStr.Substring(startTag + 1, length);
 

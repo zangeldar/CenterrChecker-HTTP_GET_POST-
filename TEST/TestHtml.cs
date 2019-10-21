@@ -8,7 +8,7 @@ namespace TEST
 {
     class TestHtml : ITest
     {
-        string ITest.GetTest(string testData)
+        string ITest.GetTest(string testData, bool cached = true)
         {            
             Tag myPar = new Tag(testData);
 
