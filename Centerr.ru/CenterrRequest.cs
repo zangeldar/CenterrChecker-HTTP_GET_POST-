@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 
-namespace HTTP_GET_POST
+namespace CenterrRu
 {    
     [Serializable]
     public class CenterrRequest

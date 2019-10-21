@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace TorgiASV
 {    
@@ -79,6 +81,49 @@ namespace TorgiASV
         public bool AcceptAllCertifications(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certification, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
         {
             return true;
+        }
+
+
+        static bool SaveMyRequestObjectXML(ASVRequest curObj, string fileName = "lastrequest.tasv.req")
+        {
+            bool result = false;
+            try
+            {
+                XmlSerializer formatter = new XmlSerializer(typeof(ASVRequest));
+
+                using (Stream output = File.OpenWrite(fileName))
+                {
+                    formatter.Serialize(output, curObj);
+                }
+                result = true;
+            }
+            catch (Exception e)
+            {
+                result = false;
+                //throw;
+            }
+
+            return result;
+        }
+
+        static ASVRequest LoadMyRequestObjectXML(string fileName = "lastrequest.req")
+        {
+            ASVRequest result = null;
+
+            try
+            {
+                XmlSerializer formatter = new XmlSerializer(typeof(ASVRequest));
+                using (Stream input = File.OpenRead(fileName))
+                {
+                    result = (ASVRequest)formatter.Deserialize(input);
+                }
+            }
+            catch (Exception e)
+            {
+                result = null;
+                //throw;
+            }
+            return result;
         }
     }
 }

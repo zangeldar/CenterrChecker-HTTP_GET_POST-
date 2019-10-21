@@ -1,10 +1,12 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+
 
 namespace HTTP_GET_POST
 {
@@ -122,6 +124,7 @@ namespace HTTP_GET_POST
                 innerTags.AddRange(Parser.getTags(resultStr, nextTag));               
             }
             */
+  /*
             string curContent = tagValueContent;
             while (curContent.Length > 0)
             {// это надо в цикл
@@ -275,7 +278,7 @@ namespace HTTP_GET_POST
                     myStr = myStr.Replace("&quot;", "\"");
                     myStr = myStr.Replace("&#160;", " ");
                     */
-
+/*
                     newList.Add(new StringUri { ItemString = NormalizeString(item.ItemString), ItemUri = NormalizeString(item.ItemUri) });
                 }
                 resList.Add(newList);
@@ -374,3 +377,4 @@ namespace HTTP_GET_POST
         }
     }
 }
+*/

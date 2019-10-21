@@ -1,4 +1,5 @@
 ﻿using HTTP_GET_POST;
+using MyHTMLParser;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,8 +9,9 @@ using System.Xml.Serialization;
 namespace TorgiASV
 {
     [Serializable]
-    public class ASV
+    public class ASV : IComparable<ASV>
     {
+        public int AsvID { get; private set; }
         public StringUri LotName { get; private set; }
         public String LotDesc { get; private set; }
         public String LotNumber { get; private set; }
@@ -17,7 +19,7 @@ namespace TorgiASV
         public String TorgRegion { get; private set; }
         public String PriceStart { get; private set; }
 
-        public ASV(List<HTTP_GET_POST.Tag> itemList)
+        public ASV(List<Tag> itemList)
         {
             LotName = new StringUri
             {
@@ -25,6 +27,13 @@ namespace TorgiASV
                 ItemUri = "https://torgiasv.ru" + itemList[2].InnerTags[0].InnerTags[0].Attributes[0].Value.Replace("\"", "")
             };
 
+            //
+            //AsvID = .Substring();
+            string urlID = itemList[2].InnerTags[0].InnerTags[0].Attributes[0].Value.Replace("\"", "");
+            int startID = urlID.Substring(0, urlID.Length - 1).LastIndexOf('/');
+            urlID = urlID.Substring(startID).Replace("/", "");
+            AsvID = int.Parse(urlID);
+            //
             LotDesc = itemList[3].Value;
             TorgBank = itemList[4].Value;
             TorgRegion = itemList[5].Value;
@@ -32,87 +41,15 @@ namespace TorgiASV
             LotNumber = itemList[9].Value;            
         }
 
-        static bool SaveMyRequestObjectXML(ASVRequest curObj, string fileName = "lastrequest.tasv.req")
+        public int CompareTo(ASV other)
         {
-            bool result = false;
-            try
-            {
-                XmlSerializer formatter = new XmlSerializer(typeof(CenterrRequest));
-
-                using (Stream output = File.OpenWrite(fileName))
-                {
-                    formatter.Serialize(output, curObj);
-                }
-                result = true;
-            }
-            catch (Exception e)
-            {
-                result = false;
-                //throw;
-            }
-
-            return result;
+            //throw new NotImplementedException();
+            if (this.AsvID > other.AsvID)
+                return 1;
+            else if (this.AsvID < other.AsvID)
+                return -1;
+            else
+                return 0;
         }
-
-        static bool SaveMyASVObject(ASVResponse curObj, string fileName = "lastresponse.tasv")
-        {
-            bool result = false;
-            try
-            {
-                BinaryFormatter bf = new BinaryFormatter();
-                using (Stream output = File.OpenWrite(fileName))
-                {
-                    bf.Serialize(output, curObj);
-                }
-                result = true;
-            }
-            catch (Exception e)
-            {
-                result = false;
-                //throw;
-            }
-
-            return result;
-        }
-
-        static ASVRequest LoadMyRequestObjectXML(string fileName = "lastrequest.req")
-        {
-            ASVRequest result = null;
-
-            try
-            {
-                XmlSerializer formatter = new XmlSerializer(typeof(ASVRequest));
-                using (Stream input = File.OpenRead(fileName))
-                {
-                    result = (ASVRequest)formatter.Deserialize(input);
-                }
-            }
-            catch (Exception e)
-            {
-                result = null;
-                //throw;
-            }
-            return result;
-        }
-
-        static ASVResponse LoadMyASVObject(string fileName = "lastresponse.tasv")
-        {
-            ASVResponse result = null;
-            try
-            {
-                BinaryFormatter bf = new BinaryFormatter();
-                using (Stream input = File.OpenRead(fileName))
-                {
-                    result = (ASVResponse)bf.Deserialize(input);
-                }
-            }
-            catch (Exception e)
-            {
-                result = null;
-                //throw;
-            }
-            return result;
-        }
-
     }
 }

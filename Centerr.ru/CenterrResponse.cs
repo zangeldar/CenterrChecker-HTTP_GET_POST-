@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HTTP_GET_POST
+namespace CenterrRu
 {
     [Serializable]
     class CenterrResponse
     {
         public CenterrRequest MyRequest { get; private set; }
-        public List<CenterrTableRowItem> ListResponse { get; private set; }
+        public List<Centerr> ListResponse { get; private set; }
 
         public CenterrResponse(CenterrRequest myReq)
         {
             this.MyRequest = myReq;
             FillListResponse();
         }
-        public CenterrResponse(CenterrRequest myReq, List<CenterrTableRowItem> listResp)
+        public CenterrResponse(CenterrRequest myReq, List<Centerr> listResp)
         {
             this.MyRequest = myReq;
             this.ListResponse = listResp;
@@ -35,12 +35,12 @@ namespace HTTP_GET_POST
         }
 
 
-        static public List<CenterrTableRowItem> GetResultTableAsListOfMyObjects(List<List<StringUri>> inpList)
+        static public List<Centerr> GetResultTableAsListOfMyObjects(List<List<StringUri>> inpList)
         {
-            List<CenterrTableRowItem> resList = new List<CenterrTableRowItem>();
+            List<Centerr> resList = new List<Centerr>();
 
             for (int i = 1; i < inpList.Count; i++)
-                resList.Add(new CenterrTableRowItem(inpList[i]));
+                resList.Add(new Centerr(inpList[i]));
 
             return resList;
         }

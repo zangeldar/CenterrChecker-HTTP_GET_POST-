@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Centerr_ru;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HTTP_GET_POST
+namespace CenterrRu
 {
     [Serializable]
-    class CenterrTableRowItem
+    class Centerr
     {
         public StringUri TorgNumber { get; private set; }
         public StringUri TorgName { get; private set; }
@@ -21,7 +22,7 @@ namespace HTTP_GET_POST
         public StringUri Winner { get; private set; }
         public string TorgType { get; private set; }
 
-        public CenterrTableRowItem(List<StringUri> itemsList)
+        public Centerr(List<StringUri> itemsList)
         {
             if (itemsList.Count != 11)
                 return;
@@ -102,15 +103,5 @@ namespace HTTP_GET_POST
         }
     }
 
-    [Serializable]
-    public struct StringUri
-    {
-        public string ItemString;
-        public string ItemUri;
-        public override string ToString()
-        {
-            //return base.ToString();
-            return ItemString;
-        }
-    }
+
 }
