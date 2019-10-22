@@ -1,6 +1,5 @@
 ﻿using System;
 using TorgiASV;
-using HTTP_GET_POST;
 using System.Collections.Generic;
 using System.IO;
 using MyHTMLParser;
@@ -11,6 +10,11 @@ namespace TEST
     {
         static void Main(string[] args)
         {
+            string testStr = @"<ul class=""menu__list menu__list--table width-full>";
+            TESTfillAttr(testStr);
+
+
+
             //Parser.MyParse(File.ReadAllText("20191018_HTML.txt"));
 
 
@@ -29,7 +33,7 @@ namespace TEST
             testData = @"/search/?q=пирит";
             
             curTest = new TestASV();
-            result = curTest.GetTest(testData, false);
+            result = curTest.GetTest(testData, true);
 
             /*
             testData = " <html>";
@@ -99,6 +103,85 @@ namespace TEST
 
             Console.WriteLine(resASV);
 
+        }
+
+        static private void TESTfillAttr(string tagNameContent)
+        {
+            List<tagAttribute> tagAttrList = new List<tagAttribute>();
+
+            int endOFTagName = tagNameContent.IndexOf('>');
+            string onlyTagName = tagNameContent.Substring(1, endOFTagName - 1);
+
+            int c;
+            string attrName = "";
+            string attrValue = "";
+            //foreach (string item in tagNameContent.Split(' '))
+
+            ////////////
+            /// ПЕРЕРАБОТАТЬ:
+            /// ////////////
+            /// Работает некорректно для случая, когд
+            /// onlyTagName = "ul class="menu__list menu__list--table width-full""
+            /// потому что пробел содержится между кавычек
+            /// 
+            string tagName = "";
+            string attName = "";
+            string attValue = "";
+
+            bool openQuotes = false;
+            bool nextAtt = false;
+            bool nextValue = false;
+
+            string currentStr = "";
+            foreach (char item in onlyTagName)
+            {
+                if ((item == ' ') & !openQuotes)
+                {
+                    if (!nextAtt)
+                        tagName = currentStr;
+                    else
+                        attName = currentStr; // Точно ли имя аттрибута?? 
+                    currentStr = "";
+
+                    nextAtt = true;
+                    continue;
+                }
+                else if ((item == '=') & !openQuotes)
+                {
+                    attName = currentStr;
+                    currentStr = "";
+                    nextValue = true;                    
+                    continue;
+                }
+                else if (item == '"')
+                {
+                    openQuotes = !openQuotes;
+                }
+                currentStr += item;
+            }
+
+
+            foreach (string item in onlyTagName.Split(' '))
+            {
+                c = 0;
+                foreach (string itemAtt in item.Split('='))
+                {
+                    switch (c)
+                    {
+                        case 0:
+                            attrName = itemAtt;
+                            break;
+                        case 1:
+                            attrValue = itemAtt;//.Replace('\"','');
+                            break;
+                        default:
+                            break;
+                    }
+                    c++;
+                }
+                if ((c > 1) & (attrName.Length > 0) & (attrValue.Length > 0))
+                    tagAttrList.Add(new tagAttribute(attrName, attrValue));
+            }
         }
     }
 }

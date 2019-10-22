@@ -63,6 +63,13 @@ namespace MyHTMLParser
             string attrName = "";
             string attrValue = "";
             //foreach (string item in tagNameContent.Split(' '))
+
+            ////////////
+            /// ПЕРЕРАБОТАТЬ:
+            /// ////////////
+            /// Работает некорректно для случая, когд
+            /// onlyTagName = "ul class="menu__list menu__list--table width-full""
+            /// потому что пробел содержится между кавычек
             foreach (string item in onlyTagName.Split(' '))
             {
                 c = 0;

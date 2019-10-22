@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTP_GET_POST", "HTTP_GET_POST\HTTP_GET_POST.csproj", "{3402E44C-FF6A-4FAF-84D8-1D4ECC58B14C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TEST", "TEST\TEST.csproj", "{58BE4863-1339-4EA0-B31F-37B9142E7196}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TorgiASV", "TorgiASV\TorgiASV.csproj", "{7E5AF8C4-F757-451D-A8A2-333EB25E30C5}"
@@ -23,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3402E44C-FF6A-4FAF-84D8-1D4ECC58B14C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3402E44C-FF6A-4FAF-84D8-1D4ECC58B14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3402E44C-FF6A-4FAF-84D8-1D4ECC58B14C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3402E44C-FF6A-4FAF-84D8-1D4ECC58B14C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{58BE4863-1339-4EA0-B31F-37B9142E7196}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{58BE4863-1339-4EA0-B31F-37B9142E7196}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58BE4863-1339-4EA0-B31F-37B9142E7196}.Release|Any CPU.ActiveCfg = Release|Any CPU
