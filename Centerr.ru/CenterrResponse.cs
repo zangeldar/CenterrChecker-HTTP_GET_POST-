@@ -11,6 +11,7 @@ namespace CenterrRu
     [Serializable]
     public class CenterrResponse : IResponse
     {
+        public string SiteName { get { return "Центр реализации"; } }
         bool freshResponse = false;
         //public CenterrRequest MyRequest { get; private set; }
         //public List<Centerr> ListResponse { get; private set; }

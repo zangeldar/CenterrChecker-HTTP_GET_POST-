@@ -41,7 +41,7 @@ namespace TorgiASV
             TorgBank = itemList[4].Value;
             TorgRegion = itemList[5].Value;
             PriceStart = itemList[7].InnerTags[0].Value.Replace("<span class=\"text-muted\">","");
-            LotNumber = itemList[9].Value;            
+            LotNumberStr = itemList[9].Value;            
         }
 
         public int CompareTo(ASV other)
@@ -74,7 +74,7 @@ namespace TorgiASV
                     @"{5}" + "</td><td>" +
                     @"{6}" + "</td></tr>",
                     internalID,
-                    LotNumber,
+                    LotNumberStr,
                     baseUri + LotName.ItemUri, LotName.ItemString,
                     LotDesc,
                     TorgBank,
@@ -97,7 +97,7 @@ namespace TorgiASV
                     @"" + ";" +
                     @"" + @"\n",
                     internalID,
-                    LotNumber,
+                    LotNumberStr,
                     baseUri + LotName.ItemUri, LotName.ItemString,
                     LotDesc,
                     TorgBank,

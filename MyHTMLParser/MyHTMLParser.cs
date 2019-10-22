@@ -426,5 +426,15 @@ namespace MyHTMLParser
             return false;
         }
 
+        static void OutWholeTree(Tag inpTag)
+        {
+            Console.WriteLine(inpTag.ToString());
+            if (inpTag.HasInnerTags)
+            {
+                Console.Write("\n\t");
+                foreach (Tag innTag in inpTag.InnerTags)
+                    OutWholeTree(innTag);
+            }
+        }
     }
 }

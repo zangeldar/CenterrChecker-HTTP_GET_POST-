@@ -3,6 +3,8 @@ using IAuction;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Net.Mail;
 using TorgiASV;
 
 namespace ConsoleApp
@@ -57,23 +59,17 @@ namespace ConsoleApp
             IResponse checkData = null;// = LoadMyCenterrObject(GenerateFileName(myRequestObj));
             if (File.Exists(myRequestObject.ToString() + ".obj"))
                 checkData = checkData.LoadFromXml(myRequestObject.ToString() + ".obj");
-
+                        
             if (checkData is CenterrResponse)
                 curData = new CenterrResponse((CenterrRequest)myRequestObject);
             else if (checkData is ASVResponse)
                 curData = new ASVResponse((ASVRequest)myRequestObject);
+            else
+                curData = null;
 
-
-            
-            
-            
-
-            if (newResultsList.Count > 0)
-            {
-                string itemsTableHtml = CreateTableForMailing(newResultsList);
-                string mailText = PrepareMailBody(curData.MyRequest, itemsTableHtml, newResultsList.Count);
-                SendMailRemind(mailText);
-            }
+            if (curData != null)
+                if (curData.HaveNewRecords(checkData))
+                    SendMailRemind(curData.NewRecordsOutput(true), "[curData.SiteName] Появились новый предложения!");
 
             Console.WriteLine("Well done!");
             //Console.ReadKey();
@@ -115,15 +111,6 @@ namespace ConsoleApp
             }
         }
 
-        static void OutWholeTree(Tag inpTag)
-        {
-            Console.WriteLine(inpTag.ToString());
-            if (inpTag.HasInnerTags)
-            {
-                Console.Write("\n\t");
-                foreach (Tag innTag in inpTag.InnerTags)
-                    OutWholeTree(innTag);
-            }
-        }
+
     }
 }
