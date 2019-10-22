@@ -1,17 +1,11 @@
 ﻿using CenterrRu;
+using IAuction;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading;
-using System.Xml.Serialization;
+using TorgiASV;
 
-namespace HTTP_GET_POST
+namespace ConsoleApp
 {
     class Program
     {
@@ -25,69 +19,61 @@ namespace HTTP_GET_POST
                     {
                         SendMailRemind("TEST body sending mail", "[TEST] subj", MailRecipients);
                         return;
-                    }                        
+                    }
                     else if (argItem.Contains('@')
-                        & argItem.Contains('.') 
-                        & argItem.IndexOf('@')>0 
-                        & argItem.IndexOf('@')+1 < argItem.IndexOf('.', argItem.IndexOf('@')))
+                        & argItem.Contains('.')
+                        & argItem.IndexOf('@') > 0
+                        & argItem.IndexOf('@') + 1 < argItem.IndexOf('.', argItem.IndexOf('@')))
                     {
                         MailRecipients.Add(argItem);
                     }
                     else if (argItem.Contains("request="))
                     {
                         requestFileName = argItem.Substring(7);
-                    }                        
+                    }
 
-            CenterrRequest myRequestObject = null;
-            string checkDate;
-
-            /*
-            //  Запрос АСВ по имуществу ПРБ в отношении ПИРИТ
-            myRequestObj.MyParameters["Party_contactName"] = "асв";
-            myRequestObj.MyParameters["vPurchaseLot_fullTitle"] = "прб";
-            myRequestObj.MyParameters["vPurchaseLot_lotTitle"] = "пирит";
-            checkDate = "19.12.2017 14:00";   // для ПИРИТ по ПРБ
-            DoOneCheck(myRequestObj, checkDate);
-
-            //  Запрос АСВ по имуществу СОЮЗНЫЙ
-            myRequestObj.ResetParameters();
-            myRequestObj.MyParameters["Party_contactName"] = "асв";
-            myRequestObj.MyParameters["vPurchaseLot_fullTitle"] = "союзный";
-            myRequestObj.MyParameters["vPurchaseLot_lotTitle"] = "";
-            checkDate = "";   // для СОЮЗНЫЙ
-            DoOneCheck(myRequestObj, checkDate);
-            */
+            IRequest myRequestObject = null;
+            //string checkDate;
 
             if (File.Exists(requestFileName))
-                myRequestObject = LoadMyRequestObjectXML(requestFileName);
+                myRequestObject = myRequestObject.LoadFromXML(requestFileName);               
 
             if (myRequestObject == null)
             {
+                // Сделать новый запрос по умолчанию, или сообщить об отсутствии запроса и выйти.
                 myRequestObject = new CenterrRequest();
                 //Запрос АСВ по имуществу ПРБ в отношении ПИРИТ
                 myRequestObject.ResetParameters();
                 myRequestObject.MyParameters["Party_contactName"] = "асв";
                 myRequestObject.MyParameters["vPurchaseLot_fullTitle"] = "";
-                myRequestObject.MyParameters["vPurchaseLot_lotTitle"] = "";                
-                SaveMyRequestObjectXML(myRequestObject, GenerateFileName(myRequestObject, true));
+                myRequestObject.MyParameters["vPurchaseLot_lotTitle"] = "";
+                //myRequestObject.SaveToXml(myRequestObject.CreateFileName(true));
+                myRequestObject.SaveToXml(myRequestObject.ToString() + ".req");
             }
-            SaveMyRequestObjectXML(myRequestObject, "lastrequest.req");
+            //SaveMyRequestObjectXML(myRequestObject, "lastrequest.req");
+            myRequestObject.SaveToXml("lastrequest.req");
 
-            CenterrResponse checkData = null;// = LoadMyCenterrObject(GenerateFileName(myRequestObj));
-            if (File.Exists(GenerateFileName(myRequestObject)))
-                checkData = LoadMyCenterrObject(GenerateFileName(myRequestObject));
+            IResponse curData;
+            IResponse checkData = null;// = LoadMyCenterrObject(GenerateFileName(myRequestObj));
+            if (File.Exists(myRequestObject.ToString() + ".obj"))
+                checkData = checkData.LoadFromXml(myRequestObject.ToString() + ".obj");
 
-            //DoOneCheck(myRequestObject, checkData);
-            CenterrResponse curData = new CenterrResponse(myRequestObject);
-            List<CenterrTableRowItem> newResultsList = DoOneCheck(curData, checkData);
-            SaveMyCenterrObject(curData, GenerateFileName(curData.MyRequest));
+            if (checkData is CenterrResponse)
+                curData = new CenterrResponse((CenterrRequest)myRequestObject);
+            else if (checkData is ASVResponse)
+                curData = new ASVResponse((ASVRequest)myRequestObject);
+
+
+            
+            
+            
 
             if (newResultsList.Count > 0)
             {
                 string itemsTableHtml = CreateTableForMailing(newResultsList);
                 string mailText = PrepareMailBody(curData.MyRequest, itemsTableHtml, newResultsList.Count);
                 SendMailRemind(mailText);
-            }            
+            }
 
             Console.WriteLine("Well done!");
             //Console.ReadKey();
@@ -98,15 +84,15 @@ namespace HTTP_GET_POST
 
 
 
-        static bool SendMailRemind(string outText, string outSubj="[Центр Реализации] Появились новые предложения по Вашему запросу!", List<string> recpList=null)
+        static bool SendMailRemind(string outText, string outSubj = "[Центр Реализации] Появились новые предложения по Вашему запросу!", List<string> recpList = null)
         {
             string mailFrom = "bot@nazmi.ru";
 
-            SmtpClient mySmtp = new SmtpClient("smtp.yandex.ru", 25);            
+            SmtpClient mySmtp = new SmtpClient("smtp.yandex.ru", 25);
             mySmtp.EnableSsl = true;
             mySmtp.Credentials = new NetworkCredential(mailFrom, "p@ssw0rd");
 
-            MailMessage myMessage = new MailMessage();            
+            MailMessage myMessage = new MailMessage();
             myMessage.From = new MailAddress(mailFrom);
             myMessage.To.Add(new MailAddress("eldar@nazmi.ru"));
             if (recpList != null)
@@ -139,7 +125,5 @@ namespace HTTP_GET_POST
                     OutWholeTree(innTag);
             }
         }
-
-
     }
 }

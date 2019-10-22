@@ -369,5 +369,62 @@ namespace MyHTMLParser
 
             return result;
         }
+
+        static List<List<StringUri>> GetResultTableAsList(List<List<StringUri>> inpList)
+        {
+            List<List<StringUri>> resList = new List<List<StringUri>>();
+
+            // 1. Calculate MAX columns count
+            int colCount = 0;
+            foreach (List<StringUri> itemList in inpList)
+                colCount = Math.Max(colCount, itemList.Count);
+
+            // 2. Fill result rows
+            foreach (List<StringUri> itemListRows in inpList)
+            {
+                if (itemListRows.Count != colCount)     // Skip all rows that have not another count of columns instead MAX columns count
+                    continue;
+                resList.Add(itemListRows);
+            }
+
+            return resList;
+        }
+
+        static public DataTable GetTableAsDT(List<List<StringUri>> inpTable)
+        {
+            DataTable resDT = new DataTable();
+
+            foreach (StringUri item in inpTable[0])
+                resDT.Columns.Add(item.ItemString);
+
+            for (int i = 1; i < inpTable.Count - 1; i++)
+                resDT.Rows.Add(inpTable[i]);
+
+            return resDT;
+        }
+
+        static public string GetNewRowsString(List<List<StringUri>> inpLT, string checkDate)
+        {
+            string outRows = "";
+            for (int i = 1; i < inpLT.Count - 1; i++)   // первая строка - заголовки колонок
+            {
+                if (!HaveNewRecords(inpLT[i], checkDate))
+                    break;
+                foreach (StringUri item in inpLT[i])
+                    outRows += "\t|\t" + item.ItemString;
+                outRows += "\n";
+            }
+            //if (outRows.Length == 0)
+            //    return null;
+            return outRows;
+        }
+        static public bool HaveNewRecords(List<StringUri> checkRow, string lastKnownDate)
+        {
+            string checkDate = checkRow[6].ItemString;
+            if (checkDate != lastKnownDate)
+                return true;
+            return false;
+        }
+
     }
 }

@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Centerr.ru\CenterrRu.csproj">
-      <Project>{ed16e334-860e-4a6b-bc5d-c8e3ae0a66d5}</Project>
+      <Project>{ED16E334-860E-4A6B-BC5D-C8E3AE0A66D5}</Project>
       <Name>CenterrRu</Name>
     </ProjectReference>
   </ItemGroup>

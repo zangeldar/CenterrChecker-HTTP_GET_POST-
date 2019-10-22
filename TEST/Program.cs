@@ -2,8 +2,8 @@
 using TorgiASV;
 using HTTP_GET_POST;
 using System.Collections.Generic;
-using HTMLParserNew;
 using System.IO;
+using MyHTMLParser;
 
 namespace TEST
 {
@@ -67,13 +67,13 @@ namespace TEST
             */
 
             myHTMLParser myParser = new myHTMLParser();
-            List<HTTP_GET_POST.Tag> myList = myParser.getTags(result, "ul");
-            List<HTTP_GET_POST.Tag> resList = new List<HTTP_GET_POST.Tag>();
+            List<Tag> myList = myParser.getTags(result, "ul");
+            List<Tag> resList = new List<Tag>();
 
             bool found = false;
-            foreach (HTTP_GET_POST.Tag item in myList)
+            foreach (Tag item in myList)
             {
-                foreach (HTTP_GET_POST.tagAttribute atItem in item.Attributes)
+                foreach (tagAttribute atItem in item.Attributes)
                 {
                     if (atItem.Name == "class" & atItem.Value == "\"component-list")
                     {
@@ -92,7 +92,7 @@ namespace TEST
             Console.WriteLine(resList);
 
             List<ASV> resASV = new List<ASV>();
-            foreach (HTTP_GET_POST.Tag item in resList[0].InnerTags)
+            foreach (Tag item in resList[0].InnerTags)
             {
                 resASV.Add(new ASV(item.InnerTags));
             }

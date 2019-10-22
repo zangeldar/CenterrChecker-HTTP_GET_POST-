@@ -1,4 +1,5 @@
-﻿using HTTP_GET_POST;
+﻿using IAuction;
+using MyHTMLParser;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,10 +9,12 @@ using System.Text;
 namespace TorgiASV
 {
     [Serializable]
-    public class ASVResponse
+    public class ASVResponse : IResponse
     {
-        public ASVRequest MyRequest { get; private set; }
-        public List<ASV> ListResponse { get; private set; }
+        public IRequest MyRequest { get; private set; }
+        public IEnumerable<IObject> ListResponse { get; private set; }
+
+        public IEnumerable<IObject> NewRecords => throw new NotImplementedException();
 
         public ASVResponse(ASVRequest myReq)
         {
@@ -28,15 +31,16 @@ namespace TorgiASV
         private void FillListResponse()
         {
             string myWorkAnswer = MyRequest.GetResponse;
+            List<ASV> curList = new List<ASV>();
 
             myHTMLParser myParser = new myHTMLParser();
-            List<HTTP_GET_POST.Tag> myList = myParser.getTags(myWorkAnswer, "ul");
-            List<HTTP_GET_POST.Tag> resList = new List<HTTP_GET_POST.Tag>();
+            List<Tag> myList = myParser.getTags(myWorkAnswer, "ul");
+            List<Tag> resList = new List<Tag>();
 
             bool found = false;     // вычленяем из всех списков на странице только нужный
-            foreach (HTTP_GET_POST.Tag item in myList)
+            foreach (Tag item in myList)
             {
-                foreach (HTTP_GET_POST.tagAttribute atItem in item.Attributes)
+                foreach (tagAttribute atItem in item.Attributes)
                 {
                     if (atItem.Name == "class" & atItem.Value == "\"component-list")
                     {
@@ -51,10 +55,21 @@ namespace TorgiASV
                 }
             }
 
-            foreach (HTTP_GET_POST.Tag item in resList[0].InnerTags)    // заполняем результаты по списку
+            foreach (Tag item in resList[0].InnerTags)    // заполняем результаты по списку
             {
-                ListResponse.Add(new ASV(item.InnerTags));
+                curList.Add(new ASV(item.InnerTags));
             }
+            this.ListResponse = curList;
+        }
+
+        public bool SaveToXml(string fileName = "lastresponse.tasv")
+        {
+            return SaveMyASVResponseObject(this, fileName);
+        }
+
+        public IResponse LoadFromXml(string fileName = "lastresponse.tasv")
+        {
+            return LoadMyASVResponseObject(fileName);
         }
 
         static bool SaveMyASVResponseObject(ASVResponse curObj, string fileName = "lastresponse.tasv")
@@ -95,6 +110,16 @@ namespace TorgiASV
                 //throw;
             }
             return result;
+        }
+
+        public bool HaveNewRecords(IResponse checkResponse)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string NewRecordsOutput(bool html)
+        {
+            throw new NotImplementedException();
         }
     }
 }

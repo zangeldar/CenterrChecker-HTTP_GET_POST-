@@ -1,14 +1,16 @@
-﻿using System;
+﻿using IAuction;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace CenterrRu
 {    
     [Serializable]
-    public class CenterrRequest
+    public class CenterrRequest : IRequest
     {
         public CenterrRequest()
         {
@@ -26,7 +28,7 @@ namespace CenterrRu
         }
 
         // Первый пустой запрос для получения параметров запроса _cviewstate и _eventvalidation
-        private string getBlankResponse()
+        private string getBlankResponse()   // используется для выполнения первого запроса, с целью получить идентификаторы сессии
         {
             string answer = makeAnPost();
             _cviewstate = getHtmlParameter(answer, "<input type=\"hidden\" name=\"__CVIEWSTATE\" id=\"__CVIEWSTATE\" value=\"", "\"");
@@ -116,7 +118,6 @@ namespace CenterrRu
                 stream.Write(data, 0, data.Length);
             }
              */
-
 
             using (StreamWriter writer = new StreamWriter(request.GetRequestStream(), new UTF8Encoding()))
             {
@@ -272,5 +273,107 @@ ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton                    
                 private string vPurchaseLot_BankruptRegionID        = "";                        //  Регион Должника
                 private string vPurchaseLot_BankruptRegionID_desc   = "";                        //  ИД Регион Должника
          */
+
+        public string CreateFileName(bool request = false)
+        {
+            return GenerateFileName(this, request);
+        }
+
+        public bool SaveToXml(string fileName = "lastrequest.req")
+        {
+            return SaveMyRequestObjectXML(this, fileName);
+        }
+
+        public IRequest LoadFromXML(string fileName = "lastrequest.req")
+        {
+            return LoadMyRequestObjectXML(fileName);
+        }
+
+        private string GenerateFileName(CenterrRequest inpObj, bool request = false)
+        {
+            string result = "";
+
+            foreach (var item in inpObj.MyParameters)
+            {
+                if (item.Value == "" || item.Value == "10,11,12,111,13")
+                    continue;
+
+                result += item.Value;
+            }
+            if (request)
+                return result + ".req";
+
+            return result + ".bcntr";
+        }
+
+        public override string ToString()
+        {
+            string result = "";
+
+            foreach (var item in this.MyParameters)
+            {
+                if (item.Value == "" || item.Value == "10,11,12,111,13")
+                    continue;
+
+                result += "_" + item.Value;
+            }
+
+            return result.Substring(1);
+        }
+
+        static public bool SaveMyRequestObjectXML(CenterrRequest curObj, string fileName = "lastrequest.req")
+        {
+            bool result = false;
+            try
+            {
+                XmlSerializer formatter = new XmlSerializer(typeof(CenterrRequest));
+
+                using (Stream output = File.OpenWrite(fileName))
+                {
+                    formatter.Serialize(output, curObj);
+                }
+                result = true;
+            }
+            catch (Exception e)
+            {
+                result = false;
+                //throw;
+            }
+
+            return result;
+        }
+
+        static public CenterrRequest LoadMyRequestObjectXML(string fileName = "lastrequest.req")
+        {
+            CenterrRequest result = null;
+
+            try
+            {
+                XmlSerializer formatter = new XmlSerializer(typeof(CenterrRequest));
+                using (Stream input = File.OpenRead(fileName))
+                {
+                    result = (CenterrRequest)formatter.Deserialize(input);
+                }
+            }
+            catch (Exception e)
+            {
+                result = null;
+                //throw;
+            }
+            return result;
+        }
+
+        public string GetRequestStringPrintable()
+        {
+            string parSet = "";
+
+            foreach (string item in this.MyParameters.Values)
+                if (item.Length > 0 & item != "10,11,12,111,13")
+                    parSet += ", " + item;
+            if (parSet.Length > 2)
+                parSet = parSet.Remove(0, 2);
+
+            return parSet;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IAuction;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -9,20 +10,45 @@ using System.Xml.Serialization;
 namespace TorgiASV
 {    
     [Serializable]
-    public class ASVRequest
+    public class ASVRequest : IRequest
     {
         private string postData;
         public ASVRequest(string postData)
         {
             this.postData = postData;
+            InitialiseParameters();
             Initialize();
         }
         private bool initialised = false;
         private bool Initialize()
         {
-            if (true)
-                initialised = true;
+            getBlankResponse();
             return initialised;
+        }
+        private string getBlankResponse()   // используется для выполнения первого запроса, с целью получить идентификаторы сессии
+        {
+            /*
+            string answer = makeAnPost();
+            _cviewstate = getHtmlParameter(answer, "<input type=\"hidden\" name=\"__CVIEWSTATE\" id=\"__CVIEWSTATE\" value=\"", "\"");
+            _eventvalidation = getHtmlParameter(answer, "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"", "\"");
+            if (_cviewstate.Length > 0 & _eventvalidation.Length > 0)
+                initialised = true;
+            return answer;
+            */
+            initialised = true;
+            return "";
+        }
+
+        private SerializableDictionary<string, string> myPar;
+        public SerializableDictionary<string, string> MyParameters { get { return myPar; } set { myPar = value; } }
+        private void InitialiseParameters()
+        {
+            //myPar = new Dictionary<string, string>();
+            myPar = new SerializableDictionary<string, string>
+            {
+                { "q", "" },                                //  строка поиска
+                //{ "show", "" },                             //  представление результата (одно из вариантов значения: lot) - для разбора бесполезно                
+            };
         }
 
         // internal cached result
@@ -34,9 +60,29 @@ namespace TorgiASV
                 if (!initialised)       // initialized already?
                     if (!Initialize())  // if not then Initialize now!
                         return null;    // if not success then break
-                return makeAnPost("https://www.torgiasv.ru", postData);
+                return makeAnPost("https://www.torgiasv.ru", myRawPostData());
             }
         }
+
+        private string myRawPostData()
+        {
+            string result = "";
+            bool first = true;
+            foreach (KeyValuePair<string, string> item in myPar)
+            {
+                if (item.Value != "")
+                {
+                    if (first)
+                        result += "?";
+                    else
+                        result += "&";
+                    result += item.Key + "=" + item.Value;
+                }
+            }
+
+            return "/search/" + result;
+        }
+
         private string makeAnPost(string url = "https://www.torgiasv.ru", string postData = "")
         {
             ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
@@ -83,6 +129,57 @@ namespace TorgiASV
             return true;
         }
 
+        public void ResetParameters()
+        {
+            InitialiseParameters();
+        }
+
+        public string CreateFileName(bool request = false)
+        {
+            return GenerateFileName(this, request);
+        }
+
+        public bool SaveToXml(string fileName = "lastrequest.req")
+        {
+            return SaveMyRequestObjectXML(this, fileName);
+        }
+
+        public IRequest LoadFromXML(string fileName = "lastrequest.req")
+        {
+            return LoadMyRequestObjectXML(fileName);
+        }
+
+        static public string GenerateFileName(ASVRequest inpObj, bool request = false)
+        {
+            string result = "";
+
+            foreach (var item in inpObj.MyParameters)
+            {
+                if (item.Value == "" || item.Value == "10,11,12,111,13")
+                    continue;
+
+                result += item.Value;
+            }
+            if (request)
+                return result + ".req";
+
+            return result + ".bcntr";
+        }
+
+        public override string ToString()
+        {
+            string result = "";
+
+            foreach (var item in this.MyParameters)
+            {
+                if (item.Value == "" || item.Value == "10,11,12,111,13")
+                    continue;
+
+                result += "_" + item.Value;
+            }
+
+            return result.Substring(1);
+        }
 
         static bool SaveMyRequestObjectXML(ASVRequest curObj, string fileName = "lastrequest.tasv.req")
         {
@@ -124,6 +221,19 @@ namespace TorgiASV
                 //throw;
             }
             return result;
+        }
+
+        public string GetRequestStringPrintable()
+        {
+            string parSet = "";
+
+            foreach (string item in this.MyParameters.Values)
+                if (item.Length > 0)
+                    parSet += ", " + item;
+            if (parSet.Length > 2)
+                parSet = parSet.Remove(0, 2);
+
+            return parSet;
         }
     }
 }
