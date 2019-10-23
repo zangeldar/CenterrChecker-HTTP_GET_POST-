@@ -403,7 +403,8 @@ namespace CenterrRu
 
             for (int i = 0; i < inpList.Count; i++)
             {
-                if (inpList[i].ToString() == checkRowItem.ToString())
+                //if (inpList[i].ToString() == checkRowItem.ToString())
+                if (inpList[i].Equals(checkRowItem))
                     break;
                 result.Add(inpList[i]);
             }
@@ -420,7 +421,8 @@ namespace CenterrRu
             {
                 for (int j = 0; j < checkRows.Count; j++)
                 {
-                    if (inpList[i].ToString() == checkRows[j].ToString())
+                    //if (inpList[i].ToString() == checkRows[j].ToString())
+                    if (inpList[i].Equals(checkRows[j]))
                         break;
                     result.Add(inpList[i]);
                 }                             

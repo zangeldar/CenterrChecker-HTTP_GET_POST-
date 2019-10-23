@@ -10,6 +10,7 @@ namespace TEST
     {
         static void Main(string[] args)
         {
+            
             StringUri url11 = new StringUri() { ItemString = "string1", ItemUri = "uri1" };
             StringUri url12 = new StringUri() { ItemString = "string1", ItemUri = "uri2" };
             StringUri url21 = new StringUri() { ItemString = "string2", ItemUri = "uri1" };

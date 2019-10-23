@@ -15,6 +15,8 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             string requestFileName = "lastrequest.req";
+            
+            string responseDir = Environment.CurrentDirectory;
             if (args.Length > 0)
                 foreach (string argItem in args)
                     if (argItem == "test")
@@ -33,12 +35,29 @@ namespace ConsoleApp
                     {
                         requestFileName = argItem.Substring(7);
                     }
+                    else if (argItem.Contains("responsedir="))
+                    {
+                        responseDir = argItem.Substring(11);
+                    }
 
             IRequest myRequestObject = null;
+            List<IResponse> myRespObjects = new List<IResponse>();
             //string checkDate;
 
             if (File.Exists(requestFileName))
-                myRequestObject = myRequestObject.LoadFromXML(requestFileName);               
+                myRequestObject = myRequestObject.LoadFromXML(requestFileName);
+            else
+            {
+                if (Directory.Exists(responseDir))
+                {
+                    foreach (string item in Directory.GetFiles(responseDir, "*.resp"))
+                    {
+                        IResponse curResp = FileIO.LoadMyObject(item);
+                        myRespObjects.Add(curResp);
+                    }
+                }
+                    // need looking for saved last responses
+            }
 
             if (myRequestObject == null)
             {
