@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Centerr.ru\CenterrRu.csproj" />
     <ProjectReference Include="..\TorgiASV\TorgiASV.csproj" />
   </ItemGroup>
 

@@ -14,6 +14,8 @@ namespace MyHTMLParser
 
         public Tag(string tagNameContent, string tagValueContent)
         {
+            tagNameContent = myHTMLParser.NormalizeString(tagNameContent);
+            tagValueContent = myHTMLParser.NormalizeString(tagValueContent);
             fillName(tagNameContent);
             tagValue = tagValueContent;
             fillAttr(tagNameContent);
@@ -24,6 +26,7 @@ namespace MyHTMLParser
         {
             if (!inputStr.Contains("<"))
                 return null;
+            
             string result;
             int endTagName;
 
@@ -56,9 +59,67 @@ namespace MyHTMLParser
         {
             tagAttrList = new List<tagAttribute>();
 
-            int endOFTagName = tagNameContent.IndexOf('>');
-            string onlyTagName = tagNameContent.Substring(1, endOFTagName - 1);
+            int endOFTagNameContent = tagNameContent.IndexOf('>');
+            string onlyTagNameContent = tagNameContent.Substring(1, endOFTagNameContent - 1);
 
+            //string tagName = "";
+            string attName = "";
+            string attValue = "";
+
+            bool openQuotes = false;
+            //bool nextAtt = true;   // признак того, что сейчас символ аттрибута
+            //bool nextValue = false; // признак того, что сейчас символ значения аттрибута
+
+            int tagNameEnd = onlyTagNameContent.IndexOf(" ");
+            if (tagNameEnd < 0)
+            {
+                //tagName = onlyTagNameContent;
+            }
+            else
+            {
+                //tagName = onlyTagNameContent.Substring(0, tagNameEnd);
+
+                string currentStr = "";
+                foreach (char item in onlyTagNameContent.Substring(tagNameEnd + 1))
+                {
+                    if (item == '"' || item == '\'')
+                    {
+                        openQuotes = !openQuotes;
+                        continue;   // чтобы не добавлять кавычки в значение
+                    }
+
+                    if (!openQuotes)            // если кавычки не открывались
+                    {
+                        if (item == ' ' || item == '"' || item == '\'')         // и встретили пробел, то следующим будет символ нового аттрибута
+                        {
+                            //nextValue = false;
+                            //nextAtt = true;
+
+                            attValue = currentStr;
+                            currentStr = "";
+
+                            tagAttrList.Add(new tagAttribute(attName, attValue));
+
+                            continue;
+                        }
+                        else if (item == '=')
+                        {
+                            //nextAtt = false;
+                            //nextValue = true;
+
+                            attName = currentStr;
+                            currentStr = "";
+
+                            continue;
+                        }
+                    }
+                    currentStr += item;
+                }
+                if (currentStr != "")           // если последнее значение аттрибута не завершилось кавычкой (опечатка), тогда добавить все, что получили в список
+                    tagAttrList.Add(new tagAttribute(attName, currentStr));
+            }
+
+            /*
             int c;
             string attrName = "";
             string attrValue = "";
@@ -91,6 +152,7 @@ namespace MyHTMLParser
                 if ((c > 1) & (attrName.Length > 0) & (attrValue.Length > 0))
                     tagAttrList.Add(new tagAttribute(attrName, attrValue));
             }
+            */
         }
 
         private void fillInnerTags(string tagValueContent)
@@ -288,18 +350,21 @@ namespace MyHTMLParser
             return resList;
         }
 
-        private string NormalizeString(string inpStr)
+        static public string NormalizeString(string inpStr)
         {
             if (inpStr == null)
                 return "";
 
             string result;
 
-            result = inpStr.Replace("\n", "");
-            result = result.Replace("\t", "");
-            result = result.Replace("\r", "");
+            result = inpStr.Replace("\n", " ");
+            result = result.Replace("\t", " ");
+            result = result.Replace("\r", " ");            
             result = result.Replace("&quot;", "\"");
             result = result.Replace("&#160;", " ");
+            result = result.Replace("&#8470;", "№");
+
+            result = result.Replace("  ", " ");
 
             return result;
         }

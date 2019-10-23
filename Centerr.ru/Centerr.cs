@@ -153,7 +153,7 @@ namespace CenterrRu
                     @"{12}" + ";" +
                     @"{13}" + ";" +
                     @"{15}" + ";" +
-                    @"{16}" + @"\n" +
+                    @"{16}" + Environment.NewLine +
                     // строка таблицы с ссылками
                     @"{0}" + ";" +
                     @"{2}" + ";" +
@@ -165,7 +165,7 @@ namespace CenterrRu
                     @"" + ";" +
                     @"" + ";" +
                     @"{14}" + ";" +
-                    @"" + @"\n",
+                    @"" + Environment.NewLine,
                     baseUri + TorgNumber.ItemUri.Replace("\'", "").Replace("class", ""), TorgNumber.ItemString,
                     baseUri + TorgName.ItemUri.Replace("\"", ""), TorgName.ItemString,
                     baseUri + LotNumber.ItemUri.Replace("\"", "").Replace("\'", ""), LotNumber.ItemString,
@@ -180,6 +180,40 @@ namespace CenterrRu
                     );
 
             return result;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            return base.Equals(obj);
+            if (!(obj is Centerr))
+                return false;
+            Centerr curObj = (Centerr)obj;
+
+            if (this.DateAcceptFinish == curObj.DateAcceptFinish &
+                this.DateAuctionStart == curObj.DateAuctionStart &
+                this.internalID == curObj.internalID &
+                this.LotNameStr == curObj.LotNameStr &
+                this.LotNameUrl == curObj.LotNameUrl &
+                this.LotNumberStr == curObj.LotNumberStr &
+                this.LotNumberUrl == curObj.LotNumberUrl &
+                this.Organizer.ItemString == curObj.Organizer.ItemString &
+                this.Organizer.ItemUri == curObj.Organizer.ItemUri &
+                this.PriceStart == curObj.PriceStart &
+                this.Status == curObj.Status &
+                this.TorgName.ItemString == curObj.TorgName.ItemString &
+                this.TorgName.ItemUri == curObj.TorgName.ItemUri &
+                this.TorgNumber.ItemString == curObj.TorgNumber.ItemString &
+                this.TorgNumber.ItemUri == curObj.TorgNumber.ItemUri &
+                this.TorgType == curObj.TorgType &
+                this.Winner.ItemString == curObj.Winner.ItemString &
+                this.Winner.ItemUri == curObj.Winner.ItemUri)
+                return true;
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         /*

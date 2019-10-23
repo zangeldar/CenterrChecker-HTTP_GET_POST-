@@ -12,7 +12,11 @@ namespace TEST
         {            
             string cacheFile = "cached.htm";
             
-            ASVRequest myAsvReq = new ASVRequest(testData);
+            ASVRequest myAsvReq = new ASVRequest();
+
+            //myAsvReq.MyParameters["q"] = testData;
+            myAsvReq.SearchString = testData;
+
             string answer;
             if (!File.Exists(cacheFile) || !cached)
             {
@@ -23,9 +27,14 @@ namespace TEST
             }
             else
                 answer = File.ReadAllText(cacheFile);
+                                   
 
             return answer;
-        }     
-        
+        }
+
+        public string GetTest(string testData, string etp, bool cached = true)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

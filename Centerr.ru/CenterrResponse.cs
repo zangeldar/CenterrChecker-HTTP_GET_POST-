@@ -10,14 +10,21 @@ namespace CenterrRu
 {
     [Serializable]
     public class CenterrResponse : IResponse
-    {
+    {        
         public string SiteName { get { return "Центр реализации"; } }
+        public Exception LastError { get; private set; }
         bool freshResponse = false;
         //public CenterrRequest MyRequest { get; private set; }
         //public List<Centerr> ListResponse { get; private set; }
         public IRequest MyRequest { get; private set; }
         public IEnumerable<IObject> ListResponse { get; private set; }
         public IEnumerable<IObject> NewRecords { get; private set; }
+
+        public CenterrResponse(string searchStr)
+        {
+            this.MyRequest = new CenterrRequest(searchStr);
+            FillListResponse();
+        }
 
         public CenterrResponse(CenterrRequest myReq)
         {
@@ -35,8 +42,11 @@ namespace CenterrRu
         private void FillListResponse()
         {
             string myWorkAnswer = MyRequest.GetResponse;
+            if (myWorkAnswer == null)
+                return;
 
             //  Разбор результатов
+            myWorkAnswer = myHTMLParser.NormalizeString(myWorkAnswer);
             myHTMLParser myHtmlParser = new myHTMLParser();
             List<Tag> myTagRes = myHtmlParser.getTags(myWorkAnswer, "table");
             List<List<StringUri>> myTable = new List<List<StringUri>>();
@@ -236,7 +246,8 @@ namespace CenterrRu
 
             string parSet = "";
 
-            string newLine = @"\n";
+            string newLine = "\n";
+            newLine = Environment.NewLine;
 
             CenterrRequest myObject = (CenterrRequest)this.MyRequest;
             if (myObject != null)
@@ -262,21 +273,53 @@ namespace CenterrRu
             return messageBody;
         }
 
-        //public bool HaveNewRecords(CenterrResponse checkResponse)
+        private bool haveNewRecords;
         public bool HaveNewRecords(IResponse checkResponse)
         {
+            haveNewRecords = false;
+            if (!haveNewRecords)
+            {
+                NewRecords = DoOneCheck((CenterrResponse)checkResponse);
+                if (NewRecords != null)
+                    if (NewRecords.Count() > 0)
+                        haveNewRecords = true;
+            }
+            return haveNewRecords;
+
+            /*
             NewRecords = DoOneCheck((CenterrResponse)checkResponse);
 
-            if (NewRecords.Count() > 0)
-                return true;               
+            if (NewRecords != null)
+                if (NewRecords.Count() > 0)
+                    return true;
 
             return false;
+            */
         }
 
-        public string NewRecordsOutput(bool html=true)
+        public string NewRecordsOutput(IResponse checkResponse=null, bool html=true)
         {
+            if (!haveNewRecords)
+            {
+                if (!HaveNewRecords(checkResponse))
+                {
+                    if (MyRequest.LastError != null)
+                        return "ERROR: " + MyRequest.LastError.Message;
+                    else
+                        return "";
+                }
+            }
+
             string itemsTable = CreateTableForMailing(html);
             return PrepareMailBody(itemsTable, NewRecords.Count(), html);
+            /*
+            if (HaveNewRecords(checkResponse))
+            {
+                string itemsTable = CreateTableForMailing(html);
+                return PrepareMailBody(itemsTable, NewRecords.Count(), html);
+            }
+            return MyRequest.LastError.Message;
+            */
         }
 
         private string CreateTableForMailing(bool html = true)
@@ -297,7 +340,8 @@ namespace CenterrRu
             else
             {
                 rowStart = @"";
-                rowEnd = @"\n";
+                rowEnd = "\n";
+                rowEnd = Environment.NewLine;
                 rowSeparatorSt = @"";
                 rowSeparatorEn = @";";
                 result = "";

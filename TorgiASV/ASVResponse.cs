@@ -12,11 +12,18 @@ namespace TorgiASV
     [Serializable]
     public class ASVResponse : IResponse
     {
+        public Exception LastError { get; private set; }
         public string SiteName { get { return "Торги АСВ"; } }
         public IRequest MyRequest { get; private set; }
         public IEnumerable<IObject> ListResponse { get; private set; }
 
         public IEnumerable<IObject> NewRecords { get; private set; }
+
+        public ASVResponse(string searchStr)
+        {
+            this.MyRequest = new ASVRequest(searchStr);
+            FillListResponse();
+        }
 
         public ASVResponse(ASVRequest myReq)
         {
@@ -33,6 +40,9 @@ namespace TorgiASV
         private void FillListResponse()
         {
             string myWorkAnswer = MyRequest.GetResponse;
+            if (myWorkAnswer == null)
+                return;
+
             List<ASV> curList = new List<ASV>();
 
             myHTMLParser myParser = new myHTMLParser();
@@ -44,7 +54,7 @@ namespace TorgiASV
             {
                 foreach (tagAttribute atItem in item.Attributes)
                 {
-                    if (atItem.Name == "class" & atItem.Value == "\"component-list")
+                    if (atItem.Name == "class" & atItem.Value == "component-list lot-catalog__list")
                     {
                         found = true;
                         break;
@@ -116,16 +126,32 @@ namespace TorgiASV
 
         public bool HaveNewRecords(IResponse checkResponse)
         {
-            NewRecords = DoOneCheck((ASVResponse)checkResponse);
-
-            if (NewRecords.Count() > 0)
-                return true;
-
-            return false;
+            haveNewRecords = false;
+            if (!haveNewRecords)
+            {
+                NewRecords = DoOneCheck((ASVResponse)checkResponse);
+                if (NewRecords != null)
+                    if (NewRecords.Count() > 0)
+                        haveNewRecords = true;
+            }
+            return haveNewRecords;
         }
 
-        public string NewRecordsOutput(bool html = true)
+        private bool haveNewRecords = false;
+
+        public string NewRecordsOutput(IResponse checkResponse=null, bool html = true)
         {
+            if (!haveNewRecords) 
+            {
+                if (!HaveNewRecords(checkResponse))
+                {
+                    if (MyRequest.LastError != null)
+                        return "ERROR: " + MyRequest.LastError.Message;
+                    else
+                        return "";
+                }
+            }
+
             string itemsTable = CreateTableForMailing(html);
             return PrepareMailBody(itemsTable, NewRecords.Count(), html);
         }
@@ -194,7 +220,7 @@ namespace TorgiASV
             else
             {
                 rowStart = @"";
-                rowEnd = @"\n";
+                rowEnd = "\n";
                 rowSeparatorSt = @"";
                 rowSeparatorEn = @";";
                 result = "";
@@ -207,8 +233,10 @@ namespace TorgiASV
                 @"{2}" + rowSeparatorEn + rowSeparatorSt +
                 @"{3}" + rowSeparatorEn + rowSeparatorSt +
                 @"{4}" + rowSeparatorEn + rowSeparatorSt +
-                @"{5}" + rowSeparatorEn + rowEnd,
-                "ID",
+                @"{5}" + rowSeparatorEn + rowSeparatorSt +
+                @"{6}" + rowSeparatorEn + rowEnd,
+                "ID",                
+                "Номер Лота",
                 "Лот",
                 "Описание",
                 "Банк",
@@ -231,7 +259,7 @@ namespace TorgiASV
 
             string parSet = "";
 
-            string newLine = @"\n";
+            string newLine = "\n";
 
             ASVRequest myObject = (ASVRequest)this.MyRequest;
             if (myObject != null)

@@ -72,10 +72,11 @@ namespace TorgiASV
                     @"<a href =""{2}"">{3}</a>" + "</td><td>" +                    
                     @"{4}" + "</td><td>" +
                     @"{5}" + "</td><td>" +
-                    @"{6}" + "</td></tr>",
+                    @"{6}" + "</td><td>" +
+                    @"{7}" + "</td></tr>",
                     internalID,
                     LotNumberStr,
-                    baseUri + LotName.ItemUri, LotName.ItemString,
+                    LotName.ItemUri, LotName.ItemString,
                     LotDesc,
                     TorgBank,
                     TorgRegion,
@@ -88,17 +89,19 @@ namespace TorgiASV
                     @"{3}" + ";" +
                     @"{4}" + ";" +
                     @"{5}" + ";" +
-                    @"{6}" + @"\n" +
+                    @"{6}" + ";" +
+                    @"{7}" + Environment.NewLine +
                     // строка таблицы с ссылками                    
                     @"" + ";" + 
                     @"" + ";" +
                     @"{2}" + ";" +
                     @"" + ";" +
                     @"" + ";" +
-                    @"" + @"\n",
+                    @"" + ";" +
+                    @"" + Environment.NewLine,
                     internalID,
                     LotNumberStr,
-                    baseUri + LotName.ItemUri, LotName.ItemString,
+                    LotName.ItemUri, LotName.ItemString,
                     LotDesc,
                     TorgBank,
                     TorgRegion,
@@ -106,6 +109,32 @@ namespace TorgiASV
                     );
 
             return result;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            return base.Equals(obj);
+            /*
+            if (!(obj is ASV))
+                return false;
+            ASV curObj = (ASV)obj;
+
+            if (this.internalID == curObj.internalID &
+                this.LotNameStr == curObj.LotNameStr &
+                this.LotNameUrl == curObj.LotNameUrl &
+                this.LotDesc == curObj.LotDesc &
+                this.LotNumberStr == curObj.LotNumberStr &
+                this.TorgBank == curObj.TorgBank &
+                this.TorgRegion == curObj.TorgRegion &
+                this.PriceStart == curObj.PriceStart)
+                return true;
+            return false;
+            */
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

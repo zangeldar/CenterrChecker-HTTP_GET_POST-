@@ -12,11 +12,18 @@ namespace CenterrRu
     [Serializable]
     public class CenterrRequest : IRequest
     {
+        public Exception LastError { get; private set; }
         public CenterrRequest()
         {
             InitialiseParameters();
         }
-        
+
+        public CenterrRequest(string searchStr)
+        {
+            InitialiseParameters();
+            SearchString = searchStr;
+        }
+
         private string _cviewstate;
         private string _eventvalidation;
 
@@ -31,10 +38,14 @@ namespace CenterrRu
         private string getBlankResponse()   // используется для выполнения первого запроса, с целью получить идентификаторы сессии
         {
             string answer = makeAnPost();
-            _cviewstate = getHtmlParameter(answer, "<input type=\"hidden\" name=\"__CVIEWSTATE\" id=\"__CVIEWSTATE\" value=\"", "\"");
-            _eventvalidation = getHtmlParameter(answer, "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"", "\"");
-            if (_cviewstate.Length > 0 & _eventvalidation.Length > 0)
-                initialised = true;
+            if (answer != null)
+            {
+                _cviewstate = getHtmlParameter(answer, "<input type=\"hidden\" name=\"__CVIEWSTATE\" id=\"__CVIEWSTATE\" value=\"", "\"");
+                _eventvalidation = getHtmlParameter(answer, "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"", "\"");
+                if (_cviewstate.Length > 0 & _eventvalidation.Length > 0)
+                    initialised = true;
+            }
+            
             return answer;
         }
         // Получение значений параметров запроса _cviewstate и _eventvalidation
@@ -125,7 +136,17 @@ namespace CenterrRu
             }
 
 
-            var response = (HttpWebResponse)request.GetResponse();
+            HttpWebResponse response;
+            try
+            {
+                 response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception e)
+            {
+                LastError = e;
+                return null;
+                //throw;
+            }
 
             lastAnswer = new StreamReader(response.GetResponseStream()).ReadToEnd();    // put result in lastAnswer to cache            
 
@@ -161,6 +182,13 @@ namespace CenterrRu
         
         private SerializableDictionary<string, string> myPar;
         public SerializableDictionary<string, string> MyParameters { get { return myPar; } set { myPar = value; } }
+
+        public string SiteName { get { return "Центр реализации"; } }
+                
+        public string SearchString {
+            get { return myPar["vPurchaseLot_lotTitle"]; }
+            set { myPar["vPurchaseLot_lotTitle"] = value; }
+        }
 
         private void InitialiseParameters()
         {

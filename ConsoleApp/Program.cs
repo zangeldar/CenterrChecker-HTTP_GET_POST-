@@ -69,7 +69,7 @@ namespace ConsoleApp
 
             if (curData != null)
                 if (curData.HaveNewRecords(checkData))
-                    SendMailRemind(curData.NewRecordsOutput(true), "[curData.SiteName] Появились новый предложения!");
+                    SendMailRemind(curData.NewRecordsOutput(checkData, true), "[curData.SiteName] Появились новый предложения!");
 
             Console.WriteLine("Well done!");
             //Console.ReadKey();

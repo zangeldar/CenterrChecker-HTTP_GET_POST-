@@ -12,13 +12,20 @@ namespace TorgiASV
     [Serializable]
     public class ASVRequest : IRequest
     {
-        private string postData;
-        public ASVRequest(string postData)
+        public Exception LastError { get; private set; }
+        public ASVRequest()
         {
-            this.postData = postData;
+            //this.postData = postData;
             InitialiseParameters();
             Initialize();
         }
+        public ASVRequest(string searchStr)
+        {
+            InitialiseParameters();
+            Initialize();
+            SearchString = searchStr;
+        }
+
         private bool initialised = false;
         private bool Initialize()
         {
@@ -37,6 +44,14 @@ namespace TorgiASV
             */
             initialised = true;
             return "";
+        }
+
+        public string SiteName { get { return "Торги АСВ"; } }
+
+        public string SearchString
+        {
+            get { return myPar["q"]; }
+            set { myPar["q"] = value; }
         }
 
         private SerializableDictionary<string, string> myPar;
@@ -63,6 +78,8 @@ namespace TorgiASV
                 return makeAnPost("https://www.torgiasv.ru", myRawPostData());
             }
         }
+
+        public SerializableDictionary<string, string> MyPar { get => myPar; set => myPar = value; }
 
         private string myRawPostData()
         {
@@ -115,7 +132,18 @@ namespace TorgiASV
             }
              */
 
-            var response = (HttpWebResponse)request.GetResponse();
+            HttpWebResponse response;
+
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception e)
+            {
+                LastError = e;
+                return null;
+                //throw;
+            }
 
             lastAnswer = new StreamReader(response.GetResponseStream()).ReadToEnd();    // put result in lastAnswer to cache   
 
