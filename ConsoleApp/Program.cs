@@ -1,11 +1,11 @@
-﻿using CenterrRu;
+﻿//using CenterrRu;
 using IAuction;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
-using TorgiASV;
+//using TorgiASV;
 
 namespace ConsoleApp
 {
@@ -24,8 +24,8 @@ namespace ConsoleApp
                         SendMailRemind("TEST body sending mail", "[TEST] subj", MailRecipients);
                         return;
                     }
-                    else if (argItem.Contains('@')
-                        & argItem.Contains('.')
+                    else if (argItem.Contains("@")
+                        & argItem.Contains(".")
                         & argItem.IndexOf('@') > 0
                         & argItem.IndexOf('@') + 1 < argItem.IndexOf('.', argItem.IndexOf('@')))
                     {
@@ -39,13 +39,17 @@ namespace ConsoleApp
                     {
                         responseDir = argItem.Substring(11);
                     }
-
-            IRequest myRequestObject = null;
+                        
+            List<IRequest> myReqObjects = new List<IRequest>();
             List<IResponse> myRespObjects = new List<IResponse>();
             //string checkDate;
 
             if (File.Exists(requestFileName))
-                myRequestObject = myRequestObject.LoadFromXML(requestFileName);
+            {
+                //myReqObjects.Add(FileIO.LoadMyRequestObjectXML(requestFileName));
+                // здесь надо загружать объекты запросов из xml. однако, это не работает для интерфейсов.
+                //myReqObjects.Add(myRequestObject.LoadFromXML(requestFileName));                
+            }
             else
             {
                 if (Directory.Exists(responseDir))
@@ -53,25 +57,66 @@ namespace ConsoleApp
                     foreach (string item in Directory.GetFiles(responseDir, "*.resp"))
                     {
                         IResponse curResp = FileIO.LoadMyObject(item);
-                        myRespObjects.Add(curResp);
+                        if (curResp != null)
+                            myRespObjects.Add(curResp);
+                    }
+
+                    foreach (string item in Directory.GetFiles(responseDir, "*.req"))
+                    {
+                        IRequest curReq = null;
+                        //IRequest curReq = myRequestObject.LoadFromXML(item);
+                        // здесь надо загружать объекты запросов из xml. однако, это не работает для интерфейсов.
+                        //IRequest curReq = FileIO.LoadMyRequestObjectXML(item);
+                        if (curReq != null)
+                            myReqObjects.Add(curReq);                        
                     }
                 }
                     // need looking for saved last responses
             }
 
-            if (myRequestObject == null)
+
+            if (myRespObjects.Count == 0)
             {
-                // Сделать новый запрос по умолчанию, или сообщить об отсутствии запроса и выйти.
-                myRequestObject = new CenterrRequest();
-                //Запрос АСВ по имуществу ПРБ в отношении ПИРИТ
-                myRequestObject.ResetParameters();
-                myRequestObject.MyParameters["Party_contactName"] = "асв";
-                myRequestObject.MyParameters["vPurchaseLot_fullTitle"] = "";
-                myRequestObject.MyParameters["vPurchaseLot_lotTitle"] = "";
-                //myRequestObject.SaveToXml(myRequestObject.CreateFileName(true));
-                myRequestObject.SaveToXml(myRequestObject.ToString() + ".req");
+                if (myReqObjects.Count == 0)
+                {
+                    Console.WriteLine("I can't work without any Requests or Responses! Bye..");
+                    return;
+                }
+                else
+                {
+                    foreach (IRequest item in myReqObjects)
+                    {
+                        IResponse newResp = item.MakeResponse();
+                        newResp.SaveToXml(newResp.SiteName.Replace(" ", "") + ".resp");
+                        SendMailRemind(newResp.NewRecordsOutput(null, true), "[" + newResp.SiteName + "] Появились новые предложения!", MailRecipients);
+                    }
+                }
+
             }
+            else
+                foreach (IResponse oldItem in myRespObjects)
+                {
+                    IResponse newResp = oldItem.MakeFreshResponse;
+                    if (newResp.HaveNewRecords(oldItem))
+                    {
+                        newResp.SaveToXml(newResp.SiteName.Replace(" ", "") + ".resp");
+                        SendMailRemind(newResp.NewRecordsOutput(oldItem, true), "[" + newResp.SiteName + "] Появились новые предложения!", MailRecipients);
+                    }
+                }
+            /*
+            // Сделать новый запрос по умолчанию, или сообщить об отсутствии запроса и выйти.
+            myRequestObject = new CenterrRequest();
+            //Запрос АСВ по имуществу ПРБ в отношении ПИРИТ
+            myRequestObject.ResetParameters();
+            myRequestObject.MyParameters["Party_contactName"] = "асв";
+            myRequestObject.MyParameters["vPurchaseLot_fullTitle"] = "";
+            myRequestObject.MyParameters["vPurchaseLot_lotTitle"] = "";
+            //myRequestObject.SaveToXml(myRequestObject.CreateFileName(true));
+            myRequestObject.SaveToXml(myRequestObject.ToString() + ".req");
+            */
+
             //SaveMyRequestObjectXML(myRequestObject, "lastrequest.req");
+            /*
             myRequestObject.SaveToXml("lastrequest.req");
 
             IResponse curData;
@@ -89,7 +134,7 @@ namespace ConsoleApp
             if (curData != null)
                 if (curData.HaveNewRecords(checkData))
                     SendMailRemind(curData.NewRecordsOutput(checkData, true), "[curData.SiteName] Появились новый предложения!");
-
+                    */
             Console.WriteLine("Well done!");
             //Console.ReadKey();
         }

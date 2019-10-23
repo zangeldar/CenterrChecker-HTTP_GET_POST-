@@ -12,7 +12,8 @@ namespace TorgiASV
     [Serializable]
     public class ASVResponse : IResponse
     {
-        public Exception LastError { get; private set; }
+        private Exception lastError;
+        public Exception LastError() { return lastError; }
         public string SiteName { get { return "Торги АСВ"; } }
         public IRequest MyRequest { get; private set; }
         public IEnumerable<IObject> ListResponse { get; private set; }
@@ -25,8 +26,10 @@ namespace TorgiASV
             FillListResponse();
         }
 
-        public ASVResponse(ASVRequest myReq)
+        public ASVResponse(IRequest myReq)
         {
+            if (!(myReq is ASVRequest))
+                return;
             this.MyRequest = myReq;
             FillListResponse();
         }
@@ -72,6 +75,14 @@ namespace TorgiASV
                 curList.Add(new ASV(item.InnerTags));
             }
             this.ListResponse = curList;
+        }
+
+        public IResponse MakeFreshResponse
+        {
+            get
+            {
+                return new ASVResponse(this.MyRequest);
+            }
         }
 
         public bool SaveToXml(string fileName = "lastresponse.tasv")
@@ -129,7 +140,7 @@ namespace TorgiASV
             haveNewRecords = false;
             if (!haveNewRecords)
             {
-                NewRecords = DoOneCheck((ASVResponse)checkResponse);
+                NewRecords = DoOneCheck((ASVResponse)checkResponse, true);
                 if (NewRecords != null)
                     if (NewRecords.Count() > 0)
                         haveNewRecords = true;
@@ -145,8 +156,8 @@ namespace TorgiASV
             {
                 if (!HaveNewRecords(checkResponse))
                 {
-                    if (MyRequest.LastError != null)
-                        return "ERROR: " + MyRequest.LastError.Message;
+                    if (MyRequest.LastError() != null)
+                        return "ERROR: " + MyRequest.LastError().Message;
                     else
                         return "";
                 }
@@ -174,10 +185,18 @@ namespace TorgiASV
             List<ASV> inpList = (List<ASV>)this.ListResponse;
             List<ASV> result = new List<ASV>();
 
+            if (inpList == null)
+            {
+                lastError = MyRequest.LastError();
+                return result;
+            }
+
             for (int i = 0; i < inpList.Count; i++)
             {
-                if (inpList[i].ToString() == checkRowItem.ToString())
+                //if (inpList[i].ToString() == checkRowItem.ToString()) 
+                if (inpList[i].Equals(checkRowItem))
                     break;
+                                   
                 result.Add(inpList[i]);
             }
 
@@ -189,14 +208,27 @@ namespace TorgiASV
             List<ASV> inpList = (List<ASV>)this.ListResponse;
             List<ASV> result = new List<ASV>();
 
+            if (inpList == null)
+            {
+                lastError = MyRequest.LastError();
+                return result;
+            }
+
+            bool needBreak = false;
             for (int i = 0; i < inpList.Count; i++)
             {
                 for (int j = 0; j < checkRows.Count; j++)
                 {
-                    if (inpList[i].ToString() == checkRows[j].ToString())
+                    //if (inpList[i].ToString() == checkRows[j].ToString())
+                    if (inpList[i].Equals(checkRows[j]))
+                    {
+                        needBreak = true;
                         break;
-                    result.Add(inpList[i]);
+                    }
                 }
+                if (needBreak)
+                    continue;
+                result.Add(inpList[i]);
             }
 
             return result;

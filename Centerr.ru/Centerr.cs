@@ -184,7 +184,8 @@ namespace CenterrRu
 
         public override bool Equals(Object obj)
         {
-            return base.Equals(obj);
+            //return base.Equals(obj);
+
             if (!(obj is Centerr))
                 return false;
             Centerr curObj = (Centerr)obj;

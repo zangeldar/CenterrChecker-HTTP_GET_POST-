@@ -113,8 +113,8 @@ namespace TorgiASV
 
         public override bool Equals(Object obj)
         {
-            return base.Equals(obj);
-            /*
+            //return base.Equals(obj);
+            
             if (!(obj is ASV))
                 return false;
             ASV curObj = (ASV)obj;
@@ -129,7 +129,7 @@ namespace TorgiASV
                 this.PriceStart == curObj.PriceStart)
                 return true;
             return false;
-            */
+            
         }
 
         public override int GetHashCode()

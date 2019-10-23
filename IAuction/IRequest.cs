@@ -4,6 +4,7 @@ namespace IAuction
 {
     public interface IRequest
     {
+        string Type { get; }
         string SiteName { get; }
         string SearchString { get; set; }
         string GetResponse { get; }                                             // Получить сырую строку ответа
@@ -13,6 +14,7 @@ namespace IAuction
         bool SaveToXml(string fileName = "lastrequest.req");                    // Сохранить в XML (сериализовать)
         IRequest LoadFromXML(string fileName = "lastrequest.req");              // Загрузить из XML (десериализовать)
         string GetRequestStringPrintable();
-        Exception LastError { get; }
+        IResponse MakeResponse();
+        Exception LastError();
     }   
 }

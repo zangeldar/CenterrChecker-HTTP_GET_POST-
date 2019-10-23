@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <ApplicationIcon />
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Centerr.ru\CenterrRu.csproj" />
-    <ProjectReference Include="..\TorgiASV\TorgiASV.csproj" />
+    <ProjectReference Include="..\IAuction\IAuction.csproj" />
   </ItemGroup>
 
 </Project>

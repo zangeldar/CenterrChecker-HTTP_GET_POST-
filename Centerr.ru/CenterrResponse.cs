@@ -12,7 +12,8 @@ namespace CenterrRu
     public class CenterrResponse : IResponse
     {        
         public string SiteName { get { return "Центр реализации"; } }
-        public Exception LastError { get; private set; }
+        private Exception lastError;
+        public Exception LastError() { return lastError; }
         bool freshResponse = false;
         //public CenterrRequest MyRequest { get; private set; }
         //public List<Centerr> ListResponse { get; private set; }
@@ -26,8 +27,10 @@ namespace CenterrRu
             FillListResponse();
         }
 
-        public CenterrResponse(CenterrRequest myReq)
+        public CenterrResponse(IRequest myReq)
         {
+            if (!(myReq is CenterrRequest))
+                return;
             this.MyRequest = myReq;
             FillListResponse();
         }
@@ -37,6 +40,14 @@ namespace CenterrRu
             this.MyRequest = myReq;
             this.ListResponse = listResp;
             freshResponse = false;
+        }
+
+        public IResponse MakeFreshResponse
+        {
+            get
+            {
+                return new CenterrResponse(this.MyRequest);
+            }
         }
 
         private void FillListResponse()
@@ -279,7 +290,7 @@ namespace CenterrRu
             haveNewRecords = false;
             if (!haveNewRecords)
             {
-                NewRecords = DoOneCheck((CenterrResponse)checkResponse);
+                NewRecords = DoOneCheck((CenterrResponse)checkResponse, true);
                 if (NewRecords != null)
                     if (NewRecords.Count() > 0)
                         haveNewRecords = true;
@@ -303,8 +314,8 @@ namespace CenterrRu
             {
                 if (!HaveNewRecords(checkResponse))
                 {
-                    if (MyRequest.LastError != null)
-                        return "ERROR: " + MyRequest.LastError.Message;
+                    if (MyRequest.LastError() != null)
+                        return "ERROR: " + MyRequest.LastError().Message;
                     else
                         return "";
                 }
@@ -401,6 +412,12 @@ namespace CenterrRu
             List<Centerr> inpList = (List<Centerr>)this.ListResponse; 
             List<Centerr> result = new List<Centerr>();
 
+            if (inpList == null)
+            {
+                lastError = MyRequest.LastError();
+                return result;
+            }
+
             for (int i = 0; i < inpList.Count; i++)
             {
                 //if (inpList[i].ToString() == checkRowItem.ToString())
@@ -416,6 +433,13 @@ namespace CenterrRu
         {
             List<Centerr> inpList = (List<Centerr>)this.ListResponse;
             List<Centerr> result = new List<Centerr>();
+            if (inpList == null)
+            {
+                lastError = MyRequest.LastError();
+                return result;
+            }
+
+            bool needBreak = false;
 
             for (int i = 0; i < inpList.Count; i++)
             {
@@ -423,9 +447,14 @@ namespace CenterrRu
                 {
                     //if (inpList[i].ToString() == checkRows[j].ToString())
                     if (inpList[i].Equals(checkRows[j]))
+                    {
+                        needBreak = true;
                         break;
-                    result.Add(inpList[i]);
-                }                             
+                    }                    
+                }
+                if (needBreak)
+                    continue;
+                result.Add(inpList[i]);
             }
 
             return result;

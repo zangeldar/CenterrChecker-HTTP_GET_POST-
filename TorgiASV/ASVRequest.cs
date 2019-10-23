@@ -12,7 +12,9 @@ namespace TorgiASV
     [Serializable]
     public class ASVRequest : IRequest
     {
-        public Exception LastError { get; private set; }
+        public string Type { get { return "ASV"; } }
+        private Exception lastError;
+        public Exception LastError() { return lastError; }
         public ASVRequest()
         {
             //this.postData = postData;
@@ -140,7 +142,7 @@ namespace TorgiASV
             }
             catch (Exception e)
             {
-                LastError = e;
+                lastError = e;
                 return null;
                 //throw;
             }
@@ -262,6 +264,11 @@ namespace TorgiASV
                 parSet = parSet.Remove(0, 2);
 
             return parSet;
+        }
+
+        public IResponse MakeResponse()
+        {
+            return new ASVResponse(this);
         }
     }
 }

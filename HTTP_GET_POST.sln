@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHTMLParser", "MyHTMLParse
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{AE0E7D30-D360-4D85-A492-CB904B467786}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IAuction", "IAuction\IAuction.csproj", "{0164D8FB-B0B7-4B6E-BFE0-4720F07DF9A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAuction", "IAuction\IAuction.csproj", "{0164D8FB-B0B7-4B6E-BFE0-4720F07DF9A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestMaker", "RequestMaker\RequestMaker.csproj", "{47E3F92B-A9C2-4BE3-B242-C60FFDB8BC4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{0164D8FB-B0B7-4B6E-BFE0-4720F07DF9A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0164D8FB-B0B7-4B6E-BFE0-4720F07DF9A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0164D8FB-B0B7-4B6E-BFE0-4720F07DF9A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47E3F92B-A9C2-4BE3-B242-C60FFDB8BC4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47E3F92B-A9C2-4BE3-B242-C60FFDB8BC4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47E3F92B-A9C2-4BE3-B242-C60FFDB8BC4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47E3F92B-A9C2-4BE3-B242-C60FFDB8BC4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -49,7 +49,7 @@ namespace IAuction
             return result;
         }
 
-        static public bool SaveMyRequestObjectXML(IRequest curObj, string fileName = "lastrequest.req")
+        static public bool SaveMyRequestObjectXML(IRequest curObj, string fileName = "lastrequest.req") // не работает от интерфейса
         {
             bool result = false;
             try
@@ -71,13 +71,15 @@ namespace IAuction
             return result;
         }
 
-        static public IRequest LoadMyRequestObjectXML(string fileName = "lastrequest.req")
+        static public IRequest LoadMyRequestObjectXML(string fileName = "lastrequest.req") // не работает от интерфейса
         {
             IRequest result = null;
-
+            
             try
             {
                 XmlSerializer formatter = new XmlSerializer(typeof(IRequest));
+                //XmlSerializer formatter = new XmlSerializer(Type.GetType("ASVRequest"));
+                
                 using (Stream input = File.OpenRead(fileName))
                 {
                     result = (IRequest)formatter.Deserialize(input);

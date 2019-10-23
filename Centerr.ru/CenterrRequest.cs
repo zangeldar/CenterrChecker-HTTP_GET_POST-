@@ -12,7 +12,9 @@ namespace CenterrRu
     [Serializable]
     public class CenterrRequest : IRequest
     {
-        public Exception LastError { get; private set; }
+        public string Type { get { return "Centerr"; } }
+        private Exception lastError;
+        public Exception LastError() { return lastError; }
         public CenterrRequest()
         {
             InitialiseParameters();
@@ -143,7 +145,7 @@ namespace CenterrRu
             }
             catch (Exception e)
             {
-                LastError = e;
+                lastError = e;
                 return null;
                 //throw;
             }
@@ -402,6 +404,11 @@ ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton                    
                 parSet = parSet.Remove(0, 2);
 
             return parSet;
+        }
+
+        public IResponse MakeResponse()
+        {
+            return new CenterrResponse(this);
         }
     }
 }
