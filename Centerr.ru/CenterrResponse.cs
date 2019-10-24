@@ -11,7 +11,7 @@ namespace CenterrRu
     [Serializable]
     public class CenterrResponse : IResponse
     {        
-        public string SiteName { get { return "Центр реализации"; } }
+        public string SiteName { get { return "Центр Реализации"; } }
         private Exception lastError;
         public Exception LastError() { return lastError; }
         bool freshResponse = false;
@@ -244,7 +244,7 @@ namespace CenterrRu
                 }
             }
             catch (Exception e)
-            {
+            {                
                 result = null;
                 //throw;
             }

@@ -131,16 +131,13 @@ namespace CenterrRu
                 stream.Write(data, 0, data.Length);
             }
              */
-
-            using (StreamWriter writer = new StreamWriter(request.GetRequestStream(), new UTF8Encoding()))
-            {
-                writer.WriteLine(postData);                
-            }
-
-
             HttpWebResponse response;
             try
             {
+                using (StreamWriter writer = new StreamWriter(request.GetRequestStream(), new UTF8Encoding()))
+                {
+                    writer.WriteLine(postData);
+                }            
                  response = (HttpWebResponse)request.GetResponse();
             }
             catch (Exception e)

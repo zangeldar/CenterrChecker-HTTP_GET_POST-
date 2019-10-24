@@ -11,11 +11,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CenterrRu", "Centerr.ru\Cen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHTMLParser", "MyHTMLParser\MyHTMLParser.csproj", "{8D0ED4B9-7A1A-40B0-92EA-E5399C2CFEE3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{AE0E7D30-D360-4D85-A492-CB904B467786}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp_WPF", "ConsoleApp\ConsoleApp_WPF.csproj", "{AE0E7D30-D360-4D85-A492-CB904B467786}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAuction", "IAuction\IAuction.csproj", "{0164D8FB-B0B7-4B6E-BFE0-4720F07DF9A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestMaker", "RequestMaker\RequestMaker.csproj", "{47E3F92B-A9C2-4BE3-B242-C60FFDB8BC4B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestMaker_WPF", "RequestMaker\RequestMaker_WPF.csproj", "{47E3F92B-A9C2-4BE3-B242-C60FFDB8BC4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp_WIN", "ConsoleApp_WIN\ConsoleApp_WIN.csproj", "{468F1207-620F-4216-AA80-5E591737089F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ED16E334-860E-4A6B-BC5D-C8E3AE0A66D5} = {ED16E334-860E-4A6B-BC5D-C8E3AE0A66D5}
+		{7E5AF8C4-F757-451D-A8A2-333EB25E30C5} = {7E5AF8C4-F757-451D-A8A2-333EB25E30C5}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestMaker_WIN", "RequestMaker_WIN\RequestMaker_WIN.csproj", "{85EAB550-C4E4-42CE-8A07-7CAF2186142C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +59,14 @@ Global
 		{47E3F92B-A9C2-4BE3-B242-C60FFDB8BC4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47E3F92B-A9C2-4BE3-B242-C60FFDB8BC4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47E3F92B-A9C2-4BE3-B242-C60FFDB8BC4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{468F1207-620F-4216-AA80-5E591737089F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{468F1207-620F-4216-AA80-5E591737089F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{468F1207-620F-4216-AA80-5E591737089F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{468F1207-620F-4216-AA80-5E591737089F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85EAB550-C4E4-42CE-8A07-7CAF2186142C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85EAB550-C4E4-42CE-8A07-7CAF2186142C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85EAB550-C4E4-42CE-8A07-7CAF2186142C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85EAB550-C4E4-42CE-8A07-7CAF2186142C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

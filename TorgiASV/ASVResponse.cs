@@ -17,9 +17,7 @@ namespace TorgiASV
         public string SiteName { get { return "Торги АСВ"; } }
         public IRequest MyRequest { get; private set; }
         public IEnumerable<IObject> ListResponse { get; private set; }
-
         public IEnumerable<IObject> NewRecords { get; private set; }
-
         public ASVResponse(string searchStr)
         {
             this.MyRequest = new ASVRequest(searchStr);
