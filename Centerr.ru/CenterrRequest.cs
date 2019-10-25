@@ -13,6 +13,7 @@ namespace CenterrRu
     public class CenterrRequest : IRequest
     {
         public string Type { get { return "Centerr"; } }
+        public string ServiceURL { get { return "http://bankrupt.centerr.ru"; } }
         private Exception lastError;
         public Exception LastError() { return lastError; }
         public CenterrRequest()
@@ -103,6 +104,53 @@ namespace CenterrRu
                 "&hiddenInputToUpdateATBuffer_CommonToolkitScripts=1&__ASYNCPOST=true&ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton=Искать торги";
         }
 
+        private string myRawPostData()
+        {
+            if (!initialised)
+                return null;
+            string _CVIEWSTATE = _cviewstate;
+            string _EVENTVALIDATION = _eventvalidation;
+            return "ctl00$ctl00$BodyScripts$BodyScripts$scripts=ctl00$ctl00$MainExpandableArea$phExpandCollapse$UpdatePanel1|ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton&__EVENTTARGET=&__EVENTARGUMENT=&__CVIEWSTATE=" +
+                _CVIEWSTATE +
+                "&__VIEWSTATE=&__SCROLLPOSITIONX=0&__SCROLLPOSITIONY=0&__EVENTVALIDATION=" +
+                _EVENTVALIDATION +
+                "&ctl00$ctl00$LeftContentLogin$ctl00$Login1$UserName=&ctl00$ctl00$LeftContentLogin$ctl00$Login1$Password=&ctl00$ctl00$LeftContentSideMenu$mSideMenu$extAccordionMenu_AccordionExtender_ClientState=0&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_lotNumber_лота=" +
+                myPar["vPurchaseLot_lotNumber"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_purchaseNumber_торга=" +
+                myPar["vPurchaseLot_purchaseNumber"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_lotTitle_Наименованиелота=" +
+                myPar["vPurchaseLot_lotTitle"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_fullTitle_Наименованиеторга=" +
+                myPar["vPurchaseLot_fullTitle"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_contactName_AliasFullOrganizerTitle=" +
+                myPar["Party_contactName"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_InitialPrice_Начальнаяценаотруб=" +
+                myPar["vPurchaseLot_InitialPrice"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_inn_ИННорганизатора=" +
+                myPar["Party_inn"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_bargainTypeID_Типторгов$ddlBargainType=" +
+                myPar["vPurchaseLot_bargainTypeID"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_kpp_КППорганизатора=" +
+                myPar["Party_kpp"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_ParticipationFormID_Форматоргапосоставуучастников=" +
+                myPar["vPurchaseLot_ParticipationFormID"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_registeredAddress_Адресрегистрацииорганизатора=" +
+                myPar["Party_registeredAddress"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$BargainType_PriceForm_Формапредставленияпредложенийоцене=" +
+                myPar["BargainType_PriceForm"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptName_Должник=" +
+                myPar["vPurchaseLot_BankruptName"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_purchaseStatusID_Статус=" +
+                myPar["vPurchaseLot_purchaseStatusID"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptINN_ИННдолжника=" +
+                myPar["vPurchaseLot_BankruptINN"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptRegionID_Региондолжника=" +
+                myPar["vPurchaseLot_BankruptRegionID"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptRegionID_Региондолжника_desc=" +
+                myPar["vPurchaseLot_BankruptRegionID_desc"] +
+                "&hiddenInputToUpdateATBuffer_CommonToolkitScripts=1&__ASYNCPOST=true&ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton=Искать торги";
+        }
+
         private string makeAnPost(string url = "http://bankrupt.centerr.ru", string postData="")
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -151,6 +199,10 @@ namespace CenterrRu
 
             return lastAnswer;
         }
+        string MakePost(string postData = "")
+        {
+            return makeAnPost(ServiceURL, myRawPostData());
+        }
         
         // GET a fresh result
         public string GetResponse { 
@@ -159,7 +211,8 @@ namespace CenterrRu
                 if (!initialised)       // initialized already?
                     if (!Initialize())  // if not then Initialize now!
                         return null;    // if not success then break
-                return makeAnPost("http://bankrupt.centerr.ru", myRawPostData(_cviewstate,_eventvalidation)); 
+                //return makeAnPost("http://bankrupt.centerr.ru", myRawPostData(_cviewstate,_eventvalidation)); 
+                return makeAnPost("http://bankrupt.centerr.ru", myRawPostData());
             } 
         }
 
@@ -182,13 +235,13 @@ namespace CenterrRu
         private SerializableDictionary<string, string> myPar;
         public SerializableDictionary<string, string> MyParameters { get { return myPar; } set { myPar = value; } }
 
-        public string SiteName { get { return "Центр реализации"; } }
+        public string SiteName { get { return "Центр Реализации"; } }
                 
         public string SearchString {
             get { return myPar["vPurchaseLot_lotTitle"]; }
             set { myPar["vPurchaseLot_lotTitle"] = value; }
         }
-
+        
         private void InitialiseParameters()
         {
             //myPar = new Dictionary<string, string>();
@@ -406,6 +459,20 @@ ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton                    
         public IResponse MakeResponse()
         {
             return new CenterrResponse(this);
+        }
+
+        public string AllParametersInString(string separator = "")
+        {
+            string parSet = "";
+
+            foreach (string item in this.MyParameters.Values)
+                if (item.Length > 0 & item != "10,11,12,111,13")
+                    parSet += ", " + item;
+
+            if (parSet.Length > separator.Length)
+                parSet = parSet.Remove(0, separator.Length);
+
+            return parSet;
         }
     }
 }

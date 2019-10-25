@@ -3,6 +3,7 @@ using TorgiASV;
 using System.Collections.Generic;
 using System.IO;
 using MyHTMLParser;
+using IAuction;
 
 namespace TEST
 {
@@ -10,24 +11,16 @@ namespace TEST
     {
         static void Main(string[] args)
         {
+            ATorgRequest testReq;
+            testReq = new CenterrRequestNew("пирит");
+            string fileName = testReq.Type + "_" + testReq.AllParametersInString() + ".req";
+            testReq.SaveToXml(fileName);
+
+            testReq = new ASVRequestNew();
+            testReq = (ASVRequestNew)testReq.LoadFromXML(fileName);
             
-            StringUri url11 = new StringUri() { ItemString = "string1", ItemUri = "uri1" };
-            StringUri url12 = new StringUri() { ItemString = "string1", ItemUri = "uri2" };
-            StringUri url21 = new StringUri() { ItemString = "string2", ItemUri = "uri1" };
-            StringUri url22 = new StringUri() { ItemString = "string2", ItemUri = "uri2" };
-            StringUri url00 = new StringUri() { ItemString = "string1", ItemUri = "uri1" };
-
-            Console.WriteLine(url11.Equals(url00));
-            Console.WriteLine(url11.Equals(url12));
-            Console.WriteLine(url11.Equals(url21));
-            Console.WriteLine(url11.Equals(url22));
-
-
-
             //string testStr = @"<ul class=""menu__list menu__list--table width-full>";
             //TESTfillAttr(testStr);
-
-
 
             //Parser.MyParse(File.ReadAllText("20191018_HTML.txt"));
 

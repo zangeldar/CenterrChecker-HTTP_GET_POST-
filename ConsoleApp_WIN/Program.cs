@@ -70,7 +70,7 @@ namespace ConsoleApp_WIN
                     {
                         if (debug)
                             Console.WriteLine("Resp.found: " + item);
-                        IResponse curResp = FileIO.LoadMyObject(item);
+                        IResponse curResp = SFileIO.LoadMyObject(item);
                         if (curResp != null)
                         {
                             myRespObjects.Add(curResp);
@@ -161,10 +161,10 @@ namespace ConsoleApp_WIN
                         if (newResp.MyRequest.LastError() != null)
                             msg += " : " + newResp.MyRequest.LastError().Message;
                         Console.WriteLine(msg);
-                        SendMailRemind("Ответ получен, но не содержит результатов! Возможно, по Вашему запросу теперь ничего не найдено. Если на сайте \"" 
-                            + newResp.SiteName + "\" по запросу \"" + newResp.MyRequest.GetRequestStringPrintable() 
-                            + "\" есть результаты, тогда обратитесь к разработчику!" + Environment.NewLine 
-                            + "Сообщение об ошибке: " + Environment.NewLine 
+                        SendMailRemind("Ответ получен, но не содержит результатов! Возможно, по Вашему запросу теперь ничего не найдено. Если на сайте \""
+                            + newResp.SiteName + "\" по запросу \"" + newResp.MyRequest.AllParametersInString("_")
+                            + "\" есть результаты, тогда обратитесь к разработчику!" + Environment.NewLine
+                            + "Сообщение об ошибке: " + Environment.NewLine
                             + msg, "[" + newResp.SiteName + "] ВНИМАНИЕ! Получен пустой ответ.", MailRecipients);
                     }
                     else if (newResp.HaveNewRecords(oldItem))
@@ -180,10 +180,8 @@ namespace ConsoleApp_WIN
                         Console.WriteLine(newResp.SiteName + ": Nothing new..");
                     }
                 }                    
-            }
-                
+            }                
             Console.WriteLine("Well done!");
-
         }
 
         static bool SendMailRemind(string outText, string outSubj = "[Центр Реализации] Появились новые предложения по Вашему запросу!", List<string> recpList = null)
@@ -197,7 +195,7 @@ namespace ConsoleApp_WIN
             MailMessage myMessage = new MailMessage();
             myMessage.From = new MailAddress(mailFrom);
             myMessage.To.Add(new MailAddress("eldar@nazmi.ru"));
-            if (recpList != null)
+            if (recpList != null)                
                 foreach (string item in recpList)
                     myMessage.To.Add(new MailAddress(item));
             myMessage.Subject = outSubj;

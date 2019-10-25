@@ -13,6 +13,7 @@ namespace TorgiASV
     public class ASVRequest : IRequest
     {
         public string Type { get { return "ASV"; } }
+        public string ServiceURL { get { return "https://www.torgiasv.ru"; } }
         private Exception lastError;
         public Exception LastError() { return lastError; }
         public ASVRequest()
@@ -190,6 +191,7 @@ namespace TorgiASV
 
                 result += item.Value;
             }
+            return result;
             if (request)
                 return result + ".req";
 
@@ -269,6 +271,20 @@ namespace TorgiASV
         public IResponse MakeResponse()
         {
             return new ASVResponse(this);
+        }
+
+        public string AllParametersInString(string separator = "")
+        {
+            string parSet = "";
+
+            foreach (string item in this.MyParameters.Values)
+                if (item.Length > 0 & item != "10,11,12,111,13")
+                    parSet += ", " + item;
+
+            if (parSet.Length > separator.Length)
+                parSet = parSet.Remove(0, separator.Length);
+
+            return parSet;
         }
     }
 }

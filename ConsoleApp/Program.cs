@@ -56,7 +56,7 @@ namespace ConsoleApp
                 {
                     foreach (string item in Directory.GetFiles(responseDir, "*.resp"))
                     {
-                        IResponse curResp = FileIO.LoadMyObject(item);
+                        IResponse curResp = SFileIO.LoadMyObject(item);
                         if (curResp != null)
                             myRespObjects.Add(curResp);
                     }

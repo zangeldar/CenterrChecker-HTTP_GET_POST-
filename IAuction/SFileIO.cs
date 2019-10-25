@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace IAuction
 {
-    public static class FileIO
+    public static class SFileIO
     {
         public static bool SaveMyObject(IResponse curObj, string fileName = "temp.resp")
         {

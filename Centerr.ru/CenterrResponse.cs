@@ -57,7 +57,7 @@ namespace CenterrRu
                 return;
 
             //  Разбор результатов
-            myWorkAnswer = myHTMLParser.NormalizeString(myWorkAnswer);
+            //myWorkAnswer = myHTMLParser.NormalizeString(myWorkAnswer);
             myHTMLParser myHtmlParser = new myHTMLParser();
             List<Tag> myTagRes = myHtmlParser.getTags(myWorkAnswer, "table");
             List<List<StringUri>> myTable = new List<List<StringUri>>();
