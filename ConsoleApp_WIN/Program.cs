@@ -184,7 +184,7 @@ namespace ConsoleApp_WIN
             Console.WriteLine("Well done!");
         }
 
-        static bool SendMailRemind(string outText, string outSubj = "[Центр Реализации] Появились новые предложения по Вашему запросу!", List<string> recpList = null)
+        static bool SendMailRemind(string outText, string outSubj = "[Торговая площадка] Появились новые предложения по Вашему запросу!", List<string> recpList = null)
         {
             string mailFrom = "bot@nazmi.ru";
 
@@ -198,9 +198,10 @@ namespace ConsoleApp_WIN
             if (recpList != null)                
                 foreach (string item in recpList)
                     myMessage.To.Add(new MailAddress(item));
-            myMessage.Subject = outSubj;
+            myMessage.Subject = outSubj + " [" + Environment.MachineName + "]";
             myMessage.Body = outText;
             myMessage.IsBodyHtml = true;
+            
 
             try
             {
