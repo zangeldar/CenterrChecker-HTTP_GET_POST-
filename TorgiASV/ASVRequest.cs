@@ -165,6 +165,11 @@ namespace TorgiASV
             InitialiseParameters();
         }
 
+        public void ResetInit()
+        {
+            initialised = false;
+        }
+
         public string CreateFileName(bool request = false)
         {
             return GenerateFileName(this, request);

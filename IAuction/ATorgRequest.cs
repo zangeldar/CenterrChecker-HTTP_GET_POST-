@@ -129,6 +129,11 @@ namespace IAuction
             InitialiseParameters();
         }
 
+        public void ResetInit()
+        {
+            initialised = false;
+        }
+
         public IRequest LoadFromXML(string fileName = "lastrequest.req")
         {
             return LoadMyRequestObjectXML(this, fileName);

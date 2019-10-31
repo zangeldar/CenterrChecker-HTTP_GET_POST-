@@ -28,19 +28,33 @@ namespace IAuction
         ///
         protected abstract string CreateTableForMailing(bool html = true);
         protected abstract string PrepareMailBody(string inpTableStr, int cnt, bool html = true);
+        /// <summary>
+        /// Конструктор для получения Результата по новому Запросу из строки
+        /// </summary>
+        /// <param name="searchStr"></param>
         public ATorgResponse(string searchStr)
         {
             // need to make an response
             //this.MyRequest = new ATorgRequest(searchStr);
             //FillListResponse();
         }
+        /// <summary>
+        /// Конструктор для получения нового Результата по имеющемуся Запросу
+        /// </summary>
+        /// <param name="myReq">Имеющийся Запрос</param>
         public ATorgResponse(ATorgRequest myReq)
         {
             if (!(myReq is IRequest))
                 return;
             this.MyRequest = myReq;
+            this.MyRequest.ResetInit();
             FillListResponse();
         }
+        /// <summary>
+        /// Конструктор для создания готового Результата из Запроса и списка Записей Результата
+        /// </summary>
+        /// <param name="myReq"></param>
+        /// <param name="listResp"></param>
         public ATorgResponse(ATorgRequest myReq, List<IObject> listResp)
         {
             this.MyRequest = myReq;

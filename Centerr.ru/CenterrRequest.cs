@@ -211,8 +211,8 @@ namespace CenterrRu
                 if (!initialised)       // initialized already?
                     if (!Initialize())  // if not then Initialize now!
                         return null;    // if not success then break
-                //return makeAnPost("http://bankrupt.centerr.ru", myRawPostData(_cviewstate,_eventvalidation)); 
-                return makeAnPost("http://bankrupt.centerr.ru", myRawPostData());
+                //return makeAnPost("https://bankrupt.centerr.ru", myRawPostData(_cviewstate,_eventvalidation)); 
+                return makeAnPost("https://bankrupt.centerr.ru", myRawPostData());
             } 
         }
 
@@ -270,6 +270,11 @@ namespace CenterrRu
         public void ResetParameters()
         {
             InitialiseParameters();
+        }
+
+        public void ResetInit()
+        {
+            initialised = false;
         }
 
         //private Dictionary<string, string> myPar;

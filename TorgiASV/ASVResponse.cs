@@ -29,6 +29,7 @@ namespace TorgiASV
             if (!(myReq is ASVRequest))
                 return;
             this.MyRequest = myReq;
+            this.MyRequest.ResetInit();
             FillListResponse();
         }
 

@@ -32,9 +32,15 @@ namespace CenterrRu
             if (!(myReq is CenterrRequest))
                 return;
             this.MyRequest = myReq;
+            this.MyRequest.ResetInit();
             FillListResponse();
         }
 
+        /// <summary>
+        /// Конструктор класса в готовом состоянии
+        /// </summary>
+        /// <param name="myReq"></param>
+        /// <param name="listResp"></param>
         public CenterrResponse(CenterrRequest myReq, List<Centerr> listResp)
         {
             this.MyRequest = myReq;
