@@ -7,9 +7,9 @@ namespace IAuction
 {
     public abstract class ATorg : IObject
     {
-        /// <summary>
-        /// Часть интерфейса
-        /// </summary>
+        //
+        // Часть интерфейса
+        //
         public abstract string internalID { get; }
         public abstract string LotNameStr { get; }
         public abstract string LotNameUrl { get; }

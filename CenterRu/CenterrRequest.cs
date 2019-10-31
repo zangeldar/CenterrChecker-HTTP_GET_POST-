@@ -4,23 +4,22 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Xml.Serialization;
 
-namespace TEST
-{    
+namespace CenterRu
+{
     [Serializable]
-    public class CenterrRequestNew : ATorgRequest, IRequest
+    class CenterrRequest : ATorgRequest
     {
         override public string SiteName { get { return "Центр Реализации"; } }
         override public string Type { get { return "Centerr"; } }
         override public string ServiceURL { get { return "http://bankrupt.centerr.ru"; } }
         //public Exception LastError() { return lastError; }
-        public CenterrRequestNew()
+        public CenterrRequest()
         {
             InitialiseParameters();
         }
 
-        public CenterrRequestNew(string searchStr)
+        public CenterrRequest(string searchStr)
         {
             InitialiseParameters();
             SearchString = searchStr;
@@ -28,7 +27,7 @@ namespace TEST
 
         private string _cviewstate;
         private string _eventvalidation;
-        
+
         override protected bool Initialize()
         {
             getBlankResponse();
@@ -156,7 +155,7 @@ namespace TEST
         protected override string MakePost(string postData = "")
         {
             return makeAnPost(ServiceURL, postData);
-        }        
+        }
 
         override public string SearchString
         {
@@ -211,123 +210,6 @@ namespace TEST
         {
             //return new CenterrResponse(this);
             throw new NotImplementedException("Making Response from request will be implemented later");
-        }
-    }
-
-    public class ASVRequestNew : ATorgRequest, IRequest
-    {
-        public override string Type { get { return "ASV"; } }
-
-        public override string SiteName { get { return "Торги АСВ"; } }
-
-        public override string ServiceURL { get { return "https://www.torgiasv.ru"; } }
-
-        public override string SearchString { get { return MyParameters["q"]; } set { MyParameters["q"] = value; } }
-        
-        protected override string getBlankResponse()
-        {
-            initialised = true;
-            return "";
-        }
-
-        protected override void InitialiseParameters()
-        {
-            MyParameters = new SerializableDictionary<string, string>
-            {
-                { "q", "" },                                //  строка поиска
-                //{ "show", "" },                             //  представление результата (одно из вариантов значения: lot) - для разбора бесполезно                
-            };
-        }
-
-        protected override bool Initialize()
-        {
-            getBlankResponse();
-            return initialised;
-        }
-
-        protected override string MakePost(string postData = "")
-        {
-            return makeAnPost(ServiceURL, postData);
-        }
-
-        protected override string myRawPostData()
-        {
-            string result = "";
-            bool first = true;
-            foreach (KeyValuePair<string, string> item in MyParameters)
-            {
-                if (item.Value != "")
-                {
-                    if (first)
-                        result += "?";
-                    else
-                        result += "&";
-                    result += item.Key + "=" + item.Value;
-                }
-            }
-
-            return "/search/" + result;
-        }
-        public override IResponse MakeResponse()
-        {
-            //return new CenterrResponse(this);
-            throw new NotImplementedException("Making Response from request will be implemented later");
-        }
-
-        private string makeAnPost(string url = "https://www.torgiasv.ru", string postData = "")
-        {
-            ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
-            var request = (HttpWebRequest)WebRequest.Create(url + postData);
-            postData = postData.Replace("+", "%2B");
-            request.Method = "GET";
-            request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
-            //request.ContentLength = data.Length;            
-            //request.SendChunked = true;
-
-            //request.Headers.Add("Accept", "*/*");
-            request.Accept = "*/*";
-            //request.Headers.Add("X-Requested-With", "XMLHttpRequest");
-            //request.Headers.Add("X-MicrosoftAjax", "Delta=true");
-            //request.Headers.Add("Cache-Control", "no-cache");
-            //request.Headers.Add("Referer",              "https://www.torgiasv.ru");
-            request.Referer = url;
-            request.Headers.Add("Accept-Language", "ru-RU");    //Accept-Language:ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
-            //request.Headers.Add("User-Agent",           "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko");
-            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko";
-            request.Headers.Add("DNT", "1");
-            request.Headers.Add("Accept-Encoding", "gzip, deflate");
-
-            request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-
-            /*
-            using (var stream = request.GetRequestStream())
-            {
-                stream.Write(data, 0, data.Length);
-            }
-             */
-
-            HttpWebResponse response;
-
-            try
-            {
-                response = (HttpWebResponse)request.GetResponse();
-            }
-            catch (Exception e)
-            {
-                lastError = e;
-                return null;
-                //throw;
-            }
-
-            lastAnswer = new StreamReader(response.GetResponseStream()).ReadToEnd();    // put result in lastAnswer to cache   
-
-            response.Dispose();
-
-            return lastAnswer;
-        }
-        public bool AcceptAllCertifications(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certification, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
-        {
-            return true;
         }
     }
 }

@@ -36,7 +36,7 @@ namespace IAuction
         {
             // need to make an response
             //this.MyRequest = new ATorgRequest(searchStr);
-            //FillListResponse();
+            FillListResponse();
         }
         /// <summary>
         /// Конструктор для получения нового Результата по имеющемуся Запросу
@@ -70,8 +70,8 @@ namespace IAuction
 
         private Exception lastError;
         public Exception LastError() { return lastError; }
-        public IEnumerable<IObject> ListResponse { get; private set; }
-        public IRequest MyRequest { get; private set; }
+        public IEnumerable<IObject> ListResponse { get; protected set; }
+        public IRequest MyRequest { get; protected set; }
         public IEnumerable<IObject> NewRecords { get; private set; }                
         public IResponse MakeFreshResponse { get; protected set; }
         private bool haveNewRecords;
