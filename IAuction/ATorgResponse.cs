@@ -6,6 +6,7 @@ using System.Text;
 
 namespace IAuction
 {
+    [Serializable]
     abstract public class ATorgResponse : IResponse
     {
         /// <summary>
@@ -150,9 +151,9 @@ namespace IAuction
             string itemsTable = CreateTableForMailing(html);
             return PrepareMailBody(itemsTable, (NewRecords.Count()>20), html);
         }
-        private List<IObject> DoOneCheck(IResponse checkData = null, bool detail = false)
+        private IEnumerable<IObject> DoOneCheck(IResponse checkData = null, bool detail = false)
         {
-            List<IObject> curListResponse = (List<IObject>)this.ListResponse;
+            IEnumerable<IObject> curListResponse = this.ListResponse;
             if (checkData != null)
                 if (Enumerable.SequenceEqual(this.MyRequest.MyParameters, checkData.MyRequest.MyParameters)) // если запросы одинаковые, то
                     if (detail)                                                                     // если нужна детальная проверка, тогда

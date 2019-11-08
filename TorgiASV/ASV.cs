@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace TorgiASV
 {
+    //[Serializable]
     public class ASV : ATorg
     {
         public ASV(List<Tag> itemsList)
@@ -74,7 +75,52 @@ namespace TorgiASV
 
         public override string ToString(bool html)
         {
-            throw new NotImplementedException();
+            string result = "";
+
+            if (html)
+                result += String.Format("<tr><td>" +
+                    @"{0}" + "</td><td>" +
+                    @"{1}" + "</td><td>" +
+                    @"<a href =""{2}"">{3}</a>" + "</td><td>" +
+                    @"{4}" + "</td><td>" +
+                    @"{5}" + "</td><td>" +
+                    @"{6}" + "</td><td>" +
+                    @"{7}" + "</td></tr>",
+                    internalID,
+                    LotNumberStr,
+                    LotName.ItemUri, LotName.ItemString,
+                    LotDesc,
+                    TorgBank,
+                    TorgRegion,
+                    PriceStart
+                    );
+            else
+                result += String.Format(
+                    @"{0}" + ";" +
+                    @"{1}" + ";" +
+                    @"{3}" + ";" +
+                    @"{4}" + ";" +
+                    @"{5}" + ";" +
+                    @"{6}" + ";" +
+                    @"{7}" + Environment.NewLine +
+                    // строка таблицы с ссылками                    
+                    @"" + ";" +
+                    @"" + ";" +
+                    @"{2}" + ";" +
+                    @"" + ";" +
+                    @"" + ";" +
+                    @"" + ";" +
+                    @"" + Environment.NewLine,
+                    internalID,
+                    LotNumberStr,
+                    LotName.ItemUri, LotName.ItemString,
+                    LotDesc,
+                    TorgBank,
+                    TorgRegion,
+                    PriceStart
+                    );
+
+            return result;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace CenterRu
 {
+    //[Serializable]
     public class Centerr : ATorg
     {
         public Centerr(List<StringUri> itemsList)

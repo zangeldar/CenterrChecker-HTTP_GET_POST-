@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Centerr.ru_OLD\CenterrRu_OLD.csproj" />
-    <ProjectReference Include="..\TorgiASV_OLD\TorgiASV_OLD.csproj" />
+    <ProjectReference Include="..\CenterRu\CenterRu.csproj" />
+    <ProjectReference Include="..\TorgiASV\TorgiASV.csproj" />
   </ItemGroup>
 
 </Project>

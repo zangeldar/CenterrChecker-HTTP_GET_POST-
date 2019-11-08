@@ -6,7 +6,8 @@ using System.Text;
 
 namespace TorgiASV
 {
-    class ASVResponse : ATorgResponse
+    //[Serializable]
+    public class ASVResponse : ATorgResponse
     {
         public override string SiteName => "Торги АСВ";
 

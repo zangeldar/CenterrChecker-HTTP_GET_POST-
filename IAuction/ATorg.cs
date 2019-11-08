@@ -5,6 +5,7 @@ using System.Text;
 
 namespace IAuction
 {
+    [Serializable]
     public abstract class ATorg : IObject
     {
         //

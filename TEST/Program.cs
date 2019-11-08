@@ -4,21 +4,44 @@ using System.Collections.Generic;
 using System.IO;
 using MyHTMLParser;
 using IAuction;
+//using CenterrRu;
+using CenterRu;
 
 namespace TEST
 {
     class Program
     {
-        static void Main(string[] args)
+        static private void DoTest(IRequest testReq, ref IResponse testResp)
         {
-            ATorgRequest testReq;
-            testReq = new CenterrRequestNew("пирит");
-            string fileName = testReq.Type + "_" + testReq.AllParametersInString() + ".req";
-            testReq.SaveToXml(fileName);
+            string ResultStr = "";
+            string fileName = testReq.Type + "_" + testReq.AllParametersInString();
+            testReq.SaveToXml(fileName + ".req");
+                        
+            testResp = testReq.MakeResponse();            
+            testResp.SaveToXml(fileName + ".resp");
 
-            testReq = new ASVRequestNew();
+            ResultStr = testResp.NewRecordsOutput(null, false);            
+            File.WriteAllText(fileName + ".result.csv", ResultStr, System.Text.Encoding.UTF8);
+        }
+
+        static void Main(string[] args)
+        {            
+            IRequest testReq;
+            IResponse testResp = null;            
+
+            testReq = new CenterrRequest("пирит");
+            DoTest(testReq, ref testResp);
+            testReq = new ASVRequest("пирит");
+            DoTest(testReq, ref testResp);
+
+            Console.WriteLine("Well done.");
+            Console.ReadKey();
+
+            /*
+            testReq = new ASVRequest();
             testReq = (ASVRequestNew)testReq.LoadFromXML(fileName);
-            
+            */
+            /*
             //string testStr = @"<ul class=""menu__list menu__list--table width-full>";
             //TESTfillAttr(testStr);
 
@@ -53,6 +76,7 @@ namespace TEST
             result = curTest.GetTest(testData, "tasv");
             Console.WriteLine(result);
             File.WriteAllText("tasv.result.csv", result, System.Text.Encoding.UTF8);
+            */
         }
     }
 }

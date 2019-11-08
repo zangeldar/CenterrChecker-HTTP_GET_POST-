@@ -7,7 +7,8 @@ using System.Text;
 
 namespace TorgiASV
 {
-    class ASVRequest : ATorgRequest
+    //[Serializable]
+    public class ASVRequest : ATorgRequest
     {
         public ASVRequest():base() {}
 

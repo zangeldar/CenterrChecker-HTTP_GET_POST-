@@ -6,8 +6,8 @@ using System.Text;
 
 namespace CenterRu
 {
-    [Serializable]
-    class CenterrResponse : ATorgResponse
+    //[Serializable]
+    public class CenterrResponse : ATorgResponse
     {
         public CenterrResponse(string searchStr) : base(searchStr)
         {

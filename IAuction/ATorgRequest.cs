@@ -28,13 +28,14 @@ namespace IAuction
 
         
         public abstract IResponse MakeResponse();
+        //public abstract ATorgResponse MakeResponse();
         //public abstract void ResetParameters();
         //public abstract bool SaveToXml(string fileName = "lastrequest.req");
 
         /////////////////////////////
         //часть абстрактного класса
         /////////////////////////////
-        
+
         public SerializableDictionary<string, string> MyParameters { get; set; }        
 
         /// <summary>
