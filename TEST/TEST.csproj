@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Centerr.ru_OLD\CenterrRu_OLD.csproj" />
+    <ProjectReference Include="..\TorgiASV_OLD\TorgiASV_OLD.csproj" />
+  </ItemGroup>
+
+</Project>
