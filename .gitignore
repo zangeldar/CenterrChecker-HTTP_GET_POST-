@@ -187,3 +187,6 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/.vs/HTTP_GET_POST/v16/Server/sqlite3/storage.ide
+/.vs/HTTP_GET_POST/DesignTimeBuild
+/.vs/HTTP_GET_POST/v16/Server/sqlite3
