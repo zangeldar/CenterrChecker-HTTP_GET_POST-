@@ -187,7 +187,9 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
 /.vs/HTTP_GET_POST/v16/Server/sqlite3/db.lock
 /.vs/HTTP_GET_POST/v16/Server/sqlite3/storage.ide
 /.vs/HTTP_GET_POST/v16/Server/sqlite3/storage.ide-shm
 /.vs/HTTP_GET_POST/v16/Server/sqlite3/storage.ide-wal
+
