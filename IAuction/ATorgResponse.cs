@@ -27,7 +27,35 @@ namespace IAuction
         ///часть абстрактного класса
         ///
         protected abstract string CreateTableForMailing(bool html = true);
-        protected abstract string PrepareMailBody(string inpTableStr, int cnt, bool html = true);
+        protected string PrepareMailBody(string inpTableStr, bool needCheckOnSite=false, bool html = true)
+        {
+            string messageBody = "";
+            string parSet = "";
+            string newLine = Environment.NewLine;
+                        
+            parSet = this.MyRequest.AllParametersInString(", ");
+
+            if (html)
+            {
+                newLine = "<br>";
+                messageBody += String.Format(@"<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Transitional//EN"" ""http://www.=w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"">");
+                messageBody += String.Format(@"<html xmlns=""http://www.w3.org/1999/xhtml"">");
+                messageBody += String.Format(@"<head>");
+                messageBody += String.Format(@"<meta http-equiv=""Content-Type"" content=""text/html; charset=iso-8859-=1"" />");
+                messageBody += String.Format(@"</head>");
+                messageBody += String.Format(@"<body marginwidth=""0"" marginheight=""0"" leftmargin=""0"" topmargin=""0"" style=""width: 100 % !important"">");
+            }
+            messageBody += String.Format("По Вашему запросу: \"{0}\" были обнаружены новые записи:{2}{1}", parSet, inpTableStr, newLine);
+
+            if (needCheckOnSite)
+                messageBody += newLine + newLine + " Возможно, есть и другие новые записи! Обязательно проверьте на сайте!!";
+            if (html)
+            {
+                messageBody += String.Format(@"</body>");
+                messageBody += "</html>";
+            }
+            return messageBody;
+        }
         /// <summary>
         /// Конструктор для получения Результата по новому Запросу из строки
         /// </summary>
@@ -61,8 +89,27 @@ namespace IAuction
             this.ListResponse = listResp;
             freshResponse = false;
         }
-        private bool freshResponse = false;
+        protected bool freshResponse = false;
         protected abstract void FillListResponse();
+        static protected List<List<StringUri>> GetResultTableAsList(List<List<StringUri>> inpList)
+        {
+            List<List<StringUri>> resList = new List<List<StringUri>>();
+
+            // 1. Calculate MAX columns count
+            int colCount = 0;
+            foreach (List<StringUri> itemList in inpList)
+                colCount = Math.Max(colCount, itemList.Count);
+
+            // 2. Fill result rows
+            foreach (List<StringUri> itemListRows in inpList)
+            {
+                if (itemListRows.Count != colCount)     // Skip all rows that have not another count of columns instead MAX columns count
+                    continue;
+                resList.Add(itemListRows);
+            }
+
+            return resList;
+        }
 
         /////////////////////////////
         ///часть реализации интерфейса
@@ -101,7 +148,7 @@ namespace IAuction
             }
 
             string itemsTable = CreateTableForMailing(html);
-            return PrepareMailBody(itemsTable, NewRecords.Count(), html);
+            return PrepareMailBody(itemsTable, (NewRecords.Count()>20), html);
         }
         private List<IObject> DoOneCheck(IResponse checkData = null, bool detail = false)
         {
@@ -162,6 +209,6 @@ namespace IAuction
                 result.Add(inpList[i]);
             }
             return result;
-        }
+        }        
     }
 }

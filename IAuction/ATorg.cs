@@ -10,26 +10,21 @@ namespace IAuction
         //
         // Часть интерфейса
         //
-        public abstract string internalID { get; }
-        public abstract string LotNameStr { get; }
-        public abstract string LotNameUrl { get; }
-        public abstract string PriceStart { get; }
-        public abstract string LotNumberStr { get; }
+        public abstract string internalID { get; protected set; }
+        public abstract string LotNameStr { get; protected set; }
+        public abstract string LotNameUrl { get; protected set; }
+        public abstract string PriceStart { get; protected set; }
+        public abstract string LotNumberStr { get; protected set; }
 
         public abstract string ToString(bool html);
 
         /////////////////
         ///Часть абстрактного класса
         ///
-        public ATorg(List<StringUri> itemsList)
+        abstract public override bool Equals(object obj);
+        public override int GetHashCode()
         {
-
+            return base.GetHashCode();
         }
-
-        /////////////////////
-        ///Часть реализации интерфейса
-        ///
-
-
     }
 }

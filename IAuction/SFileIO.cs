@@ -9,7 +9,7 @@ namespace IAuction
 {
     public static class SFileIO
     {
-        public static bool SaveMyObject(IResponse curObj, string fileName = "temp.resp")
+        public static bool SaveMyResponse(IResponse curObj, string fileName = "temp.resp")
         {
             bool result = false;
             try
@@ -30,7 +30,7 @@ namespace IAuction
             return result;
         }
 
-        public static IResponse LoadMyObject(string fileName = "temp.resp")
+        public static IResponse LoadMyResponse(string fileName = "temp.resp")
         {
             IResponse result = null;
             try

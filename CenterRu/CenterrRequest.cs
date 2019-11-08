@@ -208,8 +208,8 @@ namespace CenterRu
 
         override public IResponse MakeResponse()
         {
-            //return new CenterrResponse(this);
-            throw new NotImplementedException("Making Response from request will be implemented later");
+            return new CenterrResponse(this);
+            //throw new NotImplementedException("Making Response from request will be implemented later");
         }
     }
 }
