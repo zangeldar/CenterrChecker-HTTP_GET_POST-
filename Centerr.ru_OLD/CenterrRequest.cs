@@ -1,63 +1,57 @@
-﻿using System;
+﻿using IAuction;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Xml.Serialization;
 
-namespace HTTP_GET_POST
+namespace CenterrRu
 {    
-
-    class MyClass
+    [Serializable]
+    public class CenterrRequest : IRequest
     {
-        public MyClass()
+        public string Type { get { return "Centerr"; } }
+        public string ServiceURL { get { return "http://bankrupt.centerr.ru"; } }
+        private Exception lastError;
+        public Exception LastError() { return lastError; }
+        public CenterrRequest()
         {
             InitialiseParameters();
         }
-        private bool initialised;
+
+        public CenterrRequest(string searchStr)
+        {
+            InitialiseParameters();
+            SearchString = searchStr;
+        }
+
         private string _cviewstate;
         private string _eventvalidation;
-        private string makeAnPost(string url = "http://bankrupt.centerr.ru", string postData="")
+
+        private bool initialised;
+        private bool Initialize()
         {
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            postData = postData.Replace("+", "%2B");           
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
-            //request.ContentLength = data.Length;            
-            request.SendChunked = true;
-            
-            //request.Headers.Add("Accept", "*/*");
-            request.Accept = "*/*";
-            request.Headers.Add("X-Requested-With",     "XMLHttpRequest");
-            request.Headers.Add("X-MicrosoftAjax",      "Delta=true");
-            request.Headers.Add("Cache-Control",        "no-cache");            
-            //request.Headers.Add("Referer",              "http://bankrupt.centerr.ru/");
-            request.Referer = url;
-            request.Headers.Add("Accept-Language",      "ru-RU");
-            //request.Headers.Add("User-Agent",           "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko");
-            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko";
-            request.Headers.Add("DNT",                  "1");
-            request.Headers.Add("Accept-Encoding", "gzip, deflate");
-            
-            /*
-            using (var stream = request.GetRequestStream())
-            {
-                stream.Write(data, 0, data.Length);
-            }
-             */ 
-                        
-            StreamWriter writer = new StreamWriter(request.GetRequestStream(), new UTF8Encoding());
-            writer.WriteLine(postData);
-            writer.Close();            
- 
-            var response = (HttpWebResponse)request.GetResponse();
-
-            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-
-            lastAnswer = responseString;
-
-            return responseString;
+            getBlankResponse();
+            return initialised;
         }
+
+        // Первый пустой запрос для получения параметров запроса _cviewstate и _eventvalidation
+        private string getBlankResponse()   // используется для выполнения первого запроса, с целью получить идентификаторы сессии
+        {
+            string answer = makeAnPost();
+            if (answer != null)
+            {
+                _cviewstate = getHtmlParameter(answer, "<input type=\"hidden\" name=\"__CVIEWSTATE\" id=\"__CVIEWSTATE\" value=\"", "\"");
+                _eventvalidation = getHtmlParameter(answer, "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"", "\"");
+                if (_cviewstate.Length > 0 & _eventvalidation.Length > 0)
+                    initialised = true;
+            }
+            
+            return answer;
+        }
+        // Получение значений параметров запроса _cviewstate и _eventvalidation
         private string getHtmlParameter(string searchStr, string searchPatternStart, string searchPatternEnd)
         {
             int parStartInd = searchStr.IndexOf(searchPatternStart) + searchPatternStart.Length;
@@ -66,35 +60,227 @@ namespace HTTP_GET_POST
             return result;
         }
 
-        private string getBlankResponse() 
+        // строка запроса для CENTERR.RU
+        private string myRawPostData(string _CVIEWSTATE = "", string _EVENTVALIDATION = "")
         {
-                string answer = makeAnPost();
-                _cviewstate = getHtmlParameter(answer, "<input type=\"hidden\" name=\"__CVIEWSTATE\" id=\"__CVIEWSTATE\" value=\"", "\"");
-                _eventvalidation = getHtmlParameter(answer, "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"", "\"");
-                if (_cviewstate.Length > 0 & _eventvalidation.Length > 0)
-                    initialised = true;
-                return answer;          
+            return "ctl00$ctl00$BodyScripts$BodyScripts$scripts=ctl00$ctl00$MainExpandableArea$phExpandCollapse$UpdatePanel1|ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton&__EVENTTARGET=&__EVENTARGUMENT=&__CVIEWSTATE=" +
+                _CVIEWSTATE +
+                "&__VIEWSTATE=&__SCROLLPOSITIONX=0&__SCROLLPOSITIONY=0&__EVENTVALIDATION=" +
+                _EVENTVALIDATION +
+                "&ctl00$ctl00$LeftContentLogin$ctl00$Login1$UserName=&ctl00$ctl00$LeftContentLogin$ctl00$Login1$Password=&ctl00$ctl00$LeftContentSideMenu$mSideMenu$extAccordionMenu_AccordionExtender_ClientState=0&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_lotNumber_лота=" +
+                myPar["vPurchaseLot_lotNumber"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_purchaseNumber_торга=" +
+                myPar["vPurchaseLot_purchaseNumber"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_lotTitle_Наименованиелота=" +
+                myPar["vPurchaseLot_lotTitle"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_fullTitle_Наименованиеторга=" +
+                myPar["vPurchaseLot_fullTitle"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_contactName_AliasFullOrganizerTitle=" +
+                myPar["Party_contactName"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_InitialPrice_Начальнаяценаотруб=" +
+                myPar["vPurchaseLot_InitialPrice"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_inn_ИННорганизатора=" +
+                myPar["Party_inn"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_bargainTypeID_Типторгов$ddlBargainType=" +
+                myPar["vPurchaseLot_bargainTypeID"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_kpp_КППорганизатора=" +
+                myPar["Party_kpp"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_ParticipationFormID_Форматоргапосоставуучастников=" +
+                myPar["vPurchaseLot_ParticipationFormID"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_registeredAddress_Адресрегистрацииорганизатора=" +
+                myPar["Party_registeredAddress"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$BargainType_PriceForm_Формапредставленияпредложенийоцене=" +
+                myPar["BargainType_PriceForm"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptName_Должник=" +
+                myPar["vPurchaseLot_BankruptName"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_purchaseStatusID_Статус=" +
+                myPar["vPurchaseLot_purchaseStatusID"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptINN_ИННдолжника=" +
+                myPar["vPurchaseLot_BankruptINN"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptRegionID_Региондолжника=" +
+                myPar["vPurchaseLot_BankruptRegionID"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptRegionID_Региондолжника_desc=" +
+                myPar["vPurchaseLot_BankruptRegionID_desc"] +
+                "&hiddenInputToUpdateATBuffer_CommonToolkitScripts=1&__ASYNCPOST=true&ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton=Искать торги";
         }
 
-        private bool Initialize()
-        {            
-            getBlankResponse();
-            return initialised;
+        private string myRawPostData()
+        {
+            if (!initialised)
+                return null;
+            string _CVIEWSTATE = _cviewstate;
+            string _EVENTVALIDATION = _eventvalidation;
+            return "ctl00$ctl00$BodyScripts$BodyScripts$scripts=ctl00$ctl00$MainExpandableArea$phExpandCollapse$UpdatePanel1|ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton&__EVENTTARGET=&__EVENTARGUMENT=&__CVIEWSTATE=" +
+                _CVIEWSTATE +
+                "&__VIEWSTATE=&__SCROLLPOSITIONX=0&__SCROLLPOSITIONY=0&__EVENTVALIDATION=" +
+                _EVENTVALIDATION +
+                "&ctl00$ctl00$LeftContentLogin$ctl00$Login1$UserName=&ctl00$ctl00$LeftContentLogin$ctl00$Login1$Password=&ctl00$ctl00$LeftContentSideMenu$mSideMenu$extAccordionMenu_AccordionExtender_ClientState=0&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_lotNumber_лота=" +
+                myPar["vPurchaseLot_lotNumber"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_purchaseNumber_торга=" +
+                myPar["vPurchaseLot_purchaseNumber"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_lotTitle_Наименованиелота=" +
+                myPar["vPurchaseLot_lotTitle"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_fullTitle_Наименованиеторга=" +
+                myPar["vPurchaseLot_fullTitle"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_contactName_AliasFullOrganizerTitle=" +
+                myPar["Party_contactName"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_InitialPrice_Начальнаяценаотруб=" +
+                myPar["vPurchaseLot_InitialPrice"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_inn_ИННорганизатора=" +
+                myPar["Party_inn"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_bargainTypeID_Типторгов$ddlBargainType=" +
+                myPar["vPurchaseLot_bargainTypeID"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_kpp_КППорганизатора=" +
+                myPar["Party_kpp"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_ParticipationFormID_Форматоргапосоставуучастников=" +
+                myPar["vPurchaseLot_ParticipationFormID"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_registeredAddress_Адресрегистрацииорганизатора=" +
+                myPar["Party_registeredAddress"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$BargainType_PriceForm_Формапредставленияпредложенийоцене=" +
+                myPar["BargainType_PriceForm"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptName_Должник=" +
+                myPar["vPurchaseLot_BankruptName"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_purchaseStatusID_Статус=" +
+                myPar["vPurchaseLot_purchaseStatusID"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptINN_ИННдолжника=" +
+                myPar["vPurchaseLot_BankruptINN"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptRegionID_Региондолжника=" +
+                myPar["vPurchaseLot_BankruptRegionID"] +
+                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptRegionID_Региондолжника_desc=" +
+                myPar["vPurchaseLot_BankruptRegionID_desc"] +
+                "&hiddenInputToUpdateATBuffer_CommonToolkitScripts=1&__ASYNCPOST=true&ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton=Искать торги";
         }
-        public string getResponse { 
+
+        private string makeAnPost(string url = "http://bankrupt.centerr.ru", string postData="")
+        {
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            postData = postData.Replace("+", "%2B");
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
+            //request.ContentLength = data.Length;            
+            request.SendChunked = true;
+
+            //request.Headers.Add("Accept", "*/*");
+            request.Accept = "*/*";
+            request.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            request.Headers.Add("X-MicrosoftAjax", "Delta=true");
+            request.Headers.Add("Cache-Control", "no-cache");
+            //request.Headers.Add("Referer",              "http://bankrupt.centerr.ru/");
+            request.Referer = url;
+            request.Headers.Add("Accept-Language", "ru-RU");
+            //request.Headers.Add("User-Agent",           "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko");
+            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko";
+            request.Headers.Add("DNT", "1");
+            request.Headers.Add("Accept-Encoding", "gzip, deflate");
+
+            /*
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+             */
+            HttpWebResponse response;
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(request.GetRequestStream(), new UTF8Encoding()))
+                {
+                    writer.WriteLine(postData);
+                }            
+                 response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception e)
+            {
+                lastError = e;
+                return null;
+                //throw;
+            }
+
+            lastAnswer = new StreamReader(response.GetResponseStream()).ReadToEnd();    // put result in lastAnswer to cache            
+
+            return lastAnswer;
+        }
+        string MakePost(string postData = "")
+        {
+            return makeAnPost(ServiceURL, myRawPostData());
+        }
+        
+        // GET a fresh result
+        public string GetResponse { 
             get 
             {
                 if (!initialised)       // initialized already?
                     if (!Initialize())  // if not then Initialize now!
                         return null;    // if not success then break
-                return makeAnPost("http://bankrupt.centerr.ru", myRawPostData(_cviewstate,_eventvalidation)); 
+                //return makeAnPost("https://bankrupt.centerr.ru", myRawPostData(_cviewstate,_eventvalidation)); 
+                return makeAnPost("https://bankrupt.centerr.ru", myRawPostData());
             } 
         }
 
+        // internal cached result
         private string lastAnswer;
-        public string LastAnswer { get { return lastAnswer; } }
 
+        // GET a cached last result
+        /*
+        public string GetResponseCached {
+            get
+            {
+                if (lastAnswer != null)
+                    return lastAnswer;
+                return GetResponse;
+            }
+            private set { lastAnswer = value; }
+        }
+        */
+        
+        private SerializableDictionary<string, string> myPar;
+        public SerializableDictionary<string, string> MyParameters { get { return myPar; } set { myPar = value; } }
 
+        public string SiteName { get { return "Центр Реализации"; } }
+                
+        public string SearchString {
+            get { return myPar["vPurchaseLot_lotTitle"]; }
+            set { myPar["vPurchaseLot_lotTitle"] = value; }
+        }
+        
+        private void InitialiseParameters()
+        {
+            //myPar = new Dictionary<string, string>();
+            myPar = new SerializableDictionary<string, string>
+            {
+                { "vPurchaseLot_lotNumber", "" },                        //  № лота
+                { "vPurchaseLot_purchaseNumber", "" },                        //  № торга
+                { "vPurchaseLot_lotTitle", "" },                   //  Наименование лота          // пирит
+                { "vPurchaseLot_fullTitle", "" },                     //  Наименование торга         // прб
+                { "Party_contactName", "" },                     //  AliasFullOrganizerTitle    // асв
+                { "vPurchaseLot_InitialPrice", "" },                        //  Начальная Цена от руб
+                { "Party_inn", "" },                        //  ИНН Организатора
+                { "vPurchaseLot_bargainTypeID", "10,11,12,111,13" },         //  Тип торгов
+                { "Party_kpp", "" },                        //  КПП Организатора
+                { "vPurchaseLot_ParticipationFormID", "" },                        //  Форма торга по составу участников
+                { "Party_registeredAddress", "" },                        //  Адрес регистрации организатора
+                { "BargainType_PriceForm", "" },                        //  Форма представления предложений о цене
+                { "vPurchaseLot_BankruptName", "" },                        //  Должник
+                { "vPurchaseLot_purchaseStatusID", "" },                        //  Статус
+                { "vPurchaseLot_BankruptINN", "" },                        //  ИНН Должника
+                { "vPurchaseLot_BankruptRegionID", "" },                        //  Регион Должника
+                { "vPurchaseLot_BankruptRegionID_desc", "" }                        //  ИД Регион Должника
+            };
+        }
+
+        public void ResetParameters()
+        {
+            InitialiseParameters();
+        }
+
+        public void ResetInit()
+        {
+            initialised = false;
+        }
+
+        //private Dictionary<string, string> myPar;
+        //public Dictionary<string, string> MyParameters { get { return myPar; } set { myPar = value; } }
+        //private string RawPostData = "ctl00%24ctl00%24BodyScripts%24BodyScripts%24scripts=ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24UpdatePanel1%7Cctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24SearchButton&__EVENTTARGET=&__EVENTARGUMENT=&__CVIEWSTATE=7RpLbBvHlbviUqQkmowt067tUGtZjpOYpkiKtixZdipTVqzGH8WSHbRNsV1xh9RWy116d6lPDm3soCnapnUQ9BAEDdKmRW8FHNtKFMefU4EG6GEJtOgl6A8JkkOB9tRr%2Bt7s8k9Kcmw1KRAJHO7MvHnz3pv3neWnTCDAeRND8WQyPnAwIIXYTLlhGWi7aMs6LRsISlKIyUjwFAix4fYLsiHPKGS2AgIIQ%2B6w%2F5SW1QrmpJgl53WFY%2Fp7XLOSxLpxlf24KVC9Rgq52TZc2cNUAY%2Fsd3UwLtzIn9KJaJLzBtERn7c%2FX5hR5HR%2FDa1eujkb7jqh65p%2BmhgGbM8NPrJnMRFLJI7w1ivWNWvZumGtFC9by7y1Yt0qXuGtu9Yd673iS9Y78H3Nuopz0L8CFLRRctu4vpYo7gL88%2FZ6gO8ssVfDGWuzHQ5cEBVZEk1ZU5%2FUtUKe40BIsgrr%2FHTef1ZNKTJRTWjTc9y3M5qeM74Z%2B1ZUTOMa%2FijfO2uaeWO4v39GVOf0Qt6MpgGc6HpULwwnkwP9vUf48ipBVmVTFpXR0uo6fEdg4wAlr61CagYJ6RR2T5gkl9IKqsmyIbejElvdwXgyGjsYTcTiQ3z80PBALFQ6B5UsGP3zMlnoTySS%2FZcZ67fWm9YbvPUbENbt4mWQ0VUemmXrqvUeyP0dENuL8L3C46N1G48CvpeLl1GkywB5DYQK8r0FnUsg6ju8dY23fmHdgd4le%2BFdHLxjvVX8EaDF1bdgjB7GDei8HR7JH4MFy9a7sHwFtrjO20SN9OeP%2BTukEr%2FAVQy4SjhcxYbjzbka6C8y1i8BFyrICiVqpfgDJM%2B6CfiB1huUk9vFH0On%2BBPgc9m6SVm%2FYw8Xv88jJzBwHTWNDgAX78HQD2HpDRi8GeEpiy%2FAiM34NVTF4k%2Bhv1K9foXKg7ILggSFhCUgY8T4FiXjJp267OC4GqGC5pM8EHstygOvh3nrevQUCGnEyIsqb5hLCjnam9FU84AhP0eG44n8Yi9IEDi5TTm8bW9LxU4FGY1GR%2Fpx8bGSSIPoMDK12oTmUG0MdMxDPUjZ9DMVt8BWHttqPATopXuaLJrcQ9YrIPPlKlmgq6g3Oabkxjz08fEMdUvelGGkFNEwuO40cKprCp%2FWlEJOPVPIzRA97BZ2Tx0HlfeG3aqYI1w2bSqxWJ%2FdnhZl9cQi8CuJ4PJGwSH15WftgZSmKGLeIH2TBT09KxrEmCIiPKV0GcxTFvvmSxOnNFNQNNPeT6CHDyoV9uXExVNEzZqzHBuPh32aOkeWJG1B5Z4QC6aW0%2BbJo2QejD3Cm7OyEeHj8Qi%2Fb0I1BxL7IrxaUJTadt8BZ%2FixcAfFldfBHXLfkDP8o7tL3ZNAuUL0z4j4MV4nZkFX%2BYyoGOSIZHv%2BHi%2FHEXS%2FPT6Wdc4TB9sdeeMwDHRw390o0U7LpkIE63UwA%2FQq4H9sv069zHJJ4j2dXEcinhxMHh44lByUnODThM6LD4rOSVE3lwRED%2F73DGiXMKrIojEOsjyrZ0UVjE6ntANpbQdjMTtaNqUp%2F2BpklVVsF4Fib3uWJQtq3eoq8MRlBYbT0gs9z%2BiaC6fF6zXrDfgvzVFzJDEeloR9CrzYCnSSVY2YIBIo5KExiNYL4PXfZ66aQxs1%2B2gQL0wDW2rUN6WOHhQYts3XJg1pnHcyRmo6lk%2Fw6TFepsSd5NqHJ6vtxVJCxtK0sSZMyUFvFFNV0XxfM0IAy9tLuUJ55mVJYmoYY4GMW7bgiyZs8Ox%2FOIRSTbyirg0rGoqOQJsXGY2lI9zoCSaOjEm0MTjOuoAMNKMpQEMThjp2gk4yY4m3DnpJA43jVW2BIAndUNYyjvPTqAqB1ub%2FHhP130Hph7%2FxoajrmbhyN9MjzwgxUsboxkZIG31gFSRbJibF5UCqDPN694CQbvjsUQSSyWb6FCtHqQKuk7U9FJZE17cGB4m7DpiUpfTNhuQ9l6lFdNteL5C8094ounm88UXKOVsPAkqMtpCRZJwcGMkLedEZW0leXYdSrJ%2BhA1qEqDCBRGWVUXCRLaJ7jzUzEppqhl0qqYx0RSPQ9UkZSUAzbAMVMxtIXcQjpTmrFwgHouARscT0MLXQDbIbbJeBpndpDEDvAXHURA68Rp1HzcxtS9e4jz2Kph5zHoDxYyVFBzFbbtSukuj0A3Mb8DXLNvKhZ4mC6Rvbqb2LKjMrzZGZTBmymk5T4vdcag70Sf%2Bmir6rXIkxNh4F8sdWvJATgY10QvwD9pF%2B7a%2FBFOR2C2t6H%2FzgdF%2FXIQkTFanIaAIVNWR7CqiSwIukUrrOyCxeKWp6N91CrPb1rLEdrciX99Q3z1limbBQNE7dSsI91Ip1W3ntlmv0uIVJ16qKqd6OIxJHA1P9NHbrK7Cx5H9rk7WFQh1h72o%2Bk%2BRJSPkCnenqHua0nQTqEejBSXgEvMlsiBHj5aeVRpeIjVz8LGHw5sn8HZDBd8j6pC1wLOR%2BHmPi3G5XJ%2FCH37jXxcLzdfHteyUljGjz5CZKFIzmk7D1hH%2BAqwCAo7Go4loLBqL8KmCAh6AHFVJwdRF8A6TtNoH6qe1OaIeHYwlE7FYOjaUTGekZGaAw336mqOPlik7BemhGwBDJ0VjlkjY3S8YIAP7eVv1MPXzxjQe8%2Fbq8YIqXyyQC3T2K2MyvaYR9aXjIJj9Aohn1sQlbW2utl1TS5CN5qKoGITCGdFRXReXEFGzyZOl1cyqsyhJXxs2yAvj46B1Y3%2FVDRHAI4Aq5gxOwNsDrzBvSx3We70%2BD8y3OR%2B3uwW2Mg0I3XFKE6VxKJQ0vd05wE44oJSWy4s60b0IPAUbuVHnPLbEED%2FHdXp3lpDb5zy6ACvKC%2F%2F59OEnkAJfOzT48Xmx8SG3lFn4NMJ0YtMFTdDjwPj82GzCJoD0uhFutZ2R9y4o%2F2hvQs1onYKcVTUAgNP1ClqeSgGOlneQPKloM6IiP0d9aDRVWcjsWQ3irI3IF0SO3P8CM1kPOKp4O1VLQXB5sRf0OgdmM%2BkvcRr0OeNeCuZFMGhRcYKdzpRnKzSDa2c81WaPmZKJmZInhKgm63yYZxuMbhlVFG2BSFW%2B2gh2legM1BxL105onqm22pTtfB%2BIS8Btws2QVxzCFgDZXu7ZNkyoKwfn2Fs34agCnRudAb%2BYJqF6EGNcXiRST%2BOwpqcKBiRaTxeIvrS92fzXNFndUjeBF1w76sa0me%2BAOVJz6qubyouyXhkis%2BK8rOn8akBYaIYaAEz06NvqhnVysSBDbV1PowFy2dlkbEI1TBFk1Aj%2FHKkXkKGBKjmiRZK21s2boEzErBebuUDEOfDzDVtgxdldN0YNh0YjhnUzjBt8HON2tTH4F2kZOJrIE61o%2F1qR5pwtrBwkwAjf0wJ%2BCuSE%2FCLMgVYwF5VoKcZGz2jmhIqrcIX3kbXImKZyQ1imx%2FEw56FSWJrChKTkZk5qikR0NEXPLhqrQUo%2BNPAO7h%2Fgmu5JOLU%2BinWCv29XqeH%2BBhjvRXrNEXJ%2FBTRrCbVxKbpFX6%2BDw7MHmoerk7JofVLGfQDbrFPIzQl1%2BfbiVo9A0x0%2FFIkPRuKHI%2FGhyCGsL4YiQwy6QX9JOlTy6EQ7mD%2FDzij9WvExf4IhFCE90j%2FCAwqCRscDJbai0OyoYWum4oonxpgirPjAweyQF4emvuzh0FXvbcE79WJfetEvvej%2Fpxc9cbEgKhviRdmyKePDVmrKf6g3Zc8haNi9e5n3HWum8vy9Y80UbKhkzcPQhGpKr3ISxvyu0ZKPYmPfTbkxu1wzUcU82ZOjJuJbkNWBxKnUxFh72s61%2FDkBK0QnFYNjb%2FN6m2OsAiuz%2Fz0aQnrvObShevnxAU36PBZXoGyI0I0srnUCtH7BPXwUAp1e16hhkNyMsmRHBcbreYJuYSM6Sz0BlcNXoXkqZ6Q1XZFnKiloEhPQ9aSgM4OD4sH0wUPxoYEkiR0e4tApP74e5tfgnBu6Z9VuiaszvNW%2BlTTrqv8jq1T%2FvESMdIsrAF400uGggxN%2FTTKhSmQxEw5ekHUTqKn8TuF9psfDdoe32rdwU9RdVc%2BGfbjc7nWGA0jfGOyry3moMY3Ef4Kfy7VCKzdlO9oKgVhlY3kaFEz8IQx9czhqAO6Nv25w4X0Ds5EXDht048A6ny%2FAjQN13XhDQBltfuNQC7PajYOf%2FcLdNmBCx7j%2FfX%2B3DWwNl%2FSigQZR54qBwnU6gx5MDHeu4lU83Q3RrexV6J1B7W60ot%2B3TmvE2MvRuOYRRDTFBrP0QzKmUNYxSGwWxGxWJ1lIhMYLKtW%2BLkEiGRFODn%2FT4qOWi5BeQVbTSkEiAUECNYeOnUcaPkAoSmdVBVBD4iBKQJ3dE5UFcck4n4cR0i2Ax80Q8JYS5KsEjhxo8ZUTw82C5PAAFNhMhYRZM6fg7QU42FHT1OWZgkmMcPPhSTvxNNpTs6KaJdKukXPEzgxhn2NzgnBcTM%2FJanZcJorUWz05CXTJi%2FUgD4%2BM2VKgTNbPMgzYLuOmzpiBjJChueCeFod0rkrgeLaPtoAbrT%2BKVdM%2F51xogoZ%2Fe1dVESeplBB8i2MIJ%2FBNlfPaiurcllLj4j5Bg1kHP40FII5wH8PydbPZvIj07KCEfLRazevIoBFBiRCXD7FwHwKS9cmnRSmPWDroX6V27S41LgYT3U%2BcAM38HR4%2BLqW0uJDBBPej0nRl%2BC8w9GE1oL2DG13W55HC7nC4pSlsp8R073dtHdnvAv2m74j8WV2WRhXTFhi%2BKaqa7MDJygwsdUt0oqvhpwFNR6XPuFHVzK7al898AxYkiv6Ej4JvavKuusW4dO%2Fs3JcAmgizQvduOLysmqI%2Fr%2BVVbUEX885rdyxnp%2BUcqWeleryKsP41ETWKcB1oI%2BtDu06cITbsQ2OlbpfrbRpWDXpxJUtREyJWCw3CYXLfZ9nRSDn5PBTE31S3pTI9FcIkaTvLhQWh9BbA8XOTmmFiQIP4Jwghlhuvf93rBNg%2B53tSEdPELjVPyxIEjPr3vRBQwfVwTz6g18ZcbzWiaS1%2FGpInp5cDtNgNBCRul%2FVm6eXws42%2Fvv0v&__VIEWSTATE=&__SCROLLPOSITIONX=0&__SCROLLPOSITIONY=0&__EVENTVALIDATION=%2FwEdADCvVXD1oYELeveMr0vHCmYPxMGvS2gF0sIlDMntuxXtEcF6XwpERp24Wgjklr17PPUiaW64Grk4DXQTXa1aiMAyCjeHuz2YkgjgoXS1Znq2SswbSzaLLvEl5rMHIacrVnClK99uVWJkVmsOAAKMmpYegqyXE%2Bftg4U%2B17fn5qnGQmsoO3JUsyYElzrSDhh9iLPcSV%2FbqObCqsFGwbQg%2BWt3lMMwQdi9JE76XlDpiyGaGiK96Mh9z4MIAfI7yfbJUJsPO%2BW3lSX2%2FDWdCcCk3rJcyrcU%2BtH5HkUc0Yvcf5zJEWOYGp36TAjjSRqjxMRyUOn7rHwbvvO9vZP5YA6eNNlt8mXWtQ9x6VkmMMVbqQYg86mXB8G46pQyE7Ou4F6qMTXxiiUsgg2FIm%2BqNKDvB7Tx1ybdpX6DMsHxkmJa9%2BPYX9cLC897lQ4rSHVtZWSzVJsmJawOCh48kKG%2FFjfjnYKzmUAJchLewHNYjJVjL3vjKqgq7DlJUJjctjVZaSi00%2Beyp063a6WgIX0bearVS5S3B3DXSYXGCNlXMQwPFQ9yK%2Fo6O61t%2BFkL9ris7wSO4eMAbIR1dFCMaVRQtb5bdyDL%2FBa5nDAP8mJ84n%2FZL0ZwgQ%2Fkc19pephE1UgWMf1IFAR8h0uWWI7WrsYARLetjXaSHKqmOAX8wzN5RF96G0LYvVsX1w%2FHqugMVbfpGVKhcpgMdgh%2Fn5sxbSKuot30QxPwrkPUJAay0TKBc4zQz8U6cvLdnnjLuJOZDEc7c9hekKWJS4bpPEgnrCWNnE1gxpSkUd6mYwFJuVaIXSGU8YBbTsLLYT6030Sdbs%2Fjbns%2BesNmKWVmHAscdxTaoJ1iXJPdEdPXSiZFDs1Rl7znLUNV1tZoDL8bRL1jzqfPh%2BYadrhKnaUWWJGtHvRwHnLwKoxxxxnLcy9gNEFJZL3hdcg%2FsbN1RC%2Frcgw9iNqispAvweEaEomsUY3sLd7yg%2FKwNK3Y1oJ59whW5EZmlG%2B0tMusJ%2F%2BcSiHLZwMd6KfdmcEsom92AKHYWU2i84etdpLHT94%2By3cAanLbiRtCo4dA5gLYPg%3D%3D&ctl00%24ctl00%24LeftContentLogin%24ctl00%24Login1%24UserName=&ctl00%24ctl00%24LeftContentLogin%24ctl00%24Login1%24Password=&ctl00%24ctl00%24LeftContentSideMenu%24mSideMenu%24extAccordionMenu_AccordionExtender_ClientState=0&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_lotNumber_%D0%BB%D0%BE%D1%82%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_purchaseNumber_%D1%82%D0%BE%D1%80%D0%B3%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_lotTitle_%D0%9D%D0%B0%D0%B8%D0%BC%D0%B5%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%D0%BB%D0%BE%D1%82%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_fullTitle_%D0%9D%D0%B0%D0%B8%D0%BC%D0%B5%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%D1%82%D0%BE%D1%80%D0%B3%D0%B0=%D0%BF%D1%80%D0%B1&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24Party_contactName_AliasFullOrganizerTitle=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_InitialPrice_%D0%9D%D0%B0%D1%87%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%D1%86%D0%B5%D0%BD%D0%B0%D0%BE%D1%82%D1%80%D1%83%D0%B1=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24Party_inn_%D0%98%D0%9D%D0%9D%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_bargainTypeID_%D0%A2%D0%B8%D0%BF%D1%82%D0%BE%D1%80%D0%B3%D0%BE%D0%B2%24ddlBargainType=10%2C11%2C12%2C111%2C13&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24Party_kpp_%D0%9A%D0%9F%D0%9F%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_ParticipationFormID_%D0%A4%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%BE%D1%80%D0%B3%D0%B0%D0%BF%D0%BE%D1%81%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D1%83%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24Party_registeredAddress_%D0%90%D0%B4%D1%80%D0%B5%D1%81%D1%80%D0%B5%D0%B3%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D0%B8%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24BargainType_PriceForm_%D0%A4%D0%BE%D1%80%D0%BC%D0%B0%D0%BF%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%D0%BF%D1%80%D0%B5%D0%B4%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B9%D0%BE%D1%86%D0%B5%D0%BD%D0%B5=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_BankruptName_%D0%94%D0%BE%D0%BB%D0%B6%D0%BD%D0%B8%D0%BA=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_purchaseStatusID_%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_BankruptINN_%D0%98%D0%9D%D0%9D%D0%B4%D0%BE%D0%BB%D0%B6%D0%BD%D0%B8%D0%BA%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_BankruptRegionID_%D0%A0%D0%B5%D0%B3%D0%B8%D0%BE%D0%BD%D0%B4%D0%BE%D0%BB%D0%B6%D0%BD%D0%B8%D0%BA%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_BankruptRegionID_%D0%A0%D0%B5%D0%B3%D0%B8%D0%BE%D0%BD%D0%B4%D0%BE%D0%BB%D0%B6%D0%BD%D0%B8%D0%BA%D0%B0_desc=&hiddenInputToUpdateATBuffer_CommonToolkitScripts=1&__ASYNCPOST=true&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24SearchButton=%D0%98%D1%81%D0%BA%D0%B0%D1%82%D1%8C%20%D1%82%D0%BE%D1%80%D0%B3%D0%B8";
+        /*
         private string MakeAnPostData(List<string> parName, List<string> parMean)
         {
             string Result = "";
@@ -107,7 +293,7 @@ namespace HTTP_GET_POST
             Result = Result.Remove(0, 1); // remove first "&"
             return Result;
         }
-
+        */
         /*
 __CVIEWSTATE                                                                                                                            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...  
 __VIEWSTATE                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
@@ -172,85 +358,126 @@ ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton                    
                 private string vPurchaseLot_BankruptRegionID        = "";                        //  Регион Должника
                 private string vPurchaseLot_BankruptRegionID_desc   = "";                        //  ИД Регион Должника
          */
-        private Dictionary<string, string> myPar;
 
-        private void InitialiseParameters()
+        public string CreateFileName(bool request = false)
         {
-            myPar = new Dictionary<string, string>();
-            myPar.Add("vPurchaseLot_lotNumber"               , "");                        //  № лота
-            myPar.Add("vPurchaseLot_purchaseNumber"          , "");                        //  № торга
-            myPar.Add("vPurchaseLot_lotTitle"                , "");                   //  Наименование лота          // пирит
-            myPar.Add("vPurchaseLot_fullTitle"               , "");                     //  Наименование торга         // прб
-            myPar.Add("Party_contactName"                    , "");                     //  AliasFullOrganizerTitle    // асв
-            myPar.Add("vPurchaseLot_InitialPrice"            , "");                        //  Начальная Цена от руб
-            myPar.Add("Party_inn"                            , "");                        //  ИНН Организатора
-            myPar.Add("vPurchaseLot_bargainTypeID"           , "10,11,12,111,13");         //  Тип торгов
-            myPar.Add("Party_kpp"                            , "");                        //  КПП Организатора
-            myPar.Add("vPurchaseLot_ParticipationFormID"     , "");                        //  Форма торга по составу участников
-            myPar.Add("Party_registeredAddress"              , "");                        //  Адрес регистрации организатора
-            myPar.Add("BargainType_PriceForm"                , "");                        //  Форма представления предложений о цене
-            myPar.Add("vPurchaseLot_BankruptName"            , "");                        //  Должник
-            myPar.Add("vPurchaseLot_purchaseStatusID"        , "");                        //  Статус
-            myPar.Add("vPurchaseLot_BankruptINN"             , "");                        //  ИНН Должника
-            myPar.Add("vPurchaseLot_BankruptRegionID"        , "");                        //  Регион Должника
-            myPar.Add("vPurchaseLot_BankruptRegionID_desc"   , "");                        //  ИД Регион Должника
+            return GenerateFileName(this, request);
         }
 
-        public void ResetParameters()
+        public bool SaveToXml(string fileName = "lastrequest.req")
         {
-            InitialiseParameters();
+            return SaveMyRequestObjectXML(this, fileName);
         }
 
-        public Dictionary<string, string> MyParameters { get { return myPar; } set { myPar = value; } }
-
-        //private string RawPostData = "ctl00%24ctl00%24BodyScripts%24BodyScripts%24scripts=ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24UpdatePanel1%7Cctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24SearchButton&__EVENTTARGET=&__EVENTARGUMENT=&__CVIEWSTATE=7RpLbBvHlbviUqQkmowt067tUGtZjpOYpkiKtixZdipTVqzGH8WSHbRNsV1xh9RWy116d6lPDm3soCnapnUQ9BAEDdKmRW8FHNtKFMefU4EG6GEJtOgl6A8JkkOB9tRr%2Bt7s8k9Kcmw1KRAJHO7MvHnz3pv3neWnTCDAeRND8WQyPnAwIIXYTLlhGWi7aMs6LRsISlKIyUjwFAix4fYLsiHPKGS2AgIIQ%2B6w%2F5SW1QrmpJgl53WFY%2Fp7XLOSxLpxlf24KVC9Rgq52TZc2cNUAY%2Fsd3UwLtzIn9KJaJLzBtERn7c%2FX5hR5HR%2FDa1eujkb7jqh65p%2BmhgGbM8NPrJnMRFLJI7w1ivWNWvZumGtFC9by7y1Yt0qXuGtu9Yd673iS9Y78H3Nuopz0L8CFLRRctu4vpYo7gL88%2FZ6gO8ssVfDGWuzHQ5cEBVZEk1ZU5%2FUtUKe40BIsgrr%2FHTef1ZNKTJRTWjTc9y3M5qeM74Z%2B1ZUTOMa%2FijfO2uaeWO4v39GVOf0Qt6MpgGc6HpULwwnkwP9vUf48ipBVmVTFpXR0uo6fEdg4wAlr61CagYJ6RR2T5gkl9IKqsmyIbejElvdwXgyGjsYTcTiQ3z80PBALFQ6B5UsGP3zMlnoTySS%2FZcZ67fWm9YbvPUbENbt4mWQ0VUemmXrqvUeyP0dENuL8L3C46N1G48CvpeLl1GkywB5DYQK8r0FnUsg6ju8dY23fmHdgd4le%2BFdHLxjvVX8EaDF1bdgjB7GDei8HR7JH4MFy9a7sHwFtrjO20SN9OeP%2BTukEr%2FAVQy4SjhcxYbjzbka6C8y1i8BFyrICiVqpfgDJM%2B6CfiB1huUk9vFH0On%2BBPgc9m6SVm%2FYw8Xv88jJzBwHTWNDgAX78HQD2HpDRi8GeEpiy%2FAiM34NVTF4k%2Bhv1K9foXKg7ILggSFhCUgY8T4FiXjJp267OC4GqGC5pM8EHstygOvh3nrevQUCGnEyIsqb5hLCjnam9FU84AhP0eG44n8Yi9IEDi5TTm8bW9LxU4FGY1GR%2Fpx8bGSSIPoMDK12oTmUG0MdMxDPUjZ9DMVt8BWHttqPATopXuaLJrcQ9YrIPPlKlmgq6g3Oabkxjz08fEMdUvelGGkFNEwuO40cKprCp%2FWlEJOPVPIzRA97BZ2Tx0HlfeG3aqYI1w2bSqxWJ%2FdnhZl9cQi8CuJ4PJGwSH15WftgZSmKGLeIH2TBT09KxrEmCIiPKV0GcxTFvvmSxOnNFNQNNPeT6CHDyoV9uXExVNEzZqzHBuPh32aOkeWJG1B5Z4QC6aW0%2BbJo2QejD3Cm7OyEeHj8Qi%2Fb0I1BxL7IrxaUJTadt8BZ%2FixcAfFldfBHXLfkDP8o7tL3ZNAuUL0z4j4MV4nZkFX%2BYyoGOSIZHv%2BHi%2FHEXS%2FPT6Wdc4TB9sdeeMwDHRw390o0U7LpkIE63UwA%2FQq4H9sv069zHJJ4j2dXEcinhxMHh44lByUnODThM6LD4rOSVE3lwRED%2F73DGiXMKrIojEOsjyrZ0UVjE6ntANpbQdjMTtaNqUp%2F2BpklVVsF4Fib3uWJQtq3eoq8MRlBYbT0gs9z%2BiaC6fF6zXrDfgvzVFzJDEeloR9CrzYCnSSVY2YIBIo5KExiNYL4PXfZ66aQxs1%2B2gQL0wDW2rUN6WOHhQYts3XJg1pnHcyRmo6lk%2Fw6TFepsSd5NqHJ6vtxVJCxtK0sSZMyUFvFFNV0XxfM0IAy9tLuUJ55mVJYmoYY4GMW7bgiyZs8Ox%2FOIRSTbyirg0rGoqOQJsXGY2lI9zoCSaOjEm0MTjOuoAMNKMpQEMThjp2gk4yY4m3DnpJA43jVW2BIAndUNYyjvPTqAqB1ub%2FHhP130Hph7%2FxoajrmbhyN9MjzwgxUsboxkZIG31gFSRbJibF5UCqDPN694CQbvjsUQSSyWb6FCtHqQKuk7U9FJZE17cGB4m7DpiUpfTNhuQ9l6lFdNteL5C8094ounm88UXKOVsPAkqMtpCRZJwcGMkLedEZW0leXYdSrJ%2BhA1qEqDCBRGWVUXCRLaJ7jzUzEppqhl0qqYx0RSPQ9UkZSUAzbAMVMxtIXcQjpTmrFwgHouARscT0MLXQDbIbbJeBpndpDEDvAXHURA68Rp1HzcxtS9e4jz2Kph5zHoDxYyVFBzFbbtSukuj0A3Mb8DXLNvKhZ4mC6Rvbqb2LKjMrzZGZTBmymk5T4vdcag70Sf%2Bmir6rXIkxNh4F8sdWvJATgY10QvwD9pF%2B7a%2FBFOR2C2t6H%2FzgdF%2FXIQkTFanIaAIVNWR7CqiSwIukUrrOyCxeKWp6N91CrPb1rLEdrciX99Q3z1limbBQNE7dSsI91Ip1W3ntlmv0uIVJ16qKqd6OIxJHA1P9NHbrK7Cx5H9rk7WFQh1h72o%2Bk%2BRJSPkCnenqHua0nQTqEejBSXgEvMlsiBHj5aeVRpeIjVz8LGHw5sn8HZDBd8j6pC1wLOR%2BHmPi3G5XJ%2FCH37jXxcLzdfHteyUljGjz5CZKFIzmk7D1hH%2BAqwCAo7Go4loLBqL8KmCAh6AHFVJwdRF8A6TtNoH6qe1OaIeHYwlE7FYOjaUTGekZGaAw336mqOPlik7BemhGwBDJ0VjlkjY3S8YIAP7eVv1MPXzxjQe8%2Fbq8YIqXyyQC3T2K2MyvaYR9aXjIJj9Aohn1sQlbW2utl1TS5CN5qKoGITCGdFRXReXEFGzyZOl1cyqsyhJXxs2yAvj46B1Y3%2FVDRHAI4Aq5gxOwNsDrzBvSx3We70%2BD8y3OR%2B3uwW2Mg0I3XFKE6VxKJQ0vd05wE44oJSWy4s60b0IPAUbuVHnPLbEED%2FHdXp3lpDb5zy6ACvKC%2F%2F59OEnkAJfOzT48Xmx8SG3lFn4NMJ0YtMFTdDjwPj82GzCJoD0uhFutZ2R9y4o%2F2hvQs1onYKcVTUAgNP1ClqeSgGOlneQPKloM6IiP0d9aDRVWcjsWQ3irI3IF0SO3P8CM1kPOKp4O1VLQXB5sRf0OgdmM%2BkvcRr0OeNeCuZFMGhRcYKdzpRnKzSDa2c81WaPmZKJmZInhKgm63yYZxuMbhlVFG2BSFW%2B2gh2legM1BxL105onqm22pTtfB%2BIS8Btws2QVxzCFgDZXu7ZNkyoKwfn2Fs34agCnRudAb%2BYJqF6EGNcXiRST%2BOwpqcKBiRaTxeIvrS92fzXNFndUjeBF1w76sa0me%2BAOVJz6qubyouyXhkis%2BK8rOn8akBYaIYaAEz06NvqhnVysSBDbV1PowFy2dlkbEI1TBFk1Aj%2FHKkXkKGBKjmiRZK21s2boEzErBebuUDEOfDzDVtgxdldN0YNh0YjhnUzjBt8HON2tTH4F2kZOJrIE61o%2F1qR5pwtrBwkwAjf0wJ%2BCuSE%2FCLMgVYwF5VoKcZGz2jmhIqrcIX3kbXImKZyQ1imx%2FEw56FSWJrChKTkZk5qikR0NEXPLhqrQUo%2BNPAO7h%2Fgmu5JOLU%2BinWCv29XqeH%2BBhjvRXrNEXJ%2FBTRrCbVxKbpFX6%2BDw7MHmoerk7JofVLGfQDbrFPIzQl1%2BfbiVo9A0x0%2FFIkPRuKHI%2FGhyCGsL4YiQwy6QX9JOlTy6EQ7mD%2FDzij9WvExf4IhFCE90j%2FCAwqCRscDJbai0OyoYWum4oonxpgirPjAweyQF4emvuzh0FXvbcE79WJfetEvvej%2Fpxc9cbEgKhviRdmyKePDVmrKf6g3Zc8haNi9e5n3HWum8vy9Y80UbKhkzcPQhGpKr3ISxvyu0ZKPYmPfTbkxu1wzUcU82ZOjJuJbkNWBxKnUxFh72s61%2FDkBK0QnFYNjb%2FN6m2OsAiuz%2Fz0aQnrvObShevnxAU36PBZXoGyI0I0srnUCtH7BPXwUAp1e16hhkNyMsmRHBcbreYJuYSM6Sz0BlcNXoXkqZ6Q1XZFnKiloEhPQ9aSgM4OD4sH0wUPxoYEkiR0e4tApP74e5tfgnBu6Z9VuiaszvNW%2BlTTrqv8jq1T%2FvESMdIsrAF400uGggxN%2FTTKhSmQxEw5ekHUTqKn8TuF9psfDdoe32rdwU9RdVc%2BGfbjc7nWGA0jfGOyry3moMY3Ef4Kfy7VCKzdlO9oKgVhlY3kaFEz8IQx9czhqAO6Nv25w4X0Ds5EXDht048A6ny%2FAjQN13XhDQBltfuNQC7PajYOf%2FcLdNmBCx7j%2FfX%2B3DWwNl%2FSigQZR54qBwnU6gx5MDHeu4lU83Q3RrexV6J1B7W60ot%2B3TmvE2MvRuOYRRDTFBrP0QzKmUNYxSGwWxGxWJ1lIhMYLKtW%2BLkEiGRFODn%2FT4qOWi5BeQVbTSkEiAUECNYeOnUcaPkAoSmdVBVBD4iBKQJ3dE5UFcck4n4cR0i2Ax80Q8JYS5KsEjhxo8ZUTw82C5PAAFNhMhYRZM6fg7QU42FHT1OWZgkmMcPPhSTvxNNpTs6KaJdKukXPEzgxhn2NzgnBcTM%2FJanZcJorUWz05CXTJi%2FUgD4%2BM2VKgTNbPMgzYLuOmzpiBjJChueCeFod0rkrgeLaPtoAbrT%2BKVdM%2F51xogoZ%2Fe1dVESeplBB8i2MIJ%2FBNlfPaiurcllLj4j5Bg1kHP40FII5wH8PydbPZvIj07KCEfLRazevIoBFBiRCXD7FwHwKS9cmnRSmPWDroX6V27S41LgYT3U%2BcAM38HR4%2BLqW0uJDBBPej0nRl%2BC8w9GE1oL2DG13W55HC7nC4pSlsp8R073dtHdnvAv2m74j8WV2WRhXTFhi%2BKaqa7MDJygwsdUt0oqvhpwFNR6XPuFHVzK7al898AxYkiv6Ej4JvavKuusW4dO%2Fs3JcAmgizQvduOLysmqI%2Fr%2BVVbUEX885rdyxnp%2BUcqWeleryKsP41ETWKcB1oI%2BtDu06cITbsQ2OlbpfrbRpWDXpxJUtREyJWCw3CYXLfZ9nRSDn5PBTE31S3pTI9FcIkaTvLhQWh9BbA8XOTmmFiQIP4Jwghlhuvf93rBNg%2B53tSEdPELjVPyxIEjPr3vRBQwfVwTz6g18ZcbzWiaS1%2FGpInp5cDtNgNBCRul%2FVm6eXws42%2Fvv0v&__VIEWSTATE=&__SCROLLPOSITIONX=0&__SCROLLPOSITIONY=0&__EVENTVALIDATION=%2FwEdADCvVXD1oYELeveMr0vHCmYPxMGvS2gF0sIlDMntuxXtEcF6XwpERp24Wgjklr17PPUiaW64Grk4DXQTXa1aiMAyCjeHuz2YkgjgoXS1Znq2SswbSzaLLvEl5rMHIacrVnClK99uVWJkVmsOAAKMmpYegqyXE%2Bftg4U%2B17fn5qnGQmsoO3JUsyYElzrSDhh9iLPcSV%2FbqObCqsFGwbQg%2BWt3lMMwQdi9JE76XlDpiyGaGiK96Mh9z4MIAfI7yfbJUJsPO%2BW3lSX2%2FDWdCcCk3rJcyrcU%2BtH5HkUc0Yvcf5zJEWOYGp36TAjjSRqjxMRyUOn7rHwbvvO9vZP5YA6eNNlt8mXWtQ9x6VkmMMVbqQYg86mXB8G46pQyE7Ou4F6qMTXxiiUsgg2FIm%2BqNKDvB7Tx1ybdpX6DMsHxkmJa9%2BPYX9cLC897lQ4rSHVtZWSzVJsmJawOCh48kKG%2FFjfjnYKzmUAJchLewHNYjJVjL3vjKqgq7DlJUJjctjVZaSi00%2Beyp063a6WgIX0bearVS5S3B3DXSYXGCNlXMQwPFQ9yK%2Fo6O61t%2BFkL9ris7wSO4eMAbIR1dFCMaVRQtb5bdyDL%2FBa5nDAP8mJ84n%2FZL0ZwgQ%2Fkc19pephE1UgWMf1IFAR8h0uWWI7WrsYARLetjXaSHKqmOAX8wzN5RF96G0LYvVsX1w%2FHqugMVbfpGVKhcpgMdgh%2Fn5sxbSKuot30QxPwrkPUJAay0TKBc4zQz8U6cvLdnnjLuJOZDEc7c9hekKWJS4bpPEgnrCWNnE1gxpSkUd6mYwFJuVaIXSGU8YBbTsLLYT6030Sdbs%2Fjbns%2BesNmKWVmHAscdxTaoJ1iXJPdEdPXSiZFDs1Rl7znLUNV1tZoDL8bRL1jzqfPh%2BYadrhKnaUWWJGtHvRwHnLwKoxxxxnLcy9gNEFJZL3hdcg%2FsbN1RC%2Frcgw9iNqispAvweEaEomsUY3sLd7yg%2FKwNK3Y1oJ59whW5EZmlG%2B0tMusJ%2F%2BcSiHLZwMd6KfdmcEsom92AKHYWU2i84etdpLHT94%2By3cAanLbiRtCo4dA5gLYPg%3D%3D&ctl00%24ctl00%24LeftContentLogin%24ctl00%24Login1%24UserName=&ctl00%24ctl00%24LeftContentLogin%24ctl00%24Login1%24Password=&ctl00%24ctl00%24LeftContentSideMenu%24mSideMenu%24extAccordionMenu_AccordionExtender_ClientState=0&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_lotNumber_%D0%BB%D0%BE%D1%82%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_purchaseNumber_%D1%82%D0%BE%D1%80%D0%B3%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_lotTitle_%D0%9D%D0%B0%D0%B8%D0%BC%D0%B5%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%D0%BB%D0%BE%D1%82%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_fullTitle_%D0%9D%D0%B0%D0%B8%D0%BC%D0%B5%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%D1%82%D0%BE%D1%80%D0%B3%D0%B0=%D0%BF%D1%80%D0%B1&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24Party_contactName_AliasFullOrganizerTitle=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_InitialPrice_%D0%9D%D0%B0%D1%87%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%D1%86%D0%B5%D0%BD%D0%B0%D0%BE%D1%82%D1%80%D1%83%D0%B1=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24Party_inn_%D0%98%D0%9D%D0%9D%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_bargainTypeID_%D0%A2%D0%B8%D0%BF%D1%82%D0%BE%D1%80%D0%B3%D0%BE%D0%B2%24ddlBargainType=10%2C11%2C12%2C111%2C13&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24Party_kpp_%D0%9A%D0%9F%D0%9F%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_ParticipationFormID_%D0%A4%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%BE%D1%80%D0%B3%D0%B0%D0%BF%D0%BE%D1%81%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D1%83%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24Party_registeredAddress_%D0%90%D0%B4%D1%80%D0%B5%D1%81%D1%80%D0%B5%D0%B3%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D0%B8%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24BargainType_PriceForm_%D0%A4%D0%BE%D1%80%D0%BC%D0%B0%D0%BF%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%D0%BF%D1%80%D0%B5%D0%B4%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B9%D0%BE%D1%86%D0%B5%D0%BD%D0%B5=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_BankruptName_%D0%94%D0%BE%D0%BB%D0%B6%D0%BD%D0%B8%D0%BA=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_purchaseStatusID_%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_BankruptINN_%D0%98%D0%9D%D0%9D%D0%B4%D0%BE%D0%BB%D0%B6%D0%BD%D0%B8%D0%BA%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_BankruptRegionID_%D0%A0%D0%B5%D0%B3%D0%B8%D0%BE%D0%BD%D0%B4%D0%BE%D0%BB%D0%B6%D0%BD%D0%B8%D0%BA%D0%B0=&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24PurchasesSearchCriteria%24vPurchaseLot_BankruptRegionID_%D0%A0%D0%B5%D0%B3%D0%B8%D0%BE%D0%BD%D0%B4%D0%BE%D0%BB%D0%B6%D0%BD%D0%B8%D0%BA%D0%B0_desc=&hiddenInputToUpdateATBuffer_CommonToolkitScripts=1&__ASYNCPOST=true&ctl00%24ctl00%24MainExpandableArea%24phExpandCollapse%24SearchButton=%D0%98%D1%81%D0%BA%D0%B0%D1%82%D1%8C%20%D1%82%D0%BE%D1%80%D0%B3%D0%B8";
-        private string myRawPostData(string _CVIEWSTATE = "", string _EVENTVALIDATION="")
+        public IRequest LoadFromXML(string fileName = "lastrequest.req")
         {
-            return "ctl00$ctl00$BodyScripts$BodyScripts$scripts=ctl00$ctl00$MainExpandableArea$phExpandCollapse$UpdatePanel1|ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton&__EVENTTARGET=&__EVENTARGUMENT=&__CVIEWSTATE=" +
-                _CVIEWSTATE + 
-                "&__VIEWSTATE=&__SCROLLPOSITIONX=0&__SCROLLPOSITIONY=0&__EVENTVALIDATION=" + 
-                _EVENTVALIDATION + 
-                "&ctl00$ctl00$LeftContentLogin$ctl00$Login1$UserName=&ctl00$ctl00$LeftContentLogin$ctl00$Login1$Password=&ctl00$ctl00$LeftContentSideMenu$mSideMenu$extAccordionMenu_AccordionExtender_ClientState=0&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_lotNumber_лота=" + 
-                myPar["vPurchaseLot_lotNumber"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_purchaseNumber_торга=" + 
-                myPar["vPurchaseLot_purchaseNumber"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_lotTitle_Наименованиелота=" + 
-                myPar["vPurchaseLot_lotTitle"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_fullTitle_Наименованиеторга=" + 
-                myPar["vPurchaseLot_fullTitle"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_contactName_AliasFullOrganizerTitle=" + 
-                myPar["Party_contactName"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_InitialPrice_Начальнаяценаотруб=" + 
-                myPar["vPurchaseLot_InitialPrice"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_inn_ИННорганизатора=" + 
-                myPar["Party_inn"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_bargainTypeID_Типторгов$ddlBargainType=" + 
-                myPar["vPurchaseLot_bargainTypeID"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_kpp_КППорганизатора=" + 
-                myPar["Party_kpp"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_ParticipationFormID_Форматоргапосоставуучастников=" + 
-                myPar["vPurchaseLot_ParticipationFormID"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_registeredAddress_Адресрегистрацииорганизатора=" + 
-                myPar["Party_registeredAddress"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$BargainType_PriceForm_Формапредставленияпредложенийоцене=" + 
-                myPar["BargainType_PriceForm"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptName_Должник=" + 
-                myPar["vPurchaseLot_BankruptName"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_purchaseStatusID_Статус=" + 
-                myPar["vPurchaseLot_purchaseStatusID"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptINN_ИННдолжника=" + 
-                myPar["vPurchaseLot_BankruptINN"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptRegionID_Региондолжника=" + 
-                myPar["vPurchaseLot_BankruptRegionID"] + 
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptRegionID_Региондолжника_desc=" +
-                myPar["vPurchaseLot_BankruptRegionID_desc"] + 
-                "&hiddenInputToUpdateATBuffer_CommonToolkitScripts=1&__ASYNCPOST=true&ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton=Искать торги";
+            return LoadMyRequestObjectXML(fileName);
         }
-    }
 
-    struct MyParameters
-    {
-        public List<string> parName;
-        public List<string> parMean;
+        private string GenerateFileName(CenterrRequest inpObj, bool request = false)
+        {
+            string result = "";
+
+            foreach (var item in inpObj.MyParameters)
+            {
+                if (item.Value == "" || item.Value == "10,11,12,111,13")
+                    continue;
+
+                result += item.Value;
+            }
+            if (request)
+                return result + ".req";
+
+            return result + ".bcntr";
+        }
+
+        public override string ToString()
+        {
+            string result = "";
+
+            foreach (var item in this.MyParameters)
+            {
+                if (item.Value == "" || item.Value == "10,11,12,111,13")
+                    continue;
+
+                result += "_" + item.Value;
+            }
+
+            return result.Substring(1);
+        }
+
+        static public bool SaveMyRequestObjectXML(CenterrRequest curObj, string fileName = "lastrequest.req")
+        {
+            bool result = false;
+            try
+            {
+                XmlSerializer formatter = new XmlSerializer(typeof(CenterrRequest));
+
+                using (Stream output = File.OpenWrite(fileName))
+                {
+                    formatter.Serialize(output, curObj);
+                }
+                result = true;
+            }
+            catch (Exception e)
+            {
+                result = false;
+                //throw;
+            }
+
+            return result;
+        }
+
+        static public CenterrRequest LoadMyRequestObjectXML(string fileName = "lastrequest.req")
+        {
+            CenterrRequest result = null;
+
+            try
+            {
+                XmlSerializer formatter = new XmlSerializer(typeof(CenterrRequest));
+                using (Stream input = File.OpenRead(fileName))
+                {
+                    result = (CenterrRequest)formatter.Deserialize(input);
+                }
+            }
+            catch (Exception e)
+            {
+                result = null;
+                //throw;
+            }
+            return result;
+        }
+
+        public string GetRequestStringPrintable()
+        {
+            string parSet = "";
+
+            foreach (string item in this.MyParameters.Values)
+                if (item.Length > 0 & item != "10,11,12,111,13")
+                    parSet += ", " + item;
+            if (parSet.Length > 2)
+                parSet = parSet.Remove(0, 2);
+
+            return parSet;
+        }
+
+        public IResponse MakeResponse()
+        {
+            return new CenterrResponse(this);
+        }
+
+        public string AllParametersInString(string separator = "")
+        {
+            string parSet = "";
+
+            foreach (string item in this.MyParameters.Values)
+                if (item.Length > 0 & item != "10,11,12,111,13")
+                    parSet += ", " + item;
+
+            if (parSet.Length > separator.Length)
+                parSet = parSet.Remove(0, separator.Length);
+
+            return parSet;
+        }
     }
 }
