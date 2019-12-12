@@ -80,17 +80,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Centerr.ru_OLD\CenterrRu_OLD.csproj">
-      <Project>{ED16E334-860E-4A6B-BC5D-C8E3AE0A66D5}</Project>
-      <Name>CenterrRu_OLD</Name>
+    <ProjectReference Include="..\CenterRu\CenterRu.csproj">
+      <Project>{a53415c2-368a-4ddc-9aab-0b8ad86dce88}</Project>
+      <Name>CenterRu</Name>
     </ProjectReference>
     <ProjectReference Include="..\IAuction\IAuction.csproj">
       <Project>{0164D8FB-B0B7-4B6E-BFE0-4720F07DF9A4}</Project>
       <Name>IAuction</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TorgiASV_OLD\TorgiASV_OLD.csproj">
-      <Project>{7E5AF8C4-F757-451D-A8A2-333EB25E30C5}</Project>
-      <Name>TorgiASV_OLD</Name>
+    <ProjectReference Include="..\TorgiASV\TorgiASV.csproj">
+      <Project>{46db4c91-f0c3-4c18-a104-24eb902eb3e8}</Project>
+      <Name>TorgiASV</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

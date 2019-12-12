@@ -1,4 +1,4 @@
-﻿using CenterrRu;
+﻿using CenterRu;
 using IAuction;
 using System;
 using System.Collections.Generic;

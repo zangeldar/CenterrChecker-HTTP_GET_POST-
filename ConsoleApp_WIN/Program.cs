@@ -70,7 +70,7 @@ namespace ConsoleApp_WIN
                     {
                         if (debug)
                             Console.WriteLine("Resp.found: " + item);
-                        IResponse curResp = SFileIO.LoadMyObject(item);
+                        IResponse curResp = SFileIO.LoadMyResponse(item);
                         if (curResp != null)
                         {
                             myRespObjects.Add(curResp);

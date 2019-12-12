@@ -16,7 +16,7 @@ namespace TorgiASV
             this.MyRequest = new ASVRequest(searchStr);
             FillListResponse();
         }
-        public ASVResponse(ATorgRequest myReq) : base(myReq)
+        public ASVResponse(IRequest myReq) : base(myReq)
         {
             if (!(myReq is ASVRequest))
                 return;

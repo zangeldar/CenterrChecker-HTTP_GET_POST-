@@ -71,7 +71,7 @@ namespace IAuction
         /// Конструктор для получения нового Результата по имеющемуся Запросу
         /// </summary>
         /// <param name="myReq">Имеющийся Запрос</param>
-        public ATorgResponse(ATorgRequest myReq)
+        public ATorgResponse(IRequest myReq)
         {
             if (!(myReq is IRequest))
                 return;

@@ -14,7 +14,7 @@ namespace CenterRu
             base.MyRequest = new CenterrRequest(searchStr);
         }
 
-        public CenterrResponse(CenterrRequest myReq) : base(myReq)
+        public CenterrResponse(IRequest myReq) : base(myReq)
         {
             base.MyRequest = myReq;
         }

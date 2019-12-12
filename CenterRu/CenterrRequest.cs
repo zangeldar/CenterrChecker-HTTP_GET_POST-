@@ -12,7 +12,7 @@ namespace CenterRu
     {
         override public string SiteName { get { return "Центр Реализации"; } }
         override public string Type { get { return "Centerr"; } }
-        override public string ServiceURL { get { return "http://bankrupt.centerr.ru"; } }
+        override public string ServiceURL { get { return "https://bankrupt.centerr.ru"; } }
         //public Exception LastError() { return lastError; }
         public CenterrRequest()
         {
@@ -104,7 +104,7 @@ namespace CenterRu
                 MyParameters["vPurchaseLot_BankruptRegionID_desc"] +
                 "&hiddenInputToUpdateATBuffer_CommonToolkitScripts=1&__ASYNCPOST=true&ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton=Искать торги";
         }
-        private string makeAnPost(string url = "http://bankrupt.centerr.ru", string postData = "")
+        private string makeAnPost(string url = "https://bankrupt.centerr.ru", string postData = "")
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
             postData = postData.Replace("+", "%2B");
@@ -118,13 +118,14 @@ namespace CenterRu
             request.Headers.Add("X-Requested-With", "XMLHttpRequest");
             request.Headers.Add("X-MicrosoftAjax", "Delta=true");
             request.Headers.Add("Cache-Control", "no-cache");
-            //request.Headers.Add("Referer",              "http://bankrupt.centerr.ru/");
+            //request.Headers.Add("Referer",              "https://bankrupt.centerr.ru/");
             request.Referer = url;
             request.Headers.Add("Accept-Language", "ru-RU");
             //request.Headers.Add("User-Agent",           "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko");
             request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko";
             request.Headers.Add("DNT", "1");
             request.Headers.Add("Accept-Encoding", "gzip, deflate");
+            request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
 
             /*
             using (var stream = request.GetRequestStream())
