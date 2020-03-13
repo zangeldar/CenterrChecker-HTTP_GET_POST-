@@ -114,7 +114,9 @@ namespace TorgiASV
                     break;
                 }
             }
-
+            //if (!found)
+            if (resList.Count == 0) // если результатов нет
+                return;         // тогда возврат
             foreach (Tag item in resList[0].InnerTags)    // заполняем результаты по списку
             {
                 curList.Add(new ASV(item.InnerTags));
