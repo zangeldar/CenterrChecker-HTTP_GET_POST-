@@ -135,12 +135,14 @@ namespace ConsoleApp_WIN
             else
             {
                 foreach (IResponse oldItem in myRespObjects)
+                //foreach (ATorgResponse oldItem in myRespObjects)
                 {
                     if(debug)
                         Console.WriteLine("Checking " + oldItem.SiteName + "..");
-                    
+
                     IResponse newResp = oldItem.MakeFreshResponse;                   
-                    
+                    //ATorgResponse newResp = oldItem.MakeFreshResponse;
+
                     if (newResp.ListResponse == null)
                     {
                         string msg = "ERROR! \"" + newResp.SiteName + "\"";
@@ -168,7 +170,7 @@ namespace ConsoleApp_WIN
                             + msg, "[" + newResp.SiteName + "] ВНИМАНИЕ! Получен пустой ответ.", MailRecipients);
                     }
                     else if (newResp.HaveNewRecords(oldItem))
-                    {
+                    {// переделать логику, на случай, если раньше были результаты ответа, а теперь их не стало
                         Console.WriteLine("Found new records for \"" + newResp.SiteName + "\"!");
                         newResp.SaveToXml(newResp.SiteName.Replace(" ", "") + ".resp");
                         SendMailRemind(newResp.NewRecordsOutput(oldItem, true), "[" + newResp.SiteName + "] Появились новые предложения!", MailRecipients);

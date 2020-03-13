@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TorgiASV
 {
-    //[Serializable]
+    [Serializable]
     public class ASV : ATorg
     {
         public ASV(List<Tag> itemsList)

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CenterRu
 {
-    //[Serializable]
+    [Serializable]
     public class CenterrRequest : ATorgRequest
     {
         override public string SiteName { get { return "Центр Реализации"; } }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CenterRu
 {
-    //[Serializable]
+    [Serializable]
     public class CenterrResponse : ATorgResponse
     {
         public CenterrResponse(string searchStr) : base(searchStr)
@@ -26,7 +26,14 @@ namespace CenterRu
         }
 
         public override string SiteName { get { return "Центр Реализации"; } }
-            
+
+        public override IResponse MakeFreshResponse
+        {
+            get
+            {
+                return new CenterrResponse(this.MyRequest);
+            }
+        }
 
         public override IResponse LoadFromXml(string fileName = "lastrequest.req")
         {

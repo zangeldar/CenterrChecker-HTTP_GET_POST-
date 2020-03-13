@@ -120,8 +120,10 @@ namespace IAuction
         public Exception LastError() { return lastError; }
         public IEnumerable<IObject> ListResponse { get; protected set; }
         public IRequest MyRequest { get; protected set; }
-        public IEnumerable<IObject> NewRecords { get; private set; }                
-        public IResponse MakeFreshResponse { get; protected set; }
+        public IEnumerable<IObject> NewRecords { get; private set; }
+        public abstract IResponse MakeFreshResponse { get; }
+
+        //public IResponse MakeFreshResponse { get; protected set; }
         private bool haveNewRecords;
         public bool HaveNewRecords(IResponse checkResponse)
         {
@@ -157,7 +159,8 @@ namespace IAuction
             if (checkData != null)
                 if (Enumerable.SequenceEqual(this.MyRequest.MyParameters, checkData.MyRequest.MyParameters)) // если запросы одинаковые, то
                     if (detail)                                                                     // если нужна детальная проверка, тогда
-                        return GetListOfNewRecords((List<IObject>)checkData.ListResponse); // получаем все строки, исключая строки из последнего сохраненного результата
+                        //return GetListOfNewRecords((List<IObject>)checkData.ListResponse); // получаем все строки, исключая строки из последнего сохраненного результата
+                        return GetListOfNewRecords((IEnumerable<IObject>)checkData.ListResponse); // получаем все строки, исключая строки из последнего сохраненного результата
                     else
                         return GetListOfNewRecords((IObject)checkData.ListResponse.ToList()[0]); // получаем все строки, пока не наткнемся на первую из последнего сохраненного результата
 
@@ -165,7 +168,7 @@ namespace IAuction
         }
         private List<IObject> GetListOfNewRecords(IObject checkRowItem) // проверка только по одной записи
         {
-            List<IObject> inpList = (List<IObject>)this.ListResponse;
+            IEnumerable<IObject> inpList = this.ListResponse;
             List<IObject> result = new List<IObject>();
 
             if (inpList == null)
@@ -174,19 +177,19 @@ namespace IAuction
                 return result;
             }
 
-            for (int i = 0; i < inpList.Count; i++)
+            for (int i = 0; i < inpList.Count(); i++)
             {
                 //if (inpList[i].ToString() == checkRowItem.ToString())
-                if (inpList[i].Equals(checkRowItem))
+                if (inpList.ElementAt(i).Equals(checkRowItem))
                     break;
-                result.Add(inpList[i]);
+                result.Add(inpList.ElementAt(i));
             }
 
             return result;
         }
-        private List<IObject> GetListOfNewRecords(List<IObject> checkRows)  // проверка по всем записям - ДОЛЬШЕ
+        private List<IObject> GetListOfNewRecords(IEnumerable<IObject> checkRows)  // проверка по всем записям - ДОЛЬШЕ
         {
-            List<IObject> inpList = (List<IObject>)this.ListResponse;
+            IEnumerable<IObject> inpList = this.ListResponse;
             List<IObject> result = new List<IObject>();
             if (inpList == null)
             {
@@ -194,12 +197,12 @@ namespace IAuction
                 return result;
             }
             bool needBreak = false;
-            for (int i = 0; i < inpList.Count; i++)
+            for (int i = 0; i < inpList.Count(); i++)
             {
-                for (int j = 0; j < checkRows.Count; j++)
+                for (int j = 0; j < checkRows.Count(); j++)
                 {
                     //if (inpList[i].ToString() == checkRows[j].ToString())
-                    if (inpList[i].Equals(checkRows[j]))
+                    if (inpList.ElementAt(i).Equals(checkRows.ElementAt(j)))
                     {
                         needBreak = true;
                         break;
@@ -207,7 +210,7 @@ namespace IAuction
                 }
                 if (needBreak)
                     continue;
-                result.Add(inpList[i]);
+                result.Add(inpList.ElementAt(i));
             }
             return result;
         }        

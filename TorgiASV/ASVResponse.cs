@@ -6,10 +6,18 @@ using System.Text;
 
 namespace TorgiASV
 {
-    //[Serializable]
+    [Serializable]
     public class ASVResponse : ATorgResponse
     {
         public override string SiteName => "Торги АСВ";
+
+        public override IResponse MakeFreshResponse
+        {
+            get
+            {
+                return new ASVResponse(this.MyRequest);
+            }
+        }
 
         public ASVResponse(string searchStr) : base(searchStr)
         {
@@ -114,6 +122,8 @@ namespace TorgiASV
                     break;
                 }
             }
+
+            this.ListResponse = curList;
             //if (!found)
             if (resList.Count == 0) // если результатов нет
                 return;         // тогда возврат
