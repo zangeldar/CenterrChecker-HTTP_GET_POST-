@@ -155,6 +155,7 @@ namespace ConsoleApp_WIN
                             + "Сообщение об ошибке: " + Environment.NewLine
                             + msg, "[" + newResp.SiteName + "] ОШИБКА!", MailRecipients);
                     }
+                    /*
                     else if (newResp.ListResponse.Count() < 1)
                     {
                         string msg = "WARNING! \"" + newResp.SiteName + "\"";
@@ -169,11 +170,26 @@ namespace ConsoleApp_WIN
                             + "Сообщение об ошибке: " + Environment.NewLine
                             + msg, "[" + newResp.SiteName + "] ВНИМАНИЕ! Получен пустой ответ.", MailRecipients);
                     }
+                    */
                     else if (newResp.HaveNewRecords(oldItem))
                     {// переделать логику, на случай, если раньше были результаты ответа, а теперь их не стало
-                        Console.WriteLine("Found new records for \"" + newResp.SiteName + "\"!");
+                        Console.WriteLine("Found changes for \"" + newResp.SiteName + "\"!");
                         newResp.SaveToXml(newResp.SiteName.Replace(" ", "") + ".resp");
-                        SendMailRemind(newResp.NewRecordsOutput(oldItem, true), "[" + newResp.SiteName + "] Появились новые предложения!", MailRecipients);
+                        
+                        if (newResp.ListResponse.Count() < 1)
+                        {
+                            // исчезли старые записи
+                            SendMailRemind("Ответ получен, но не содержит результатов! Возможно, по Вашему запросу теперь ничего не найдено. Если на сайте \""
+                            + newResp.SiteName + "\" по запросу \"" + newResp.MyRequest.AllParametersInString("_")
+                            + "\" есть результаты, тогда обратитесь к разработчику!" + Environment.NewLine
+                            + "Сообщение об ошибке: " + Environment.NewLine
+                            + "WARNING! \"" + newResp.SiteName + "\"", "[" + newResp.SiteName + "] ВНИМАНИЕ! Получен пустой ответ.", MailRecipients);
+                        }
+                        else
+                        {
+                            // появились новые записи 
+                            SendMailRemind(newResp.NewRecordsOutput(oldItem, true), "[" + newResp.SiteName + "] Произошли изменения!", MailRecipients);
+                        }                        
                     }
                     else
                     {
