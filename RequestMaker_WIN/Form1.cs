@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TorgiASV;
+using ASVorgRU;
 
 namespace RequestMaker_WIN
 {
@@ -23,8 +24,9 @@ namespace RequestMaker_WIN
 
         private void MyInitialize()
         {
+            cBoxType.Items.Add("АСВ сайт");
             cBoxType.Items.Add("Торги АСВ");
-            cBoxType.Items.Add("Центр Реализации");
+            cBoxType.Items.Add("Центр Реализации");            
             cBoxType.SelectedIndex = 0;
             searchBox.Text = "";
             logBox.Text = "";
@@ -61,14 +63,26 @@ namespace RequestMaker_WIN
             AddLog("Создаем запрос к \"" + typeStr + "\"..", false);
             switch (typeStr)
             {
-                case "Торги АСВ":                    
-                    curRequest = new ASVRequest(searchBox.Text);
+                case "АСВ сайт":
+                    curRequest = new ASVorgRequest(searchBox.Text);
                     error = false;
                     AddLog("УСПЕШНО!");
                     if (needResponse)
                     {
                         AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
-                        curResponse = new ASVResponse(curRequest);
+                        curResponse = new ASVorgResponse(curRequest);
+                        error = false;
+                        AddLog("УСПЕШНО!");
+                    }
+                    break;
+                case "Торги АСВ":                    
+                    curRequest = new TorgASVRequest(searchBox.Text);
+                    error = false;
+                    AddLog("УСПЕШНО!");
+                    if (needResponse)
+                    {
+                        AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
+                        curResponse = new TorgASVResponse(curRequest);
                         error = false;
                         AddLog("УСПЕШНО!");
                     }                        

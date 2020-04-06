@@ -50,6 +50,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ASVorgRU\ASVorgRU.csproj">
+      <Project>{d9615c0f-fb44-49b0-816f-40f85fd72954}</Project>
+      <Name>ASVorgRU</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CenterRu\CenterRu.csproj">
       <Project>{a53415c2-368a-4ddc-9aab-0b8ad86dce88}</Project>
       <Name>CenterRu</Name>

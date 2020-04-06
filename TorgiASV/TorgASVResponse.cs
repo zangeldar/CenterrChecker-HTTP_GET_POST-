@@ -7,7 +7,7 @@ using System.Text;
 namespace TorgiASV
 {
     [Serializable]
-    public class ASVResponse : ATorgResponse
+    public class TorgASVResponse : ATorgResponse
     {
         public override string SiteName => "Торги АСВ";
 
@@ -15,24 +15,24 @@ namespace TorgiASV
         {
             get
             {
-                return new ASVResponse(this.MyRequest);
+                return new TorgASVResponse(this.MyRequest);
             }
         }
 
-        public ASVResponse(string searchStr) : base(searchStr)
+        public TorgASVResponse(string searchStr) : base(searchStr)
         {
-            this.MyRequest = new ASVRequest(searchStr);
+            this.MyRequest = new TorgASVRequest(searchStr);
             FillListResponse();
         }
-        public ASVResponse(IRequest myReq) : base(myReq)
+        public TorgASVResponse(IRequest myReq) : base(myReq)
         {
-            if (!(myReq is ASVRequest))
+            if (!(myReq is TorgASVRequest))
                 return;
             this.MyRequest = myReq;
             this.MyRequest.ResetInit();
             FillListResponse();
         }
-        public ASVResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
+        public TorgASVResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 
         public override IResponse LoadFromXml(string fileName = "lastrequest.req")
         {
@@ -84,7 +84,7 @@ namespace TorgiASV
                 "Нач. цена"
                 );
 
-            foreach (ASV item in (List<ASV>)NewRecords)
+            foreach (TorgASV item in (List<TorgASV>)NewRecords)
                 result += item.ToString(html);
 
             if (html)
@@ -99,7 +99,7 @@ namespace TorgiASV
             if (myWorkAnswer == null)
                 return;
 
-            List<ASV> curList = new List<ASV>();
+            List<TorgASV> curList = new List<TorgASV>();
 
             myHTMLParser myParser = new myHTMLParser();
             List<Tag> myList = myParser.getTags(myWorkAnswer, "ul");
@@ -129,7 +129,7 @@ namespace TorgiASV
                 return;         // тогда возврат
             foreach (Tag item in resList[0].InnerTags)    // заполняем результаты по списку
             {
-                curList.Add(new ASV(item.InnerTags));
+                curList.Add(new TorgASV(item.InnerTags));
             }
             this.ListResponse = curList;
         }

@@ -17,6 +17,7 @@ namespace ConsoleApp_WIN
         {
             string requestFileName = "lastrequest.req";
             bool debug = false;
+            bool noDelReq = false;
 
             string responseDir = Environment.CurrentDirectory;
             if (args.Length > 0)
@@ -47,14 +48,20 @@ namespace ConsoleApp_WIN
                     else if (argItem == "debug")
                     {
                         debug = true;
+                        noDelReq = true;
                     }
-            
+                    else if (argItem == "no-del-req")
+                    {
+                        noDelReq = true;
+                    }
+
 
             List<IRequest> myReqObjects = new List<IRequest>();
             List<IResponse> myRespObjects = new List<IResponse>();
 
             if (File.Exists(requestFileName))
             {
+
                 //myReqObjects.Add(FileIO.LoadMyRequestObjectXML(requestFileName));
                 // здесь надо загружать объекты запросов из xml. однако, это не работает для интерфейсов.
                 //myReqObjects.Add(myRequestObject.LoadFromXML(requestFileName));                
@@ -82,8 +89,6 @@ namespace ConsoleApp_WIN
                             if (debug)
                                 Console.WriteLine("Resp. NOT load: " + item);
                         }
-                        
-
                     }
 
                     foreach (string item in Directory.GetFiles(responseDir, "*.req"))
@@ -91,48 +96,109 @@ namespace ConsoleApp_WIN
                         if (debug)
                             Console.WriteLine("Req.found: " + item);
                         IRequest curReq = null;
+
+                        string checkType="";
+                        
+                        using (StreamReader sr = new StreamReader(item))
+                        {
+                            sr.ReadLine(); //читаем первую строку "<?xml version="1.0"?>"
+                            checkType = sr.ReadLine();
+                            checkType = checkType.Substring(1, checkType.IndexOf(' ')-1);
+                        }
+                        
                         //IRequest curReq = myRequestObject.LoadFromXML(item);
                         // здесь надо загружать объекты запросов из xml. однако, это не работает для интерфейсов.
                         //IRequest curReq = FileIO.LoadMyRequestObjectXML(item);
+                        //object deserObj = SFileIO.LoadMyRequestObjectXML(item, checkType);                        
+
+                        switch (checkType)
+                        {
+                            case "TorgASVRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new TorgiASV.TorgASVRequest(), item);
+                                break;
+                            case "CenterrRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new CenterRu.CenterrRequest(), item);
+                                break;
+                            case "ASVorgRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new ASVorgRU.ASVorgRequest(), item);
+                                break;
+                            default:
+                                Console.WriteLine("Unknown request type: " + checkType + " of file: " + item + ". Check necessary DLLs!");
+                                break;
+                        }
                         if (curReq != null)
                         {
-                            myReqObjects.Add(curReq);
                             if (debug)
                                 Console.WriteLine("Req.load: " + item);
+                            Console.Write(checkType + " found! Get result..");
+                            myReqObjects.Add(curReq);                            
+                            IResponse newResp = curReq.MakeResponse();
+                            Console.WriteLine(" SUCCESS");
+                            //newResp.SaveToXml(newResp.SiteName.Replace(" ", "") + ".resp");
+                            SFileIO.SaveMyResponse(newResp, newResp.SiteName.Replace(" ", "") + ".resp");
+                            if (newResp.ListResponse != null)
+                            {
+                                if (newResp.ListResponse.Count() > 0)
+                                    SendMailRemind(newResp.NewRecordsOutput(null, true), "[" + newResp.SiteName + "] Предложения по новым запросам!", MailRecipients);
+                                else // ответ есть, но пустой
+                                {
+                                    SendMailRemind("Ответ получен, но не содержит результатов! Возможно, по Вашему запросу теперь ничего не найдено. Если на сайте \""
+                                        + newResp.SiteName + "\" по запросу \"" + newResp.MyRequest.AllParametersInString("_")
+                                        + "\" есть результаты, тогда обратитесь к разработчику!" + Environment.NewLine
+                                        + "Сообщение об ошибке: " + Environment.NewLine
+                                        + "WARNING! \"" + newResp.SiteName + "\"", "[" + newResp.SiteName + "] ВНИМАНИЕ! Результаты для НОВОГО запроса не найдены.", MailRecipients);
+                                }
+                            }
+                            else // ответ поломан
+                            {
+                                string msg = "ERROR! \"" + newResp.SiteName + "\"";
+                                if (newResp.LastError() != null)
+                                    msg += " : " + newResp.LastError().Message;
+                                if (newResp.MyRequest.LastError() != null)
+                                    msg += " : " + newResp.MyRequest.LastError().Message;
+                                Console.WriteLine(msg);
+                                SendMailRemind("Ошибка получения результатов НОВОГО запроса! Обратитесь к разработчику!" + Environment.NewLine
+                                    + "Сообщение об ошибке: " + Environment.NewLine
+                                    + msg, "[" + newResp.SiteName + "] ОШИБКА!", MailRecipients);
+                            }
+
+                                
+
+                            if (!noDelReq)
+                            {
+                                try
+                                {
+                                    File.Delete(item);
+                                }
+                                catch (Exception e)
+                                {
+                                    //throw;
+                                    Console.WriteLine("ERROR: Couldn't delete unused request file: " + item);
+                                }
+                            }
                         }
                         else
-                        {
+                        {                            
                             if (debug)
                                 Console.WriteLine("Req. NOT load: " + item);
                         }
-
                     }
                 }                
             }
 
-
-            if (myRespObjects.Count == 0)
+            if ((myReqObjects.Count == 0) & (myRespObjects.Count == 0))
             {
-                if (myReqObjects.Count == 0)
-                {
-                    Console.WriteLine("I can't work without any Requests or Responses! Bye..");
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine("Will check " + myReqObjects.Count + " items..");
-                    int c = 0;
-                    foreach (IRequest item in myReqObjects)
-                    {
-                        c++;
-                        IResponse newResp = item.MakeResponse();
-                        newResp.SaveToXml(newResp.SiteName.Replace(" ", "") + ".resp");
-                        SendMailRemind(newResp.NewRecordsOutput(null, true), "[" + newResp.SiteName + "] Появились новые предложения!", MailRecipients);
-                    }
-                }
-
+                Console.WriteLine("I can't work without any Requests or Responses! Bye..");
+                return;
             }
-            else
+            //AREA requests check
+            {
+                foreach (IRequest item in myReqObjects)
+                {
+                    
+                }                
+            }
+            // AREA responses re-check
             {
                 foreach (IResponse oldItem in myRespObjects)
                 //foreach (ATorgResponse oldItem in myRespObjects)
@@ -172,7 +238,7 @@ namespace ConsoleApp_WIN
                     }
                     */
                     else if (newResp.HaveNewRecords(oldItem))
-                    {// переделать логику, на случай, если раньше были результаты ответа, а теперь их не стало
+                    {
                         Console.WriteLine("Found changes for \"" + newResp.SiteName + "\"!");
                         newResp.SaveToXml(newResp.SiteName.Replace(" ", "") + ".resp");
                         
@@ -198,7 +264,7 @@ namespace ConsoleApp_WIN
                         Console.WriteLine(newResp.SiteName + ": Nothing new..");
                     }
                 }                    
-            }                
+            }             
             Console.WriteLine("Well done!");
         }
 
@@ -248,3 +314,4 @@ namespace ConsoleApp_WIN
         }
     }
 }
+
