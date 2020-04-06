@@ -12,7 +12,7 @@ namespace TEST
         {            
             string cacheFile = "cached.htm";
             
-            ASVRequest myAsvReq = new ASVRequest();
+            TorgASVRequest myAsvReq = new TorgASVRequest();
 
             //myAsvReq.MyParameters["q"] = testData;
             myAsvReq.SearchString = testData;

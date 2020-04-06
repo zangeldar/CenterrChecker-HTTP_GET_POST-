@@ -20,7 +20,7 @@ namespace TEST
                     myResp = new CenterrResponse(testData);
                     break;
                 case "tasv":
-                    myResp = new ASVResponse(testData);
+                    myResp = new TorgASVResponse(testData);
                     break;
                 default:
                     return "Unknown ETP";

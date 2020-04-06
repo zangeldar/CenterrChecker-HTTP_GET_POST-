@@ -6,9 +6,9 @@ using System.Collections.Generic;
 namespace TorgiASV
 {
     [Serializable]
-    public class ASV : ATorg
+    public class TorgASV : ATorg
     {
-        public ASV(List<Tag> itemsList)
+        public TorgASV(List<Tag> itemsList)
         {
             LotName = new StringUri
             {
@@ -43,9 +43,9 @@ namespace TorgiASV
 
         public override bool Equals(Object obj)
         {
-            if (!(obj is ASV))
+            if (!(obj is TorgASV))
                 return false;
-            ASV curObj = (ASV)obj;
+            TorgASV curObj = (TorgASV)obj;
 
             if (this.internalID == curObj.internalID &
                 this.LotNameStr == curObj.LotNameStr &

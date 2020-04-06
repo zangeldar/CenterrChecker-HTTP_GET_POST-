@@ -64,7 +64,8 @@ namespace IAuction
         public ATorgResponse(string searchStr)
         {
             // need to make an response
-            //this.MyRequest = new ATorgRequest(searchStr);
+            //this.MyRequest = IRequest(searchStr);
+            //this.MyRequest = ATorgRequest(searchStr);
             FillListResponse();
         }
         /// <summary>

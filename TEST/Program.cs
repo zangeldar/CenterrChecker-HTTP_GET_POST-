@@ -31,7 +31,7 @@ namespace TEST
 
             testReq = new CenterrRequest("пирит");
             DoTest(testReq, ref testResp);
-            testReq = new ASVRequest("пирит");
+            testReq = new TorgASVRequest("пирит");
             DoTest(testReq, ref testResp);
 
             Console.WriteLine("Well done.");
