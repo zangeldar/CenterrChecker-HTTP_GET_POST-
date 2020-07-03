@@ -1,0 +1,13 @@
+﻿Response Headers	Value
+(Status-Line)	HTTP/1.1 200 OK
+Server	nginx
+Date	Fri, 03 Jul 2020 12:57:07 GMT
+Content-Type	text/html; charset=utf-8
+Connection	keep-alive
+Cache-Control	private
+X-Unreal-Executor	23
+X-OriginalWeb	F4
+X-Frame-Options	SAMEORIGIN
+Strict-Transport-Security	max-age=63072000
+X-Frame-Options	SAMEORIGIN
+Content-Length	146480

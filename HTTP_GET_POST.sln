@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.757
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TEST", "TEST\TEST.csproj", "{58BE4863-1339-4EA0-B31F-37B9142E7196}"
 EndProject
@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CenterRu", "CenterRu\Center
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TorgiASV", "TorgiASV\TorgiASV.csproj", "{46DB4C91-F0C3-4C18-A104-24EB902EB3E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASVorgRU", "ASVorgRU\ASVorgRU.csproj", "{D9615C0F-FB44-49B0-816F-40F85FD72954}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASVorgRU", "ASVorgRU\ASVorgRU.csproj", "{D9615C0F-FB44-49B0-816F-40F85FD72954}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SberbankAST", "SberbankAST\SberbankAST.csproj", "{104AF94F-A174-47E0-B5CB-CA8F5FB802DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{D9615C0F-FB44-49B0-816F-40F85FD72954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9615C0F-FB44-49B0-816F-40F85FD72954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9615C0F-FB44-49B0-816F-40F85FD72954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{104AF94F-A174-47E0-B5CB-CA8F5FB802DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{104AF94F-A174-47E0-B5CB-CA8F5FB802DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{104AF94F-A174-47E0-B5CB-CA8F5FB802DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{104AF94F-A174-47E0-B5CB-CA8F5FB802DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
