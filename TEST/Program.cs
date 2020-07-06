@@ -6,6 +6,8 @@ using MyHTMLParser;
 using IAuction;
 //using CenterrRu;
 using CenterRu;
+using SberbankAst;
+using System.Xml.Serialization;
 
 namespace TEST
 {
@@ -25,9 +27,16 @@ namespace TEST
         }
 
         static void Main(string[] args)
-        {            
+        {
+            //Test1();
+            Test2();
+        }
+
+        static void Test1()
+        {
+
             IRequest testReq;
-            IResponse testResp = null;            
+            IResponse testResp = null;
 
             testReq = new CenterrRequest("пирит");
             DoTest(testReq, ref testResp);
@@ -77,6 +86,24 @@ namespace TEST
             Console.WriteLine(result);
             File.WriteAllText("tasv.result.csv", result, System.Text.Encoding.UTF8);
             */
+        }
+
+        static void Test2()
+        {
+            Elasticrequest myTest = new Elasticrequest();
+            myTest.Filters = new Filters();
+            myTest.Filters.MainSearchBar = new MainSearchBar { Value = "техническая жидкость", Type = "best_fields", Minimum_should_match = "100%" };
+
+            string testStr = myTest.ToString();
+
+            XmlSerializer formatter = new XmlSerializer(typeof(Elasticrequest));
+            using (FileStream fs = new FileStream("TEST.xml", FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, myTest);
+
+            }
+                
+
         }
     }
 }
