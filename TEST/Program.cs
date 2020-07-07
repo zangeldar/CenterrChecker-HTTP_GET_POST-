@@ -96,13 +96,8 @@ namespace TEST
 
             string testStr = myTest.ToString();
 
-            XmlSerializer formatter = new XmlSerializer(typeof(Elasticrequest));
-            using (FileStream fs = new FileStream("TEST.xml", FileMode.OpenOrCreate))
-            {
-                formatter.Serialize(fs, myTest);
-
-            }
-                
+            SberbankAST.SberbankAstRequest myReq = new SberbankAST.SberbankAstRequest("техническая жидкость");
+            testStr = myReq.GetResponse;
 
         }
     }
