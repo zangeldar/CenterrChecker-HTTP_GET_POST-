@@ -10,6 +10,7 @@ using SberbankAst;
 using System.Xml.Serialization;
 using System.Text.RegularExpressions;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace TEST
 {
@@ -99,15 +100,22 @@ namespace TEST
             string testStr = myTest.ToString();
 
             SberbankAST.SberbankAstRequest myReq = new SberbankAST.SberbankAstRequest("техническая жидкость");
-            testStr = myReq.GetResponse;
+            testStr = myReq.GetResponse;            
 
-            //testStr = Regex.Unescape(testStr);
+            //testStr = Regex.Escape(testStr);
+            string testStrUn = Regex.Unescape(testStr);
+            File.WriteAllText("response.json", testStr);
+            File.WriteAllText("responseUnescape.json", testStrUn);
             /*
             byte[] bytesIn = Encoding.Unicode.GetBytes(testStr);
             byte[] bytesOut = Encoding.Convert(Encoding.Unicode, Encoding.UTF8, bytesIn);
             testStr = Encoding.UTF8.GetString(bytesOut);        
             */
-            
+
+            testStrUn = JsonConvert.DeserializeObject<string>(testStrUn);
+            testStr = JsonConvert.DeserializeObject<string>(testStr);          
+
+
         }
     }
 }
