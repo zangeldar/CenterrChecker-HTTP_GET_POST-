@@ -16,7 +16,7 @@ namespace SberbankAST
         public string Minimum_should_match { get; set; }
         public MainSearchBar()
         {
-            Value = "";
+            Value = " ";
             Minimum_should_match = "100%";
             Type = "best_fields";
         }
@@ -31,8 +31,8 @@ namespace SberbankAST
         public string Maxvalue { get; set; }
         public PurchAmount()
         {
-            Minvalue = "";
-            Maxvalue = "";
+            Minvalue = " ";
+            Maxvalue = " ";
         }
     }
 
@@ -45,8 +45,8 @@ namespace SberbankAST
         public string Maxvalue { get; set; }
         public PublicDate()
         {
-            Minvalue = "";
-            Maxvalue = "";
+            Minvalue = " ";
+            Maxvalue = " ";
         }
     }
 
@@ -59,8 +59,8 @@ namespace SberbankAST
         public string Visiblepart { get; set; }
         public PurchaseStageTerm()
         {
-            Value = "";
-            Visiblepart = "";
+            Value = " ";
+            Visiblepart = " ";
         }
     }
 
@@ -73,8 +73,8 @@ namespace SberbankAST
         public string Visiblepart { get; set; }
         public SourceTerm()
         {
-            Value = "";
-            Visiblepart = "";
+            Value = " ";
+            Visiblepart = " ";
         }
     }
 
@@ -87,8 +87,8 @@ namespace SberbankAST
         public string Visiblepart { get; set; }
         public RegionNameTerm()
         {
-            Value = "";
-            Visiblepart = "";
+            Value = " ";
+            Visiblepart = " ";
         }
     }
 
@@ -101,8 +101,8 @@ namespace SberbankAST
         public string Maxvalue { get; set; }
         public RequestStartDate()
         {
-            Minvalue = "";
-            Maxvalue = "";
+            Minvalue = " ";
+            Maxvalue = " ";
         }
     }
 
@@ -115,8 +115,8 @@ namespace SberbankAST
         public string Maxvalue { get; set; }
         public RequestDate()
         {
-            Minvalue = "";
-            Maxvalue = "";
+            Minvalue = " ";
+            Maxvalue = " ";
         }
     }
 
@@ -129,8 +129,8 @@ namespace SberbankAST
         public string Maxvalue { get; set; }
         public AuctionBeginDate()
         {
-            Minvalue = "";
-            Maxvalue = "";
+            Minvalue = " ";
+            Maxvalue = " ";
         }
     }
 
@@ -141,7 +141,7 @@ namespace SberbankAST
         public string Value { get; set; }
         public Okdp2MultiMatch()
         {
-            Value = "";
+            Value = " ";
         }
     }
 
@@ -156,9 +156,9 @@ namespace SberbankAST
         public string BranchField { get; set; }
         public Okdp2tree()
         {
-            Value = "";
-            ProductField = "";
-            BranchField = "";
+            Value = " ";
+            ProductField = " ";
+            BranchField = " ";
         }
     }
 
@@ -169,7 +169,7 @@ namespace SberbankAST
         public string Visiblepart { get; set; }
         public Classifier()
         {
-            Visiblepart = "";
+            Visiblepart = " ";
         }
     }
 
@@ -180,7 +180,7 @@ namespace SberbankAST
         public string Value { get; set; }
         public OrgCondition()
         {
-            Value = "";
+            Value = " ";
         }
     }
 
@@ -191,7 +191,7 @@ namespace SberbankAST
         public string Value { get; set; }
         public OrgDictionary()
         {
-            Value = "";
+            Value = " ";
         }
     }
 
@@ -202,7 +202,7 @@ namespace SberbankAST
         public string Visiblepart { get; set; }
         public Organizator()
         {
-            Visiblepart = "";
+            Visiblepart = " ";
         }
     }
 
@@ -213,7 +213,7 @@ namespace SberbankAST
         public string Value { get; set; }
         public CustomerCondition()
         {
-            Value = "";
+            Value = " ";
         }
     }
 
@@ -224,7 +224,7 @@ namespace SberbankAST
         public string Value { get; set; }
         public CustomerDictionary()
         {
-            Value = "";
+            Value = " ";
         }
     }
 
@@ -235,7 +235,7 @@ namespace SberbankAST
         public string Visiblepart { get; set; }
         public Customer()
         {
-            Visiblepart = "";
+            Visiblepart = " ";
         }
     }
 
@@ -248,8 +248,8 @@ namespace SberbankAST
         public string Visiblepart { get; set; }
         public PurchaseWayTerm()
         {
-            Value = "";
-            Visiblepart = "";
+            Value = " ";
+            Visiblepart = " ";
         }
     }
 
@@ -262,8 +262,8 @@ namespace SberbankAST
         public string Visiblepart { get; set; }
         public PurchaseTypeNameTerm()
         {
-            Value = "";
-            Visiblepart = "";
+            Value = " ";
+            Visiblepart = " ";
         }
     }
 
@@ -276,8 +276,8 @@ namespace SberbankAST
         public string Visiblepart { get; set; }
         public BranchNameTerm()
         {
-            Value = "";
-            Visiblepart = "";
+            Value = " ";
+            Visiblepart = " ";
         }
     }
 
@@ -290,8 +290,8 @@ namespace SberbankAST
         public string Visiblepart { get; set; }
         public IsSMPTerm()
         {
-            Value = "";
-            Visiblepart = "";
+            Value = " ";
+            Visiblepart = " ";
         }
     }
 
@@ -438,7 +438,7 @@ namespace SberbankAST
         public Sort()
         {
             Value = "default";
-            Direction = "";
+            Direction = " ";
         }
     }
 
@@ -452,7 +452,7 @@ namespace SberbankAST
         public Empty()
         {
             FilterType = "filter_aggregation";
-            Field = "";
+            Field = " ";
         }
     }
 

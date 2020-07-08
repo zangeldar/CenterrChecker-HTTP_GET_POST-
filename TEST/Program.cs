@@ -8,6 +8,8 @@ using IAuction;
 using CenterRu;
 using SberbankAst;
 using System.Xml.Serialization;
+using System.Text.RegularExpressions;
+using System.Text;
 
 namespace TEST
 {
@@ -99,6 +101,13 @@ namespace TEST
             SberbankAST.SberbankAstRequest myReq = new SberbankAST.SberbankAstRequest("техническая жидкость");
             testStr = myReq.GetResponse;
 
+            //testStr = Regex.Unescape(testStr);
+            /*
+            byte[] bytesIn = Encoding.Unicode.GetBytes(testStr);
+            byte[] bytesOut = Encoding.Convert(Encoding.Unicode, Encoding.UTF8, bytesIn);
+            testStr = Encoding.UTF8.GetString(bytesOut);        
+            */
+            
         }
     }
 }

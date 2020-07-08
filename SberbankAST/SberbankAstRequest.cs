@@ -39,6 +39,7 @@ namespace SberbankAST
 
         protected override string getBlankResponse()
         {
+            //string result = makeAnPost();
             initialised = true;
             return "";
             //throw new NotImplementedException();
@@ -46,16 +47,7 @@ namespace SberbankAST
 
         protected override void InitialiseParameters()
         {
-            elRequest = new Elasticrequest()
-            {
-                Filters = new Filters()
-                {
-                    MainSearchBar = new MainSearchBar()
-                    {
-                        Value = ""
-                    }
-                }
-            };
+            elRequest = new Elasticrequest();
             //throw new NotImplementedException();
         }
 
@@ -68,7 +60,8 @@ namespace SberbankAST
 
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL+ "/SearchQuery.aspx?name=Main", postData);
+            return makeAnPost(ServiceURL+ "SearchQuery.aspx?name=Main", postData);
+            //return makeAnPost(ServiceURL + "UnitedPurchaseList.aspx", postData);
             //throw new NotImplementedException();
         }
 
@@ -84,7 +77,7 @@ namespace SberbankAST
             result = result.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "");
             result = result.Replace(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", "");
             result = result.Replace("\r\n", "");
-            result = result.Replace(" ", "");
+            result = result.Replace("  ", " ");
 
             result += "&orgId=0";
             result += "&targetPageCode=UnitedPurchaseList";
@@ -124,6 +117,7 @@ namespace SberbankAST
             HttpWebResponse response;
             try
             {
+                //using (StreamWriter writer = new StreamWriter(request.GetRequestStream(), new UnicodeEncoding()))
                 using (StreamWriter writer = new StreamWriter(request.GetRequestStream(), new UTF8Encoding()))
                 {
                     writer.WriteLine(postData);
@@ -137,7 +131,9 @@ namespace SberbankAST
                 //throw;
             }
 
-            lastAnswer = new StreamReader(response.GetResponseStream(), Encoding.UTF8).ReadToEnd();    // put result in lastAnswer to cache            
+            lastAnswer = new StreamReader(response.GetResponseStream(), Encoding.UTF8).ReadToEnd();    // put result in lastAnswer to cache     
+            
+            
 
             return lastAnswer;
         }
