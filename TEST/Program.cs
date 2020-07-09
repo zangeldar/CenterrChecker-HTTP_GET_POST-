@@ -32,7 +32,8 @@ namespace TEST
         static void Main(string[] args)
         {
             //Test1();
-            Test2();
+            //Test2();
+            Test3();
         }
 
         static void Test1()
@@ -116,6 +117,19 @@ namespace TEST
             testStr = JsonConvert.DeserializeObject<string>(testStr);          
 
 
+        }
+
+        static void Test3()
+        {
+            string testStr = File.ReadAllText("response.json");
+            string testStrUn = File.ReadAllText("responseUnescape.json");
+
+            Newtonsoft.Json.Linq.JObject testRoot = JsonConvert.DeserializeObject<dynamic>(testStr);
+                        
+            string dataStr = testRoot.Last.Last.ToString();
+            //dataStr = Regex.Unescape(dataStr);
+            //dataStr = JsonConvert.DeserializeObject<string>(dataStr);
+            Newtonsoft.Json.Linq.JObject testData = JsonConvert.DeserializeObject<dynamic>(dataStr);
         }
     }
 }
