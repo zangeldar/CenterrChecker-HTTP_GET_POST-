@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace SberbankAST
 {
+    /*
     [XmlRoot(ElementName = "total")]
     public class Total
     {
@@ -12,7 +13,9 @@ namespace SberbankAST
         [XmlElement(ElementName = "relation")]
         public string Relation { get; set; }
     }
+    */
 
+    /*
     [XmlRoot(ElementName = "_source")]
     public class _source
     {
@@ -311,8 +314,10 @@ namespace SberbankAST
         [XmlElement(ElementName = "purchReq2docID")]
         public string PurchReq2docID { get; set; }
     }
+    */
 
-    [XmlRoot(ElementName = "highlight")]
+    /*
+    [XmlRoot(ElementName = "highlight")]    
     public class Highlight
     {
         [XmlElement(ElementName = "purchName")]
@@ -322,7 +327,9 @@ namespace SberbankAST
         [XmlElement(ElementName = "OrgName")]
         public string OrgName { get; set; }
     }
+    */
 
+    /*
     [XmlRoot(ElementName = "hits")]
     public class Hits
     {
@@ -339,7 +346,9 @@ namespace SberbankAST
         [XmlElement(ElementName = "highlight")]
         public Highlight Highlight { get; set; }
     }
+    */
 
+    /*
     [XmlRoot(ElementName = "datarow")]
     public class Datarow
     {
@@ -350,5 +359,6 @@ namespace SberbankAST
         [XmlElement(ElementName = "hits")]
         public List<Hits> Hits { get; set; }
     }
+    */
 }
 

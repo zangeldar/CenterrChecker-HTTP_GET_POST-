@@ -282,7 +282,7 @@ namespace SberbankAst
     }
 
     [XmlRoot(ElementName = "aggregations")]
-    public class Aggregations
+    public class AggregationsXml
     {
         [XmlElement(ElementName = "empty")]
         public Empty Empty { get; set; }
@@ -298,7 +298,7 @@ namespace SberbankAst
         [XmlElement(ElementName = "sort")]
         public Sort Sort { get; set; }
         [XmlElement(ElementName = "aggregations")]
-        public Aggregations Aggregations { get; set; }
+        public AggregationsXml Aggregations { get; set; }
         [XmlElement(ElementName = "size")]
         public string Size { get; set; }
         [XmlElement(ElementName = "from")]

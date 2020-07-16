@@ -457,11 +457,11 @@ namespace SberbankAST
     }
 
     [XmlRoot(ElementName = "aggregations")]
-    public class Aggregations
+    public class AggregationsXml
     {
         [XmlElement(ElementName = "empty")]
         public Empty Empty { get; set; }
-        public Aggregations()
+        public AggregationsXml()
         {
             Empty = new Empty();
         }

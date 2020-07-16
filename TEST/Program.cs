@@ -124,12 +124,29 @@ namespace TEST
             string testStr = File.ReadAllText("response.json");
             string testStrUn = File.ReadAllText("responseUnescape.json");
 
-            Newtonsoft.Json.Linq.JObject testRoot = JsonConvert.DeserializeObject<dynamic>(testStr);
-                        
+            //Newtonsoft.Json.Linq.JObject testRoot = JsonConvert.DeserializeObject<dynamic>(testStr);
+
+            SberbankAST.JsonResponse myResponse = JsonConvert.DeserializeObject<SberbankAST.JsonResponse>(testStr);
+            string myUnescape = Regex.Unescape(myResponse.data);
+
+            SberbankAST.JsonRoot myRoot = JsonConvert.DeserializeObject<SberbankAST.JsonRoot>(myResponse.data);
+
+            /*
             string dataStr = testRoot.Last.Last.ToString();
             //dataStr = Regex.Unescape(dataStr);
             //dataStr = JsonConvert.DeserializeObject<string>(dataStr);
             Newtonsoft.Json.Linq.JObject testData = JsonConvert.DeserializeObject<dynamic>(dataStr);
+            SberbankAST.Datarow myData = JsonConvert.DeserializeObject<SberbankAST.Datarow>(dataStr);
+            */
+
+            //string tookJson = myRoot.data;
+            object dataJsonObj = JsonConvert.DeserializeObject<dynamic>(myRoot.data);
+            SberbankAST.JsonResponseData dataJson = JsonConvert.DeserializeObject<SberbankAST.JsonResponseData>(myRoot.data);
+
+
+            XmlSerializer ser = new XmlSerializer(typeof(SberbankAST.MyDataRow));
+            SberbankAST.MyDataRow myDataRow = (SberbankAST.MyDataRow)ser.Deserialize(new StringReader(myRoot.tableXml));             
+            
         }
     }
 }
