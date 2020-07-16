@@ -1,12 +1,9 @@
-﻿/* 
- Licensed under the Apache License, Version 2.0
-
- http://www.apache.org/licenses/LICENSE-2.0
- */
-using System;
-using System.Xml.Serialization;
+﻿using System;
 using System.Collections.Generic;
-namespace SberbankAst
+using System.Text;
+using System.Xml.Serialization;
+
+namespace SberbankAST
 {
     [XmlRoot(ElementName = "mainSearchBar")]
     public class MainSearchBar
@@ -17,6 +14,12 @@ namespace SberbankAst
         public string Type { get; set; }
         [XmlElement(ElementName = "minimum_should_match")]
         public string Minimum_should_match { get; set; }
+        public MainSearchBar()
+        {
+            Value = " ";
+            Minimum_should_match = "100%";
+            Type = "best_fields";
+        }
     }
 
     [XmlRoot(ElementName = "purchAmount")]
@@ -26,6 +29,11 @@ namespace SberbankAst
         public string Minvalue { get; set; }
         [XmlElement(ElementName = "maxvalue")]
         public string Maxvalue { get; set; }
+        public PurchAmount()
+        {
+            Minvalue = " ";
+            Maxvalue = " ";
+        }
     }
 
     [XmlRoot(ElementName = "PublicDate")]
@@ -35,6 +43,11 @@ namespace SberbankAst
         public string Minvalue { get; set; }
         [XmlElement(ElementName = "maxvalue")]
         public string Maxvalue { get; set; }
+        public PublicDate()
+        {
+            Minvalue = " ";
+            Maxvalue = " ";
+        }
     }
 
     [XmlRoot(ElementName = "PurchaseStageTerm")]
@@ -44,6 +57,11 @@ namespace SberbankAst
         public string Value { get; set; }
         [XmlElement(ElementName = "visiblepart")]
         public string Visiblepart { get; set; }
+        public PurchaseStageTerm()
+        {
+            Value = " ";
+            Visiblepart = " ";
+        }
     }
 
     [XmlRoot(ElementName = "SourceTerm")]
@@ -53,6 +71,11 @@ namespace SberbankAst
         public string Value { get; set; }
         [XmlElement(ElementName = "visiblepart")]
         public string Visiblepart { get; set; }
+        public SourceTerm()
+        {
+            Value = " ";
+            Visiblepart = " ";
+        }
     }
 
     [XmlRoot(ElementName = "RegionNameTerm")]
@@ -62,6 +85,11 @@ namespace SberbankAst
         public string Value { get; set; }
         [XmlElement(ElementName = "visiblepart")]
         public string Visiblepart { get; set; }
+        public RegionNameTerm()
+        {
+            Value = " ";
+            Visiblepart = " ";
+        }
     }
 
     [XmlRoot(ElementName = "RequestStartDate")]
@@ -71,6 +99,11 @@ namespace SberbankAst
         public string Minvalue { get; set; }
         [XmlElement(ElementName = "maxvalue")]
         public string Maxvalue { get; set; }
+        public RequestStartDate()
+        {
+            Minvalue = " ";
+            Maxvalue = " ";
+        }
     }
 
     [XmlRoot(ElementName = "RequestDate")]
@@ -80,6 +113,11 @@ namespace SberbankAst
         public string Minvalue { get; set; }
         [XmlElement(ElementName = "maxvalue")]
         public string Maxvalue { get; set; }
+        public RequestDate()
+        {
+            Minvalue = " ";
+            Maxvalue = " ";
+        }
     }
 
     [XmlRoot(ElementName = "AuctionBeginDate")]
@@ -89,6 +127,11 @@ namespace SberbankAst
         public string Minvalue { get; set; }
         [XmlElement(ElementName = "maxvalue")]
         public string Maxvalue { get; set; }
+        public AuctionBeginDate()
+        {
+            Minvalue = " ";
+            Maxvalue = " ";
+        }
     }
 
     [XmlRoot(ElementName = "okdp2MultiMatch")]
@@ -96,6 +139,10 @@ namespace SberbankAst
     {
         [XmlElement(ElementName = "value")]
         public string Value { get; set; }
+        public Okdp2MultiMatch()
+        {
+            Value = " ";
+        }
     }
 
     [XmlRoot(ElementName = "okdp2tree")]
@@ -107,6 +154,12 @@ namespace SberbankAst
         public string ProductField { get; set; }
         [XmlElement(ElementName = "branchField")]
         public string BranchField { get; set; }
+        public Okdp2tree()
+        {
+            Value = " ";
+            ProductField = " ";
+            BranchField = " ";
+        }
     }
 
     [XmlRoot(ElementName = "classifier")]
@@ -114,6 +167,10 @@ namespace SberbankAst
     {
         [XmlElement(ElementName = "visiblepart")]
         public string Visiblepart { get; set; }
+        public Classifier()
+        {
+            Visiblepart = " ";
+        }
     }
 
     [XmlRoot(ElementName = "orgCondition")]
@@ -121,6 +178,10 @@ namespace SberbankAst
     {
         [XmlElement(ElementName = "value")]
         public string Value { get; set; }
+        public OrgCondition()
+        {
+            Value = " ";
+        }
     }
 
     [XmlRoot(ElementName = "orgDictionary")]
@@ -128,6 +189,10 @@ namespace SberbankAst
     {
         [XmlElement(ElementName = "value")]
         public string Value { get; set; }
+        public OrgDictionary()
+        {
+            Value = " ";
+        }
     }
 
     [XmlRoot(ElementName = "organizator")]
@@ -135,6 +200,10 @@ namespace SberbankAst
     {
         [XmlElement(ElementName = "visiblepart")]
         public string Visiblepart { get; set; }
+        public Organizator()
+        {
+            Visiblepart = " ";
+        }
     }
 
     [XmlRoot(ElementName = "CustomerCondition")]
@@ -142,6 +211,10 @@ namespace SberbankAst
     {
         [XmlElement(ElementName = "value")]
         public string Value { get; set; }
+        public CustomerCondition()
+        {
+            Value = " ";
+        }
     }
 
     [XmlRoot(ElementName = "CustomerDictionary")]
@@ -149,6 +222,10 @@ namespace SberbankAst
     {
         [XmlElement(ElementName = "value")]
         public string Value { get; set; }
+        public CustomerDictionary()
+        {
+            Value = " ";
+        }
     }
 
     [XmlRoot(ElementName = "customer")]
@@ -156,6 +233,10 @@ namespace SberbankAst
     {
         [XmlElement(ElementName = "visiblepart")]
         public string Visiblepart { get; set; }
+        public Customer()
+        {
+            Visiblepart = " ";
+        }
     }
 
     [XmlRoot(ElementName = "PurchaseWayTerm")]
@@ -165,6 +246,11 @@ namespace SberbankAst
         public string Value { get; set; }
         [XmlElement(ElementName = "visiblepart")]
         public string Visiblepart { get; set; }
+        public PurchaseWayTerm()
+        {
+            Value = " ";
+            Visiblepart = " ";
+        }
     }
 
     [XmlRoot(ElementName = "PurchaseTypeNameTerm")]
@@ -174,6 +260,11 @@ namespace SberbankAst
         public string Value { get; set; }
         [XmlElement(ElementName = "visiblepart")]
         public string Visiblepart { get; set; }
+        public PurchaseTypeNameTerm()
+        {
+            Value = " ";
+            Visiblepart = " ";
+        }
     }
 
     [XmlRoot(ElementName = "BranchNameTerm")]
@@ -183,6 +274,11 @@ namespace SberbankAst
         public string Value { get; set; }
         [XmlElement(ElementName = "visiblepart")]
         public string Visiblepart { get; set; }
+        public BranchNameTerm()
+        {
+            Value = " ";
+            Visiblepart = " ";
+        }
     }
 
     [XmlRoot(ElementName = "IsSMPTerm")]
@@ -192,6 +288,11 @@ namespace SberbankAst
         public string Value { get; set; }
         [XmlElement(ElementName = "visiblepart")]
         public string Visiblepart { get; set; }
+        public IsSMPTerm()
+        {
+            Value = " ";
+            Visiblepart = " ";
+        }
     }
 
     [XmlRoot(ElementName = "statistic")]
@@ -203,6 +304,17 @@ namespace SberbankAst
         public string TotalSum { get; set; }
         [XmlElement(ElementName = "DistinctOrgs")]
         public string DistinctOrgs { get; set; }
+        public Statistic()
+        {
+            TotalProc = " ";
+            TotalSum = " ";
+            DistinctOrgs = " ";
+            /*
+            TotalProc = "8 294 048";
+            TotalSum = "22.05 Òðëí.";
+            DistinctOrgs = "74447";
+            */
+        }
     }
 
     [XmlRoot(ElementName = "filters")]
@@ -254,6 +366,35 @@ namespace SberbankAst
         public IsSMPTerm IsSMPTerm { get; set; }
         [XmlElement(ElementName = "statistic")]
         public Statistic Statistic { get; set; }
+        public Filters()
+        {
+            MainSearchBar = new MainSearchBar();
+            PurchAmount = new PurchAmount();
+            PublicDate = new PublicDate();
+            PurchaseStageTerm = new PurchaseStageTerm();
+            SourceTerm = new SourceTerm();
+            RegionNameTerm = new RegionNameTerm();
+            RequestStartDate = new RequestStartDate();
+            RequestDate = new RequestDate();
+            AuctionBeginDate = new AuctionBeginDate();
+            Okdp2MultiMatch = new Okdp2MultiMatch();
+            Okdp2tree = new Okdp2tree();
+            Classifier = new Classifier();
+            OrgCondition = new OrgCondition();
+            OrgDictionary = new OrgDictionary();
+            Organizator = new Organizator();
+            CustomerCondition = new CustomerCondition();
+            CustomerDictionary = new CustomerDictionary();
+            Customer = new Customer();
+            PurchaseWayTerm = new PurchaseWayTerm();
+            PurchaseTypeNameTerm = new PurchaseTypeNameTerm();
+            BranchNameTerm = new BranchNameTerm();
+            IsSMPTerm = new IsSMPTerm();
+            Statistic = new Statistic();
+
+
+
+        }
     }
 
     [XmlRoot(ElementName = "fields")]
@@ -261,6 +402,35 @@ namespace SberbankAst
     {
         [XmlElement(ElementName = "field")]
         public List<string> Field { get; set; }
+        public Fields()
+        {
+            Field = new List<string>()
+            {
+                "TradeSectionId",
+                "purchAmount",
+                "purchCurrency",
+                "purchCodeTerm",
+                "PurchaseTypeName",
+                "purchStateName",
+                "BidStatusName",
+                "OrgName",
+                "SourceTerm",
+                "PublicDate",
+                "RequestDate",
+                "RequestStartDate",
+                "RequestAcceptDate",
+                "EndDate",
+                "CreateRequestHrefTerm",
+                "CreateRequestAlowed",
+                "purchName",
+                "BidName",
+                "SourceHrefTerm",
+                "objectHrefTerm",
+                "needPayment",
+                "IsSMP",
+                "isIncrease",
+            };
+        }
     }
 
     [XmlRoot(ElementName = "sort")]
@@ -270,6 +440,11 @@ namespace SberbankAst
         public string Value { get; set; }
         [XmlElement(ElementName = "direction")]
         public string Direction { get; set; }
+        public Sort()
+        {
+            Value = "default";
+            Direction = " ";
+        }
     }
 
     [XmlRoot(ElementName = "empty")]
@@ -279,6 +454,11 @@ namespace SberbankAst
         public string FilterType { get; set; }
         [XmlElement(ElementName = "field")]
         public string Field { get; set; }
+        public Empty()
+        {
+            FilterType = "filter_aggregation";
+            Field = " ";
+        }
     }
 
     [XmlRoot(ElementName = "aggregations")]
@@ -286,6 +466,10 @@ namespace SberbankAst
     {
         [XmlElement(ElementName = "empty")]
         public Empty Empty { get; set; }
+        public AggregationsXml()
+        {
+            Empty = new Empty();
+        }
     }
 
     [XmlRoot(ElementName = "elasticrequest")]
@@ -303,13 +487,15 @@ namespace SberbankAst
         public string Size { get; set; }
         [XmlElement(ElementName = "from")]
         public string From { get; set; }
+        
+        public Elasticrequest()
+        {
+            Filters = new Filters();
+            Fields = new Fields();
+            Sort = new Sort();
+            Aggregations = new AggregationsXml();
+            Size = "20";
+            From = "0";
+        }
     }
-
-    [XmlRoot(ElementName = "xml")]
-    public class Xml
-    {
-        [XmlElement(ElementName = "elasticrequest")]
-        public Elasticrequest Elasticrequest { get; set; }
-    }
-
 }

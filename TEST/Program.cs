@@ -6,7 +6,7 @@ using MyHTMLParser;
 using IAuction;
 //using CenterrRu;
 using CenterRu;
-using SberbankAst;
+using SberbankAST;
 using System.Xml.Serialization;
 using System.Text.RegularExpressions;
 using System.Text;
@@ -33,7 +33,8 @@ namespace TEST
         {
             //Test1();
             //Test2();
-            Test3();
+            //Test3();
+            Test4();
         }
 
         static void Test1()
@@ -147,6 +148,29 @@ namespace TEST
             XmlSerializer ser = new XmlSerializer(typeof(SberbankAST.MyDataRow));
             SberbankAST.MyDataRow myDataRow = (SberbankAST.MyDataRow)ser.Deserialize(new StringReader(myRoot.tableXml));             
             
+        }
+
+        static void Test4()
+        {
+            //Создаем запрос
+            SberbankAST.SberbankAstRequest myReq = new SberbankAST.SberbankAstRequest("техническая жидкость");
+            //SberbankAST.SberbankAstRequest myReq = new SberbankAST.SberbankAstRequest("");
+
+            // получаем ответ строкой
+            string testStr = myReq.GetResponse;
+
+            // парсим первый уровень ответа (JSON)
+            SberbankAST.JsonResponse myResponse = JsonConvert.DeserializeObject<SberbankAST.JsonResponse>(testStr);
+
+            // парсим второй уровень ответа (JSON)
+            SberbankAST.JsonRoot myRoot = JsonConvert.DeserializeObject<SberbankAST.JsonRoot>(myResponse.data);
+
+            // парсим третий уровень (JSON)
+            SberbankAST.JsonResponseData dataJson = JsonConvert.DeserializeObject<SberbankAST.JsonResponseData>(myRoot.data);
+
+            // парсим третий уровень (XML)
+            XmlSerializer ser = new XmlSerializer(typeof(SberbankAST.MyDataRow));
+            SberbankAST.MyDataRow myDataRow = (SberbankAST.MyDataRow)ser.Deserialize(new StringReader(myRoot.tableXml));
         }
     }
 }

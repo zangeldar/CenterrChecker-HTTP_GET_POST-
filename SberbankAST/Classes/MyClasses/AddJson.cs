@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SberbankAST
 {    
-    public partial class JsonResponseData
+    public class JsonResponseData
     {
         [JsonProperty("took")]
         public long Took { get; set; }
@@ -23,7 +23,7 @@ namespace SberbankAST
         public Aggregations Aggregations { get; set; }
     }
 
-    public partial class Aggregations
+    public class Aggregations
     {
         [JsonProperty("DistinctOrgs")]
         public DistinctOrgs DistinctOrgs { get; set; }
@@ -47,7 +47,7 @@ namespace SberbankAST
         public Branch Sources { get; set; }
     }
 
-    public partial class Branch
+    public class Branch
     {
         [JsonProperty("doc_count_error_upper_bound")]
         public long DocCountErrorUpperBound { get; set; }
@@ -59,7 +59,7 @@ namespace SberbankAST
         public Bucket[] Buckets { get; set; }
     }
 
-    public partial class Bucket
+    public class Bucket
     {
         [JsonProperty("key")]
         public string Key { get; set; }
@@ -71,13 +71,13 @@ namespace SberbankAST
         public DistinctOrgs PriceSums { get; set; }
     }
 
-    public partial class DistinctOrgs
+    public class DistinctOrgs
     {
         [JsonProperty("value")]
         public double Value { get; set; }
     }
 
-    public partial class Shards
+    public class Shards
     {
         [JsonProperty("total")]
         public long Total { get; set; }

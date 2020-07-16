@@ -7,6 +7,7 @@ namespace SberbankAST
 {
     class SberbankAstResponse : ATorgResponse
     {
+        public override string SiteName => "Сбербанк-АСТ";
         public SberbankAstResponse(string searchStr) : base(searchStr)
         {
             this.MyRequest = new SberbankAstRequest(searchStr);
@@ -23,18 +24,24 @@ namespace SberbankAST
         }
         public SberbankAstResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 
-        public override string SiteName => throw new NotImplementedException();
-
-        public override IResponse MakeFreshResponse => throw new NotImplementedException();
+        public override IResponse MakeFreshResponse
+        {
+            get
+            {
+                return new SberbankAstResponse(this.MyRequest);
+            }
+        }
 
         public override IResponse LoadFromXml(string fileName = "lastrequest.req")
         {
-            throw new NotImplementedException();
+            return SFileIO.LoadMyResponse(fileName);
+            //throw new NotImplementedException();
         }
 
         public override bool SaveToXml(string fileName = "lastrequest.req")
         {
-            throw new NotImplementedException();
+            return SFileIO.SaveMyResponse(this, fileName);
+            //throw new NotImplementedException();
         }
 
         protected override string CreateTableForMailing(bool html = true)
