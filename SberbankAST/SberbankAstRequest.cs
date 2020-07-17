@@ -12,6 +12,14 @@ namespace SberbankAST
     public class SberbankAstRequest : ATorgRequest
     {
         private Elasticrequest elRequest;
+        //private void MakeElRequest(SerializableDictionary<string, string> )
+        private void MakeElRequest()
+        {
+            //elRequest = new Elasticrequest();
+
+            if (MyParameters.ContainsKey("SearchString"))
+                elRequest.Filters.MainSearchBar.Value = MyParameters["SearchString"];
+        }
         public SberbankAstRequest() : base()
         {
             InitialiseParameters();
@@ -19,7 +27,9 @@ namespace SberbankAST
         public SberbankAstRequest(string searchStr) : base(searchStr)
         {
             InitialiseParameters();
-            elRequest.Filters.MainSearchBar.Value = searchStr;
+            MyParameters["SearchString"] = searchStr;
+            //elRequest.Filters.MainSearchBar.Value = searchStr;
+            MakeElRequest();
         }
 
         public override string Type => "SberbankAST";
@@ -29,13 +39,19 @@ namespace SberbankAST
         public override string ServiceURL => "https://www.sberbank-ast.ru/";
 
         public override string SearchString {
-            get => elRequest.Filters.MainSearchBar.Value;
-            set => elRequest.Filters.MainSearchBar.Value = value;
+            get => MyParameters["SearchString"];
+            set
+            {
+                MyParameters["SearchString"] = value;
+                MakeElRequest();
+             }
+
         }
 
         public override IResponse MakeResponse()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return new SberbankAstResponse(this);
         }
 
         protected override string getBlankResponse()
@@ -48,6 +64,10 @@ namespace SberbankAST
 
         protected override void InitialiseParameters()
         {
+            MyParameters = new SerializableDictionary<string, string>
+            {
+                { "SearchString", ""}
+            };
             elRequest = new Elasticrequest();
             //throw new NotImplementedException();
         }
@@ -132,7 +152,7 @@ namespace SberbankAST
              */
 
             //debug
-            postData = @"xmlData=%3Celasticrequest%3E%3Cfilters%3E%3CmainSearchBar%3E%3Cvalue%3E%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F+%D0%B6%D0%B8%D0%B4%D0%BA%D0%BE%D1%81%D1%82%D1%8C%3C%2Fvalue%3E%3Ctype%3Ebest_fields%3C%2Ftype%3E%3Cminimum_should_match%3E100%25%3C%2Fminimum_should_match%3E%3C%2FmainSearchBar%3E%3CpurchAmount%3E%3Cminvalue%3E%3C%2Fminvalue%3E%3Cmaxvalue%3E%3C%2Fmaxvalue%3E%3C%2FpurchAmount%3E%3CPublicDate%3E%3Cminvalue%3E%3C%2Fminvalue%3E%3Cmaxvalue%3E%3C%2Fmaxvalue%3E%3C%2FPublicDate%3E%3CPurchaseStageTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FPurchaseStageTerm%3E%3CSourceTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FSourceTerm%3E%3CRegionNameTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FRegionNameTerm%3E%3CRequestStartDate%3E%3Cminvalue%3E%3C%2Fminvalue%3E%3Cmaxvalue%3E%3C%2Fmaxvalue%3E%3C%2FRequestStartDate%3E%3CRequestDate%3E%3Cminvalue%3E%3C%2Fminvalue%3E%3Cmaxvalue%3E%3C%2Fmaxvalue%3E%3C%2FRequestDate%3E%3CAuctionBeginDate%3E%3Cminvalue%3E%3C%2Fminvalue%3E%3Cmaxvalue%3E%3C%2Fmaxvalue%3E%3C%2FAuctionBeginDate%3E%3Cokdp2MultiMatch%3E%3Cvalue%3E%3C%2Fvalue%3E%3C%2Fokdp2MultiMatch%3E%3Cokdp2tree%3E%3Cvalue%3E%3C%2Fvalue%3E%3CproductField%3E%3C%2FproductField%3E%3CbranchField%3E%3C%2FbranchField%3E%3C%2Fokdp2tree%3E%3Cclassifier%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2Fclassifier%3E%3CorgCondition%3E%3Cvalue%3E%3C%2Fvalue%3E%3C%2ForgCondition%3E%3CorgDictionary%3E%3Cvalue%3E%3C%2Fvalue%3E%3C%2ForgDictionary%3E%3Corganizator%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2Forganizator%3E%3CCustomerCondition%3E%3Cvalue%3E%3C%2Fvalue%3E%3C%2FCustomerCondition%3E%3CCustomerDictionary%3E%3Cvalue%3E%3C%2Fvalue%3E%3C%2FCustomerDictionary%3E%3Ccustomer%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2Fcustomer%3E%3CPurchaseWayTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FPurchaseWayTerm%3E%3CPurchaseTypeNameTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FPurchaseTypeNameTerm%3E%3CBranchNameTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FBranchNameTerm%3E%3CIsSMPTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FIsSMPTerm%3E%3Cstatistic%3E%3CtotalProc%3E3+656%3C%2FtotalProc%3E%3CTotalSum%3E3.28+%D0%9C%D0%BB%D1%80%D0%B4.%3C%2FTotalSum%3E%3CDistinctOrgs%3E1+306%3C%2FDistinctOrgs%3E%3C%2Fstatistic%3E%3C%2Ffilters%3E%3Cfields%3E%3Cfield%3ETradeSectionId%3C%2Ffield%3E%3Cfield%3EpurchAmount%3C%2Ffield%3E%3Cfield%3EpurchCurrency%3C%2Ffield%3E%3Cfield%3EpurchCodeTerm%3C%2Ffield%3E%3Cfield%3EPurchaseTypeName%3C%2Ffield%3E%3Cfield%3EpurchStateName%3C%2Ffield%3E%3Cfield%3EBidStatusName%3C%2Ffield%3E%3Cfield%3EOrgName%3C%2Ffield%3E%3Cfield%3ESourceTerm%3C%2Ffield%3E%3Cfield%3EPublicDate%3C%2Ffield%3E%3Cfield%3ERequestDate%3C%2Ffield%3E%3Cfield%3ERequestStartDate%3C%2Ffield%3E%3Cfield%3ERequestAcceptDate%3C%2Ffield%3E%3Cfield%3EEndDate%3C%2Ffield%3E%3Cfield%3ECreateRequestHrefTerm%3C%2Ffield%3E%3Cfield%3ECreateRequestAlowed%3C%2Ffield%3E%3Cfield%3EpurchName%3C%2Ffield%3E%3Cfield%3EBidName%3C%2Ffield%3E%3Cfield%3ESourceHrefTerm%3C%2Ffield%3E%3Cfield%3EobjectHrefTerm%3C%2Ffield%3E%3Cfield%3EneedPayment%3C%2Ffield%3E%3Cfield%3EIsSMP%3C%2Ffield%3E%3Cfield%3EisIncrease%3C%2Ffield%3E%3C%2Ffields%3E%3Csort%3E%3Cvalue%3Edefault%3C%2Fvalue%3E%3Cdirection%3E%3C%2Fdirection%3E%3C%2Fsort%3E%3Caggregations%3E%3Cempty%3E%3CfilterType%3Efilter_aggregation%3C%2FfilterType%3E%3Cfield%3E%3C%2Ffield%3E%3C%2Fempty%3E%3C%2Faggregations%3E%3Csize%3E20%3C%2Fsize%3E%3Cfrom%3E0%3C%2Ffrom%3E%3C%2Felasticrequest%3E&orgId=0&targetPageCode=UnitedPurchaseList";
+            //postData = @"xmlData=%3Celasticrequest%3E%3Cfilters%3E%3CmainSearchBar%3E%3Cvalue%3E%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F+%D0%B6%D0%B8%D0%B4%D0%BA%D0%BE%D1%81%D1%82%D1%8C%3C%2Fvalue%3E%3Ctype%3Ebest_fields%3C%2Ftype%3E%3Cminimum_should_match%3E100%25%3C%2Fminimum_should_match%3E%3C%2FmainSearchBar%3E%3CpurchAmount%3E%3Cminvalue%3E%3C%2Fminvalue%3E%3Cmaxvalue%3E%3C%2Fmaxvalue%3E%3C%2FpurchAmount%3E%3CPublicDate%3E%3Cminvalue%3E%3C%2Fminvalue%3E%3Cmaxvalue%3E%3C%2Fmaxvalue%3E%3C%2FPublicDate%3E%3CPurchaseStageTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FPurchaseStageTerm%3E%3CSourceTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FSourceTerm%3E%3CRegionNameTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FRegionNameTerm%3E%3CRequestStartDate%3E%3Cminvalue%3E%3C%2Fminvalue%3E%3Cmaxvalue%3E%3C%2Fmaxvalue%3E%3C%2FRequestStartDate%3E%3CRequestDate%3E%3Cminvalue%3E%3C%2Fminvalue%3E%3Cmaxvalue%3E%3C%2Fmaxvalue%3E%3C%2FRequestDate%3E%3CAuctionBeginDate%3E%3Cminvalue%3E%3C%2Fminvalue%3E%3Cmaxvalue%3E%3C%2Fmaxvalue%3E%3C%2FAuctionBeginDate%3E%3Cokdp2MultiMatch%3E%3Cvalue%3E%3C%2Fvalue%3E%3C%2Fokdp2MultiMatch%3E%3Cokdp2tree%3E%3Cvalue%3E%3C%2Fvalue%3E%3CproductField%3E%3C%2FproductField%3E%3CbranchField%3E%3C%2FbranchField%3E%3C%2Fokdp2tree%3E%3Cclassifier%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2Fclassifier%3E%3CorgCondition%3E%3Cvalue%3E%3C%2Fvalue%3E%3C%2ForgCondition%3E%3CorgDictionary%3E%3Cvalue%3E%3C%2Fvalue%3E%3C%2ForgDictionary%3E%3Corganizator%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2Forganizator%3E%3CCustomerCondition%3E%3Cvalue%3E%3C%2Fvalue%3E%3C%2FCustomerCondition%3E%3CCustomerDictionary%3E%3Cvalue%3E%3C%2Fvalue%3E%3C%2FCustomerDictionary%3E%3Ccustomer%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2Fcustomer%3E%3CPurchaseWayTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FPurchaseWayTerm%3E%3CPurchaseTypeNameTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FPurchaseTypeNameTerm%3E%3CBranchNameTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FBranchNameTerm%3E%3CIsSMPTerm%3E%3Cvalue%3E%3C%2Fvalue%3E%3Cvisiblepart%3E%3C%2Fvisiblepart%3E%3C%2FIsSMPTerm%3E%3Cstatistic%3E%3CtotalProc%3E3+656%3C%2FtotalProc%3E%3CTotalSum%3E3.28+%D0%9C%D0%BB%D1%80%D0%B4.%3C%2FTotalSum%3E%3CDistinctOrgs%3E1+306%3C%2FDistinctOrgs%3E%3C%2Fstatistic%3E%3C%2Ffilters%3E%3Cfields%3E%3Cfield%3ETradeSectionId%3C%2Ffield%3E%3Cfield%3EpurchAmount%3C%2Ffield%3E%3Cfield%3EpurchCurrency%3C%2Ffield%3E%3Cfield%3EpurchCodeTerm%3C%2Ffield%3E%3Cfield%3EPurchaseTypeName%3C%2Ffield%3E%3Cfield%3EpurchStateName%3C%2Ffield%3E%3Cfield%3EBidStatusName%3C%2Ffield%3E%3Cfield%3EOrgName%3C%2Ffield%3E%3Cfield%3ESourceTerm%3C%2Ffield%3E%3Cfield%3EPublicDate%3C%2Ffield%3E%3Cfield%3ERequestDate%3C%2Ffield%3E%3Cfield%3ERequestStartDate%3C%2Ffield%3E%3Cfield%3ERequestAcceptDate%3C%2Ffield%3E%3Cfield%3EEndDate%3C%2Ffield%3E%3Cfield%3ECreateRequestHrefTerm%3C%2Ffield%3E%3Cfield%3ECreateRequestAlowed%3C%2Ffield%3E%3Cfield%3EpurchName%3C%2Ffield%3E%3Cfield%3EBidName%3C%2Ffield%3E%3Cfield%3ESourceHrefTerm%3C%2Ffield%3E%3Cfield%3EobjectHrefTerm%3C%2Ffield%3E%3Cfield%3EneedPayment%3C%2Ffield%3E%3Cfield%3EIsSMP%3C%2Ffield%3E%3Cfield%3EisIncrease%3C%2Ffield%3E%3C%2Ffields%3E%3Csort%3E%3Cvalue%3Edefault%3C%2Fvalue%3E%3Cdirection%3E%3C%2Fdirection%3E%3C%2Fsort%3E%3Caggregations%3E%3Cempty%3E%3CfilterType%3Efilter_aggregation%3C%2FfilterType%3E%3Cfield%3E%3C%2Ffield%3E%3C%2Fempty%3E%3C%2Faggregations%3E%3Csize%3E20%3C%2Fsize%3E%3Cfrom%3E0%3C%2Ffrom%3E%3C%2Felasticrequest%3E&orgId=0&targetPageCode=UnitedPurchaseList";
 
 
             HttpWebResponse response;

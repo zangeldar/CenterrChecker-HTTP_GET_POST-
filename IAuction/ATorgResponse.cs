@@ -1,4 +1,5 @@
 ﻿using MyHTMLParser;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace IAuction
 {
     [Serializable]
     abstract public class ATorgResponse : IResponse
-    {
+    {        
         /// <summary>
         ////Часть интерфейса
         /// </summary>
@@ -117,7 +118,7 @@ namespace IAuction
         ///часть реализации интерфейса
         ///
 
-        private Exception lastError;
+        protected Exception lastError;
         public Exception LastError() { return lastError; }
         public IEnumerable<IObject> ListResponse { get; protected set; }
         public IRequest MyRequest { get; protected set; }

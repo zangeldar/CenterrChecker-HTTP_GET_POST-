@@ -171,6 +171,12 @@ namespace TEST
             // парсим третий уровень (XML)
             XmlSerializer ser = new XmlSerializer(typeof(SberbankAST.MyDataRow));
             SberbankAST.MyDataRow myDataRow = (SberbankAST.MyDataRow)ser.Deserialize(new StringReader(myRoot.tableXml));
+
+            foreach (Hit hit in myDataRow.Hits)
+            {
+                Console.WriteLine(new SberbankAst(hit).ToString(false));
+                Console.WriteLine(new SberbankAst(hit).ToString(true));
+            }
         }
     }
 }

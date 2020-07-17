@@ -21,6 +21,7 @@ namespace SberbankAST
             DateAuctionStart = inpHit.Source.EndDate;                        // Дата проведения аукциона	"24.07.2020"	string            
             Status = inpHit.Source.PurchStateName;	                // Текущая стадия "Прием заявок"	string  
             TorgType = inpHit.Source.PurchaseTypeName;                // Тип торгов "Открытый запрос котировок в электронной форме"	string            
+            DateAcceptStart = inpHit.Source.RequestStartDate;	            // Дата окончания приема заявок "24.07.2020 00:01"	string
             DateAcceptFinish = inpHit.Source.RequestAcceptDate;	            // Дата окончания приема заявок "24.07.2020 00:01"	string
             Section = inpHit.Source.SourceTerm;	                    // Раздел торгов: "Закупки по 223-ФЗ"	string
             //inpHit.Source.CreateRequestHrefTerm;          // ссылка для подачи заявки (требуется регистрация)	
@@ -39,6 +40,7 @@ namespace SberbankAST
         public string Organizer { get; private set; }
         public string Section { get; private set; }
         public long Active { get; private set; }
+        public string DateAcceptStart { get; private set; }
         public string DateAcceptFinish { get; private set; }
         public string DateAuctionStart { get; private set; }
         public string Status { get; private set; }
@@ -94,71 +96,66 @@ namespace SberbankAST
         public override string ToString(bool html)
         {
             //throw new NotImplementedException();
-            string baseUri = "http://bankrupt.centerr.ru";
+            string baseUri = "https://sberbank-ast.ru";
             string result = "";
 
             if (html)
-                result += String.Format("<tr><td>" +
-                    @"<a href =""{0}"">{1}</a>" + "</td><td>" +
-                    @"<a href =""{2}"">{3}</a>" + "</td><td>" +
-                    @"<a href =""{4}"">{5}</a>" + "</td><td>" +
-                    @"<a href =""{6}"">{7}</a>" + "</td><td>" +
-                    @"{8}" + "</td><td>" +
-                    @"<a href =""{9}"">{10}</a>" + "</td><td>" +
-                    @"{11}" + "</td><td>" +
-                    @"{12}" + "</td><td>" +
-                    @"{13}" + "</td><td>" +
-                    @"<a href =""{14}"">{15}</a>" + "</td><td>" +
-                    //@"{16}"                          + "</td></tr></table>",
-                    @"{16}" + "</td></tr>",
-                    baseUri + TorgNumber.ItemUri.Replace("\'", "").Replace("class", ""), TorgNumber.ItemString,
-                    baseUri + TorgName.ItemUri.Replace("\"", ""), TorgName.ItemString,
-                    baseUri + LotNumber.ItemUri.Replace("\"", "").Replace("\'", ""), LotNumber.ItemString,
-                    baseUri + LotName.ItemUri.Replace("\"", ""), LotName.ItemString,
+                result += String.Format("<tr><td>" +                    
+                    @"{0}" + "</td><td>" +                          // LotNumberStr
+                    @"<a href =""{2}"">{1}</a>" + "</td><td>" +                          // TorgNameStr
+                    @"<a href =""{2}"">{3}</a>" + "</td><td>" +     // LotNameUrl     LotNameStr
+                    @"{4}" + "</td><td>" +                          // PriceStart
+                    @"{5}" + "</td><td>" +                          // Organizer
+                    @"{6}<br>-<br>{7}" + "</td><td>" +              // DataAcceptStart + DataAcceptFinish
+                    @"{8}" + "</td><td>" +                          // DateAuctionStart
+                    @"{9}" + "</td><td>" +                          // Status
+                    @"{10}" + "</td><td>" +                         // TorgType                    
+                    @"{11}" + "</td></tr>",                         // Section
+                    //@"{11}"                          + "</td></tr></table>",
+                    LotNumberStr,
+                    TorgNameStr,
+                    LotNameUrl, LotNameStr,
                     PriceStart,
-                    baseUri + Organizer.ItemUri.Replace("\"", ""), Organizer.ItemString,
-                    DateAcceptFinish,
+                    Organizer,
+                    DateAcceptStart, DateAcceptFinish,
                     DateAuctionStart,
                     Status,
-                    baseUri + Winner.ItemUri.Replace("\"", ""), Winner.ItemString,
-                    TorgType
+                    TorgType,
+                    Section                    
                     );
             else
                 result += String.Format(
+                    @"{0}" + ";" +
                     @"{1}" + ";" +
                     @"{3}" + ";" +
-                    @"{5}" + ";" +
-                    @"{7}" + ";" +
-                    @"{8}" + ";" +
-                    @"{10}" + ";" +
-                    @"{11}" + ";" +
-                    @"{12}" + ";" +
-                    @"{13}" + ";" +
-                    @"{15}" + ";" +
-                    @"{16}" + Environment.NewLine +
-                    // строка таблицы с ссылками
-                    @"{0}" + ";" +
-                    @"{2}" + ";" +
                     @"{4}" + ";" +
+                    @"{5}" + ";" +
                     @"{6}" + ";" +
-                    @"" + ";" +
+                    @"{8}" + ";" +
                     @"{9}" + ";" +
+                    @"{10}" + ";" +
+                    @"{11}" + Environment.NewLine +
+                    // строка таблицы с ссылками
+                    @"" + ";" +
+                    @"{2}" + ";" +
+                    @"{2}" + ";" +
+                    @"" + ";" +
+                    @"" + ";" +
+                    @"{7}" + ";" +
                     @"" + ";" +
                     @"" + ";" +
                     @"" + ";" +
-                    @"{14}" + ";" +
                     @"" + Environment.NewLine,
-                    baseUri + TorgNumber.ItemUri.Replace("\'", "").Replace("class", ""), TorgNumber.ItemString,
-                    baseUri + TorgName.ItemUri.Replace("\"", ""), TorgName.ItemString,
-                    baseUri + LotNumber.ItemUri.Replace("\"", "").Replace("\'", ""), LotNumber.ItemString,
-                    baseUri + LotName.ItemUri.Replace("\"", ""), LotName.ItemString,
+                    LotNumberStr,
+                    TorgNameStr,
+                    LotNameUrl, LotNameStr,
                     PriceStart,
-                    baseUri + Organizer.ItemUri.Replace("\"", ""), Organizer.ItemString,
-                    DateAcceptFinish,
+                    Organizer,
+                    DateAcceptStart, DateAcceptFinish,
                     DateAuctionStart,
                     Status,
-                    baseUri + Winner.ItemUri.Replace("\"", ""), Winner.ItemString,
-                    TorgType
+                    TorgType,
+                    Section
                     );
 
             return result;

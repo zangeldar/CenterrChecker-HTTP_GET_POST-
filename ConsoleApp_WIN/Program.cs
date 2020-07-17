@@ -122,6 +122,9 @@ namespace ConsoleApp_WIN
                             case "ASVorgRequest":
                                 curReq = ATorgRequest.LoadMyRequestObjectXML(new ASVorgRU.ASVorgRequest(), item);
                                 break;
+                            case "SberbankAstRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new SberbankAST.SberbankAstRequest(), item);
+                                break;
                             default:
                                 Console.WriteLine("Unknown request type: " + checkType + " of file: " + item + ". Check necessary DLLs!");
                                 break;

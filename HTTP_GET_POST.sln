@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASVorgRU", "ASVorgRU\ASVorg
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SberbankAST", "SberbankAST\SberbankAST.csproj", "{104AF94F-A174-47E0-B5CB-CA8F5FB802DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyJSONParser", "MyJsonParser\MyJSONParser.csproj", "{7D0B1EE1-29D5-475A-85EA-01ABE6B182B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyJSONParser", "MyJsonParser\MyJSONParser.csproj", "{7D0B1EE1-29D5-475A-85EA-01ABE6B182B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2B", "B2B\B2B.csproj", "{8C15360F-9714-4940-A3C5-BA9A950D886C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{7D0B1EE1-29D5-475A-85EA-01ABE6B182B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D0B1EE1-29D5-475A-85EA-01ABE6B182B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D0B1EE1-29D5-475A-85EA-01ABE6B182B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C15360F-9714-4940-A3C5-BA9A950D886C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C15360F-9714-4940-A3C5-BA9A950D886C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C15360F-9714-4940-A3C5-BA9A950D886C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C15360F-9714-4940-A3C5-BA9A950D886C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
