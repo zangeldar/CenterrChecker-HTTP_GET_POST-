@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SberbankAST", "SberbankAST\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyJSONParser", "MyJsonParser\MyJSONParser.csproj", "{7D0B1EE1-29D5-475A-85EA-01ABE6B182B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2B", "B2B\B2B.csproj", "{8C15360F-9714-4940-A3C5-BA9A950D886C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2B", "B2B\B2B.csproj", "{8C15360F-9714-4940-A3C5-BA9A950D886C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETP_GPB", "ETP_GPB\ETP_GPB.csproj", "{AA368D31-EB60-49D6-8A28-6795960B26E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{8C15360F-9714-4940-A3C5-BA9A950D886C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C15360F-9714-4940-A3C5-BA9A950D886C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C15360F-9714-4940-A3C5-BA9A950D886C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA368D31-EB60-49D6-8A28-6795960B26E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA368D31-EB60-49D6-8A28-6795960B26E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA368D31-EB60-49D6-8A28-6795960B26E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA368D31-EB60-49D6-8A28-6795960B26E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

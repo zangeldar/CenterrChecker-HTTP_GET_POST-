@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\B2B\B2B.csproj" />
     <ProjectReference Include="..\CenterRu\CenterRu.csproj" />
+    <ProjectReference Include="..\ETP_GPB\ETP_GPB.csproj" />
     <ProjectReference Include="..\SberbankAST\SberbankAST.csproj" />
     <ProjectReference Include="..\TorgiASV\TorgiASV.csproj" />
   </ItemGroup>

@@ -280,12 +280,14 @@ namespace MyHTMLParser
 
             List<Tag> result = new List<Tag>();
             string pattern = string.Format(@"\<{0}.*?\>(?<tegData>.+?)?\<\/{0}\>", tag.Trim());
+            //string pattern = string.Format(@"\<{0}(.*?)\>(?<tegData>.+?)?\<\/{0}\>", tag.Trim());
             // \<{0}.*?\> - открывающий тег
             // \<\/{0}\> - закрывающий тег            
             // (?<tegData>.+?) - содержимое тега, записываем в группу tegData            
 
             //Regex regex = new Regex(pattern, RegexOptions.ExplicitCapture);
             Regex regex = new Regex(pattern, RegexOptions.Singleline);
+            //Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
             MatchCollection matches = regex.Matches(inpHTML);
 
             foreach (Match matche in matches)

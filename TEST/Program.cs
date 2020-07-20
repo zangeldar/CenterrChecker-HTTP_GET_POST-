@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Text;
 using Newtonsoft.Json;
 using B2B;
+using ETP_GPB;
 
 namespace TEST
 {
@@ -36,7 +37,8 @@ namespace TEST
             //Test2();
             //Test3();
             //Test4();
-            Test5();
+            //Test5();
+            Test6();
         }
 
         static void Test1()
@@ -188,6 +190,16 @@ namespace TEST
             //string testStr = myReq.GetResponse;
 
             B2BResponse myResp = new B2BResponse(myReq);
+        }
+
+        static void Test6()
+        {
+            GPBRequest myReq = new GPBRequest("техническая жидкость");
+
+            string testStr = myReq.GetResponse;
+            testStr = testStr.Replace(">", " >");
+            myHTMLParser myhp = new myHTMLParser();
+            dynamic tmp = myhp.getTags(testStr, "div");
         }
 
     }
