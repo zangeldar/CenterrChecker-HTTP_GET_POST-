@@ -58,6 +58,10 @@
       <Project>{d9615c0f-fb44-49b0-816f-40f85fd72954}</Project>
       <Name>ASVorgRU</Name>
     </ProjectReference>
+    <ProjectReference Include="..\B2B\B2B.csproj">
+      <Project>{8c15360f-9714-4940-a3c5-ba9a950d886c}</Project>
+      <Name>B2B</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CenterRu\CenterRu.csproj">
       <Project>{a53415c2-368a-4ddc-9aab-0b8ad86dce88}</Project>
       <Name>CenterRu</Name>

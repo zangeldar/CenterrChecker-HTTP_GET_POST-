@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using TorgiASV;
 using ASVorgRU;
 using SberbankAST;
+using B2B;
 
 namespace RequestMaker_WIN
 {
@@ -29,6 +30,7 @@ namespace RequestMaker_WIN
             cBoxType.Items.Add("Торги АСВ");
             cBoxType.Items.Add("Центр Реализации");
             cBoxType.Items.Add("Сбербанк-АСТ");
+            cBoxType.Items.Add("B2B центр");
             cBoxType.SelectedIndex = 0;
             searchBox.Text = "";
             logBox.Text = "";
@@ -109,6 +111,18 @@ namespace RequestMaker_WIN
                     {
                         AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
                         curResponse = new SberbankAstResponse(curRequest);
+                        error = false;
+                        AddLog("УСПЕШНО!");
+                    }
+                    break;
+                case "B2B центр":
+                    curRequest = new B2BRequest(searchBox.Text);
+                    error = false;
+                    AddLog("УСПЕШНО!");
+                    if (needResponse)
+                    {
+                        AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
+                        curResponse = new B2BResponse(curRequest);
                         error = false;
                         AddLog("УСПЕШНО!");
                     }

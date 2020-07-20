@@ -185,7 +185,10 @@ namespace TEST
         {
             B2B.B2BRequest myReq = new B2BRequest("техническая жидкость");
 
-            string testStr = myReq.GetResponse;
+            //string testStr = myReq.GetResponse;
+
+            B2BResponse myResp = new B2BResponse(myReq);
         }
+
     }
 }
