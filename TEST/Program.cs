@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using System.Text.RegularExpressions;
 using System.Text;
 using Newtonsoft.Json;
+using B2B;
 
 namespace TEST
 {
@@ -34,7 +35,8 @@ namespace TEST
             //Test1();
             //Test2();
             //Test3();
-            Test4();
+            //Test4();
+            Test5();
         }
 
         static void Test1()
@@ -177,6 +179,13 @@ namespace TEST
                 Console.WriteLine(new SberbankAst(hit).ToString(false));
                 Console.WriteLine(new SberbankAst(hit).ToString(true));
             }
+        }
+
+        static void Test5()
+        {
+            B2B.B2BRequest myReq = new B2BRequest("техническая жидкость");
+
+            string testStr = myReq.GetResponse;
         }
     }
 }

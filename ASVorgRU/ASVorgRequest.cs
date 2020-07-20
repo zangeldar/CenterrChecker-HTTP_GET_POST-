@@ -67,6 +67,7 @@ namespace ASVorgRU
                     else
                         result += "&";
                     result += item.Key + "=" + HttpUtility.UrlEncode(item.Value, Encoding.GetEncoding(1251));
+                    first = false;
                 }
             }
 
