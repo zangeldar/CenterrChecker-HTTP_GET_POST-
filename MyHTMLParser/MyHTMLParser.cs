@@ -21,7 +21,12 @@ namespace MyHTMLParser
             fillAttr(tagNameContent);
             fillInnerTags(tagValueContent);
         }
-
+        /// <summary>
+        /// Возвращает только имя тэга
+        /// </summary>
+        /// <param name="inputStr"></param>
+        /// <param name="lookSpace"></param>
+        /// <returns></returns>
         private string sysGetNameOnly(string inputStr, bool lookSpace = true)
         {
             if (!inputStr.Contains("<"))
@@ -30,13 +35,20 @@ namespace MyHTMLParser
             string result;
             int endTagName;
 
-            int startTag = inputStr.IndexOf('<');
-            int endTag = inputStr.IndexOf('>', startTag + 1);
-            int endTagNameNextTag = inputStr.IndexOf('<', startTag + 1);
-            int endTagNameSpace = inputStr.IndexOf(' ', startTag + 1);
+            int startTag = inputStr.IndexOf('<');                               // открытие тэга
+            int endTag = inputStr.IndexOf('>', startTag + 1);                   // закрытие тэга
+            int endTagNameNextTag = inputStr.IndexOf('<', startTag + 1);        // открытие след.тэга
+            int endTagNameSpace = inputStr.IndexOf(' ', startTag + 1);          // пробе            
+            /*  // о чем я думал, когда писал это? 
             endTagName = endTagNameSpace;
-            if (endTagNameSpace < startTag)
+            if (endTagNameSpace < startTag)            
                 endTagName = endTagNameNextTag;
+                */
+            // Проверка, что встретится раньше: пробел, или закрытие тэга?,
+            endTagName = endTag;
+            if (endTagNameSpace > 0)
+                if (endTagNameSpace < endTag)
+                    endTagName = endTagNameSpace;
 
             int length;
             if (endTag < 0)
@@ -191,6 +203,30 @@ namespace MyHTMLParser
             string curContent = tagValueContent;
             while (curContent.Length > 0)
             {// это надо в цикл
+                // оригинал до 2020.07.21
+             /*
+             startPosition = 0;
+
+             workString = curContent;
+
+             nextTag = sysGetNameOnly(workString);
+             if (nextTag == null | nextTag == "")
+                 break;
+             endOfTag = String.Format("</{0}>", nextTag);
+             if (!workString.Contains(endOfTag))
+                 endOfTag = "/>";
+
+             int indOfEndTag = workString.IndexOf(endOfTag);
+             endPosition = indOfEndTag + endOfTag.Length + startPosition;
+             //workString = workString.Remove(endPosition);
+             string resultStr = workString.Substring(startPosition, endPosition - startPosition);
+
+             myHTMLParser Parser = new myHTMLParser();
+             innerTags.AddRange(Parser.getTags(resultStr, nextTag));
+
+             curContent = curContent.Remove(startPosition, resultStr.Length);
+             */
+
                 startPosition = 0;
 
                 workString = curContent;

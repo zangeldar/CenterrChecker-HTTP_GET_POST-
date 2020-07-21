@@ -194,12 +194,19 @@ namespace TEST
 
         static void Test6()
         {
-            GPBRequest myReq = new GPBRequest("техническая жидкость");
+            string fileName = "ETP_GPB.txt";
+            string testStr = "";
+            if (!File.Exists(fileName))
+            {
+                GPBRequest myReq = new GPBRequest("техническая жидкость");
 
-            string testStr = myReq.GetResponse;
-            testStr = testStr.Replace(">", " >");
+                //testStr = myReq.GetResponse;
+                File.WriteAllText(fileName, myReq.GetResponse);
+            }
+            testStr = File.ReadAllText(fileName);
+                        
             myHTMLParser myhp = new myHTMLParser();
-            dynamic tmp = myhp.getTags(testStr, "div");
+            dynamic tmp = myhp.getTags(testStr, "html");
         }
 
     }
