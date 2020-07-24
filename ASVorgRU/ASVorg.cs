@@ -8,7 +8,7 @@ namespace ASVorgRU
     [Serializable]
     public class ASVorg : ATorg
     {
-        public ASVorg(Tag item, string section)
+        public ASVorg(_Tag item, string section)
         {
             if (item.InnerTags.Count == 2)  // третий уровень - строки записи (их 2)
             {

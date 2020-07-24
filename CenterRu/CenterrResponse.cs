@@ -112,7 +112,7 @@ namespace CenterRu
             //  Разбор результатов
             //myWorkAnswer = myHTMLParser.NormalizeString(myWorkAnswer);
             myHTMLParser myHtmlParser = new myHTMLParser();
-            List<Tag> myTagRes = myHtmlParser.getTags(myWorkAnswer, "table");
+            List<_Tag> myTagRes = myHtmlParser.getTags(myWorkAnswer, "table");
             List<List<StringUri>> myTable = new List<List<StringUri>>();
             foreach (var item in myTagRes)
                 myTable = myHtmlParser.getOutTable(item);

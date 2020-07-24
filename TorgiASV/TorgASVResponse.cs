@@ -102,11 +102,11 @@ namespace TorgiASV
             List<TorgASV> curList = new List<TorgASV>();
 
             myHTMLParser myParser = new myHTMLParser();
-            List<Tag> myList = myParser.getTags(myWorkAnswer, "ul");
-            List<Tag> resList = new List<Tag>();
+            List<_Tag> myList = myParser.getTags(myWorkAnswer, "ul");
+            List<_Tag> resList = new List<_Tag>();
 
             bool found = false;     // вычленяем из всех списков на странице только нужный
-            foreach (Tag item in myList)
+            foreach (_Tag item in myList)
             {
                 foreach (tagAttribute atItem in item.Attributes)
                 {
@@ -127,7 +127,7 @@ namespace TorgiASV
             //if (!found)
             if (resList.Count == 0) // если результатов нет
                 return;         // тогда возврат
-            foreach (Tag item in resList[0].InnerTags)    // заполняем результаты по списку
+            foreach (_Tag item in resList[0].InnerTags)    // заполняем результаты по списку
             {
                 curList.Add(new TorgASV(item.InnerTags));
             }

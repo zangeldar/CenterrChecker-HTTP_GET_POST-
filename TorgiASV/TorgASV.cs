@@ -8,7 +8,7 @@ namespace TorgiASV
     [Serializable]
     public class TorgASV : ATorg
     {
-        public TorgASV(List<Tag> itemsList)
+        public TorgASV(List<_Tag> itemsList)
         {
             LotName = new StringUri
             {

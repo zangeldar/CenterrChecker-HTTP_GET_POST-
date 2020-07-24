@@ -97,20 +97,20 @@ namespace ASVorgRU
             List<ASVorg> curList = new List<ASVorg>();
 
             myHTMLParser myParser = new myHTMLParser();
-            List<Tag> myListCaption = myParser.getTags(myWorkAnswer, "h3");
+            List<_Tag> myListCaption = myParser.getTags(myWorkAnswer, "h3");
             
-            List<Tag> myList = myParser.getTags(myWorkAnswer, "ol");
-            List<Tag> resList = new List<Tag>();
+            List<_Tag> myList = myParser.getTags(myWorkAnswer, "ol");
+            List<_Tag> resList = new List<_Tag>();
 
             int k = 0;
             string sectionName;
-            foreach (Tag itemSection in myList) // первый уровень - разделы (страхование, ликвидация и т.п.)
+            foreach (_Tag itemSection in myList) // первый уровень - разделы (страхование, ликвидация и т.п.)
             {
                 sectionName = "";
                 if (k < myListCaption.Count)
                     sectionName = myListCaption[k].Value;
                 
-                foreach (Tag item in itemSection.InnerTags) // второй уровень - записи
+                foreach (_Tag item in itemSection.InnerTags) // второй уровень - записи
                     curList.Add(new ASVorg(item, sectionName));                
                 k++;
             }

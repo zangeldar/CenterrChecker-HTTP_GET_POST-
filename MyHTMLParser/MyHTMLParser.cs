@@ -5,14 +5,29 @@ using System.Text.RegularExpressions;
 
 namespace MyHTMLParser
 {
-    public class Tag
+    public class _Tag
     {
         private string tagName;
         private string tagValue;
         private List<tagAttribute> tagAttrList;
-        private List<Tag> innerTags;
+        private List<_Tag> innerTags;
 
-        public Tag(string tagNameContent, string tagValueContent)
+        /*
+        public _Tag(string inpString)
+        {
+            tagNameContent = myHTMLParser.NormalizeString(tagNameContent);
+            tagValueContent = myHTMLParser.NormalizeString(tagValueContent);
+            fillName(tagNameContent);
+            tagValue = tagValueContent;
+            fillAttr(tagNameContent);
+            NewFillInnerTags(tagValueContent);
+        }
+        */
+
+
+
+
+        public _Tag(string tagNameContent, string tagValueContent)
         {
             tagNameContent = myHTMLParser.NormalizeString(tagNameContent);
             tagValueContent = myHTMLParser.NormalizeString(tagValueContent);
@@ -21,6 +36,7 @@ namespace MyHTMLParser
             fillAttr(tagNameContent);
             fillInnerTags(tagValueContent);
         }
+        
         /// <summary>
         /// Возвращает только имя тэга
         /// </summary>
@@ -169,7 +185,7 @@ namespace MyHTMLParser
 
         private void fillInnerTags(string tagValueContent)
         {
-            innerTags = new List<Tag>();
+            innerTags = new List<_Tag>();
             string nextTag = sysGetNameOnly(tagValueContent);
 
             if (!tagValueContent.Contains("<") | nextTag == null)
@@ -204,7 +220,7 @@ namespace MyHTMLParser
             while (curContent.Length > 0)
             {// это надо в цикл
                 // оригинал до 2020.07.21
-             /*
+             
              startPosition = 0;
 
              workString = curContent;
@@ -225,8 +241,11 @@ namespace MyHTMLParser
              innerTags.AddRange(Parser.getTags(resultStr, nextTag));
 
              curContent = curContent.Remove(startPosition, resultStr.Length);
-             */
+             
 
+            //  20200721
+                // если вдруг я еще раз захочу переписать парсер, то надо начинать с RegExp, потому что иногда он дает неправильный результат из-за вложенных тегов. Т.е. Возвращает строку от первого открытия тега до ПЕРВОГО ЗАКРЫТИЯ ТЕГА, даже если он внутренний.
+                /*
                 startPosition = 0;
 
                 workString = curContent;
@@ -234,11 +253,43 @@ namespace MyHTMLParser
                 nextTag = sysGetNameOnly(workString);
                 if (nextTag == null | nextTag == "")
                     break;
-                endOfTag = String.Format("</{0}>", nextTag);
-                if (!workString.Contains(endOfTag))
-                    endOfTag = "/>";
 
+                // определяем закрывающий тэг. Перед этим нужна проверка на открывающийся такой же тег
+                endOfTag = String.Format("</{0}>", nextTag);
+                // если не нашли закрывающий тэг, то этот тэг самозакрывающийся
+                if (!workString.Contains(endOfTag))
+                {
+                    endOfTag = "/>";
+                    // если и этого не нашли, то тэг самодостаточный (не требующий закрытия, типа <br>)
+                    if (!workString.Contains(endOfTag))
+                        endOfTag = ">";
+                }                
+
+                // ищем Индекс следующего такого же тега
+                int nextSameTag = 0; // = workString.IndexOf("<" + nextTag, startPosition + 1);
+                // ищем Закрывающий индекс тэга
                 int indOfEndTag = workString.IndexOf(endOfTag);
+                                
+                // если след индекс раньше закрывающего, то ищем следующий закырвающий. и так, пока не закончим (нужен цикл)
+                while (nextSameTag < indOfEndTag)
+                {
+                    //int nextSameTag1 = workString.IndexOf("<" + nextTag + ">", workString.IndexOf("<") + 1);
+                    //int nextSameTag2 = workString.IndexOf("<" + nextTag + " ", workString.IndexOf("<") + 1);
+
+                    int nextSameTag1 = workString.IndexOf("<" + nextTag + ">", nextSameTag + 1);
+                    int nextSameTag2 = workString.IndexOf("<" + nextTag + " ", nextSameTag + 1);
+
+                    if (nextSameTag1 < 0)
+                        nextSameTag1 = nextSameTag2;
+                    if (nextSameTag2 < 0)
+                        nextSameTag2 = nextSameTag1;
+                    nextSameTag = Math.Min(nextSameTag1, nextSameTag2);
+                    if (nextSameTag < 0)
+                        break;
+
+                    indOfEndTag = workString.IndexOf(endOfTag, indOfEndTag+1);
+                }
+
                 endPosition = indOfEndTag + endOfTag.Length + startPosition;
                 //workString = workString.Remove(endPosition);
                 string resultStr = workString.Substring(startPosition, endPosition - startPosition);
@@ -247,6 +298,7 @@ namespace MyHTMLParser
                 innerTags.AddRange(Parser.getTags(resultStr, nextTag));
 
                 curContent = curContent.Remove(startPosition, resultStr.Length);
+                */
             }
 
             // здесь надо обрабатывать ситуацию, когда внутри родительского тега, могут открываться и закрываться несколько тегов.
@@ -254,10 +306,15 @@ namespace MyHTMLParser
             //innerTags = Parser.getTags(tagValueContent, nextTag);
         }
 
+        private void NewFillInnerTags(string inpStr)
+        {
+
+        }
+
         public string Name { get { return tagName; } }
         public string Value { get { return tagValue; } }
         public List<tagAttribute> Attributes { get { return tagAttrList; } }
-        public List<Tag> InnerTags { get { return innerTags; } }
+        public List<_Tag> InnerTags { get { return innerTags; } }
 
         public bool HasInnerTags { get { return (innerTags.Count > 0); } }
 
@@ -307,14 +364,16 @@ namespace MyHTMLParser
         const string a_pattern = "<a href=\"(.*?)\"></a>";
 
         const string b_pattern = "<b>(.*?)</b>";
+        
+        
 
-        public List<Tag> getTags(string inpHTML, string tag = "a")
+        public List<_Tag> getTags(string inpHTML, string tag = "a")
         {
             //inpHTML = inpHTML.Replace('\r', ' ');
             //inpHTML = inpHTML.Replace('\t', ' ');
             //inpHTML = inpHTML.Replace('\n', ' ');
 
-            List<Tag> result = new List<Tag>();
+            List<_Tag> result = new List<_Tag>();
             string pattern = string.Format(@"\<{0}.*?\>(?<tegData>.+?)?\<\/{0}\>", tag.Trim());
             //string pattern = string.Format(@"\<{0}(.*?)\>(?<tegData>.+?)?\<\/{0}\>", tag.Trim());
             // \<{0}.*?\> - открывающий тег
@@ -328,12 +387,12 @@ namespace MyHTMLParser
 
             foreach (Match matche in matches)
             {
-                result.Add(new Tag(matche.Value, matche.Groups["tegData"].Value));
+                result.Add(new _Tag(matche.Value, matche.Groups["tegData"].Value));
             }
             return result;
         }
 
-        public DataTable getTable(Tag inpTag)
+        public DataTable getTable(_Tag inpTag)
         {
             if (inpTag.Name != "table")
                 return null;
@@ -342,7 +401,7 @@ namespace MyHTMLParser
 
 
 
-            foreach (Tag rowTag in inpTag.InnerTags)
+            foreach (_Tag rowTag in inpTag.InnerTags)
             {
                 result.Rows.Add(getOneRow(rowTag).ToArray());
             }
@@ -350,14 +409,14 @@ namespace MyHTMLParser
             return result;
         }
 
-        private List<List<StringUri>> getProtoTable(Tag inpTag)
+        private List<List<StringUri>> getProtoTable(_Tag inpTag)
         {
             if (inpTag.Name != "table")
                 return null;
 
             List<List<StringUri>> myProtoTable = new List<List<StringUri>>();
 
-            foreach (Tag rowTag in inpTag.InnerTags)
+            foreach (_Tag rowTag in inpTag.InnerTags)
                 myProtoTable.Add(getOneRow(rowTag));
 
             return myProtoTable;
@@ -408,14 +467,14 @@ namespace MyHTMLParser
         }
 
 
-        public List<List<StringUri>> getOutTable(Tag inpTag)
+        public List<List<StringUri>> getOutTable(_Tag inpTag)
         {
             return NormalizeProtoTable(getProtoTable(inpTag));
         }
 
 
 
-        private StringUri EachRowRec(Tag inpTag)
+        private StringUri EachRowRec(_Tag inpTag)
         {
             StringUri result = new StringUri { ItemString = "" };
             if (!inpTag.HasInnerTags)
@@ -425,7 +484,7 @@ namespace MyHTMLParser
             }
 
             List<StringUri> outList = new List<StringUri>();
-            foreach (Tag inTag in inpTag.InnerTags)
+            foreach (_Tag inTag in inpTag.InnerTags)
             {
                 if (inTag.HasInnerTags)
                     outList.Add(EachRowRec(inTag));
@@ -444,7 +503,7 @@ namespace MyHTMLParser
             return result;
         }
 
-        private string GetUriFromHref(Tag inTag)
+        private string GetUriFromHref(_Tag inTag)
         {
             string result = "";
 
@@ -460,11 +519,11 @@ namespace MyHTMLParser
             return result;
         }
 
-        private List<StringUri> getOneRow(Tag inpTag)
+        private List<StringUri> getOneRow(_Tag inpTag)
         {
             //DataRow result = null;// = new DataRow();
             List<StringUri> outList = new List<StringUri>();
-            foreach (Tag inTag in inpTag.InnerTags)
+            foreach (_Tag inTag in inpTag.InnerTags)
             {
                 outList.Add(EachRowRec(inTag));
             }
@@ -473,12 +532,14 @@ namespace MyHTMLParser
             return outList;
         }
 
-        private DataColumn getOneCol(Tag inpTag)
+        private DataColumn getOneCol(_Tag inpTag)
         {
             DataColumn result = new DataColumn();
 
             return result;
         }
+
+
 
         static List<List<StringUri>> GetResultTableAsList(List<List<StringUri>> inpList)
         {
@@ -536,15 +597,16 @@ namespace MyHTMLParser
             return false;
         }
 
-        static void OutWholeTree(Tag inpTag)
+        static void OutWholeTree(_Tag inpTag)
         {
             Console.WriteLine(inpTag.ToString());
             if (inpTag.HasInnerTags)
             {
                 Console.Write("\n\t");
-                foreach (Tag innTag in inpTag.InnerTags)
+                foreach (_Tag innTag in inpTag.InnerTags)
                     OutWholeTree(innTag);
             }
         }
     }
+
 }

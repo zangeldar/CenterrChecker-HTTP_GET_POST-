@@ -57,7 +57,7 @@ namespace B2B
 
             myHTMLParser myParser = new myHTMLParser();
                         
-            List<Tag> myListCaption = myParser.getTags(myWorkAnswer, "table");
+            List<_Tag> myListCaption = myParser.getTags(myWorkAnswer, "table");
 
             /*
             List<Tag> myList = myParser.getTags(myWorkAnswer, "ol");
@@ -99,7 +99,7 @@ namespace B2B
                 return;
             }
 
-            foreach (Tag item in myListCaption[0].InnerTags[1].InnerTags)
+            foreach (_Tag item in myListCaption[0].InnerTags[1].InnerTags)
             {
                 if (item.InnerTags.Count == 4)
                     if ((item.InnerTags[0].InnerTags.Count == 1) & (item.InnerTags[1].InnerTags.Count == 1))

@@ -15,7 +15,7 @@ namespace TEST
 
         string ITest.GetTest(string testData, bool cached = true)
         {            
-            Tag myPar = new Tag(testData, testData);
+            _Tag myPar = new _Tag(testData, testData);
 
 
 

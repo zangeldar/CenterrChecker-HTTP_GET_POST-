@@ -9,7 +9,7 @@ namespace B2B
     public class B2B : ATorg
     {
         private string baseUrl = "https://www.b2b-center.ru/";
-        public B2B(Tag item)
+        public B2B(_Tag item)
         {
             string str = item.InnerTags[0].InnerTags[0].Value; // надо распарсить на номер торга, тип торга, наименование торга и строку с ключевыми словами.
 

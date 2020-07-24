@@ -38,7 +38,8 @@ namespace TEST
             //Test3();
             //Test4();
             //Test5();
-            Test6();
+            //Test6();
+            Test65();
         }
 
         static void Test1()
@@ -206,8 +207,55 @@ namespace TEST
             testStr = File.ReadAllText(fileName);
                         
             myHTMLParser myhp = new myHTMLParser();
-            dynamic tmp = myhp.getTags(testStr, "html");
+            //dynamic tmp = myhp.getTags(testStr, "html");
+            int startParsingFrom = 0;
+            int endParsingTo = 0;
+            //startParsingFrom = testStr.IndexOf("<div class=\"proceduresList proceduresList--big proceduresList--with-block-links\"");
+            startParsingFrom = testStr.IndexOf("<div class=\"proceduresList proceduresList--big proceduresList--with-block-links\" data-selector=\"proceduresList\"");
+            if (startParsingFrom < 0)
+                startParsingFrom = testStr.IndexOf("<div class=\"proceduresList hidden proceduresList--big proceduresList--with-block-links\" data-selector=\"proceduresList\"");
+            endParsingTo = testStr.IndexOf("<div class=\"hiddenPagination hiddenPagination--mb\" data-selector=\"paginationWithKeybordControls\"");
+            dynamic tmp = myhp.getTags(testStr.Substring(startParsingFrom, endParsingTo - startParsingFrom), "div");
+            // Попробуем отслеживать доп содержание тега
+            tmp = myhp.getTags(testStr.Substring(startParsingFrom, endParsingTo-startParsingFrom), "div class=\"procedure\"");
         }
 
+        static void Test65()
+        {
+            string fileName = "ETP_GPB.txt";
+            string testStr = "";
+            if (!File.Exists(fileName))
+            {
+                GPBRequest myReq = new GPBRequest("техническая жидкость");
+
+                //testStr = myReq.GetResponse;
+                File.WriteAllText(fileName, myReq.GetResponse);
+            }
+            testStr = File.ReadAllText(fileName);
+
+            List<ProtoTag> HTMLDoc = new List<ProtoTag>();            
+            Tag myTag;
+            string workStr = testStr;
+
+            workStr = workStr.Substring(workStr.IndexOf("<div class=\"proceduresList"));
+
+            while (workStr.Length > 0)
+            {
+                myTag = new Tag(workStr, null);
+                if (myTag.IsProto)
+                    HTMLDoc.Add((ProtoTag)myTag);
+                else
+                    HTMLDoc.Add(myTag);
+                workStr = myTag.CutOffAfter;
+
+                while (workStr.StartsWith("</"))
+                {
+                    workStr = workStr.Substring(workStr.IndexOf(">")+1);
+                    //continue;
+                }
+            }
+
+
+        }
     }
 }
