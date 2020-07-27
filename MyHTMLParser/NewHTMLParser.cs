@@ -47,6 +47,16 @@ namespace MyHTMLParser
     ///     CutOffAfter     - строка ПОСЛЕ конца текущего (имени?) ТЕГа
     ///     ErrorCount      - счетчик ошибок разбора HTML (на случай не полноценной входящей строки, отрезка, выдержки)
     ///     
+    ///     Механизм разбора следующий:
+    ///     1. В конструктор передается строка HTML целиком
+    ///     2. В конструкторе вызывается функция MakeTag, в которой происходит все самое интересное
+    ///     3. В первую очередь, отправляется на заполнение заголовка ТЕГа в FillTagHeader
+    ///     4. Там разыскивается первый сегмент между символами "<" и ">", заполняется имя ТЕГа и аттрибуты. 
+    ///         Если строка не содержит эти символы, или содержит в неправильном порядке, то ТЕГ назначается ПРОТО-ТЕГом и строка до первого "<" заносится как его значение.
+    ///     5. FillTagHeader возвращает строку, обрезанную на разобранный ранее ТЕГ.
+    ///     6. Затем возвращенная строка разбирается на внутренние ТЕГи, которые рекурсивно добавляются в список ChildTag
+    ///     7. Если возвращенная строка нового ChildTag начинается с "</"+ИмяТЕГа, значит текущий ТЕГ закрывается.
+    ///     
     /// </summary>
     public class Tag : ProtoTag
     {
@@ -59,8 +69,7 @@ namespace MyHTMLParser
             if (Attributes.ContainsKey("class"))
                 result += " | " + Attributes["class"];
             return result;
-        }
-        
+        }        
         public override bool IsProto
         {
             get => base.IsProto;
@@ -70,7 +79,7 @@ namespace MyHTMLParser
                 base.IsProto = value;                
             }
         }
-        public bool IsSelfClosed { get; private set; }        
+        public bool IsSelfClosed { get; private set; }
         public string Name { get; private set; }
         public string SourceString { get; private set; }
         public Dictionary<string, string> Attributes { get; private set; }
@@ -112,7 +121,8 @@ namespace MyHTMLParser
                 return;
 
             // если CutOffAfter начинается с закрытия одноименного ТЕГа, то этот ТЕГ считается закрытым и созданным
-            if (CutOffAfter.IndexOf("</" + Name) == 0)
+            //if (CutOffAfter.IndexOf("</" + Name) == 0)
+            if (CutOffAfter.StartsWith("</" + Name)) 
             {
                 CutOffAfter = CutOffAfter.Substring(CutOffAfter.IndexOf(">") + 1);
                 return;
@@ -153,7 +163,7 @@ namespace MyHTMLParser
                 {
                     cutOffAfter = cutOffAfter.Substring(cutOffAfter.IndexOf(">") + 1);
                     ErrorCount++;
-                }                    
+                }
             }
         }
 
@@ -258,7 +268,7 @@ namespace MyHTMLParser
             }
             */
 
-            // заполняем аттрибуты, если в возвращаемом ответе остался символ "/", значит тег самозакрытый (также метится в самой процедуре)
+            // заполняем аттрибуты, если в возвращаемом ответе остался символ "/", значит тег самозакрытый
             string attResult = ParseAttributes(inpString.Substring(endTagName, endTagInd - endTagName));
             if (attResult.StartsWith("/"))
                 IsSelfClosed = true;
@@ -320,70 +330,33 @@ namespace MyHTMLParser
 
             return currentStr;
         }
-        /*
-        /// <summary>
-        /// Парсим строку после имени ТЕГа
-        /// </summary>
-        /// <param name="inpString"></param>
-        /// <returns></returns>
-        private string FillValues(string inpString)
+    }
+
+    public static class HTMLParser
+    {
+        public static List<ProtoTag> Parse(string inpString)
         {
-            // проверяем, что будет раньше после имени: открывающий тег, или закрывающий? 
-            // если открывающий, то продолжаем цикл
-            // если закрывающий - сворачиваем теги, не забывая вносить значение
-            int indOfOpenTag = CutOffAfter.IndexOf("<");
-            int indOfCloseTag = CutOffAfter.IndexOf("</");
-            int indOfCloseCurTag = CutOffAfter.IndexOf("</" + Name);
-            if (indOfOpenTag == indOfCloseTag & indOfCloseTag == indOfCloseCurTag)
+            List<ProtoTag> HTMLDoc = new List<ProtoTag>();
+            Tag myTag;
+            string workStr = inpString;
+
+            while (workStr.Length > 0)
             {
-                if (indOfCloseCurTag > 0)
+                myTag = new Tag(workStr, null);
+                if (myTag.IsProto)
+                    HTMLDoc.Add((ProtoTag)myTag);
+                else
+                    HTMLDoc.Add(myTag);
+                workStr = myTag.CutOffAfter;
+
+                while (workStr.StartsWith("</"))
                 {
-                    Value = CutOffAfter.Substring(0, indOfCloseCurTag);
-                    return;
+                    workStr = workStr.Substring(workStr.IndexOf(">") + 1);
+                    //continue;
                 }
             }
 
-            if (indOfOpenTag > 0)
-                Value = CutOffAfter.Substring(0, indOfCloseCurTag);
+            return HTMLDoc;
         }
-        */
-    }
-
-    public class NewHTMLParser
-    {
-        private int LookForATag(string inpStr, string tag, int indStart = 0, int indEnd = 0)
-        {
-            int result = -1;
-
-            indEnd = inpStr.Length - 1;
-
-            result = inpStr.IndexOf(tag);
-
-            return result;
-        }
-
-        private bool recur(string inpStr, string tag)
-        {
-            bool result = false;
-
-            while (true)
-            {
-                int indStart = inpStr.IndexOf(tag);
-                if (indStart < 0)
-                    return false;
-
-
-            }
-
-            return result;
-        }
-
-        private string inpHTML;
-        public NewHTMLParser(string inpStr)
-        {
-            this.inpHTML = inpStr;
-
-        }
-
     }
 }
