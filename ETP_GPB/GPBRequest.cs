@@ -76,7 +76,7 @@ namespace ETP_GPB
         private string makeAnPost(string url = "https://etpgpb.ru/", string postData = "")
         {
             ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
-            postData = postData.Replace("+", "%2B");
+            //postData = postData.Replace("+", "%2B");
 
             //postData = HttpUtility.HtmlEncode(postData);
 

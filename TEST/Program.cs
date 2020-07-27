@@ -222,7 +222,7 @@ namespace TEST
 
         static void Test65()
         {
-            string fileName = "ETP_GPB.txt";
+            string fileName = "ETP_GPB_20200727.txt";
             string testStr = "";
             if (!File.Exists(fileName))
             {
@@ -263,6 +263,12 @@ namespace TEST
             workStr = workStr.Substring(workStr.IndexOf("<div class=\"proceduresList"));
 
             HTMLDoc = HTMLParser.Parse(testStr);
+
+            List<Tag> SearchResult = new List<Tag>();
+            foreach (Tag item in HTMLDoc)
+            {
+                SearchResult.AddRange(item.LookForTag("div", new KeyValuePair<string, string>("class", "procedure"), true));
+            }
 
             HTMLDoc = HTMLParser.Parse(workStr);
         }

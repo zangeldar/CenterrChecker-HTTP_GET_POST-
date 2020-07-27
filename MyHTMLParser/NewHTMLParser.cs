@@ -378,10 +378,10 @@ namespace MyHTMLParser
                         result.Add(itemTag);                                                            // тогда просто добавляем ТЕГ в результат
 
                     if (LookInnerTags)                                                              // Если ищем вхождения и во внотуренних ТЕГах,
-                        result.AddRange(LookForTag(nameTag, tagAttribute, LookInnerTags));              // то продолжаем поиск во внутренних ТЕГах
+                        result.AddRange(itemTag.LookForTag(nameTag, tagAttribute, LookInnerTags));              // то продолжаем поиск во внутренних ТЕГах
                 }
                 else                                                                            // если ТЕГ не найден
-                    result.AddRange(LookForTag(nameTag, tagAttribute, LookInnerTags));              // тогда продолжаем поиск во внутренних ТЕГах
+                    result.AddRange(itemTag.LookForTag(nameTag, tagAttribute, LookInnerTags));              // тогда продолжаем поиск во внутренних ТЕГах
             }
 
             return result;
