@@ -201,10 +201,24 @@ namespace MyHTMLParser
                 //return false;
                 //return -1;
                 return "";
+            } 
+            else if (startTagInd > 0)   // если до открытия тега были данные, то сохраняем их как CutOffbefore
+            {
+                //CutOffBefore = inpString.Substring(0, startTagInd - 0);                   //  то сохраняем их как CutOffbefore
+                //ChildTags.Add(new ProtoTag(inpString.Substring(0, startTagInd - 0)));     // то сохраняем их как протоТег во внутренние теги.
+                Value = inpString.Substring(0, startTagInd - 0);                            // то это - протоТЕГ
+                IsProto = true;
+                return inpString.Substring(startTagInd);
             }
             // находим конец тега            
             // и проверяем, есть ли он
-            endTagInd = inpString.IndexOf(">");            
+
+            // ВОЗМОЖНА ИСКЛЮЧИТЕЛЬНАЯ СИТУАЦИЯ, КОГДА ВНУТРИ АТТРИБУТОВ ЕСТЬ ТЕГи и символы "<" или ">": 
+            // <button name="button" type="submit" class="headerControls__search button button--square40 button--asGainsboroughFrame" title="<span class="translation_missing" title="translation missing: ru.header.titles.search">Search</span>" data-selector="headerControlsSearchButton">
+            // Надо посчитать, сколько открывающих "<" встретилось до ">" и искать следующую ">"
+
+            //endTagInd = inpString.IndexOf(">");            
+            endTagInd = GetRealEndOfTagName(inpString);
             if (endTagInd < 0)
             {
                 Value = inpString;
@@ -226,15 +240,7 @@ namespace MyHTMLParser
                 return inpString.Substring(startTagInd);
             }
 
-            // если до открытия тега были данные, то сохраняем их как CutOffbefore
-            if (startTagInd > 0)
-            {
-                //CutOffBefore = inpString.Substring(0, startTagInd - 0);                   //  то сохраняем их как CutOffbefore
-                //ChildTags.Add(new ProtoTag(inpString.Substring(0, startTagInd - 0)));     // то сохраняем их как протоТег во внутренние теги.
-                Value = inpString.Substring(0, startTagInd - 0);                            // то это - протоТЕГ
-                IsProto = true;
-                return inpString.Substring(startTagInd);
-            }
+           
 
 
             // ищем конец имени тега
@@ -280,6 +286,22 @@ namespace MyHTMLParser
             //return endTagInd;
             return inpString.Substring(endTagInd+1);
         }
+
+        private int GetRealEndOfTagName(string inpString)
+        {
+            int result = -1;
+            //int startTagInd = inpString.IndexOf("<", 1); // = 0
+            int startTagInd = 0;
+            
+            while (startTagInd > -1)
+            {
+                result = inpString.IndexOf(">",result+1);
+                startTagInd = inpString.IndexOf("<", startTagInd+1, result - startTagInd);
+            }
+
+            return result;
+        }
+
         /// <summary>
         ///  Парсим аттрибуты ТЕГа
         /// </summary>
@@ -329,6 +351,40 @@ namespace MyHTMLParser
             //IsSelfClosed = currentStr.Contains("/");
 
             return currentStr;
+        }
+
+        /// <summary>
+        /// Функция рекурсивного поиска по ChildTags ТЕГа с нужным названием и/или аттрибутами
+        /// </summary>
+        /// <param name="nameTag"></param>
+        /// <param name="tagAttribute"></param>
+        /// <returns></returns>
+        public List<Tag> LookForTag(string nameTag, KeyValuePair<string, string> tagAttribute = new KeyValuePair<string, string>(), bool LookInnerTags=false)
+        {
+            List<Tag> result = new List<Tag>();
+            bool LookAttributes = (tagAttribute.Key != "");
+
+            foreach (Tag itemTag in this.ChildTags)
+            {
+                if (itemTag.Name == nameTag)                                                    // если имя ТЕГа искомое
+                {                                                       
+                    if (LookAttributes)                                                             // и поиск по аттрибутам активен{
+                    {
+                        if (itemTag.Attributes.ContainsKey(tagAttribute.Key))                           // и есть аттрибут с искомым именем
+                            if (itemTag.Attributes[tagAttribute.Key] == tagAttribute.Value)                 // и искомым значением
+                                result.Add(itemTag);                                                            // тогда добавляем ТЕГ в результат
+                    }
+                    else                                                                            // если поиск по аттрибутам не активен,
+                        result.Add(itemTag);                                                            // тогда просто добавляем ТЕГ в результат
+
+                    if (LookInnerTags)                                                              // Если ищем вхождения и во внотуренних ТЕГах,
+                        result.AddRange(LookForTag(nameTag, tagAttribute, LookInnerTags));              // то продолжаем поиск во внутренних ТЕГах
+                }
+                else                                                                            // если ТЕГ не найден
+                    result.AddRange(LookForTag(nameTag, tagAttribute, LookInnerTags));              // тогда продолжаем поиск во внутренних ТЕГах
+            }
+
+            return result;
         }
     }
 

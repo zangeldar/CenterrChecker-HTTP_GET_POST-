@@ -233,7 +233,9 @@ namespace TEST
             }
             testStr = File.ReadAllText(fileName);
 
-            List<ProtoTag> HTMLDoc = new List<ProtoTag>();            
+            
+            List<ProtoTag> HTMLDoc = new List<ProtoTag>();
+            /*
             Tag myTag;
             string workStr = testStr;
 
@@ -254,6 +256,15 @@ namespace TEST
                     //continue;
                 }
             }
+            */
+
+            string workStr = testStr;
+
+            workStr = workStr.Substring(workStr.IndexOf("<div class=\"proceduresList"));
+
+            HTMLDoc = HTMLParser.Parse(testStr);
+
+            HTMLDoc = HTMLParser.Parse(workStr);
         }
     }
 }
