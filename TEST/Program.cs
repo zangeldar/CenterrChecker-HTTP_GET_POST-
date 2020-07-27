@@ -265,10 +265,19 @@ namespace TEST
             HTMLDoc = HTMLParser.Parse(testStr);
 
             List<Tag> SearchResult = new List<Tag>();
+            List<ProtoTag> SearchProtoResult = new List<ProtoTag>();
             foreach (Tag item in HTMLDoc)
             {
-                SearchResult.AddRange(item.LookForTag("div", new KeyValuePair<string, string>("class", "procedure"), true));
+                SearchResult.AddRange(item.LookForTag("div", true, new KeyValuePair<string, string>("class", "procedure")));
+                SearchProtoResult.AddRange(item.LookForTag(null, true));
             }
+
+            List<GPB> GPBList = new List<GPB>();
+            foreach (Tag item in SearchResult)
+            {
+                GPBList.Add(new GPB(item));
+            }
+
 
             HTMLDoc = HTMLParser.Parse(workStr);
         }

@@ -359,10 +359,14 @@ namespace MyHTMLParser
         /// <param name="nameTag"></param>
         /// <param name="tagAttribute"></param>
         /// <returns></returns>
-        public List<Tag> LookForTag(string nameTag, KeyValuePair<string, string> tagAttribute = new KeyValuePair<string, string>(), bool LookInnerTags=false)
+        public List<Tag> LookForTag(string nameTag, bool LookInnerTags = false, KeyValuePair<string, string> tagAttribute = new KeyValuePair<string, string>())
         {
             List<Tag> result = new List<Tag>();
-            bool LookAttributes = (tagAttribute.Key != "");
+            bool LookAttributes = false;
+            if (tagAttribute.Key != null)
+                if (tagAttribute.Key != "")
+                    LookAttributes = true;
+
 
             foreach (Tag itemTag in this.ChildTags)
             {
@@ -378,10 +382,10 @@ namespace MyHTMLParser
                         result.Add(itemTag);                                                            // тогда просто добавляем ТЕГ в результат
 
                     if (LookInnerTags)                                                              // Если ищем вхождения и во внотуренних ТЕГах,
-                        result.AddRange(itemTag.LookForTag(nameTag, tagAttribute, LookInnerTags));              // то продолжаем поиск во внутренних ТЕГах
+                        result.AddRange(itemTag.LookForTag(nameTag, LookInnerTags, tagAttribute));              // то продолжаем поиск во внутренних ТЕГах
                 }
                 else                                                                            // если ТЕГ не найден
-                    result.AddRange(itemTag.LookForTag(nameTag, tagAttribute, LookInnerTags));              // тогда продолжаем поиск во внутренних ТЕГах
+                    result.AddRange(itemTag.LookForTag(nameTag, LookInnerTags, tagAttribute));              // тогда продолжаем поиск во внутренних ТЕГах
             }
 
             return result;
