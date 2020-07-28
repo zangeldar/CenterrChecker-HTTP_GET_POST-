@@ -66,7 +66,8 @@ namespace ASVorgRU
                         result += "?";
                     else
                         result += "&";
-                    result += item.Key + "=" + HttpUtility.UrlEncode(item.Value, Encoding.GetEncoding(1251));
+                    //result += item.Key + "=" + HttpUtility.UrlEncode(item.Value, Encoding.GetEncoding(1251));
+                    result += item.Key + "=" + HttpUtility.UrlEncode(item.Value);
                     first = false;
                 }
             }
@@ -117,7 +118,8 @@ namespace ASVorgRU
                 return null;
             }
 
-            lastAnswer = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(1251)).ReadToEnd();    // put result in lastAnswer to cache   
+            //lastAnswer = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(1251)).ReadToEnd();    // put result in lastAnswer to cache   
+            lastAnswer = new StreamReader(response.GetResponseStream()).ReadToEnd();    // put result in lastAnswer to cache   
 
             response.Dispose();
 

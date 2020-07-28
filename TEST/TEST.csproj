@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ASVorgRU\ASVorgRU.csproj" />
     <ProjectReference Include="..\B2B\B2B.csproj" />
     <ProjectReference Include="..\CenterRu\CenterRu.csproj" />
     <ProjectReference Include="..\ETP_GPB\ETP_GPB.csproj" />

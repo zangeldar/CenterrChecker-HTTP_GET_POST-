@@ -13,6 +13,7 @@ using System.Text;
 using Newtonsoft.Json;
 using B2B;
 using ETP_GPB;
+using ASVorgRU;
 
 namespace TEST
 {
@@ -33,6 +34,7 @@ namespace TEST
 
         static void Main(string[] args)
         {
+            Test0();
             //Test1();
             //Test2();
             //Test3();
@@ -40,6 +42,12 @@ namespace TEST
             //Test5();
             //Test6();
             Test65();
+        }
+
+        static void Test0()
+        {
+            ASVorgRequest myReq = new ASVorgRequest("пирит");
+            ASVorgResponse myResp = (ASVorgResponse)myReq.MakeResponse();                        
         }
 
         static void Test1()

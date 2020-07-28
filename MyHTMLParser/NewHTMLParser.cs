@@ -124,7 +124,18 @@ namespace MyHTMLParser
             //if (CutOffAfter.IndexOf("</" + Name) == 0)
             if (CutOffAfter.StartsWith("</" + Name)) 
             {
-                CutOffAfter = CutOffAfter.Substring(CutOffAfter.IndexOf(">") + 1);
+                CutOffAfter = CutOffAfter.Substring(CutOffAfter.IndexOf(">") + 1).Trim();
+                return;
+            }
+
+            if (Name == "script")
+            {                 
+                int endTagInd = CutOffAfter.IndexOf("</" + Name);
+                string value = CutOffAfter.Substring(0, endTagInd-0);
+                ChildTags.Add(new ProtoTag(value));
+                CutOffAfter = CutOffAfter.Substring(endTagInd);
+                endTagInd = CutOffAfter.IndexOf(">");
+                CutOffAfter = CutOffAfter.Substring(endTagInd+1).Trim();
                 return;
             }
 
@@ -150,9 +161,10 @@ namespace MyHTMLParser
                     ChildTags.Add(inTag);
 
                 // и проверяем, не закрылся ли после него родительский ТЕГ
-                if (cutOffAfter.IndexOf("</" + Name) == 0)
+                //if (cutOffAfter.IndexOf("</" + Name) == 0)
+                if (cutOffAfter.StartsWith("</" + Name))
                 {
-                    CutOffAfter = cutOffAfter.Substring(cutOffAfter.IndexOf(">") + 1);
+                    CutOffAfter = cutOffAfter.Substring(cutOffAfter.IndexOf(">") + 1).Trim();
                     break;
                 }
 
@@ -161,7 +173,7 @@ namespace MyHTMLParser
                 // убираем оборванные закрывающие ТЕГи на случай созданиа ТЕГа из части HTML
                 while (cutOffAfter.StartsWith("</"))
                 {
-                    cutOffAfter = cutOffAfter.Substring(cutOffAfter.IndexOf(">") + 1);
+                    cutOffAfter = cutOffAfter.Substring(cutOffAfter.IndexOf(">") + 1).Trim();
                     ErrorCount++;
                 }
             }
@@ -218,7 +230,7 @@ namespace MyHTMLParser
             // Надо посчитать, сколько открывающих "<" встретилось до ">" и искать следующую ">"
 
             //endTagInd = inpString.IndexOf(">");            
-            endTagInd = GetRealEndOfTagName(inpString);
+            endTagInd = GetRealEndOfTagName(inpString, startTag, endTag);
             if (endTagInd < 0)
             {
                 Value = inpString;
@@ -246,22 +258,30 @@ namespace MyHTMLParser
             // ищем конец имени тега
             // и заполняем ИмяТега
             int endTagName;
-            char[] separator = new char[]{ ' ', '/', '>' };
+            //char[] separator = new char[]{ ' ', '/', '>' };
+            char[] separator = new char[] { ' ', '>' };
             endTagName = inpString.IndexOfAny(separator, startTagInd);            
             Name = inpString.Substring(startTagInd+1, endTagName - startTagInd - 1);
 
             // если тег - meta, тогда метим его самозакрытым и заполняем аттрибуты
-            IsSelfClosed = (Name == "meta" || IsSelfClosed);
-            IsSelfClosed = (Name == "link" || IsSelfClosed);
+            IsSelfClosed = (Name.StartsWith("meta") || IsSelfClosed);
+            IsSelfClosed = (Name.StartsWith("link") || IsSelfClosed);
+            IsSelfClosed = (Name.StartsWith("br") || IsSelfClosed);
+            IsSelfClosed = (Name.StartsWith("hr") || IsSelfClosed);
 
-            IsSelfClosed = (Name == "br" || IsSelfClosed);
             if (Name.StartsWith("!"))
             {
                 IsSelfClosed = true;
                 if (Name.StartsWith("!--"))
                 {
-                    Name = inpString.Substring(0+1, endTagInd-0-1);
-                    return inpString.Substring(endTagInd+1);
+                    //Name = inpString.Substring(0+1, endTagInd-0-1);
+
+                    int curEndTagInd = GetRealEndOfTagName(inpString, "<--", "-->");
+                    Name = inpString.Substring(0 + 1, curEndTagInd - 0 - 1 + 2);
+                    return inpString.Substring(curEndTagInd + 3).Trim();
+                    
+                    //return inpString.Substring(endTagInd+1);
+
                 }
             }
 
@@ -284,10 +304,10 @@ namespace MyHTMLParser
             //result = true;
             //return result;
             //return endTagInd;
-            return inpString.Substring(endTagInd+1);
+            return inpString.Substring(endTagInd+1).Trim();
         }
 
-        private int GetRealEndOfTagName(string inpString)
+        private int GetRealEndOfTagName(string inpString, string startTag="<", string endTag=">")
         {
             int result = -1;
             //int startTagInd = inpString.IndexOf("<", 1); // = 0
@@ -295,8 +315,8 @@ namespace MyHTMLParser
             
             while (startTagInd > -1)
             {
-                result = inpString.IndexOf(">",result+1);
-                startTagInd = inpString.IndexOf("<", startTagInd+1, result - startTagInd);
+                result = inpString.IndexOf(endTag,result+1);
+                startTagInd = inpString.IndexOf(startTag, startTagInd+1, result - startTagInd);
             }
 
             return result;
@@ -314,33 +334,69 @@ namespace MyHTMLParser
             string currentStr = "";
             string attName = "";
             string attValue = "";
+            char prevChar = new Char();
             foreach (char item in inpString)
-            {
+            {                
                 if (item == '"' || item == '\'')
                 {
+                    if (openQuotes) // если до этого кавычки были открыты, то curStr  - это значение
+                    {
+                        attValue = currentStr;
+                        currentStr = "";
+                        if (attName == "")
+                        {
+                            if (Attributes.ContainsKey(attValue))
+                                attValue += attValue;
+                            Attributes.Add(attValue, attName);
+                        }                            
+                        else
+                        {
+                            if (Attributes.ContainsKey(attName))
+                                attName += attName;
+                            Attributes.Add(attName, attValue);
+                        }
+                            
+                        attName = "";
+                        attValue = "";
+                    }
                     openQuotes = !openQuotes;
+                    prevChar = item;
                     continue;   // чтобы не добавлять кавычки в значение
                 }
                 if (!openQuotes)            // если кавычки не открывались
                 {
-                    if (item == ' ' || item == '"' || item == '\'')         // и встретили пробел, то следующим будет символ нового аттрибута
+                    if (item == ' ' || item == '"' || item == '\'' || item== '\n' || item == '\t')         // и встретили пробел, то следующим будет символ нового аттрибута
                     {
+                        if (prevChar == ' ')
+                        {
+                            prevChar = item;
+                            continue;
+                        }
+                        /*
                         attValue = currentStr;
                         currentStr = "";
-                        Attributes.Add(attName, attValue);
+                        if (attName=="")
+                            Attributes.Add(attValue, attName);
+                        else
+                            Attributes.Add(attName, attValue);
                         attName = "";
                         attValue = "";
+                        */
+                        prevChar = item;
                         continue;
                     }
                     else if (item == '=')
                     {
                         attName = currentStr;
                         currentStr = "";
+                        prevChar = item;
                         continue;
                     }
                 }
                 currentStr += item;
+                prevChar = item;
             }
+
             if (attName != "" & !Attributes.ContainsKey(attName))
             {
                 Attributes.Add(attName, currentStr);
@@ -398,7 +454,7 @@ namespace MyHTMLParser
         {
             List<ProtoTag> HTMLDoc = new List<ProtoTag>();
             Tag myTag;
-            string workStr = inpString;
+            string workStr = inpString.Trim().Replace("  ", " ");
 
             while (workStr.Length > 0)
             {
