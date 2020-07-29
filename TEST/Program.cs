@@ -34,12 +34,13 @@ namespace TEST
 
         static void Main(string[] args)
         {
-            Test0();
+            //Test0();
             //Test1();
             //Test2();
             //Test3();
             //Test4();
-            //Test5();
+            Test5();
+            //Test55();
             //Test6();
             Test65();
         }
@@ -194,11 +195,22 @@ namespace TEST
 
         static void Test5()
         {
+            string fileName = "20200729_B2B_Resp.txt";                        
+
             B2B.B2BRequest myReq = new B2BRequest("техническая жидкость");
+
+            File.WriteAllText(fileName, myReq.GetResponse);
 
             //string testStr = myReq.GetResponse;
 
-            B2BResponse myResp = new B2BResponse(myReq);
+            B2BResponse myResp = new B2BResponse(myReq);            
+        }
+
+        static void Test55()
+        {
+            // <img src="/images/desc_order.gif" width=7 height=7 border=0 alt="Отсортировано по убыванию">
+            string testStr = "<img src=\"/images/desc_order.gif\" width=7 height=7 border=0 alt=\"Отсортировано по убыванию\">";
+            List<Tag> testDoc = HTMLParser.Parse(testStr);
         }
 
         static void Test6()

@@ -53,6 +53,19 @@ namespace B2B
             if (myWorkAnswer == null)
                 return;
 
+            
+            //
+            List<Tag> SearchResult = new List<Tag>();
+
+            List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            foreach (Tag item in HTMLDoc)
+            {
+                if (!item.IsProto)
+                    SearchResult.AddRange(item.LookForTag("table", true));                
+            }
+            //
+            
+
             List<B2B> curList = new List<B2B>();
 
             myHTMLParser myParser = new myHTMLParser();

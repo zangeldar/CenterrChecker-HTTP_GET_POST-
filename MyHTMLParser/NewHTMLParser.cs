@@ -277,6 +277,8 @@ namespace MyHTMLParser
             IsSelfClosed = (Name.StartsWith("link") || IsSelfClosed);
             IsSelfClosed = (Name.StartsWith("br") || IsSelfClosed);
             IsSelfClosed = (Name.StartsWith("hr") || IsSelfClosed);
+            IsSelfClosed = (Name.StartsWith("img") || IsSelfClosed);
+            IsSelfClosed = (Name.StartsWith("input") || IsSelfClosed);
 
             if (Name.StartsWith("!"))
             {
@@ -340,13 +342,14 @@ namespace MyHTMLParser
         {
             inpString = inpString.Trim();
             bool openQuotes = false;
+            bool noQuotesButValue = false;
             string currentStr = "";
             string attName = "";
             string attValue = "";
             char prevChar = new Char();
             foreach (char item in inpString)
             {                
-                if (item == '"' || item == '\'')
+                if (item == '"' || item == '\'' || noQuotesButValue)
                 {
                     if (openQuotes) // если до этого кавычки были открыты, то curStr  - это значение
                     {
@@ -367,6 +370,7 @@ namespace MyHTMLParser
                             
                         attName = "";
                         attValue = "";
+                        noQuotesButValue = false;
                     }
                     openQuotes = !openQuotes;
                     prevChar = item;
@@ -396,11 +400,18 @@ namespace MyHTMLParser
                     }
                     else if (item == '=')
                     {
+
                         attName = currentStr;
                         currentStr = "";
                         prevChar = item;
                         continue;
                     }
+                    if (prevChar == '=')
+                    {
+                        openQuotes = true;
+                        noQuotesButValue = true;
+                    }
+                        
                 }
                 currentStr += item;
                 prevChar = item;
