@@ -33,7 +33,7 @@ namespace ETP_GPB
         {
             Props = new List<string>();
             List<Tag> workList = new List<Tag>();
-            workList = inpTag.LookForTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__companyName"));
+            workList = inpTag.LookForTag("div", true, new KeyValuePair<string, string>("class", "procedure__companyName"));
             if (workList.Count > 0)
                 if (workList[0].ChildTags.Count > 0)
                     OrganizerStr = workList[0].ChildTags[0].Value;

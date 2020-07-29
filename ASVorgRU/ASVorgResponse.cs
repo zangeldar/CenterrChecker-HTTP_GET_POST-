@@ -125,7 +125,18 @@ namespace ASVorgRU
             if (myWorkAnswer == null)
                 return;
 
-            List<ProtoTag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            /*
+            //
+            List<Tag> SearchResult = new List<Tag>();
+
+            List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            foreach (Tag item in HTMLDoc)
+            {
+                if (!item.IsProto)
+                    SearchResult.AddRange(item.LookForTag("ol", true));                
+            }
+            //
+            */
 
             List<ASVorg> curList = new List<ASVorg>();
 

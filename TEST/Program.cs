@@ -242,7 +242,7 @@ namespace TEST
             testStr = File.ReadAllText(fileName);
 
             
-            List<ProtoTag> HTMLDoc = new List<ProtoTag>();
+            List<Tag> HTMLDoc = new List<Tag>();
             /*
             Tag myTag;
             string workStr = testStr;
@@ -274,11 +274,16 @@ namespace TEST
 
             List<Tag> SearchResult = new List<Tag>();
             List<ProtoTag> SearchProtoResult = new List<ProtoTag>();
-            foreach (Tag item in HTMLDoc)
+            foreach (ProtoTag item in HTMLDoc)
             {
-                SearchResult.AddRange(item.LookForTag("div", true, new KeyValuePair<string, string>("class", "procedure")));
-                SearchProtoResult.AddRange(item.LookForTag(null, true));
-            }
+                if (!item.IsProto)
+                {
+                    SearchResult.AddRange((IEnumerable<Tag>)((Tag)item).LookForTag("div", true, new KeyValuePair<string, string>("class", "procedure")));
+                    SearchProtoResult.AddRange((IEnumerable<Tag>)((Tag)item).LookForTag(null, true));
+                }
+                else
+                    SearchProtoResult.Add(item);
+            }            
 
             List<GPB> GPBList = new List<GPB>();
             foreach (Tag item in SearchResult)

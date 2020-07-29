@@ -83,7 +83,7 @@ namespace MyHTMLParser
         public string Name { get; private set; }
         public string SourceString { get; private set; }
         public Dictionary<string, string> Attributes { get; private set; }
-        public List<ProtoTag> ChildTags { get; private set; }        
+        public List<Tag> ChildTags { get; private set; }        
         public string CutOffBefore { get; private set; }
         public string CutOffAfter { get; private set; }
         public int ErrorCount { get; private set; }
@@ -93,9 +93,16 @@ namespace MyHTMLParser
             MakeTag(inpString);
         }
 
-        public Tag(string inpString, ProtoTag parent) : base(inpString, parent)
+        public Tag(string inpString, Tag parent) : base(inpString, parent)
         {
             MakeTag(inpString);
+        }
+
+        public Tag(string inpString, Tag parent, bool isProto=false) : base(inpString, parent)
+        {
+            if (!isProto)
+                MakeTag(inpString);
+            IsProto = isProto;
         }
 
         private void MakeTag(string inpString)
@@ -132,7 +139,7 @@ namespace MyHTMLParser
             {                 
                 int endTagInd = CutOffAfter.IndexOf("</" + Name);
                 string value = CutOffAfter.Substring(0, endTagInd-0);
-                ChildTags.Add(new ProtoTag(value));
+                ChildTags.Add(new Tag(value, this, true));
                 CutOffAfter = CutOffAfter.Substring(endTagInd);
                 endTagInd = CutOffAfter.IndexOf(">");
                 CutOffAfter = CutOffAfter.Substring(endTagInd+1).Trim();
@@ -150,6 +157,7 @@ namespace MyHTMLParser
                 Tag inTag = new Tag(cutOffAfter, this);
 
                 cutOffAfter = inTag.CutOffAfter.Trim();
+                /* // отключим, чтобы не париться с кастованием
                 // Если ТЕГ был ПРОТО-ТЕГ, 
                 if (inTag.IsProto)
                 {
@@ -158,6 +166,7 @@ namespace MyHTMLParser
                     ChildTags.Add(inTag as ProtoTag);
                 }
                 else
+                    */
                     ChildTags.Add(inTag);
 
                 // и проверяем, не закрылся ли после него родительский ТЕГ
@@ -186,7 +195,7 @@ namespace MyHTMLParser
         {
             IsSelfClosed = false;
             Attributes = new Dictionary<string, string>();
-            ChildTags = new List<ProtoTag>();
+            ChildTags = new List<Tag>();
         }
         /// <summary>
         /// Заполняем имя первого ТЕГа из входящей строки HTML.
@@ -417,31 +426,36 @@ namespace MyHTMLParser
         /// <returns></returns>
         public List<Tag> LookForTag(string nameTag, bool LookInnerTags = false, KeyValuePair<string, string> tagAttribute = new KeyValuePair<string, string>())
         {
-            List<Tag> result = new List<Tag>();
+            List<Tag> result = new List<Tag>();            
+
             bool LookAttributes = false;
             if (tagAttribute.Key != null)
                 if (tagAttribute.Key != "")
                     LookAttributes = true;
 
-
             foreach (Tag itemTag in this.ChildTags)
             {
-                if (itemTag.Name == nameTag)                                                    // если имя ТЕГа искомое
-                {                                                       
-                    if (LookAttributes)                                                             // и поиск по аттрибутам активен{
+                if (!itemTag.IsProto)
+                {
+                    if (itemTag.Name == nameTag)                                                    // если имя ТЕГа искомое
                     {
-                        if (itemTag.Attributes.ContainsKey(tagAttribute.Key))                           // и есть аттрибут с искомым именем
-                            if (itemTag.Attributes[tagAttribute.Key] == tagAttribute.Value)                 // и искомым значением
-                                result.Add(itemTag);                                                            // тогда добавляем ТЕГ в результат
-                    }
-                    else                                                                            // если поиск по аттрибутам не активен,
-                        result.Add(itemTag);                                                            // тогда просто добавляем ТЕГ в результат
+                        if (LookAttributes)                                                             // и поиск по аттрибутам активен{
+                        {
+                            if (itemTag.Attributes.ContainsKey(tagAttribute.Key))                           // и есть аттрибут с искомым именем
+                                if (itemTag.Attributes[tagAttribute.Key] == tagAttribute.Value)                 // и искомым значением
+                                    result.Add(itemTag);                                                            // тогда добавляем ТЕГ в результат
+                        }
+                        else                                                                            // если поиск по аттрибутам не активен,
+                            result.Add(itemTag);                                                            // тогда просто добавляем ТЕГ в результат
 
-                    if (LookInnerTags)                                                              // Если ищем вхождения и во внотуренних ТЕГах,
-                        result.AddRange(itemTag.LookForTag(nameTag, LookInnerTags, tagAttribute));              // то продолжаем поиск во внутренних ТЕГах
+                        if (LookInnerTags)                                                              // Если ищем вхождения и во внутренних ТЕГах,
+                            result.AddRange(itemTag.LookForTag(nameTag, LookInnerTags, tagAttribute));              // то продолжаем поиск во внутренних ТЕГах
+                    }
+                    else                                                                            // если ТЕГ не найден
+                        result.AddRange(itemTag.LookForTag(nameTag, LookInnerTags, tagAttribute));              // тогда продолжаем поиск во внутренних ТЕГах
                 }
-                else                                                                            // если ТЕГ не найден
-                    result.AddRange(itemTag.LookForTag(nameTag, LookInnerTags, tagAttribute));              // тогда продолжаем поиск во внутренних ТЕГах
+                else if (nameTag == null)
+                    result.Add(itemTag);
             }
 
             return result;
@@ -450,9 +464,9 @@ namespace MyHTMLParser
 
     public static class HTMLParser
     {
-        public static List<ProtoTag> Parse(string inpString)
+        public static List<Tag> Parse(string inpString)
         {
-            List<ProtoTag> HTMLDoc = new List<ProtoTag>();
+            List<Tag> HTMLDoc = new List<Tag>();
             Tag myTag;
             string workStr = inpString.Trim().Replace("  ", " ");
 
@@ -460,7 +474,7 @@ namespace MyHTMLParser
             {
                 myTag = new Tag(workStr, null);
                 if (myTag.IsProto)
-                    HTMLDoc.Add((ProtoTag)myTag);
+                    HTMLDoc.Add(myTag);
                 else
                     HTMLDoc.Add(myTag);
                 workStr = myTag.CutOffAfter;
@@ -476,3 +490,4 @@ namespace MyHTMLParser
         }
     }
 }
+
