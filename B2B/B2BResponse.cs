@@ -55,6 +55,7 @@ namespace B2B
 
             
             //
+            /*
             List<Tag> SearchResult = new List<Tag>();
 
             List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
@@ -63,8 +64,8 @@ namespace B2B
                 if (!item.IsProto)
                     SearchResult.AddRange(item.LookForTag("table", true));                
             }
-            //
-            
+            */
+            //            
 
             List<B2B> curList = new List<B2B>();
 

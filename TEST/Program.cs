@@ -35,11 +35,11 @@ namespace TEST
         static void Main(string[] args)
         {
             //Test0();
-            //Test1();
+            Test1();
             //Test2();
             //Test3();
             //Test4();
-            Test5();
+            //Test5();
             //Test55();
             //Test6();
             Test65();
@@ -57,10 +57,12 @@ namespace TEST
             IRequest testReq;
             IResponse testResp = null;
 
+            testReq = new TorgASVRequest("торг");
+            DoTest(testReq, ref testResp);
+
             testReq = new CenterrRequest("пирит");
             DoTest(testReq, ref testResp);
-            testReq = new TorgASVRequest("пирит");
-            DoTest(testReq, ref testResp);
+            
 
             Console.WriteLine("Well done.");
             Console.ReadKey();

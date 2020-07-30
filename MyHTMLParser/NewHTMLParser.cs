@@ -106,15 +106,15 @@ namespace MyHTMLParser
         }
 
         private void MakeTag(string inpString)
-        {
-            IsProto = false;
+        {            
+           IsProto = false;
             SourceString = inpString;
             Initialise();
             /*
             if (!FillTagHeader(inpString))
                 return;
                 */
-            CutOffAfter = FillTagHeader(inpString);
+            CutOffAfter = FillTagHeader(inpString.Trim());
 
             // если имени нет, то это ПРОТО-ТЕГ (просто значение)
             if (Name == "" || Name == null)
@@ -210,6 +210,20 @@ namespace MyHTMLParser
         {
             //bool result = false;
 
+            if (inpString.StartsWith("<!--"))
+            {
+                //Name = inpString.Substring(0+1, endTagInd-0-1);                
+
+                int curEndTagInd = GetRealEndOfTagName(inpString, "<!--", "-->");
+                Value = inpString.Substring(0 + 1, curEndTagInd - 0 - 1 + 2);
+                IsProto = true;
+                //IsSelfClosed = true;
+                return inpString.Substring(curEndTagInd + 3).Trim();
+
+                //return inpString.Substring(endTagInd+1);
+
+            }
+
             int startTagInd, endTagInd;
             // находим начало тега
             // и проверяем, есть ли оно
@@ -270,7 +284,7 @@ namespace MyHTMLParser
             //char[] separator = new char[]{ ' ', '/', '>' };
             char[] separator = new char[] { ' ', '>' };
             endTagName = inpString.IndexOfAny(separator, startTagInd);            
-            Name = inpString.Substring(startTagInd+1, endTagName - startTagInd - 1);
+            Name = inpString.Substring(startTagInd+1, endTagName - startTagInd - 1).Trim();
 
             // если тег - meta, тогда метим его самозакрытым и заполняем аттрибуты
             IsSelfClosed = (Name.StartsWith("meta") || IsSelfClosed);
@@ -283,6 +297,7 @@ namespace MyHTMLParser
             if (Name.StartsWith("!"))
             {
                 IsSelfClosed = true;
+                /*
                 if (Name.StartsWith("!--"))
                 {
                     //Name = inpString.Substring(0+1, endTagInd-0-1);
@@ -294,6 +309,7 @@ namespace MyHTMLParser
                     //return inpString.Substring(endTagInd+1);
 
                 }
+                */
             }
 
             // что это за дичь?

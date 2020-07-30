@@ -99,6 +99,17 @@ namespace TorgiASV
             if (myWorkAnswer == null)
                 return;
 
+            //            
+            List<Tag> SearchResult = new List<Tag>();
+
+            List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            foreach (Tag item in HTMLDoc)
+            {
+                if (!item.IsProto)
+                    SearchResult.AddRange(item.LookForTag("ul", true, new KeyValuePair<string, string>("class", "component-list lot-catalog__list")));
+            }
+            //
+
             List<TorgASV> curList = new List<TorgASV>();
 
             myHTMLParser myParser = new myHTMLParser();
