@@ -106,10 +106,21 @@ namespace TorgiASV
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)
-                    SearchResult.AddRange(item.LookForTag("ul", true, new KeyValuePair<string, string>("class", "component-list lot-catalog__list")));
+                    //SearchResult.AddRange(item.LookForChildTag("ul", true, new KeyValuePair<string, string>("class", "component-list lot-catalog__list")));
+                    SearchResult.AddRange(item.LookForChildTag("li", true, new KeyValuePair<string, string>("class", "component-list__item lot-catalog__list-item")));
             }
             //
 
+            List<TorgASV> workList = new List<TorgASV>();
+
+            foreach (Tag item in SearchResult)
+                workList.Add(new TorgASV(item));
+
+            this.ListResponse = workList;
+
+            return;
+            // /*
+            //  По старому парсеру, на основе RegEx
             List<TorgASV> curList = new List<TorgASV>();
 
             myHTMLParser myParser = new myHTMLParser();
@@ -143,6 +154,8 @@ namespace TorgiASV
                 curList.Add(new TorgASV(item.InnerTags));
             }
             this.ListResponse = curList;
+            //
+            // */
         }
 
         ////////////////

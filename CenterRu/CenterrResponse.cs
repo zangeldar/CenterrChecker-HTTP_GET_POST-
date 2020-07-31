@@ -116,7 +116,7 @@ namespace CenterRu
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)
-                    SearchResult.AddRange(item.LookForTag("table", true));
+                    SearchResult.AddRange(item.LookForChildTag("table", true));
             }
             //
 

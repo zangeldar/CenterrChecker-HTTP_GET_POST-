@@ -11,26 +11,40 @@ namespace MyHTMLParser
     ///         Value = "Поиск тендеров и электронных торгов по 223-ФЗ, 44-ФЗ и коммерческих закупок: все регионы России"
     ///         Parent = Tag.Title
     /// </summary>
-    public class ProtoTag
+    public class ProtoTag : IComparable<ProtoTag>
     {
         public override string ToString()
         {
             //return base.ToString();
             return Value;
-        }
+        }        
         virtual public bool IsProto { get; protected set; }
         public string Value { get; protected set; }
+        public int Level { get; private set; }
         public ProtoTag Parent { get; private set; }
-        public ProtoTag(string inpString)
+        /*
+        public ProtoTag(string inpString, int level=0)
         {
             this.IsProto = true;
-            this.Value = inpString;            
+            this.Value = inpString;
+            this.Level = level;
         }
+        */
         public ProtoTag(string inpString, ProtoTag parent)
         {
             this.IsProto = true;
             this.Value = inpString;
             this.Parent = parent;
+            this.Level = 0;
+            if (parent != null)
+                this.Level = parent.Level + 1;
+        }
+
+        int IComparable<ProtoTag>.CompareTo(ProtoTag other)
+        {
+            //throw new NotImplementedException();
+            if (other == null) return 1;
+            return Level.CompareTo(other.Level);            
         }
     }
 
@@ -65,7 +79,7 @@ namespace MyHTMLParser
             if (IsProto)
                 return base.ToString();
             
-            string result = String.Format("Name: {0} | ChildCount: {1}", Name, ChildTags.Count);
+            string result = String.Format("Lvl: {2} | Name: {0} | ChildCount: {1}", Name, ChildTags.Count, Level);
             if (Attributes.ContainsKey("class"))
                 result += " | " + Attributes["class"];
             return result;
@@ -80,6 +94,7 @@ namespace MyHTMLParser
             }
         }
         public bool IsSelfClosed { get; private set; }
+        public bool IsComment { get; private set; }
         public string Name { get; private set; }
         public string SourceString { get; private set; }
         public Dictionary<string, string> Attributes { get; private set; }
@@ -88,10 +103,12 @@ namespace MyHTMLParser
         public string CutOffAfter { get; private set; }
         public int ErrorCount { get; private set; }
 
-        public Tag(string inpString) : base(inpString)
+        /*
+        public Tag(string inpString, int level=0) : base(inpString, level)
         {
             MakeTag(inpString);
         }
+        */
 
         public Tag(string inpString, Tag parent) : base(inpString, parent)
         {
@@ -217,7 +234,7 @@ namespace MyHTMLParser
                 int curEndTagInd = GetRealEndOfTagName(inpString, "<!--", "-->");
                 Value = inpString.Substring(0 + 1, curEndTagInd - 0 - 1 + 2);
                 IsProto = true;
-                //IsSelfClosed = true;
+                IsComment = true;
                 return inpString.Substring(curEndTagInd + 3).Trim();
 
                 //return inpString.Substring(endTagInd+1);
@@ -451,7 +468,7 @@ namespace MyHTMLParser
         /// <param name="nameTag"></param>
         /// <param name="tagAttribute"></param>
         /// <returns></returns>
-        public List<Tag> LookForTag(string nameTag, bool LookInnerTags = false, KeyValuePair<string, string> tagAttribute = new KeyValuePair<string, string>())
+        public List<Tag> LookForChildTag(string nameTag, bool LookInnerTags = false, KeyValuePair<string, string> tagAttribute = new KeyValuePair<string, string>())
         {
             List<Tag> result = new List<Tag>();            
 
@@ -476,16 +493,87 @@ namespace MyHTMLParser
                             result.Add(itemTag);                                                            // тогда просто добавляем ТЕГ в результат
 
                         if (LookInnerTags)                                                              // Если ищем вхождения и во внутренних ТЕГах,
-                            result.AddRange(itemTag.LookForTag(nameTag, LookInnerTags, tagAttribute));              // то продолжаем поиск во внутренних ТЕГах
+                            result.AddRange(itemTag.LookForChildTag(nameTag, LookInnerTags, tagAttribute));              // то продолжаем поиск во внутренних ТЕГах
                     }
                     else                                                                            // если ТЕГ не найден
-                        result.AddRange(itemTag.LookForTag(nameTag, LookInnerTags, tagAttribute));              // тогда продолжаем поиск во внутренних ТЕГах
+                        result.AddRange(itemTag.LookForChildTag(nameTag, LookInnerTags, tagAttribute));              // тогда продолжаем поиск во внутренних ТЕГах
                 }
                 else if (nameTag == null)
                     result.Add(itemTag);
             }
 
             return result;
+        }
+
+        /*
+        public List<Tag> LookForChildTag(int targetLevel)
+        {
+
+            List<Tag> result = new List<Tag>();
+
+            if (targetLevel < Level)
+                return result;
+
+
+
+            return result;
+        }
+        */
+
+        public List<Tag> LookForParentTag(string nameTag, bool LookToRoot = false, KeyValuePair<string, string> tagAttribute = new KeyValuePair<string, string>())
+        {
+            List<Tag> result = new List<Tag>();
+
+            bool LookAttributes = false;
+            if (tagAttribute.Key != null)
+                if (tagAttribute.Key != "")
+                    LookAttributes = true;
+
+            Tag workTag = (Tag)this.Parent;
+            bool found = false;
+
+            while (workTag != null)
+            {
+                if (workTag.Name == nameTag)
+                {
+                    if (LookAttributes)
+                    {
+                        if (workTag.Attributes.ContainsKey(tagAttribute.Key))                           // и есть аттрибут с искомым именем
+                            if (workTag.Attributes[tagAttribute.Key] == tagAttribute.Value)                 // и искомым значением
+                                found = true;
+                    }
+                    else
+                        found = true;
+                }
+
+                if (found)
+                {
+                    found = false;
+                    result.Add(workTag);
+                    if (!LookToRoot)
+                        break;
+                }
+
+                workTag = (Tag)workTag.Parent;
+            }
+
+            return result;
+        }
+        public Tag LookForParentTag(int targetLvl)
+        {
+            if (targetLvl < 0)
+                return null;
+            Tag workTag = this;
+            while (workTag != null)
+            {
+                if (workTag.Level == targetLvl)
+                    break;
+                //return workTag;                
+                else if (workTag.Level < targetLvl)
+                    return null;
+                workTag = (Tag)workTag.Parent;
+            }
+            return workTag;
         }
     }
 

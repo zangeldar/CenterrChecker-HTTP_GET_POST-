@@ -42,7 +42,7 @@ namespace TEST
             //Test5();
             //Test55();
             //Test6();
-            Test65();
+            //Test65();
         }
 
         static void Test0()
@@ -56,7 +56,7 @@ namespace TEST
 
             IRequest testReq;
             IResponse testResp = null;
-
+            //testReq = new TorgASVRequest("пирит");
             testReq = new TorgASVRequest("торг");
             DoTest(testReq, ref testResp);
 
@@ -292,8 +292,8 @@ namespace TEST
             {
                 if (!item.IsProto)
                 {
-                    SearchResult.AddRange((IEnumerable<Tag>)((Tag)item).LookForTag("div", true, new KeyValuePair<string, string>("class", "procedure")));
-                    SearchProtoResult.AddRange((IEnumerable<Tag>)((Tag)item).LookForTag(null, true));
+                    SearchResult.AddRange((IEnumerable<Tag>)((Tag)item).LookForChildTag("div", true, new KeyValuePair<string, string>("class", "procedure")));
+                    SearchProtoResult.AddRange((IEnumerable<Tag>)((Tag)item).LookForChildTag(null, true));
                 }
                 else
                     SearchProtoResult.Add(item);

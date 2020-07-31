@@ -8,13 +8,18 @@ namespace TorgiASV
     [Serializable]
     public class TorgASV : ATorg
     {
+        public Exception LastError { get; private set; }
         public TorgASV(List<_Tag> itemsList)
         {
+            /*
             LotName = new StringUri
             {
                 ItemString = itemsList[2].InnerTags[0].InnerTags[0].Value.Replace("  ", "").Replace("\n", ""),
                 ItemUri = "https://torgiasv.ru" + itemsList[2].InnerTags[0].InnerTags[0].Attributes[0].Value.Replace("\"", "")
             };
+            */
+            LotNameStr = itemsList[2].InnerTags[0].InnerTags[0].Value.Replace("  ", "").Replace("\n", "");
+            LotNameUrl = "https://torgiasv.ru" + itemsList[2].InnerTags[0].InnerTags[0].Attributes[0].Value.Replace("\"", "");
 
             //
             //AsvID = .Substring();
@@ -25,21 +30,98 @@ namespace TorgiASV
             internalID = urlID;
             //
             LotDesc = itemsList[3].Value;
-            TorgBank = itemsList[4].Value;
+            Organisator = itemsList[4].Value;
             TorgRegion = itemsList[5].Value;
             PriceStart = itemsList[7].InnerTags[0].Value.Replace("<span class=\"text-muted\">", "");
             LotNumberStr = itemsList[9].Value;
         }
 
-        override public string internalID { get; protected set; }
-        public StringUri LotName { get; private set; }
-        override public string LotNameStr { get { return LotName.ItemString; } protected set { } }
-        override public string LotNameUrl { get { return LotName.ItemUri; } protected set { } }
-        public String LotDesc { get; private set; }
-        override public String LotNumberStr { get; protected set; }
-        public String TorgBank { get; private set; }
-        public String TorgRegion { get; private set; }
-        override public String PriceStart { get; protected set; }
+        public TorgASV(Tag inpTag)
+        {
+            List<Tag> Parents = inpTag.LookForParentTag("div", true, new KeyValuePair<string, string>("class", "lot-catalog__group"));
+            Tag lowerParent = null;
+            foreach (Tag item in Parents)
+            {                
+                if (lowerParent == null || item.Level < lowerParent.Level)
+                    lowerParent = item;
+            }
+            try
+            {
+                lowerParent = lowerParent.LookForChildTag("h3", true, new KeyValuePair<string, string>("class", "lot-catalog__group-title bold"))[0];
+                TorgTypeStr = lowerParent.ChildTags[0].ChildTags[0].Value;
+                TorgTypeUrl = lowerParent.ChildTags[0].Attributes["href"];
+            }
+            catch (Exception e)
+            {
+                LastError = e;
+                //throw;
+            }
+
+            try
+            {
+                lowerParent = inpTag.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "multitext-crop"))[0];
+                foreach (Tag item in lowerParent.LookForChildTag("h5", true, new KeyValuePair<string, string>("class", "item-head__title lot-catalog-item__head-title bold"))[0].ChildTags)
+                {
+                    if (item.IsComment)
+                        continue;
+                    if (item.IsProto)
+                    {
+                        LotNameStr = item.Value;
+                        break;
+                    } else
+                        foreach (Tag inItem in item.LookForChildTag(null))
+                        {
+                            if (inItem.IsProto & !inItem.IsComment)
+                            {
+                                LotNameStr = inItem.Value;
+                                if (((Tag)inItem.Parent).Attributes.ContainsKey("href"))
+                                    LotNameUrl = ((Tag)inItem.Parent).Attributes["href"];
+                                break;
+                            }
+                        }
+                }
+                //LotNameUrl = "";                // для ФО заполнять ссылку из Активов
+
+                foreach (Tag item in lowerParent.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "lot-catalog-item__organization"))[0].ChildTags)
+                {
+                    if (item.IsProto & !item.IsComment)
+                    {
+                        Organisator = item.Value;
+                        break;
+                    }
+                }
+
+                foreach (Tag item in lowerParent.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "multitext-crop__item lot-catalog-item__foot text-muted"))[0].ChildTags)
+                {
+                    if (item.IsProto & !item.IsComment)
+                    {
+                        TorgRegion = item.Value;
+                        break;
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                LastError = e;
+                //throw;
+            }
+            
+
+
+        }
+
+        override public string internalID { get; protected set; }        
+        public override string LotNameStr { get; protected set; }
+        public override string LotNameUrl { get; protected set; }
+        public string Organisator { get; private set; }
+        public string TorgRegion { get; private set; }
+        public string TorgTypeStr { get; private set; }
+        public string TorgTypeUrl { get; private set; }
+        public string LotDesc { get; private set; }    
+        override public string LotNumberStr { get; protected set; }
+        public string LotNumberUrl { get; private set; }
+        override public string PriceStart { get; protected set; }        
 
         public override bool Equals(Object obj)
         {
@@ -52,7 +134,7 @@ namespace TorgiASV
                 this.LotNameUrl == curObj.LotNameUrl &
                 this.LotDesc == curObj.LotDesc &
                 this.LotNumberStr == curObj.LotNumberStr &
-                this.TorgBank == curObj.TorgBank &
+                this.Organisator == curObj.Organisator &
                 this.TorgRegion == curObj.TorgRegion &
                 this.PriceStart == curObj.PriceStart)
                 return true;
@@ -88,9 +170,10 @@ namespace TorgiASV
                     @"{7}" + "</td></tr>",
                     internalID,
                     LotNumberStr,
-                    LotName.ItemUri, LotName.ItemString,
+                    //LotName.ItemUri, LotName.ItemString,
+                    LotNameUrl, LotNameStr,
                     LotDesc,
-                    TorgBank,
+                    Organisator,
                     TorgRegion,
                     PriceStart
                     );
@@ -113,9 +196,10 @@ namespace TorgiASV
                     @"" + Environment.NewLine,
                     internalID,
                     LotNumberStr,
-                    LotName.ItemUri, LotName.ItemString,
+                    //LotName.ItemUri, LotName.ItemString,
+                    LotNameStr, LotNameUrl,
                     LotDesc,
-                    TorgBank,
+                    Organisator,
                     TorgRegion,
                     PriceStart
                     );

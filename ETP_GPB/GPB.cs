@@ -33,12 +33,12 @@ namespace ETP_GPB
         {
             Props = new List<string>();
             List<Tag> workList = new List<Tag>();
-            workList = inpTag.LookForTag("div", true, new KeyValuePair<string, string>("class", "procedure__companyName"));
+            workList = inpTag.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "procedure__companyName"));
             if (workList.Count > 0)
                 if (workList[0].ChildTags.Count > 0)
                     OrganizerStr = workList[0].ChildTags[0].Value;
 
-            workList = inpTag.LookForTag("a", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__link procedure__infoTitle"));
+            workList = inpTag.LookForChildTag("a", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__link procedure__infoTitle"));
             if (workList.Count > 0)
             {
                 if(workList[0].Attributes.ContainsKey("href"))
@@ -47,7 +47,7 @@ namespace ETP_GPB
                     LotNameStr = workList[0].ChildTags[0].Value;
             }            
 
-            workList = inpTag.LookForTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__infoDescriptionShort"));
+            workList = inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__infoDescriptionShort"));
             if (workList.Count > 0)
                 if (workList[0].ChildTags.Count > 0)
                 {
@@ -58,7 +58,7 @@ namespace ETP_GPB
                             LotNumberStr = ((Tag)workList[0].ChildTags[1]).ChildTags[0].Value;
                 }
 
-            workList = inpTag.LookForTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__infoAuction"));
+            workList = inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__infoAuction"));
             if (workList.Count > 0)
                 if (workList[0].ChildTags.Count > 0)
                 {
@@ -69,7 +69,7 @@ namespace ETP_GPB
                             TorgType = ((Tag)workList[0].ChildTags[1]).ChildTags[0].Value;
                 }
 
-            workList = inpTag.LookForTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__infoPropsValue"));
+            workList = inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__infoPropsValue"));
             foreach (Tag item in workList)
             {
                 if (item.ChildTags.Count > 0)
@@ -78,7 +78,7 @@ namespace ETP_GPB
             }
                 
 
-            workList = inpTag.LookForTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__detailsReception"));
+            workList = inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__detailsReception"));
             if (workList.Count > 0)
                 if (workList[0].ChildTags.Count > 0)
                 {
@@ -91,13 +91,13 @@ namespace ETP_GPB
                                 DateAcceptFinish = ((Tag)workList[0].ChildTags[1]).ChildTags[0].Value;
                 }
 
-            workList = inpTag.LookForTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__detailsSum"));
+            workList = inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__detailsSum"));
             if (workList.Count > 0)
                 if (workList[0].ChildTags.Count > 0)
                     if (workList[0].ChildTags[0].IsProto)
                         PriceStart = workList[0].ChildTags[0].Value;
 
-            workList = inpTag.LookForTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__detailsRegion"));
+            workList = inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__detailsRegion"));
             if (workList.Count > 0)
                 if (workList[0].ChildTags.Count > 1)
                     if (((Tag)workList[0].ChildTags[1]).ChildTags.Count > 0)
