@@ -105,6 +105,7 @@ namespace CenterRu
 
         protected override void FillListResponse()
         {
+            
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
@@ -116,10 +117,32 @@ namespace CenterRu
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)
-                    SearchResult.AddRange(item.LookForChildTag("table", true));
+                    SearchResult.AddRange(item.LookForChildTag("tr", true, new KeyValuePair<string, string>("class", "gridRow")));
             }
+
+            List<Centerr> workList = new List<Centerr>();
+
+            if (SearchResult.Count < 1)
+            {
+                Exception e = new Exception("Nothing found!");
+                this.ListResponse = workList;
+                return;
+            }
+
+            foreach (Tag item in SearchResult)
+            {
+                workList.Add(new Centerr(item));
+            }
+
+            this.ListResponse = workList;
+            freshResponse = true;
+            return;
+
+            //return;
             //
 
+            // Старый парсер
+             /*
             //  Разбор результатов
             //myWorkAnswer = myHTMLParser.NormalizeString(myWorkAnswer);
             myHTMLParser myHtmlParser = new myHTMLParser();
@@ -131,7 +154,10 @@ namespace CenterRu
             this.ListResponse = GetResultTableAsListOfMyObjects(GetResultTableAsList(myTable));
 
             freshResponse = true;
+             */
+            // 
         }
+        /*
         static private List<Centerr> GetResultTableAsListOfMyObjects(List<List<StringUri>> inpList)
         {
             List<Centerr> resList = new List<Centerr>();
@@ -140,5 +166,6 @@ namespace CenterRu
                 resList.Add(new Centerr(inpList[i]));
             return resList;
         }
+        */
     }
 }

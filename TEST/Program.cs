@@ -57,11 +57,29 @@ namespace TEST
             IRequest testReq;
             IResponse testResp = null;
             //testReq = new TorgASVRequest("пирит");
-            testReq = new TorgASVRequest("торг");
+
+            testReq = new ASVorgRequest("пирит");
+            DoTest(testReq, ref testResp);
+
+            testReq = new SberbankAstRequest("техническая жидкость");
+            DoTest(testReq, ref testResp);
+
+            testReq = new GPBRequest("техническая жидкость");
             DoTest(testReq, ref testResp);
 
             testReq = new CenterrRequest("пирит");
             DoTest(testReq, ref testResp);
+
+            testReq = new B2BRequest("панда");
+            DoTest(testReq, ref testResp);
+
+            testReq = new B2BRequest("техническая жидкость");
+            DoTest(testReq, ref testResp);
+
+            testReq = new TorgASVRequest("торг");
+            DoTest(testReq, ref testResp);
+
+            
             
 
             Console.WriteLine("Well done.");

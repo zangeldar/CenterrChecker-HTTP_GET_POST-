@@ -38,7 +38,7 @@ namespace ETP_GPB
                 if (workList[0].ChildTags.Count > 0)
                     OrganizerStr = workList[0].ChildTags[0].Value;
 
-            workList = inpTag.LookForChildTag("a", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__link procedure__infoTitle"));
+            workList = inpTag.LookForChildTag("a", true, new KeyValuePair<string, string>("class", "procedure__link procedure__infoTitle"));
             if (workList.Count > 0)
             {
                 if(workList[0].Attributes.ContainsKey("href"))
@@ -47,7 +47,7 @@ namespace ETP_GPB
                     LotNameStr = workList[0].ChildTags[0].Value;
             }            
 
-            workList = inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__infoDescriptionShort"));
+            workList = inpTag.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "procedure__infoDescriptionShort"));
             if (workList.Count > 0)
                 if (workList[0].ChildTags.Count > 0)
                 {
@@ -58,7 +58,7 @@ namespace ETP_GPB
                             LotNumberStr = ((Tag)workList[0].ChildTags[1]).ChildTags[0].Value;
                 }
 
-            workList = inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__infoAuction"));
+            workList = inpTag.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "procedure__infoAuction"));
             if (workList.Count > 0)
                 if (workList[0].ChildTags.Count > 0)
                 {
@@ -69,7 +69,7 @@ namespace ETP_GPB
                             TorgType = ((Tag)workList[0].ChildTags[1]).ChildTags[0].Value;
                 }
 
-            workList = inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__infoPropsValue"));
+            workList = inpTag.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "procedure__infoPropsValue"));
             foreach (Tag item in workList)
             {
                 if (item.ChildTags.Count > 0)
@@ -78,7 +78,7 @@ namespace ETP_GPB
             }
                 
 
-            workList = inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__detailsReception"));
+            workList = inpTag.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "procedure__detailsReception"));
             if (workList.Count > 0)
                 if (workList[0].ChildTags.Count > 0)
                 {
@@ -91,13 +91,13 @@ namespace ETP_GPB
                                 DateAcceptFinish = ((Tag)workList[0].ChildTags[1]).ChildTags[0].Value;
                 }
 
-            workList = inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__detailsSum"));
+            workList = inpTag.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "procedure__detailsSum"));
             if (workList.Count > 0)
                 if (workList[0].ChildTags.Count > 0)
                     if (workList[0].ChildTags[0].IsProto)
                         PriceStart = workList[0].ChildTags[0].Value;
 
-            workList = inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "procedure__detailsRegion"));
+            workList = inpTag.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "procedure__detailsRegion"));
             if (workList.Count > 0)
                 if (workList[0].ChildTags.Count > 1)
                     if (((Tag)workList[0].ChildTags[1]).ChildTags.Count > 0)
@@ -154,36 +154,7 @@ namespace ETP_GPB
         {
             //throw new NotImplementedException();
             string result = "";
-
-            if (html)
-                result += String.Format("<tr><td>" +
-                    @"<a href =""{0}"">{1}</a>" + "</td><td>" +
-                    @"<a href =""{0}"">{2}</a>" + "</td><td>" +
-                    @"{3}" + "</td><td>" +
-                    @"{4}" + "</td><td>" +
-                    @"{5}" + "</td><td>" +
-                    @"{6}" + "</td><td>" +
-                    @"{7}" + "</td><td>" +
-                    @"{8}" + "</td><td>" +
-                    @"{9}" + "</td><td>" +
-                    @"{10}" + "</td><td>" +
-                    @"{11}" + "</td></tr>",
-                    baseUrl + LotNameUrl,
-                    LotNumberStr,
-                    LotNameStr,
-                    TorgName,
-                    PriceStart,
-                    OrganizerStr,
-                    DateAcceptFinish,
-                    Status,
-                    Region,
-                    TorgType,
-                    Section,
-                    GetListAsString(Props, html)
-                    );
-            else
-                result += String.Format(
-                    @"{1}" + ";" +
+            string formatStr = @"{0}" + ";" +
                     @"{2}" + ";" +
                     @"{3}" + ";" +
                     @"{4}" + ";" +
@@ -192,10 +163,10 @@ namespace ETP_GPB
                     @"{7}" + ";" +
                     @"{8}" + ";" +
                     @"{9}" + ";" +
-                    @"{10}" + ";" +                    
+                    @"{10}" + ";" +
                     @"{11}" + Environment.NewLine +
-                    @"{0}" + ";" +
-                    @"{0}" + ";" +
+                    @"" + ";" +
+                    @"{1}" + ";" +
                     @"" + ";" +
                     @"" + ";" +
                     @"" + ";" +
@@ -204,20 +175,35 @@ namespace ETP_GPB
                     @"" + ";" +
                     @"" + ";" +
                     @"" + ";" +
-                    @"" + ";" + Environment.NewLine,
-                    baseUrl + LotNameUrl,
+                    @"" + ";" + Environment.NewLine;
+
+            if (html)
+                formatStr = "<tr><td>" +
+                    @"{0}" + "</td><td>" +
+                    @"<a href =""{1}"">{2}</a>" + "</td><td>" +
+                    @"{3}" + "</td><td>" +
+                    @"{4}" + "</td><td>" +
+                    @"{5}" + "</td><td>" +
+                    @"{6}" + "</td><td>" +
+                    @"{7}" + "</td><td>" +
+                    @"{8}" + "</td><td>" +
+                    @"{9}" + "</td><td>" +
+                    @"{10}" + "</td><td>" +
+                    @"{11}" + "</td></tr>";
+
+                result += String.Format(formatStr,
                     LotNumberStr,
-                    LotNameStr,
+                    baseUrl + LotNameUrl, LotNameStr,
                     TorgName,
-                    PriceStart,
-                    OrganizerStr,
-                    DateAcceptFinish,
-                    Status,
                     Region,
-                    TorgType,
+                    OrganizerStr,
+                    PriceStart,
                     Section,
-                    GetListAsString(Props, html)
-                    );
+                    TorgType,
+                    GetListAsString(Props, html),
+                    Status,
+                    DateAcceptFinish);
+            
             return result;
 
         }
@@ -226,6 +212,7 @@ namespace ETP_GPB
         {
             string result = "";
             string newLine = Environment.NewLine;
+            newLine = " | ";
             if (html)
                 newLine = "<br>";
 

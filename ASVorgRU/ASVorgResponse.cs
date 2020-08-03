@@ -125,19 +125,45 @@ namespace ASVorgRU
             if (myWorkAnswer == null)
                 return;
 
-            /*
             //
-            List<Tag> SearchResult = new List<Tag>();
+            List<Tag> SearchResultTmp = new List<Tag>();
+            List<ASVorg> workList = new List<ASVorg>();
 
             List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)
-                    SearchResult.AddRange(item.LookForTag("ol", true));                
+                    SearchResultTmp.AddRange(item.LookForChildTag("ol", true));                
             }
-            //
-            */
+            List<Tag> SearchResult = new List<Tag>();
+            foreach(Tag item in SearchResultTmp)
+            {
+                SearchResult.AddRange(item.LookForChildTag("li", true));
+            }
 
+            if (SearchResult.Count < 1)
+            {
+                if (myWorkAnswer.Contains("emptyResultsBlock"))
+                {
+                    lastError = new Exception("Поиск не дал результатов");
+                    this.ListResponse = workList;
+                    return;
+                }
+                lastError = new Exception("Ответ сервера не содержит данных (ожидались результаты с тегом \"div\" и классом \"procedure__data\"):" + Environment.NewLine + myWorkAnswer);
+                this.ListResponse = workList;
+                return;
+            }
+
+            foreach (Tag item in SearchResult)
+            {
+                workList.Add(new ASVorg(item));
+            }
+
+            this.ListResponse = workList;
+            return;
+
+            //            
+            /*
             List<ASVorg> curList = new List<ASVorg>();
 
             myHTMLParser myParser = new myHTMLParser();
@@ -158,8 +184,9 @@ namespace ASVorgRU
                     curList.Add(new ASVorg(item, sectionName));
                 k++;
             }
-
+            
             this.ListResponse = curList;
+            */
 
         }
     }

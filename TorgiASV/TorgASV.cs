@@ -8,6 +8,7 @@ namespace TorgiASV
     [Serializable]
     public class TorgASV : ATorg
     {
+        private string baseUrl = "https://www.torgiasv.ru/";
         public Exception LastError { get; private set; }
         public TorgASV(List<_Tag> itemsList)
         {
@@ -37,7 +38,7 @@ namespace TorgiASV
         }
 
         public TorgASV(Tag inpTag)
-        {
+        {            
             List<Tag> Parents = inpTag.LookForParentTag("div", true, new KeyValuePair<string, string>("class", "lot-catalog__group"));
             Tag lowerParent = null;
             foreach (Tag item in Parents)

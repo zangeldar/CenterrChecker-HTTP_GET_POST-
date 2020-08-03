@@ -55,17 +55,50 @@ namespace B2B
 
             
             //
-            /*
+            // /*
             List<Tag> SearchResult = new List<Tag>();
 
             List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)
-                    SearchResult.AddRange(item.LookForTag("table", true));                
+                    //SearchResult.AddRange(item.LookForChildTag("table", true));                
+                    SearchResult.AddRange(item.LookForChildTag("tbody", true));
             }
-            */
+
+            List<B2B> workList = new List<B2B>();
+
+            if (SearchResult.Count < 1)
+            {
+                if (myWorkAnswer.Contains("search-results empty_results"))
+                {
+                    lastError = new Exception("Поиск не дал результатов");
+                    this.ListResponse = workList;
+                    return;
+                }
+                lastError = new Exception("Ответ сервера не содержит данных (ожидалась 1 таблица с тегом \"tbody\"):" + Environment.NewLine + myWorkAnswer);
+                this.ListResponse = workList;
+                return;
+            }
+            else if (SearchResult.Count > 1)
+            {
+                lastError = new Exception("Ответ сервера содержит неожиданную структуру (ожидалась 1 таблица с тегом \"tbody\"):" + Environment.NewLine + myWorkAnswer);
+                this.ListResponse = workList;
+                return;
+            }
+
+            foreach (Tag item in SearchResult[0].ChildTags)
+            {
+                workList.Add(new B2B(item));
+            }
+
+            this.ListResponse = workList;
+            return;
+            // */
             //            
+
+            // /*
+            // По старому парсеру
 
             List<B2B> curList = new List<B2B>();
 
@@ -119,6 +152,7 @@ namespace B2B
                     if ((item.InnerTags[0].InnerTags.Count == 1) & (item.InnerTags[1].InnerTags.Count == 1))
                         curList.Add(new B2B(item));
             }
+            // */
                 
 
             this.ListResponse = curList;
