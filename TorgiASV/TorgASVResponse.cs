@@ -75,13 +75,13 @@ namespace TorgiASV
                 @"{4}" + rowSeparatorEn + rowSeparatorSt +
                 @"{5}" + rowSeparatorEn + rowSeparatorSt +
                 @"{6}" + rowSeparatorEn + rowEnd,
-                "ID",
-                "Номер Лота",
-                "Лот",
+                "Секция",
+                "Наименование",
                 "Описание",
-                "Банк",
                 "Регион",
-                "Нач. цена"
+                "Организатор",
+                "Цена",
+                "Лоты"
                 );
 
             foreach (TorgASV item in (List<TorgASV>)NewRecords)

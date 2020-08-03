@@ -46,10 +46,25 @@ namespace TorgiASV
                     lowerParent = item;
             }
             try
-            {
+            {                
+                // ищем ссылку "ПОКАЗАТЬ ВСЕ"
+                foreach (Tag item in lowerParent.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "full-link-block full-link-block--lg")))
+                {
+                    if (item.ChildTags.Count > 0)
+                        if (item.ChildTags[0].Name == "a")
+                            if (item.ChildTags[0].Attributes.ContainsKey("href"))
+                            {
+                                TorgTypeUrl = item.ChildTags[0].Attributes["href"];
+                                break;
+                            }
+                }
+
+                // ищем заголовок
                 lowerParent = lowerParent.LookForChildTag("h3", true, new KeyValuePair<string, string>("class", "lot-catalog__group-title bold"))[0];
+                // Ищем название торгов
                 TorgTypeStr = lowerParent.ChildTags[0].ChildTags[0].Value;
-                TorgTypeUrl = lowerParent.ChildTags[0].Attributes["href"];
+                //TorgTypeUrl = lowerParent.ChildTags[0].Attributes["href"];
+                //lowerParent.Parent.Parent.ChildTags[2] /* lot-catalog__group-foot */ .ChildTags[0].ChildTags[0].ChildTags[0].ChildTags[0] /* a class="full-link" */.Attributes["href"];
             }
             catch (Exception e)
             {
@@ -81,7 +96,7 @@ namespace TorgiASV
                         }
                 }
                 //LotNameUrl = "";                // для ФО заполнять ссылку из Активов
-
+                
                 foreach (Tag item in lowerParent.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "lot-catalog-item__organization"))[0].ChildTags)
                 {
                     if (item.IsProto & !item.IsComment)
@@ -100,13 +115,72 @@ namespace TorgiASV
                     }
                 }
 
+                List<Tag> testList = lowerParent.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "multitext-crop__item multitext-crop__toggle lot-catalog-item__cont"));
+                if (testList.Count > 0)
+                    foreach (Tag item in testList[0].ChildTags)
+                    {
+                        if (item.IsProto & !item.IsComment)
+                        {
+                            LotDesc = item.Value;
+                            break;
+                        }
+                    }
             }
             catch (Exception e)
             {
                 LastError = e;
                 //throw;
             }
-            
+
+            // lot-catalog-item__column lot-catalog-item__column--action
+            try
+            {
+                lowerParent = inpTag.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "lot-catalog-item__column lot-catalog-item__column--action"))[0];
+                List<Tag> testTags = lowerParent.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "lot-catalog-item__organization lot-catalog-item__organization--fo"));                
+                if (testTags.Count > 0)
+                {
+                    //TorgTypeStr = "ФО / Агентство";
+                    foreach (Tag item in testTags)
+                    {
+                        // заполняем ссылки на лоты и активы
+                        if (item.ChildTags[0].Attributes.ContainsKey("href"))
+                        {
+                            if (item.ChildTags[0].Attributes["href"].Contains("pre-sale"))
+                            {
+                                LotNameUrl = item.ChildTags[0].Attributes["href"];                                
+                            }                                
+                            else
+                            {
+                                LotNumberUrl = item.ChildTags[0].Attributes["href"];
+                                LotNumberStr = item.ChildTags[0].ChildTags[0].Value;
+                            }   
+                        }
+                    }
+                }                    
+                else
+                {
+                    testTags = lowerParent.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "lot-catalog-item__price price"));
+                    if (testTags.Count > 0)
+                    {
+                        //TorgTypeStr = "Лоты (Продажа имущества) - в наименовании / описании содержится искомый текст";
+                        foreach (Tag item in testTags)
+                        {
+                            // заполняем прайс и номер лота
+                            PriceStart = item.ChildTags[1].ChildTags[0].ChildTags[0].Value + item.ChildTags[1].ChildTags[0].ChildTags[1].ChildTags[0].Value;
+                            LotNumberStr = ((Tag)item.Parent).ChildTags[2].ChildTags[0].Value;
+                        }
+                    }
+                    else
+                    {
+                        //TorgTypeStr = "Активы (Скоро в продаже) - в наименовании / описании содержится искомый текст";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                LastError = e;
+                //throw;
+            }
 
 
         }
@@ -132,10 +206,13 @@ namespace TorgiASV
             if (this.internalID == curObj.internalID &
                 this.LotNameStr == curObj.LotNameStr &
                 this.LotNameUrl == curObj.LotNameUrl &
-                this.LotDesc == curObj.LotDesc &
-                this.LotNumberStr == curObj.LotNumberStr &
                 this.Organisator == curObj.Organisator &
                 this.TorgRegion == curObj.TorgRegion &
+                this.TorgTypeStr == curObj.TorgTypeStr &
+                this.TorgTypeUrl == curObj.TorgTypeUrl &
+                this.LotDesc == curObj.LotDesc &
+                this.LotNumberStr == curObj.LotNumberStr &
+                this.LotNumberUrl == curObj.LotNumberUrl &
                 this.PriceStart == curObj.PriceStart)
                 return true;
             return false;
@@ -147,8 +224,15 @@ namespace TorgiASV
             hashCode = hashCode * -1521134295 + base.GetHashCode();            
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LotNameStr);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LotNameUrl);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(PriceStart);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Organisator);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(TorgRegion);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(TorgTypeStr);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(TorgTypeUrl);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LotDesc);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LotNumberStr);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LotNameStr);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LotNameUrl);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(PriceStart);            
 
             internalID = hashCode.ToString();
 
@@ -161,47 +245,45 @@ namespace TorgiASV
 
             if (html)
                 result += String.Format("<tr><td>" +
-                    @"{0}" + "</td><td>" +
-                    @"{1}" + "</td><td>" +
-                    @"<a href =""{2}"">{3}</a>" + "</td><td>" +
-                    @"{4}" + "</td><td>" +
-                    @"{5}" + "</td><td>" +
-                    @"{6}" + "</td><td>" +
-                    @"{7}" + "</td></tr>",
-                    internalID,
-                    LotNumberStr,
-                    //LotName.ItemUri, LotName.ItemString,
-                    LotNameUrl, LotNameStr,
+                    @"<a href =""{0}"">{1}</a>" + "</td><td>" +     // Секция + ссылка
+                    @"<a href =""{2}"">{3}</a>" + "</td><td>" +     // Наименование + ссылка
+                    @"{4}" + "</td><td>" +                          // Описание (если есть)
+                    @"{5}" + "</td><td>" +                          // Регион
+                    @"{6}" + "</td><td>" +                          // Организатор
+                    @"{7}" + "</td><td>" +                          // Цена (если есть)
+                    @"<a href =""{8}"">{9}</a>" + "</td><td>",      // Лоты (если есть) + ссылка (если есть)   
+                    TorgTypeStr, TorgTypeUrl,
+                    LotNameStr, LotNameUrl,                                        
                     LotDesc,
-                    Organisator,
                     TorgRegion,
-                    PriceStart
+                    Organisator,
+                    PriceStart,
+                    LotNumberStr, LotNumberUrl
                     );
             else
                 result += String.Format(
-                    @"{0}" + ";" +
                     @"{1}" + ";" +
-                    @"{3}" + ";" +
+                    @"{3}" + ";" +                    
                     @"{4}" + ";" +
                     @"{5}" + ";" +
                     @"{6}" + ";" +
-                    @"{7}" + Environment.NewLine +
+                    @"{7}" + ";" +
+                    @"{9}" + Environment.NewLine +
                     // строка таблицы с ссылками                    
-                    @"" + ";" +
-                    @"" + ";" +
+                    @"{0}" + ";" +
                     @"{2}" + ";" +
                     @"" + ";" +
                     @"" + ";" +
                     @"" + ";" +
-                    @"" + Environment.NewLine,
-                    internalID,
-                    LotNumberStr,
-                    //LotName.ItemUri, LotName.ItemString,
+                    @"" + ";" +
+                    @"{8}" + Environment.NewLine,
+                    TorgTypeStr, TorgTypeUrl,
                     LotNameStr, LotNameUrl,
                     LotDesc,
-                    Organisator,
                     TorgRegion,
-                    PriceStart
+                    Organisator,
+                    PriceStart,
+                    LotNumberStr, LotNumberUrl
                     );
 
             return result;
