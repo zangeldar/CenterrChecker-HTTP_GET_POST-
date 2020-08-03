@@ -242,7 +242,42 @@ namespace TorgiASV
         public override string ToString(bool html)
         {
             string result = "";
+            string formatStr = @"{1}" + ";" +
+                    @"{3}" + ";" +
+                    @"{4}" + ";" +
+                    @"{5}" + ";" +
+                    @"{6}" + ";" +
+                    @"{7}" + ";" +
+                    @"{9}" + Environment.NewLine +
+                    // строка таблицы с ссылками                    
+                    @"{0}" + ";" +
+                    @"{2}" + ";" +
+                    @"" + ";" +
+                    @"" + ";" +
+                    @"" + ";" +
+                    @"" + ";" +
+                    @"{8}" + Environment.NewLine;
+            if (html)
+                formatStr = "<tr><td>" +
+                    @"<a href =""{0}"">{1}</a>" + "</td><td>" +     // Секция + ссылка
+                    @"<a href =""{2}"">{3}</a>" + "</td><td>" +     // Наименование + ссылка
+                    @"{4}" + "</td><td>" +                          // Описание (если есть)
+                    @"{5}" + "</td><td>" +                          // Регион
+                    @"{6}" + "</td><td>" +                          // Организатор
+                    @"{7}" + "</td><td>" +                          // Цена (если есть)
+                    @"<a href =""{8}"">{9}</a>" + "</td><td>";      // Лоты (если есть) + ссылка (если есть)   
+                
+            result += String.Format(formatStr,
+                TorgTypeStr, TorgTypeUrl,
+                LotNameStr, LotNameUrl,
+                LotDesc,
+                TorgRegion,
+                Organisator,
+                PriceStart,
+                LotNumberStr, LotNumberUrl
+                );                
 
+            /*
             if (html)
                 result += String.Format("<tr><td>" +
                     @"<a href =""{0}"">{1}</a>" + "</td><td>" +     // Секция + ссылка
@@ -285,7 +320,7 @@ namespace TorgiASV
                     PriceStart,
                     LotNumberStr, LotNumberUrl
                     );
-
+            */
             return result;
         }
     }
