@@ -604,7 +604,9 @@ namespace MyHTMLParser
         }
         public static string ClearHtml(string inpString, bool toHtml=false)
         {
-            string result = inpString.Replace("&quot;", "\"").Replace("&#160;", " ").Replace("\t", " ");
+            string result = inpString.Replace("&quot;", "\"").Replace("&#160;", " ").Replace("&nbsp;", " ").Replace("\t", " ");
+            //&#8381
+            result = result.Replace("&#8381;", "RUB.");
             if (!toHtml)
                 result = result.Replace("\n", " ").Replace("\r", " ");
             return result;

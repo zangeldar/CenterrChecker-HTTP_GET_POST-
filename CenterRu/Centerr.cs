@@ -74,7 +74,7 @@ namespace CenterRu
             TorgType = itemsList[10].ItemString;
         }
         */
-        private string baseUrl = "http://bankrupt.centerr.ru";
+        virtual protected string baseUrl { get { return "http://bankrupt.centerr.ru"; } }
         override public string internalID { get; protected set; }
         //public StringUri TorgNumber { get; private set; }
         public string TorgNumberStr { get; private set; }

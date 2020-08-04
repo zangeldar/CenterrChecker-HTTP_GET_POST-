@@ -17,6 +17,7 @@
     <ProjectReference Include="..\SberbankAST\SberbankAST.csproj" />
     <ProjectReference Include="..\TorgiASV\TorgiASV.csproj" />
     <ProjectReference Include="..\UTender\UTender.csproj" />
+    <ProjectReference Include="..\ZakupkiGov\ZakupkiGov.csproj" />
   </ItemGroup>
 
 </Project>

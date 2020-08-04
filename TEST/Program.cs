@@ -15,6 +15,7 @@ using B2B;
 using ETP_GPB;
 using ASVorgRU;
 using UTender;
+using ZakupkiGov;
 
 namespace TEST
 {
@@ -58,6 +59,9 @@ namespace TEST
             IRequest testReq;
             IResponse testResp = null;
             //testReq = new TorgASVRequest("пирит");
+
+            testReq = new ZakupkiGovRequest("техническая жидкость");
+            DoTest(testReq, ref testResp);
 
             testReq = new UTenderRequest("pajero");
             DoTest(testReq, ref testResp);

@@ -6,11 +6,8 @@ namespace UTender
 {
     public class UTender : Centerr
     {
-        public UTender(Tag inpTag) : base(inpTag)
-        {
+        public UTender(Tag inpTag) : base(inpTag){}
 
-        }
-
-        private string baseUrl = "http://bankrupt.centerr.ru";
+        override protected string baseUrl { get { return "http://bankrupt.centerr.ru"; } }
     }
 }
