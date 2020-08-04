@@ -16,6 +16,7 @@
     <ProjectReference Include="..\ETP_GPB\ETP_GPB.csproj" />
     <ProjectReference Include="..\SberbankAST\SberbankAST.csproj" />
     <ProjectReference Include="..\TorgiASV\TorgiASV.csproj" />
+    <ProjectReference Include="..\UTender\UTender.csproj" />
   </ItemGroup>
 
 </Project>

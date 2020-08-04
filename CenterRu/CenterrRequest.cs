@@ -25,8 +25,8 @@ namespace CenterRu
             SearchString = searchStr;
         }
 
-        private string _cviewstate;
-        private string _eventvalidation;
+        protected string _cviewstate;
+        protected string _eventvalidation;
 
         override protected bool Initialize()
         {
@@ -56,7 +56,7 @@ namespace CenterRu
             string result = searchStr.Substring(parStartInd, parEndInd - parStartInd);
             return result;
         }
-
+        virtual public string ReqParamTitle { get { return "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$"; } }
         // строка запроса для CENTERR.RU
         override protected string myRawPostData()
         {
@@ -68,44 +68,45 @@ namespace CenterRu
                 _CVIEWSTATE +
                 "&__VIEWSTATE=&__SCROLLPOSITIONX=0&__SCROLLPOSITIONY=0&__EVENTVALIDATION=" +
                 _EVENTVALIDATION +
-                "&ctl00$ctl00$LeftContentLogin$ctl00$Login1$UserName=&ctl00$ctl00$LeftContentLogin$ctl00$Login1$Password=&ctl00$ctl00$LeftContentSideMenu$mSideMenu$extAccordionMenu_AccordionExtender_ClientState=0&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_lotNumber_лота=" +
+                "&ctl00$ctl00$LeftContentLogin$ctl00$Login1$UserName=&ctl00$ctl00$LeftContentLogin$ctl00$Login1$Password=&ctl00$ctl00$LeftContentSideMenu$mSideMenu$extAccordionMenu_AccordionExtender_ClientState=0" + ReqParamTitle + "vPurchaseLot_lotNumber_лота=" +
                 MyParameters["vPurchaseLot_lotNumber"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_purchaseNumber_торга=" +
+                ReqParamTitle + "vPurchaseLot_purchaseNumber_торга=" +
                 MyParameters["vPurchaseLot_purchaseNumber"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_lotTitle_Наименованиелота=" +
+                ReqParamTitle + "vPurchaseLot_lotTitle_Наименованиелота=" +
                 MyParameters["vPurchaseLot_lotTitle"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_fullTitle_Наименованиеторга=" +
+                ReqParamTitle + "vPurchaseLot_fullTitle_Наименованиеторга=" +
                 MyParameters["vPurchaseLot_fullTitle"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_contactName_AliasFullOrganizerTitle=" +
+                ReqParamTitle + "Party_contactName_AliasFullOrganizerTitle=" +
                 MyParameters["Party_contactName"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_InitialPrice_Начальнаяценаотруб=" +
+                ReqParamTitle + "vPurchaseLot_InitialPrice_Начальнаяценаотруб=" +
                 MyParameters["vPurchaseLot_InitialPrice"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_inn_ИННорганизатора=" +
+                ReqParamTitle + "Party_inn_ИННорганизатора=" +
                 MyParameters["Party_inn"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_bargainTypeID_Типторгов$ddlBargainType=" +
+                ReqParamTitle + "vPurchaseLot_bargainTypeID_Типторгов$ddlBargainType=" +
                 MyParameters["vPurchaseLot_bargainTypeID"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_kpp_КППорганизатора=" +
+                ReqParamTitle + "Party_kpp_КППорганизатора=" +
                 MyParameters["Party_kpp"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_ParticipationFormID_Форматоргапосоставуучастников=" +
+                ReqParamTitle + "vPurchaseLot_ParticipationFormID_Форматоргапосоставуучастников=" +
                 MyParameters["vPurchaseLot_ParticipationFormID"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$Party_registeredAddress_Адресрегистрацииорганизатора=" +
+                ReqParamTitle + "Party_registeredAddress_Адресрегистрацииорганизатора=" +
                 MyParameters["Party_registeredAddress"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$BargainType_PriceForm_Формапредставленияпредложенийоцене=" +
+                ReqParamTitle + "BargainType_PriceForm_Формапредставленияпредложенийоцене=" +
                 MyParameters["BargainType_PriceForm"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptName_Должник=" +
+                ReqParamTitle + "vPurchaseLot_BankruptName_Должник=" +
                 MyParameters["vPurchaseLot_BankruptName"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_purchaseStatusID_Статус=" +
+                ReqParamTitle + "vPurchaseLot_purchaseStatusID_Статус=" +
                 MyParameters["vPurchaseLot_purchaseStatusID"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptINN_ИННдолжника=" +
+                ReqParamTitle + "vPurchaseLot_BankruptINN_ИННдолжника=" +
                 MyParameters["vPurchaseLot_BankruptINN"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptRegionID_Региондолжника=" +
+                ReqParamTitle + "vPurchaseLot_BankruptRegionID_Региондолжника=" +
                 MyParameters["vPurchaseLot_BankruptRegionID"] +
-                "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$PurchasesSearchCriteria$vPurchaseLot_BankruptRegionID_Региондолжника_desc=" +
+                ReqParamTitle + "vPurchaseLot_BankruptRegionID_Региондолжника_desc=" +
                 MyParameters["vPurchaseLot_BankruptRegionID_desc"] +
                 "&hiddenInputToUpdateATBuffer_CommonToolkitScripts=1&__ASYNCPOST=true&ctl00$ctl00$MainExpandableArea$phExpandCollapse$SearchButton=Искать торги";
         }
         private string makeAnPost(string url = "https://bankrupt.centerr.ru", string postData = "")
         {
+            url = ServiceURL;
             var request = (HttpWebRequest)WebRequest.Create(url);
             postData = postData.Replace("+", "%2B");
             request.Method = "POST";

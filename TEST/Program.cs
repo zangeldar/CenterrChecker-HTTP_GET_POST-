@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using B2B;
 using ETP_GPB;
 using ASVorgRU;
+using UTender;
 
 namespace TEST
 {
@@ -57,6 +58,9 @@ namespace TEST
             IRequest testReq;
             IResponse testResp = null;
             //testReq = new TorgASVRequest("пирит");
+
+            testReq = new UTenderRequest("pajero");
+            DoTest(testReq, ref testResp);
 
             testReq = new ASVorgRequest("пирит");
             DoTest(testReq, ref testResp);
