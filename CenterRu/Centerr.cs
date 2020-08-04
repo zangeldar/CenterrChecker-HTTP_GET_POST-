@@ -141,17 +141,17 @@ namespace CenterRu
                     @"{16}" + "</td></tr>";
             
                 result += String.Format(formatStr,
-                    baseUrl + TorgNumberUrl, TorgNumberStr,
-                    baseUrl + TorgNameUrl, TorgNameStr,
-                    baseUrl + LotNumberUrl, LotNumberStr,
-                    baseUrl + LotNameUrl, LotNameStr,
-                    PriceStart,
-                    baseUrl + OrganizerUrl, OrganizerStr,
+                    baseUrl + TorgNumberUrl, HTMLParser.ClearHtml(TorgNumberStr, html),
+                    baseUrl + TorgNameUrl, HTMLParser.ClearHtml(TorgNameStr, html),
+                    baseUrl + LotNumberUrl, HTMLParser.ClearHtml(LotNumberStr, html),
+                    baseUrl + LotNameUrl, HTMLParser.ClearHtml(LotNameStr, html),
+                    HTMLParser.ClearHtml(PriceStart, html),
+                    baseUrl + OrganizerUrl, HTMLParser.ClearHtml(OrganizerStr, html),
                     DateAcceptFinish,
                     DateAuctionStart,
-                    Status,
-                    baseUrl + WinnerUrl, WinnerStr,
-                    TorgType
+                    HTMLParser.ClearHtml(Status, html),
+                    baseUrl + WinnerUrl, HTMLParser.ClearHtml(WinnerStr, html),
+                    HTMLParser.ClearHtml(TorgType, html)
                     );
             /*                    
             else

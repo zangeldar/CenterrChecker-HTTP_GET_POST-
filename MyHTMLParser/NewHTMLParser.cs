@@ -600,8 +600,14 @@ namespace MyHTMLParser
                     //continue;
                 }
             }
-
             return HTMLDoc;
+        }
+        public static string ClearHtml(string inpString, bool toHtml=false)
+        {
+            string result = inpString.Replace("&quot;", "\"").Replace("&#160;", " ").Replace("\t", " ");
+            if (!toHtml)
+                result = result.Replace("\n", " ").Replace("\r", " ");
+            return result;
         }
     }
 }

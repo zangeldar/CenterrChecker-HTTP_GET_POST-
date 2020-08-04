@@ -11,9 +11,13 @@ namespace ASVorgRU
     [Serializable]
     public class ASVorgRequest : ATorgRequest
     {
-        public ASVorgRequest() : base() { }
+        public ASVorgRequest() : base() {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
 
-        public ASVorgRequest(string searchStr) : base(searchStr) { }
+        public ASVorgRequest(string searchStr) : base(searchStr) {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
 
         public override string Type => "ASVorg";
 
@@ -66,8 +70,9 @@ namespace ASVorgRU
                         result += "?";
                     else
                         result += "&";
-                    //result += item.Key + "=" + HttpUtility.UrlEncode(item.Value, Encoding.GetEncoding(1251));
-                    result += item.Key + "=" + HttpUtility.UrlEncode(item.Value);
+                    //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                    result += item.Key + "=" + HttpUtility.UrlEncode(item.Value, Encoding.GetEncoding(1251));
+                    //result += item.Key + "=" + HttpUtility.UrlEncode(item.Value);
                     first = false;
                 }
             }
@@ -117,9 +122,10 @@ namespace ASVorgRU
                 lastError = e;
                 return null;
             }
-
-            //lastAnswer = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(1251)).ReadToEnd();    // put result in lastAnswer to cache   
-            lastAnswer = new StreamReader(response.GetResponseStream()).ReadToEnd();    // put result in lastAnswer to cache   
+                        
+            //lastAnswer = new StreamReader(response.GetResponseStream()).ReadToEnd();    // put result in lastAnswer to cache   
+            //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            lastAnswer = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(1251)).ReadToEnd();    // put result in lastAnswer to cache   
 
             response.Dispose();
 

@@ -88,6 +88,7 @@ namespace ASVorgRU
             return result;            
         }
 
+        /*
         protected void _FillListResponse()
         {
             string myWorkAnswer = MyRequest.GetResponse;
@@ -118,6 +119,7 @@ namespace ASVorgRU
             this.ListResponse = curList;
             
         }
+        */
 
         protected override void FillListResponse()
         {
