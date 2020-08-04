@@ -1,4 +1,4 @@
-﻿using MyHTMLParser;
+﻿//using MyHTMLParser;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -94,6 +94,28 @@ namespace IAuction
         }
         protected bool freshResponse = false;
         protected abstract void FillListResponse();
+        
+        static protected List<List<string>> GetResultTableAsList(List<List<string>> inpList)
+        {
+            List<List<string>> resList = new List<List<string>>();
+
+            // 1. Calculate MAX columns count
+            int colCount = 0;
+            foreach (List<string> itemList in inpList)
+                colCount = Math.Max(colCount, itemList.Count);
+
+            // 2. Fill result rows
+            foreach (List<string> itemListRows in inpList)
+            {
+                if (itemListRows.Count != colCount)     // Skip all rows that have not another count of columns instead MAX columns count
+                    continue;
+                resList.Add(itemListRows);
+            }
+
+            return resList;
+        }
+        
+        /*
         static protected List<List<StringUri>> GetResultTableAsList(List<List<StringUri>> inpList)
         {
             List<List<StringUri>> resList = new List<List<StringUri>>();
@@ -113,7 +135,7 @@ namespace IAuction
 
             return resList;
         }
-
+        */
         /////////////////////////////
         ///часть реализации интерфейса
         ///

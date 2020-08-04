@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyHTMLParser
+namespace HtmlParser
 {
     /// <summary>
     /// Базовый класс ПРОТО-ТЕГ, содержит только значение Value, признак IsProto и ссылку на Родителя Parent

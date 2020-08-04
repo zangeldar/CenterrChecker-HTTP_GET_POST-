@@ -1,5 +1,5 @@
-﻿using IAuction;
-using MyHTMLParser;
+﻿using HtmlParser;
+using IAuction;
 using System;
 using System.Collections.Generic;
 
@@ -13,8 +13,6 @@ namespace ETP_GPB
         public override string LotNameUrl { get; protected set; }
         public override string PriceStart { get; protected set; }
         public override string LotNumberStr { get; protected set; }
-
-
         public string TorgType { get; private set; }
         public string Section { get; private set; }
         public string OrganizerStr { get; private set; }

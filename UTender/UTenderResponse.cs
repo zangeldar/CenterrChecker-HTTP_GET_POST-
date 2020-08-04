@@ -8,6 +8,7 @@ namespace UTender
 {
     public class UTenderResponse : CenterrResponse
     {
+        public override string SiteName => "Ю-Тендер";
         public UTenderResponse(string searchStr) : base(searchStr)
         {
         }

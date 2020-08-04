@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HtmlParser\HTMLParser.csproj" />
     <ProjectReference Include="..\IAuction\IAuction.csproj" />
   </ItemGroup>
 

@@ -1,7 +1,7 @@
 ﻿using IAuction;
-using MyHTMLParser;
 using System;
 using System.Collections.Generic;
+using HtmlParser;
 
 namespace TorgiASV
 {
@@ -10,15 +10,16 @@ namespace TorgiASV
     {
         private string baseUrl = "https://www.torgiasv.ru/";
         public Exception LastError { get; private set; }
+        /*
         public TorgASV(List<_Tag> itemsList)
         {
-            /*
-            LotName = new StringUri
-            {
-                ItemString = itemsList[2].InnerTags[0].InnerTags[0].Value.Replace("  ", "").Replace("\n", ""),
-                ItemUri = "https://torgiasv.ru" + itemsList[2].InnerTags[0].InnerTags[0].Attributes[0].Value.Replace("\"", "")
-            };
-            */
+            ///*
+            //LotName = new StringUri
+            //{
+             //   ItemString = itemsList[2].InnerTags[0].InnerTags[0].Value.Replace("  ", "").Replace("\n", ""),
+              //  ItemUri = "https://torgiasv.ru" + itemsList[2].InnerTags[0].InnerTags[0].Attributes[0].Value.Replace("\"", "")
+            //};
+            //
             LotNameStr = itemsList[2].InnerTags[0].InnerTags[0].Value.Replace("  ", "").Replace("\n", "");
             LotNameUrl = "https://torgiasv.ru" + itemsList[2].InnerTags[0].InnerTags[0].Attributes[0].Value.Replace("\"", "");
 
@@ -36,7 +37,7 @@ namespace TorgiASV
             PriceStart = itemsList[7].InnerTags[0].Value.Replace("<span class=\"text-muted\">", "");
             LotNumberStr = itemsList[9].Value;
         }
-
+    */
         public TorgASV(Tag inpTag)
         {            
             List<Tag> Parents = inpTag.LookForParentTag("div", true, new KeyValuePair<string, string>("class", "lot-catalog__group"));

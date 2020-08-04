@@ -1,5 +1,5 @@
-﻿using IAuction;
-using MyHTMLParser;
+﻿using HtmlParser;
+using IAuction;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -97,7 +97,7 @@ namespace B2B
             // */
             //            
 
-            // /*
+            /*
             // По старому парсеру
 
             List<B2B> curList = new List<B2B>();
@@ -106,10 +106,10 @@ namespace B2B
                         
             List<_Tag> myListCaption = myParser.getTags(myWorkAnswer, "table");
 
-            /*
-            List<Tag> myList = myParser.getTags(myWorkAnswer, "ol");
-            List<Tag> resList = new List<Tag>();
-            */
+            //
+            //List<Tag> myList = myParser.getTags(myWorkAnswer, "ol");
+            //List<Tag> resList = new List<Tag>();
+            //
 
             if (myListCaption.Count < 1)
             {
@@ -151,11 +151,11 @@ namespace B2B
                 if (item.InnerTags.Count == 4)
                     if ((item.InnerTags[0].InnerTags.Count == 1) & (item.InnerTags[1].InnerTags.Count == 1))
                         curList.Add(new B2B(item));
-            }
-            // */
-                
+            }  
 
             this.ListResponse = curList;
+            //
+            */
         }
 
         protected override string CreateTableForMailing(bool html = true)

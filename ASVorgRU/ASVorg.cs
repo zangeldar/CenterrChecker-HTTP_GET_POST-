@@ -1,5 +1,5 @@
 ﻿using IAuction;
-using MyHTMLParser;
+using HtmlParser;
 using System;
 using System.Collections.Generic;
 
@@ -84,7 +84,7 @@ namespace ASVorgRU
         public override string LotNameUrl { get; protected set; }
         public override string PriceStart { get; protected set; }
         public override string LotNumberStr { get; protected set; }
-        public StringUri LotName;
+        //public StringUri LotName;
         public string Section { get; private set; }
         public string Description { get; private set; }        
 

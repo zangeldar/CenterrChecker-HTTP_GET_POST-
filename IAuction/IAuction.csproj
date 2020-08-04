@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyHTMLParser\MyHTMLParser.csproj" />
+    <ProjectReference Include="..\HtmlParser\HTMLParser.csproj" />
   </ItemGroup>
 
 </Project>

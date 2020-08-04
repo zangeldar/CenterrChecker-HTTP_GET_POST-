@@ -1,5 +1,5 @@
-﻿using IAuction;
-using MyHTMLParser;
+﻿using HtmlParser;
+using IAuction;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -119,7 +119,7 @@ namespace TorgiASV
             this.ListResponse = workList;
 
             return;
-            // /*
+            /*
             //  По старому парсеру, на основе RegEx
             List<TorgASV> curList = new List<TorgASV>();
 
@@ -155,7 +155,7 @@ namespace TorgiASV
             }
             this.ListResponse = curList;
             //
-            // */
+            */
         }
 
         ////////////////

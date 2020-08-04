@@ -2,9 +2,8 @@
 using TorgiASV;
 using System.Collections.Generic;
 using System.IO;
-using MyHTMLParser;
+using HtmlParser;
 using IAuction;
-//using CenterrRu;
 using CenterRu;
 using SberbankAST;
 using System.Xml.Serialization;
@@ -241,6 +240,7 @@ namespace TEST
             List<Tag> testDoc = HTMLParser.Parse(testStr);
         }
 
+        /*
         static void Test6()
         {
             string fileName = "ETP_GPB.txt";
@@ -267,6 +267,7 @@ namespace TEST
             // Попробуем отслеживать доп содержание тега
             tmp = myhp.getTags(testStr.Substring(startParsingFrom, endParsingTo-startParsingFrom), "div class=\"procedure\"");
         }
+        */
 
         static void Test65()
         {

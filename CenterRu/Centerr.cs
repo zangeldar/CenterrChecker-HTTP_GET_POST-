@@ -1,5 +1,5 @@
-﻿using IAuction;
-using MyHTMLParser;
+﻿using HtmlParser;
+using IAuction;
 using System;
 using System.Collections.Generic;
 

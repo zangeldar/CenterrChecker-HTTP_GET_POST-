@@ -1,5 +1,5 @@
 ﻿using IAuction;
-using MyHTMLParser;
+using HtmlParser;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,11 +19,12 @@ namespace ETP_GPB
                 return;
             this.MyRequest = myReq;
             this.MyRequest.ResetInit();
+            
             FillListResponse();
         }
         public GPBResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 
-        public override string SiteName => "Сайт ЭТП ГПБ";
+        public override string SiteName => "ЭТП ГПБ";
 
         public override IResponse MakeFreshResponse
         {

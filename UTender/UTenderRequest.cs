@@ -7,7 +7,7 @@ namespace UTender
 {
     public class UTenderRequest:CenterrRequest
     {
-        override public string SiteName { get { return "ЮТендер"; } }
+        override public string SiteName { get { return "Ю-Тендер"; } }
         override public string Type { get { return "uTender"; } }
         override public string ServiceURL { get { return "http://www.utender.ru/"; } }
 

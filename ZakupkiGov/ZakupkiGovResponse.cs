@@ -1,5 +1,5 @@
-﻿using IAuction;
-using MyHTMLParser;
+﻿using HtmlParser;
+using IAuction;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,8 +8,8 @@ namespace ZakupkiGov
 {
     public class ZakupkiGovResponse : ATorgResponse
     {
-        public override string SiteName => "ZakupkiGov";
-
+        public override string SiteName => "ГосЗакупки";
+        
         public override IResponse MakeFreshResponse => new ZakupkiGovResponse(this.MyRequest);
 
         public ZakupkiGovResponse(string searchStr) : base(searchStr)

@@ -1,5 +1,5 @@
 ﻿using CenterRu;
-using MyHTMLParser;
+using HtmlParser;
 using System;
 
 namespace UTender

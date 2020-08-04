@@ -38,6 +38,12 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.4.7.1\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -96,6 +102,10 @@
       <Project>{a53415c2-368a-4ddc-9aab-0b8ad86dce88}</Project>
       <Name>CenterRu</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ETP_GPB\ETP_GPB.csproj">
+      <Project>{aa368d31-eb60-49d6-8a28-6795960b26e5}</Project>
+      <Name>ETP_GPB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IAuction\IAuction.csproj">
       <Project>{0164D8FB-B0B7-4B6E-BFE0-4720F07DF9A4}</Project>
       <Name>IAuction</Name>
@@ -107,6 +117,14 @@
     <ProjectReference Include="..\TorgiASV\TorgiASV.csproj">
       <Project>{46db4c91-f0c3-4c18-a104-24eb902eb3e8}</Project>
       <Name>TorgiASV</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UTender\UTender.csproj">
+      <Project>{313ebae8-0f6c-4c0e-8dd5-49834f0c585f}</Project>
+      <Name>UTender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZakupkiGov\ZakupkiGov.csproj">
+      <Project>{a07b1baa-de24-4857-862d-2212754a618e}</Project>
+      <Name>ZakupkiGov</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,5 @@
 ﻿using IAuction;
-using MyHTMLParser;
+using HtmlParser;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -49,6 +49,7 @@ namespace B2B
             DateAcceptFinish = inpTag.ChildTags[3].ChildTags[0].Value;
 
         }
+        /*
         public B2B(_Tag item)
         {
             string str = item.InnerTags[0].InnerTags[0].Value; // надо распарсить на номер торга, тип торга, наименование торга и строку с ключевыми словами.
@@ -82,17 +83,7 @@ namespace B2B
                 if (TorgName == "")
                     TorgName = LotNameStr;
                     
-            }
-            /*
-            List<Tag> innerTags = new myHTMLParser().getTags(str, "div");
-            foreach (Tag inTag in innerTags)
-            {
-                
-            }
-
-            LotNameStr = innerTags[1].InnerTags[0].Value;
-            TorgName = innerTags[2].Value;
-            */
+            }            
 
             LotNameUrl = getAttributeValue(item.InnerTags[0].InnerTags[0].Attributes, "href");
             //string TorgUrl = item.InnerTags[0].InnerTags[0].Attributes[0].Value; // ищем Attributes[].Name = href // получаем ссылку на торг
@@ -104,7 +95,7 @@ namespace B2B
             DateAcceptStart = item.InnerTags[2].Value;         // Дата публикации
             DateAcceptFinish = item.InnerTags[3].Value;           // Дата окончания приема заявок
         }   
-
+        */
         private string ClearOfTags(string inpString)
         {
             int startLength = inpString.Length;
@@ -125,7 +116,7 @@ namespace B2B
             return inpString;
         }
 
-        private string getAttributeValue(IEnumerable Attributes, string attName)
+        /*private string getAttributeValue(IEnumerable Attributes, string attName)
         {
             string result = "";
             foreach (tagAttribute attr in Attributes)
@@ -136,7 +127,7 @@ namespace B2B
                 }
             return result;
         }
-
+        */
         public override string internalID { get; protected set; }
         public override string LotNameStr { get; protected set; }
         public override string LotNameUrl { get; protected set; }

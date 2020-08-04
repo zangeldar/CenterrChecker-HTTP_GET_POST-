@@ -11,10 +11,11 @@ using System.Threading.Tasks;
 namespace ConsoleApp_WIN
 {
     class Program
-    {
+    {        
         static List<string> MailRecipients = new List<string>();
         static void Main(string[] args)
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             string requestFileName = "lastrequest.req";
             bool debug = false;
             bool noDelReq = false;
@@ -127,6 +128,15 @@ namespace ConsoleApp_WIN
                                 break;
                             case "B2BRequest":
                                 curReq = ATorgRequest.LoadMyRequestObjectXML(new B2B.B2BRequest(), item);
+                                break;
+                            case "GPBRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new ETP_GPB.GPBRequest(), item);
+                                break;
+                            case "UTenderRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new UTender.UTenderRequest(), item);
+                                break;
+                            case "ZakupkiGovRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new ZakupkiGov.ZakupkiGovRequest(), item);
                                 break;
                             default:
                                 Console.WriteLine("Unknown request type: " + checkType + " of file: " + item + ". Check necessary DLLs!");

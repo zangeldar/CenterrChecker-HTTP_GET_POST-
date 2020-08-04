@@ -1,5 +1,5 @@
 ﻿using IAuction;
-using MyHTMLParser;
+using HtmlParser;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -145,7 +145,7 @@ namespace CenterRu
              /*
             //  Разбор результатов
             //myWorkAnswer = myHTMLParser.NormalizeString(myWorkAnswer);
-            myHTMLParser myHtmlParser = new myHTMLParser();
+            //myHTMLParser myHtmlParser = new myHTMLParser();
             List<_Tag> myTagRes = myHtmlParser.getTags(myWorkAnswer, "table");
             List<List<StringUri>> myTable = new List<List<StringUri>>();
             foreach (var item in myTagRes)

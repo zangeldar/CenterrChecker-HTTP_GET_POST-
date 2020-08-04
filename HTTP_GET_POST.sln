@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UTender", "UTender\UTender.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZakupkiGov", "ZakupkiGov\ZakupkiGov.csproj", "{A07B1BAA-DE24-4857-862D-2212754A618E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTMLParser", "HtmlParser\HTMLParser.csproj", "{04344028-6CAE-42EA-8D41-BBA6F2F31EA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,10 @@ Global
 		{A07B1BAA-DE24-4857-862D-2212754A618E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A07B1BAA-DE24-4857-862D-2212754A618E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A07B1BAA-DE24-4857-862D-2212754A618E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04344028-6CAE-42EA-8D41-BBA6F2F31EA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04344028-6CAE-42EA-8D41-BBA6F2F31EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04344028-6CAE-42EA-8D41-BBA6F2F31EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04344028-6CAE-42EA-8D41-BBA6F2F31EA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

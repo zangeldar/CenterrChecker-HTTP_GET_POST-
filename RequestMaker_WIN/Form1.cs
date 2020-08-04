@@ -13,6 +13,9 @@ using TorgiASV;
 using ASVorgRU;
 using SberbankAST;
 using B2B;
+using ZakupkiGov;
+using UTender;
+using ETP_GPB;
 
 namespace RequestMaker_WIN
 {
@@ -31,6 +34,9 @@ namespace RequestMaker_WIN
             cBoxType.Items.Add("Центр Реализации");
             cBoxType.Items.Add("Сбербанк-АСТ");
             cBoxType.Items.Add("B2B центр");
+            cBoxType.Items.Add("ЭТП ГПБ");
+            cBoxType.Items.Add("Ю-Тендер");
+            cBoxType.Items.Add("ГосЗакупки");
             cBoxType.SelectedIndex = 0;
             searchBox.Text = "";
             logBox.Text = "";
@@ -123,6 +129,42 @@ namespace RequestMaker_WIN
                     {
                         AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
                         curResponse = new B2BResponse(curRequest);
+                        error = false;
+                        AddLog("УСПЕШНО!");
+                    }
+                    break;
+                case "ЭТП ГПБ":
+                    curRequest = new GPBRequest(searchBox.Text);
+                    error = false;
+                    AddLog("УСПЕШНО!");
+                    if (needResponse)
+                    {
+                        AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
+                        curResponse = new GPBResponse(curRequest);
+                        error = false;
+                        AddLog("УСПЕШНО!");
+                    }
+                    break;
+                case "Ю-Тендер":
+                    curRequest = new UTenderRequest(searchBox.Text);
+                    error = false;
+                    AddLog("УСПЕШНО!");
+                    if (needResponse)
+                    {
+                        AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
+                        curResponse = new UTenderResponse(curRequest);
+                        error = false;
+                        AddLog("УСПЕШНО!");
+                    }
+                    break;
+                case "ГосЗакупки":
+                    curRequest = new ZakupkiGovRequest(searchBox.Text);
+                    error = false;
+                    AddLog("УСПЕШНО!");
+                    if (needResponse)
+                    {
+                        AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
+                        curResponse = new ZakupkiGovResponse(curRequest);
                         error = false;
                         AddLog("УСПЕШНО!");
                     }
