@@ -151,7 +151,7 @@ namespace ConsoleApp_WIN
                             IResponse newResp = curReq.MakeResponse();
                             Console.WriteLine(" SUCCESS");
                             //newResp.SaveToXml((newResp.SiteName + "_" + newResp.MyRequest.SearchString).Replace(" ", "") + ".resp");
-                            SFileIO.SaveMyResponse(newResp, (newResp.SiteName + "_" + newResp.MyRequest.SearchString).Replace(" ", "") + ".resp");
+                            SFileIO.SaveMyResponse(newResp, responseDir + "\\" + (newResp.SiteName + "_" + newResp.MyRequest.SearchString).Replace(" ", "") + ".resp");
                             if (newResp.ListResponse != null)
                             {
                                 if (newResp.ListResponse.Count() > 0)
@@ -177,8 +177,6 @@ namespace ConsoleApp_WIN
                                     + "Сообщение об ошибке: " + Environment.NewLine
                                     + msg, "[" + newResp.SiteName + "] ОШИБКА!", MailRecipients);
                             }
-
-                                
 
                             if (!noDelReq)
                             {
@@ -256,7 +254,7 @@ namespace ConsoleApp_WIN
                     else if (newResp.HaveNewRecords(oldItem))
                     {
                         Console.WriteLine("Found changes for \"" + newResp.SiteName + "\"!");
-                        newResp.SaveToXml((newResp.SiteName + "_" + newResp.MyRequest.SearchString).Replace(" ", "") + ".resp", true);
+                        newResp.SaveToXml(responseDir + "\\" + (newResp.SiteName + "_" + newResp.MyRequest.SearchString).Replace(" ", "") + ".resp", true);
                         
                         if (newResp.ListResponse.Count() < 1)
                         {
