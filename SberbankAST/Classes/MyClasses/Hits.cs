@@ -5,7 +5,8 @@ using System.Text;
 using System.Xml.Serialization;
 
 namespace SberbankAST
-{    
+{
+    [Serializable]
     [XmlRoot(ElementName = "hits")]
     public class Hit
     {
@@ -33,8 +34,9 @@ namespace SberbankAST
         [XmlElement(ElementName = "highlight")]
         public Highlight Highlight;
     }
-    
 
+
+    [Serializable]
     [XmlRoot(ElementName = "_source")]
     public class Source
     {       
@@ -687,6 +689,7 @@ namespace SberbankAST
         //was long?
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "highlight")]
     public class Highlight
     {
@@ -725,6 +728,7 @@ namespace SberbankAST
 
     //JSON public partial class Hits
     //[JsonObject("hits")]
+    [Serializable]
     [XmlRoot(ElementName = "datarow")]
     public class MyDataRow
     {
@@ -743,6 +747,7 @@ namespace SberbankAST
         public List<Hit> Hits { get; set; }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "total")]
     public class Total
     {

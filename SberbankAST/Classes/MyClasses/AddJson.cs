@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace SberbankAST
-{    
+{
+    [Serializable]
     public class JsonResponseData
     {
         [JsonProperty("took")]
@@ -23,6 +24,7 @@ namespace SberbankAST
         public Aggregations Aggregations { get; set; }
     }
 
+    [Serializable]
     public class Aggregations
     {
         [JsonProperty("DistinctOrgs")]
@@ -47,6 +49,7 @@ namespace SberbankAST
         public Branch Sources { get; set; }
     }
 
+    [Serializable]
     public class Branch
     {
         [JsonProperty("doc_count_error_upper_bound")]
@@ -59,6 +62,7 @@ namespace SberbankAST
         public Bucket[] Buckets { get; set; }
     }
 
+    [Serializable]
     public class Bucket
     {
         [JsonProperty("key")]
@@ -71,12 +75,14 @@ namespace SberbankAST
         public DistinctOrgs PriceSums { get; set; }
     }
 
+    [Serializable]
     public class DistinctOrgs
     {
         [JsonProperty("value")]
         public double Value { get; set; }
     }
 
+    [Serializable]
     public class Shards
     {
         [JsonProperty("total")]

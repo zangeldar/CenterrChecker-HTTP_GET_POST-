@@ -6,6 +6,7 @@ using System.Text;
 
 namespace B2B
 {
+    [Serializable]
     public class B2BResponse : ATorgResponse
     {
         public B2BResponse (string searchStr) : base(searchStr)
@@ -24,7 +25,7 @@ namespace B2B
 
         public B2BResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 
-        public override string SiteName => "Сайт B2B-центр";
+        public override string SiteName => "B2B-центр";
 
         public override IResponse MakeFreshResponse
         {
@@ -40,10 +41,10 @@ namespace B2B
             return SFileIO.LoadMyResponse(fileName);
         }
 
-        public override bool SaveToXml(string fileName = "lastrequest.req")
+        public override bool SaveToXml(string fileName = "lastrequest.req", bool overwrite = false)
         {
             //throw new NotImplementedException();
-            return SFileIO.SaveMyResponse(this, fileName);
+            return SFileIO.SaveMyResponse(this, fileName, overwrite);
         }
         
         protected override void FillListResponse()
@@ -203,7 +204,9 @@ namespace B2B
                 "Дата оконания приема заявок"
                 );
 
-            foreach (B2B item in (List<B2B>)NewRecords)
+            //foreach (B2B item in (List<B2B>)NewRecords)
+            //foreach (B2B item in (List<IObject>)NewRecords)
+            foreach (B2B item in NewRecords)
                 result += item.ToString(html);
 
             if (html)

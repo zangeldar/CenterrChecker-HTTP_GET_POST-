@@ -8,6 +8,7 @@ using System.Web;
 
 namespace B2B
 {
+    [Serializable]
     public class B2BRequest : ATorgRequest
     {
         public B2BRequest() : base() { }
@@ -15,7 +16,7 @@ namespace B2B
 
         public override string Type => "B2B";
 
-        public override string SiteName => "B2B центр";
+        public override string SiteName => "B2B-центр";
 
         public override string ServiceURL => "https://www.b2b-center.ru/";
 

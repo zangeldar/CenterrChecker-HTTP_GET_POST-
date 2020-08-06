@@ -190,12 +190,12 @@ namespace RequestMaker_WIN
             }
 
             AddLog("Сохраняем ЗАПРОС в файл..", false);
-            if (curRequest.SaveToXml(curRequest.SiteName.Replace(" ", "") + ".req"))
+            if (curRequest.SaveToXml((curRequest.SiteName + "_" + curRequest.SearchString).Replace(" ", "") + ".req"))
                 AddLog("УСПЕШНО!");
             if (needResponse)
             {
                 AddLog("Сохраняем ОТВЕТ в файл..", false);
-                if (curResponse.SaveToXml(curResponse.SiteName.Replace(" ", "") + ".resp"))
+                if (curResponse.SaveToXml((curRequest.SiteName + "_" + curRequest.SearchString).Replace(" ", "") + ".resp"))
                     AddLog("УСПЕШНО!");
             }
 

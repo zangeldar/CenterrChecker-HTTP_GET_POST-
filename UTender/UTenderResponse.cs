@@ -6,9 +6,11 @@ using System.Text;
 
 namespace UTender
 {
+    [Serializable]
     public class UTenderResponse : CenterrResponse
     {
-        public override string SiteName => "Ю-Тендер";
+        public override string SiteName { get { return "Ю-Тендер"; } }
+
         public UTenderResponse(string searchStr) : base(searchStr)
         {
         }
@@ -17,8 +19,16 @@ namespace UTender
         {
         }
 
-        public UTenderResponse(CenterrRequest myReq, List<IObject> listResp) : base(myReq, listResp)
+        public UTenderResponse(UTenderRequest myReq, List<IObject> listResp) : base(myReq, listResp)
         {
+        }
+
+        public override IResponse MakeFreshResponse
+        {
+            get
+            {
+                return new UTenderResponse(this.MyRequest);
+            }
         }
     }
 }

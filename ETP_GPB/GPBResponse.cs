@@ -6,6 +6,7 @@ using System.Text;
 
 namespace ETP_GPB
 {
+    [Serializable]
     public class GPBResponse : ATorgResponse
     {
         public GPBResponse(string searchStr) : base(searchStr)
@@ -41,10 +42,10 @@ namespace ETP_GPB
             return SFileIO.LoadMyResponse(fileName);
         }
 
-        public override bool SaveToXml(string fileName = "lastrequest.req")
+        public override bool SaveToXml(string fileName = "lastrequest.req", bool overwrite = false)
         {
             //throw new NotImplementedException();
-            return SFileIO.SaveMyResponse(this, fileName);
+            return SFileIO.SaveMyResponse(this, fileName, overwrite);
         }
 
         protected override string CreateTableForMailing(bool html = true)
@@ -98,7 +99,9 @@ namespace ETP_GPB
                 "Дата оконания приема заявок"                       //  10  DateAcceptFinish
                 );
 
-            foreach (GPB item in (List<GPB>)NewRecords)
+            //foreach (GPB item in (List<GPB>)NewRecords)
+            //foreach (GPB item in (List<IObject>)NewRecords)
+            foreach (GPB item in NewRecords)
                 result += item.ToString(html);
 
             if (html)

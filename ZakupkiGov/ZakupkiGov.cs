@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace ZakupkiGov
 {
+    [Serializable]
     public class ZakupkiGov : ATorg
     {
         private string baseUrl = "https://www.zakupki.gov.ru/";
@@ -59,7 +60,11 @@ namespace ZakupkiGov
                     if (itemCh.Name == "a")
                     {                        
                         if (itemCh.Attributes.ContainsKey("href"))
+                        {
                             LotNameUrl = itemCh.Attributes["href"];
+                            LotNameUrl = LotNameUrl.Substring(0, LotNameUrl.LastIndexOf("&backUrl="));
+                        }
+                            
 
                         foreach (Tag itemChCh in itemCh.ChildTags)
                             if (itemChCh.IsProto & !itemChCh.IsComment)
@@ -118,7 +123,11 @@ namespace ZakupkiGov
                     if (itemCh.Name == "a")
                     {
                         if (itemCh.Attributes.ContainsKey("href"))
+                        {
                             OrganizerUrl = itemCh.Attributes["href"];
+                            OrganizerUrl = OrganizerUrl.Substring(0, OrganizerUrl.LastIndexOf("&backUrl="));
+                        }
+                            
 
                         foreach (Tag itemChCh in itemCh.ChildTags)
                             if (itemChCh.IsProto & !itemChCh.IsComment)

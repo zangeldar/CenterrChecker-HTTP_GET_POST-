@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace ETP_GPB
 {
+    [Serializable]
     public class GPB : ATorg
     {
         private string baseUrl = "https://etpgpb.ru/procedure/";
@@ -120,8 +121,7 @@ namespace ETP_GPB
                 this.OrganizerStr == curObj.OrganizerStr &                
                 this.Section == curObj.Section &
                 this.TorgName == curObj.TorgName &
-                this.TorgType == curObj.TorgType &
-                this.Props == curObj.Props)
+                this.TorgType == curObj.TorgType)
                 return true;
             return false;
         }

@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 
 namespace SberbankAST
 {
+    [Serializable]
     public class SberbankAstRequest : ATorgRequest
     {
         private Elasticrequest elRequest;

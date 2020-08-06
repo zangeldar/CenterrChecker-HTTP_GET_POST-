@@ -8,6 +8,7 @@ using System.Web;
 
 namespace ETP_GPB
 {
+    [Serializable]
     public class GPBRequest : ATorgRequest        
     {
         public GPBRequest() : base() { }

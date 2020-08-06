@@ -1,10 +1,12 @@
 ﻿using CenterRu;
+using IAuction;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace UTender
 {
+    [Serializable]
     public class UTenderRequest:CenterrRequest
     {
         override public string SiteName { get { return "Ю-Тендер"; } }
@@ -70,6 +72,12 @@ namespace UTender
                 "&__CVIEWSTATE=" + 
                 _CVIEWSTATE + 
                 "&__ASYNCPOST=true&ctl00$ctl00$MainExpandableArea$phExpandCollapse$btnSearch=Искать";
+        }        
+
+        override public IResponse MakeResponse()
+        {
+            return new UTenderResponse(this);
+            //throw new NotImplementedException("Making Response from request will be implemented later");
         }
     }
 }

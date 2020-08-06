@@ -40,11 +40,11 @@ namespace ConsoleApp_WIN
                     
                     else if (argItem.Contains("request="))
                     {
-                        requestFileName = argItem.Substring(7);
+                        requestFileName = argItem.Substring(8);
                     }
                     else if (argItem.Contains("responsedir="))
                     {
-                        responseDir = argItem.Substring(11);
+                        responseDir = argItem.Substring(12);
                     }
                     else if (argItem == "debug")
                     {
@@ -150,8 +150,8 @@ namespace ConsoleApp_WIN
                             myReqObjects.Add(curReq);                            
                             IResponse newResp = curReq.MakeResponse();
                             Console.WriteLine(" SUCCESS");
-                            //newResp.SaveToXml(newResp.SiteName.Replace(" ", "") + ".resp");
-                            SFileIO.SaveMyResponse(newResp, newResp.SiteName.Replace(" ", "") + ".resp");
+                            //newResp.SaveToXml((newResp.SiteName + "_" + newResp.MyRequest.SearchString).Replace(" ", "") + ".resp");
+                            SFileIO.SaveMyResponse(newResp, (newResp.SiteName + "_" + newResp.MyRequest.SearchString).Replace(" ", "") + ".resp");
                             if (newResp.ListResponse != null)
                             {
                                 if (newResp.ListResponse.Count() > 0)
@@ -256,7 +256,7 @@ namespace ConsoleApp_WIN
                     else if (newResp.HaveNewRecords(oldItem))
                     {
                         Console.WriteLine("Found changes for \"" + newResp.SiteName + "\"!");
-                        newResp.SaveToXml(newResp.SiteName.Replace(" ", "") + ".resp");
+                        newResp.SaveToXml((newResp.SiteName + "_" + newResp.MyRequest.SearchString).Replace(" ", "") + ".resp", true);
                         
                         if (newResp.ListResponse.Count() < 1)
                         {

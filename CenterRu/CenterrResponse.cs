@@ -40,9 +40,9 @@ namespace CenterRu
             return SFileIO.LoadMyResponse(fileName);            
         }
 
-        public override bool SaveToXml(string fileName = "lastrequest.req")
+        public override bool SaveToXml(string fileName = "lastrequest.req", bool overwrite = false)
         {
-            return SFileIO.SaveMyResponse(this, fileName);
+            return SFileIO.SaveMyResponse(this, fileName, overwrite);
         }
 
         protected override string CreateTableForMailing(bool html = true)
@@ -94,7 +94,9 @@ namespace CenterRu
                 "Тип торга"
                 );
 
-            foreach (Centerr item in (List<Centerr>)NewRecords)
+            //foreach (Centerr item in (List<Centerr>)NewRecords)
+            //foreach (Centerr item in (List<IObject>)NewRecords)
+            foreach (Centerr item in NewRecords)
                 result += item.ToString(html);
 
             if (html)

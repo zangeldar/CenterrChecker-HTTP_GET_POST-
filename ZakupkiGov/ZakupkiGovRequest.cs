@@ -7,6 +7,7 @@ using System.Text;
 
 namespace ZakupkiGov
 {
+    [Serializable]
     public class ZakupkiGovRequest : ATorgRequest
     {
         public ZakupkiGovRequest() : base() { }
@@ -18,7 +19,7 @@ namespace ZakupkiGov
 
         public override string ServiceURL => "https://zakupki.gov.ru/";
 
-        public override string SearchString { get => MyParameters["searchStr"]; set => MyParameters["searchStr"] = value; }
+        public override string SearchString { get => MyParameters["searchString"]; set => MyParameters["searchString"] = value; }
 
         public override IResponse MakeResponse()
         {
@@ -35,7 +36,7 @@ namespace ZakupkiGov
         {
             MyParameters = new SerializableDictionary<string, string>
             {
-                { "searchStr", "" },                                //  строка поиска
+                { "searchString", "" },                                //  строка поиска
                 { "morphology", "on" },                             //  представление результата (одно из вариантов значения: lot) - для разбора бесполезно                
                 { "sortBy", "PUBLISH_DATE" },                       //  сортировка по дате публикации по убыванию
             };
@@ -61,7 +62,10 @@ namespace ZakupkiGov
                 if (item.Value != "")
                 {
                     if (first)
+                    {
                         result += "?";
+                        first = false;
+                    }                        
                     else
                         result += "&";
                     result += item.Key + "=" + item.Value;
@@ -74,11 +78,13 @@ namespace ZakupkiGov
         ///////////////////////////////////////////
         ///
 
-        private string makeAnPost(string url = "https://www.torgiasv.ru", string postData = "")
+        private string makeAnPost(string url = "https://zakupki.gov.ru/", string postData = "")
         {
             ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
+            postData = postData.Replace("+", "%2B");
+            postData = postData.Replace(" ", "+");
             var request = (HttpWebRequest)WebRequest.Create(url + postData);
-            //postData = postData.Replace("+", "%2B");
+            
             request.Method = "GET";
             request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
             //request.ContentLength = data.Length;            
@@ -89,7 +95,7 @@ namespace ZakupkiGov
             //request.Headers.Add("X-Requested-With", "XMLHttpRequest");
             //request.Headers.Add("X-MicrosoftAjax", "Delta=true");
             //request.Headers.Add("Cache-Control", "no-cache");
-            //request.Headers.Add("Referer",              "https://www.torgiasv.ru");
+            //request.Headers.Add("Referer",              "https://zakupki.gov.ru/");
             request.Referer = url;
             request.Headers.Add("Accept-Language", "ru-RU");    //Accept-Language:ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
             //request.Headers.Add("User-Agent",           "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko");

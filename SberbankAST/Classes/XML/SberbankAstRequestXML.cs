@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 
 namespace SberbankAST
 {
+    [Serializable]
     [XmlRoot(ElementName = "mainSearchBar")]
     public class MainSearchBar
     {
@@ -22,6 +23,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "purchAmount")]
     public class PurchAmount
     {
@@ -36,6 +38,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "PublicDate")]
     public class PublicDate
     {
@@ -50,6 +53,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "PurchaseStageTerm")]
     public class PurchaseStageTerm
     {
@@ -64,6 +68,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "SourceTerm")]
     public class SourceTerm
     {
@@ -78,6 +83,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "RegionNameTerm")]
     public class RegionNameTerm
     {
@@ -92,6 +98,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "RequestStartDate")]
     public class RequestStartDate
     {
@@ -106,6 +113,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "RequestDate")]
     public class RequestDate
     {
@@ -120,6 +128,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "AuctionBeginDate")]
     public class AuctionBeginDate
     {
@@ -134,6 +143,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "okdp2MultiMatch")]
     public class Okdp2MultiMatch
     {
@@ -145,6 +155,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "okdp2tree")]
     public class Okdp2tree
     {
@@ -162,6 +173,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "classifier")]
     public class Classifier
     {
@@ -173,6 +185,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "orgCondition")]
     public class OrgCondition
     {
@@ -184,6 +197,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "orgDictionary")]
     public class OrgDictionary
     {
@@ -195,6 +209,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "organizator")]
     public class Organizator
     {
@@ -206,6 +221,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "CustomerCondition")]
     public class CustomerCondition
     {
@@ -217,6 +233,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "CustomerDictionary")]
     public class CustomerDictionary
     {
@@ -228,6 +245,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "customer")]
     public class Customer
     {
@@ -239,6 +257,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "PurchaseWayTerm")]
     public class PurchaseWayTerm
     {
@@ -253,6 +272,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "PurchaseTypeNameTerm")]
     public class PurchaseTypeNameTerm
     {
@@ -267,6 +287,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "BranchNameTerm")]
     public class BranchNameTerm
     {
@@ -281,6 +302,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "IsSMPTerm")]
     public class IsSMPTerm
     {
@@ -295,6 +317,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "statistic")]
     public class Statistic
     {
@@ -317,6 +340,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "filters")]
     public class Filters
     {
@@ -397,6 +421,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "fields")]
     public class Fields
     {
@@ -433,6 +458,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "sort")]
     public class Sort
     {
@@ -447,6 +473,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "empty")]
     public class Empty
     {
@@ -461,6 +488,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "aggregations")]
     public class AggregationsXml
     {
@@ -472,6 +500,7 @@ namespace SberbankAST
         }
     }
 
+    [Serializable]
     [XmlRoot(ElementName = "elasticrequest")]
     public class Elasticrequest
     {

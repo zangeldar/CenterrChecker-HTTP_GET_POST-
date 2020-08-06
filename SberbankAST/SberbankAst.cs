@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace SberbankAST
 {
+    [Serializable]
     public class SberbankAst : ATorg
     {
         public SberbankAst(Hit inpHit)

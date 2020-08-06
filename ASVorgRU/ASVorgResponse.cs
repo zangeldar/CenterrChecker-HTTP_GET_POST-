@@ -39,9 +39,9 @@ namespace ASVorgRU
             return SFileIO.LoadMyResponse(fileName);
         }
 
-        public override bool SaveToXml(string fileName = "lastrequest.req")
+        public override bool SaveToXml(string fileName = "lastrequest.req", bool overwrite = false)
         {
-            return SFileIO.SaveMyResponse(this, fileName);
+            return SFileIO.SaveMyResponse(this, fileName, overwrite);
         }
 
         protected override string CreateTableForMailing(bool html = true)
@@ -79,7 +79,9 @@ namespace ASVorgRU
                 "Содержание"
                 );
 
-            foreach (ASVorg item in (List<ASVorg>)NewRecords)
+            //foreach (ASVorg item in (List<ASVorg>)NewRecords)
+            //foreach (ASVorg item in (List<IObject>)NewRecords)            
+            foreach (ASVorg item in NewRecords)
                 result += item.ToString(html);
 
             if (html)

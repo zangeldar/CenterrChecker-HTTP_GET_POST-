@@ -131,7 +131,9 @@ namespace IAuction
         static public bool SaveMyRequestObjectXML(ATorgRequest curObj, string fileName = "lastrequest.req")
         {
             bool result = false;
-            
+
+            fileName = GetRandomFileName(fileName);
+
             try
             {
                 XmlSerializer formatter = new XmlSerializer(curObj.GetType());
@@ -204,6 +206,33 @@ namespace IAuction
         public bool SaveToXml(string fileName = "lastrequest.req")
         {
             return SaveMyRequestObjectXML(this, fileName);
+        }
+
+        static protected string GetRandomFileName(string fileName)
+        {
+            string result = fileName;
+
+            int pointExt = fileName.IndexOf('.');
+            
+            string fileN = "";
+            string fileExt = "";
+
+            if (pointExt < 0)
+            {
+                fileN = fileName;
+                fileExt = "req";
+            }
+            else
+            {
+                fileN = fileName.Substring(0, pointExt);
+                fileExt = fileName.Substring(pointExt + 1);
+            }
+            while (File.Exists(result))
+            {
+                result = fileN + "_" + (new Random().Next(0, 65536)).ToString() + "." + fileExt;
+            }
+
+            return result;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace B2B
 {
+    [Serializable]
     public class B2B : ATorg
     {
         private string baseUrl = "https://www.b2b-center.ru/";
@@ -17,15 +18,86 @@ namespace B2B
                 Exception e = new Exception("Unkonwon format! Must be contain 4 child Tags");
                 return;
             }
-            
+
+            foreach (Tag item in inpTag.LookForChildTag("a", false, new KeyValuePair<string, string>("class", "search-results-title visited")))
+            {
+                if (item.Attributes.ContainsKey("href"))
+                {
+                    LotNameUrl = item.Attributes["href"];
+                    LotNameUrl = LotNameUrl.Substring(0, LotNameUrl.LastIndexOf("#btid="));
+                }
+                    
+                foreach (Tag inItem in item.ChildTags)
+                {
+                    if (inItem.IsProto & !inItem.IsComment)
+                    {
+                        LotNameStr = inItem.Value;
+                        break;
+                    }                        
+                }
+            }
+            /*
             LotNameUrl = inpTag.ChildTags[0].ChildTags[0].Attributes["href"];
             LotNameStr = inpTag.ChildTags[0].ChildTags[0].ChildTags[0].Value;
+            */
             TorgType = LotNameStr.Substring(0, LotNameStr.IndexOf("№") - 1);
             LotNumberStr = LotNameStr.Substring(LotNameStr.IndexOf("№") + 1).TrimEnd();
 
+            /*
             try
             {
-                TorgName = inpTag.ChildTags[0].ChildTags[0].ChildTags[1].ChildTags[0].Value;
+            */
+                List<Tag> searchList = inpTag.LookForChildTag("div", false, new KeyValuePair<string, string>("class", "search-results-title-desc"));
+                foreach (Tag item in searchList)
+                {
+                    string tmpTorgName = "";
+                    string tmpDescription = "";
+                    foreach (Tag inItem in item.ChildTags)
+                    {
+                        if (inItem.IsProto & !inItem.IsComment)
+                            tmpTorgName += inItem.Value;
+                        else if (inItem.Name == "span")
+                        {
+                            foreach (Tag itemSp in inItem.LookForChildTag(null))
+                            {
+                                if (itemSp.IsProto & !itemSp.IsComment)
+                                    tmpTorgName += itemSp.Value;
+                            }
+                        }
+                        else if (inItem.Name == "div")
+                        {
+                            foreach (Tag itemSp in inItem.LookForChildTag(null))
+                            {
+                                if (itemSp.IsProto & !itemSp.IsComment)
+                                    tmpDescription += itemSp.Value + " ";
+                            }
+                        }
+                    }
+                    TorgName = tmpTorgName;
+                    Description = tmpDescription;
+
+                    /*
+                    string resStr = "";
+                    List<Tag> ssList = item.LookForChildTag(null, true);
+                    foreach (Tag itemCh in ssList)
+                    {
+                        if (itemCh.IsProto & !itemCh.IsComment)
+                        {
+                            if (itemCh.Pare)
+                        }
+                            resStr += itemCh.Value;
+                    }
+                    if (resStr != "")
+                    {
+                        TorgName = resStr;
+                        break;
+                    }                        
+                    */
+                }
+
+
+                //TorgName = inpTag.ChildTags[0].ChildTags[0].ChildTags[1].ChildTags[0].Value;
+                /*
                 Description = "";
                 foreach (Tag item in inpTag.ChildTags[0].ChildTags[0].ChildTags[1].ChildTags[1].ChildTags)
                 {
@@ -34,13 +106,15 @@ namespace B2B
                     else
                         Description += item.ChildTags[0].Value;
                 }
+                */
+                /*
             }
             catch (Exception e)
             {
 
                 //throw;
             }
-            
+            */
             //
             OrganizerStr = inpTag.ChildTags[1].ChildTags[0].ChildTags[0].Value;
             OrganizerUrl = inpTag.ChildTags[1].ChildTags[0].Attributes["href"];
@@ -216,7 +290,7 @@ namespace B2B
                 baseUrl + LotNameUrl,
                 LotNumberStr,
                 TorgName,
-                LotNameStr,
+                Description, //LotNameStr,
                 baseUrl + OrganizerUrl,
                 OrganizerStr,
                 TorgType,

@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 
 namespace SberbankAST
 {
+    [Serializable]
     public class SberbankAstResponse : ATorgResponse
     {
         public override string SiteName => "Сбербанк-АСТ";
@@ -41,9 +42,9 @@ namespace SberbankAST
             //throw new NotImplementedException();
         }
 
-        public override bool SaveToXml(string fileName = "lastrequest.req")
+        public override bool SaveToXml(string fileName = "lastrequest.req", bool overwrite = false)
         {
-            return SFileIO.SaveMyResponse(this, fileName);
+            return SFileIO.SaveMyResponse(this, fileName, overwrite);
             //throw new NotImplementedException();
         }
 
@@ -95,7 +96,9 @@ namespace SberbankAST
                 "Секция"
                 );
 
-            foreach (SberbankAst item in (List<SberbankAst>)NewRecords)
+            //foreach (SberbankAst item in (List<SberbankAst>)NewRecords)
+            //foreach (SberbankAst item in (List<IObject>)NewRecords)
+            foreach (SberbankAst item in NewRecords)
                 result += item.ToString(html);
 
             if (html)

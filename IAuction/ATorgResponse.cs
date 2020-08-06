@@ -23,7 +23,7 @@ namespace IAuction
         //public abstract Exception LastError();
         public abstract IResponse LoadFromXml(string fileName = "lastrequest.req");
         //public abstract string NewRecordsOutput(IResponse checkResponse, bool html);
-        public abstract bool SaveToXml(string fileName = "lastrequest.req");
+        public abstract bool SaveToXml(string fileName = "lastrequest.req", bool overwrite=false);
 
         //////////////////////
         ///часть абстрактного класса

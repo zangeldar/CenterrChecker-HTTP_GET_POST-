@@ -15,7 +15,15 @@ namespace RequestMaker_WIN
         [STAThread]
         static void Main()
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            try
+            {
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

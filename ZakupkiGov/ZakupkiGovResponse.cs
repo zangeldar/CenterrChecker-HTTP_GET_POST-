@@ -6,6 +6,7 @@ using System.Text;
 
 namespace ZakupkiGov
 {
+    [Serializable]
     public class ZakupkiGovResponse : ATorgResponse
     {
         public override string SiteName => "ГосЗакупки";
@@ -34,9 +35,9 @@ namespace ZakupkiGov
             return SFileIO.LoadMyResponse(fileName);
         }
 
-        public override bool SaveToXml(string fileName = "lastrequest.req")
+        public override bool SaveToXml(string fileName = "lastrequest.req", bool overwrite=false)
         {
-            return SFileIO.SaveMyResponse(this, fileName);
+            return SFileIO.SaveMyResponse(this, fileName, overwrite);
         }
 
         protected override string CreateTableForMailing(bool html = true)
@@ -87,7 +88,9 @@ namespace ZakupkiGov
                 "Секция"
                 );
 
-            foreach (ZakupkiGov item in (List<ZakupkiGov>)NewRecords)
+            //foreach (ZakupkiGov item in (List<ZakupkiGov>)NewRecords)
+            //foreach (ZakupkiGov item in (List<IObject>)NewRecords)
+            foreach (ZakupkiGov item in NewRecords)
                 result += item.ToString(html);
 
             if (html)

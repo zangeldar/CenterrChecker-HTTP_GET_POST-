@@ -45,7 +45,7 @@ namespace IAuction
         /// </summary>
         /// <param name="fileName">Имя файла</param>
         /// <returns>Результат операции</returns>
-        bool SaveToXml(string fileName = "lastrequest.req");                    // Сохранить в XML (сериализовать)
+        bool SaveToXml(string fileName = "lastrequest.req", bool overwrite = false);                    // Сохранить в XML (сериализовать)
         /// <summary>
         /// Функция загрузки объекта из файла
         /// </summary>

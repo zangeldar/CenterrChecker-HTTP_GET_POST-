@@ -9,7 +9,7 @@ namespace TorgiASV
     [Serializable]
     public class TorgASVResponse : ATorgResponse
     {
-        public override string SiteName => "Торги АСВ";
+        public override string SiteName { get { return "Торги АСВ"; } }
 
         public override IResponse MakeFreshResponse
         {
@@ -38,9 +38,9 @@ namespace TorgiASV
         {
             return SFileIO.LoadMyResponse(fileName);
         }
-        public override bool SaveToXml(string fileName = "lastrequest.req")
+        public override bool SaveToXml(string fileName = "lastrequest.req", bool overwrite=false)
         {
-            return SFileIO.SaveMyResponse(this, fileName);
+            return SFileIO.SaveMyResponse(this, fileName, overwrite);
         }
 
         protected override string CreateTableForMailing(bool html = true)
@@ -84,7 +84,9 @@ namespace TorgiASV
                 "Лоты"
                 );
 
-            foreach (TorgASV item in (List<TorgASV>)NewRecords)
+            //foreach (TorgASV item in (List<TorgASV>)NewRecords)
+            //foreach (TorgASV item in (List<IObject>)NewRecords)
+            foreach (TorgASV item in NewRecords)
                 result += item.ToString(html);
 
             if (html)

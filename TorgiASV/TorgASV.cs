@@ -270,13 +270,13 @@ namespace TorgiASV
                     @"<a href =""{8}"">{9}</a>" + "</td></tr>";      // Лоты (если есть) + ссылка (если есть)   
                 
             result += String.Format(formatStr,
-                TorgTypeStr, TorgTypeUrl,
-                LotNameStr, LotNameUrl,
+                baseUrl + TorgTypeUrl, TorgTypeStr,
+                baseUrl + LotNameUrl, LotNameStr,
                 LotDesc,
                 TorgRegion,
                 Organisator,
                 PriceStart,
-                LotNumberStr, LotNumberUrl
+                baseUrl + LotNumberUrl, LotNumberStr
                 );                
 
             /*

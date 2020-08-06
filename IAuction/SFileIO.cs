@@ -9,9 +9,28 @@ namespace IAuction
 {
     public static class SFileIO
     {
-        public static bool SaveMyResponse(IResponse curObj, string fileName = "temp.resp")
+        public static bool SaveMyResponse(IResponse curObj, string fileName = "temp.resp", bool overwrite = false)
         {
             bool result = false;
+
+            if (!overwrite)
+                fileName = GetRandomFileName(fileName);
+            else
+            {
+                if (File.Exists(fileName))
+                    try
+                    {
+                        File.Delete(fileName);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Can't delete the old file: " + fileName);
+                        Console.WriteLine("Will be overwritten " + fileName);
+                        //throw;
+                    }                    
+            }
+                
+            
             try
             {
                 BinaryFormatter bf = new BinaryFormatter();
@@ -46,6 +65,33 @@ namespace IAuction
                 result = null;
                 //throw;
             }
+            return result;
+        }
+
+        static private string GetRandomFileName(string fileName)
+        {
+            string result = fileName;
+
+            int pointExt = fileName.IndexOf('.');
+
+            string fileN = "";
+            string fileExt = "";
+
+            if (pointExt < 0)
+            {
+                fileN = fileName;
+                fileExt = "req";
+            }
+            else
+            {
+                fileN = fileName.Substring(0, pointExt);
+                fileExt = fileName.Substring(pointExt + 1);
+            }
+            while (File.Exists(result))
+            {
+                result = fileN + "_" + (new Random().Next(0, 65536)).ToString() + "." + fileExt;
+            }
+
             return result;
         }
 
