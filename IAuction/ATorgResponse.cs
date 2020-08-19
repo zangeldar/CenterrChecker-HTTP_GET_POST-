@@ -21,9 +21,15 @@ namespace IAuction
 
         //public abstract bool HaveNewRecords(IResponse checkResponse);
         //public abstract Exception LastError();
-        public abstract IResponse LoadFromXml(string fileName = "lastrequest.req");
+        public virtual IResponse LoadFromXml(string fileName = "lastrequest.req")
+        {
+            return SFileIO.LoadMyResponse(fileName);
+        }
         //public abstract string NewRecordsOutput(IResponse checkResponse, bool html);
-        public abstract bool SaveToXml(string fileName = "lastrequest.req", bool overwrite=false);
+        public virtual bool SaveToXml(string fileName = "lastrequest.req", bool overwrite=false)
+        {
+            return SFileIO.SaveMyResponse(this, fileName, overwrite);
+        }
 
         //////////////////////
         ///часть абстрактного класса

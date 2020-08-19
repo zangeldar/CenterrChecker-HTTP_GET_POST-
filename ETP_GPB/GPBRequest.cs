@@ -62,7 +62,10 @@ namespace ETP_GPB
                 if (item.Value != "")
                 {
                     if (first)
+                    {
                         result += "?";
+                        first = false;
+                    }
                     else
                         result += "&";
                     //result += item.Key + "=" + HttpUtility.UrlEncode(item.Value, Encoding.GetEncoding(1251));

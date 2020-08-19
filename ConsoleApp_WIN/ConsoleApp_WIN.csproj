@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -22,9 +23,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.1.8.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.1.9.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -98,6 +98,10 @@
     <ProjectReference Include="..\SberbankAST\SberbankAST.csproj">
       <Project>{104af94f-a174-47e0-b5cb-ca8f5fb802db}</Project>
       <Name>SberbankAST</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TekTorg\TekTorg.csproj">
+      <Project>{2FC58D1F-57D4-48D6-B4BC-059B9168AECD}</Project>
+      <Name>TekTorg</Name>
     </ProjectReference>
     <ProjectReference Include="..\TorgiASV\TorgiASV.csproj">
       <Project>{46db4c91-f0c3-4c18-a104-24eb902eb3e8}</Project>

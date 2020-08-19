@@ -259,7 +259,10 @@ namespace TEST
                 if (item.Value != "")
                 {
                     if (first)
+                    {
                         result += "?";
+                        first = false;
+                    }
                     else
                         result += "&";
                     result += item.Key + "=" + item.Value;

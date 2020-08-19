@@ -9,13 +9,13 @@ namespace B2B
     [Serializable]
     public class B2B : ATorg
     {
-        private string baseUrl = "https://www.b2b-center.ru/";
+        private string baseUrl = "https://www.b2b-center.ru/";        
 
         public B2B(Tag inpTag)
         {
             if (inpTag.ChildTags.Count != 4)
             {
-                Exception e = new Exception("Unkonwon format! Must be contain 4 child Tags");
+                Exception e = new Exception("Unknown format! Must be contain 4 child Tags");
                 return;
             }
 

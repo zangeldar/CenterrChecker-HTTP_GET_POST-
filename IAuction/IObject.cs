@@ -6,6 +6,7 @@ namespace IAuction
 {
     public interface IObject
     {
+        Exception LastError { get; }
         /// <summary>
         /// Внутренний идентификатор записи
         /// </summary>

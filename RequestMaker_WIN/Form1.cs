@@ -16,6 +16,7 @@ using B2B;
 using ZakupkiGov;
 using UTender;
 using ETP_GPB;
+using TekTorg;
 
 namespace RequestMaker_WIN
 {
@@ -37,6 +38,7 @@ namespace RequestMaker_WIN
             cBoxType.Items.Add("ЭТП ГПБ");
             cBoxType.Items.Add("Ю-Тендер");
             cBoxType.Items.Add("ГосЗакупки");
+            cBoxType.Items.Add("ТЭК-Торг");
             cBoxType.SelectedIndex = 0;
             searchBox.Text = "";
             logBox.Text = "";
@@ -165,6 +167,18 @@ namespace RequestMaker_WIN
                     {
                         AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
                         curResponse = new ZakupkiGovResponse(curRequest);
+                        error = false;
+                        AddLog("УСПЕШНО!");
+                    }
+                    break;
+                case "ТЭК-Торг":
+                    curRequest = new TekTorgRequest(searchBox.Text);
+                    error = false;
+                    AddLog("УСПЕШНО!");
+                    if (needResponse)
+                    {
+                        AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
+                        curResponse = new TekTorgResponse(curRequest);
                         error = false;
                         AddLog("УСПЕШНО!");
                     }

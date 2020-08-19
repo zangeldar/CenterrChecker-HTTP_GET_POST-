@@ -138,6 +138,9 @@ namespace ConsoleApp_WIN
                             case "ZakupkiGovRequest":
                                 curReq = ATorgRequest.LoadMyRequestObjectXML(new ZakupkiGov.ZakupkiGovRequest(), item);
                                 break;
+                            case "TekTorgRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new TekTorg.TekTorgRequest(), item);
+                                break;
                             default:
                                 Console.WriteLine("Unknown request type: " + checkType + " of file: " + item + ". Check necessary DLLs!");
                                 break;
@@ -230,7 +233,10 @@ namespace ConsoleApp_WIN
                             msg += " : " + newResp.LastError().Message;
                         if (newResp.MyRequest.LastError() != null)
                             msg += " : " + newResp.MyRequest.LastError().Message;
-                        Console.WriteLine(msg);                        
+                        Console.WriteLine(msg);
+                        // здесь надо сохранять ошибку, чтобы на случай повтора ошибки не забивать почту уведомлениями
+                        // если ошибка была ранее, то не отправлять уведомление
+                        // в случае получения нормального ответа в другом месте удалять файл-флаг ошибки
                         SendMailRemind("Ошибка получения результатов запроса от площадки! Обратитесь к разработчику!" + Environment.NewLine 
                             + "Сообщение об ошибке: " + Environment.NewLine
                             + msg, "[" + newResp.SiteName + "] ОШИБКА!", MailRecipients);

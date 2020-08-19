@@ -67,7 +67,10 @@ namespace ASVorgRU
                 if (item.Value != "")
                 {
                     if (first)
+                    {
                         result += "?";
+                        first = false;
+                    }
                     else
                         result += "&";
                     //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
