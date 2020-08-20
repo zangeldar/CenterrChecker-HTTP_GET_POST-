@@ -4,45 +4,36 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ZakupkiGov
+namespace RosElTorg
 {
     [Serializable]
-    public class ZakupkiGovResponse : ATorgResponse
+    public class RosElTorgResponse : ATorgResponse
     {
-        public override string SiteName => "ГосЗакупки";
-        public override int MaxItemsOnPage => 10;
-        public override IResponse MakeFreshResponse => new ZakupkiGovResponse(this.MyRequest);
+        public override string SiteName => "РосЭлТорг";
+        public override int MaxItemsOnPage => 5;
+        //public string Type => "RosElTorg";
 
-        public ZakupkiGovResponse(string searchStr) : base(searchStr)
+        public override IResponse MakeFreshResponse => new RosElTorgResponse(this.MyRequest);
+
+        
+
+        public RosElTorgResponse(string searchStr) : base(searchStr)
         {
-            this.MyRequest = new ZakupkiGovRequest(searchStr);
+            this.MyRequest = new RosElTorgRequest(searchStr);
             FillListResponse();
         }
-
-        public ZakupkiGovResponse(IRequest myReq) : base(myReq)
+        public RosElTorgResponse(IRequest myReq) : base(myReq)
         {
-            if (!(myReq is ZakupkiGovRequest))
+            if (!(myReq is RosElTorgRequest))
                 return;
             this.MyRequest = myReq;
             this.MyRequest.ResetInit();
             FillListResponse();
         }
-
-        public ZakupkiGovResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
-
-        public override IResponse LoadFromXml(string fileName = "lastrequest.req")
-        {
-            return SFileIO.LoadMyResponse(fileName);
-        }
-
-        public override bool SaveToXml(string fileName = "lastrequest.req", bool overwrite=false)
-        {
-            return SFileIO.SaveMyResponse(this, fileName, overwrite);
-        }
+        public RosElTorgResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 
         protected override string CreateTableForMailing(bool html = true)
         {
-
             string result;
             string rowStart;
             string rowEnd;
@@ -76,21 +67,19 @@ namespace ZakupkiGov
                 @"{7}" + rowSeparatorEn + rowSeparatorSt +
                 @"{8}" + rowSeparatorEn + rowSeparatorSt +
                 @"{9}" + rowSeparatorEn + rowEnd,
-                "Номер",
-                "Наименование",
-                "Оганизатор", 
-                "Цена",
-                "Статус",
+                "№ торга",
+                "Описание",
+                "Цена",                
+                "Организатор",
+                "Регион",
                 "Дата окончания приема заявок",
-                "Дата обновления",
-                "Дата публикации",
+                "Статус",
                 "Тип торга",
-                "Секция"
+                "Секция",
+                "Заметки"
                 );
 
-            //foreach (ZakupkiGov item in (List<ZakupkiGov>)NewRecords)
-            //foreach (ZakupkiGov item in (List<IObject>)NewRecords)
-            foreach (ZakupkiGov item in NewRecords)
+            foreach (RosElTorg item in NewRecords)
                 result += item.ToString(html);
 
             if (html)
@@ -105,21 +94,20 @@ namespace ZakupkiGov
             if (myWorkAnswer == null)
                 return;
 
-            //            
             List<Tag> SearchResult = new List<Tag>();
 
             List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
             foreach (Tag item in HTMLDoc)
             {
-                if (!item.IsProto)                    
-                    SearchResult.AddRange(item.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "row no-gutters registry-entry__form mr-0")));
+                if (!item.IsProto)
+                    //SearchResult.AddRange(item.LookForChildTag("ul", true, new KeyValuePair<string, string>("class", "component-list lot-catalog__list")));
+                    SearchResult.AddRange(item.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "search-results__item")));
             }
-            //
 
-            List<ZakupkiGov> workList = new List<ZakupkiGov>();
+            List<RosElTorg> workList = new List<RosElTorg>();
 
             foreach (Tag item in SearchResult)
-                workList.Add(new ZakupkiGov(item));
+                workList.Add(new RosElTorg(item));
 
             this.ListResponse = workList;
 

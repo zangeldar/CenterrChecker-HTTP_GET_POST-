@@ -10,6 +10,7 @@ namespace ASVorgRU
     public class ASVorgResponse : ATorgResponse
     {
         public override string SiteName => "АСВ сайт";
+        public override int MaxItemsOnPage => 55;
 
         public override IResponse MakeFreshResponse
         {

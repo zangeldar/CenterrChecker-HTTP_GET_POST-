@@ -17,6 +17,7 @@ using ZakupkiGov;
 using UTender;
 using ETP_GPB;
 using TekTorg;
+using RosElTorg;
 
 namespace RequestMaker_WIN
 {
@@ -30,6 +31,7 @@ namespace RequestMaker_WIN
 
         private void MyInitialize()
         {
+            cBoxType.Items.Add("РосЭлТорг");
             cBoxType.Items.Add("АСВ сайт");
             cBoxType.Items.Add("Торги АСВ");
             cBoxType.Items.Add("Центр Реализации");
@@ -75,6 +77,18 @@ namespace RequestMaker_WIN
             AddLog("Создаем запрос к \"" + typeStr + "\"..", false);
             switch (typeStr)
             {
+                case "РосЭлТорг":
+                    curRequest = new RosElTorgRequest(searchBox.Text);
+                    error = false;
+                    AddLog("УСПЕШНО!");
+                    if (needResponse)
+                    {
+                        AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
+                        curResponse = new RosElTorgResponse(curRequest);
+                        error = false;
+                        AddLog("УСПЕШНО!");
+                    }
+                    break;
                 case "АСВ сайт":
                     curRequest = new ASVorgRequest(searchBox.Text);
                     error = false;

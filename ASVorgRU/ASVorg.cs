@@ -19,7 +19,7 @@ namespace ASVorgRU
                     if (item.Attributes.ContainsKey("href"))
                     {
                         LotNameUrl = item.Attributes["href"];
-                        LotNameUrl = LotNameUrl.Substring(0, LotNameUrl.LastIndexOf("/?sphrase_id"));
+                        LotNameUrl = LotNameUrl.Substring(0, LotNameUrl.LastIndexOf("?sphrase_id"));
                         break;
                     }
 

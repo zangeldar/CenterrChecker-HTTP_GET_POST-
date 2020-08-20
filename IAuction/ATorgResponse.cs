@@ -152,7 +152,7 @@ namespace IAuction
         public IRequest MyRequest { get; protected set; }
         public IEnumerable<IObject> NewRecords { get; private set; }
         public abstract IResponse MakeFreshResponse { get; }
-
+        public virtual int MaxItemsOnPage => 0;
         //public IResponse MakeFreshResponse { get; protected set; }
         private bool haveNewRecords;
         public bool HaveNewRecords(IResponse checkResponse)
@@ -181,7 +181,7 @@ namespace IAuction
             }
 
             string itemsTable = CreateTableForMailing(html);
-            return PrepareMailBody(itemsTable, (NewRecords.Count()>20), html);
+            return PrepareMailBody(itemsTable, (NewRecords.Count()>=MaxItemsOnPage), html);
         }
         private IEnumerable<IObject> DoOneCheck(IResponse checkData = null, bool detail = false)
         {

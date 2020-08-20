@@ -57,5 +57,6 @@ namespace IAuction
         /// </summary>
         /// <returns>Последнее исключение</returns>
         Exception LastError();
+        int MaxItemsOnPage { get; }
     }
 }

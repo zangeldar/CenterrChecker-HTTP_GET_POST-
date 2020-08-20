@@ -10,6 +10,7 @@ namespace TekTorg
     public class TekTorgResponse : ATorgResponse
     {
         public override string SiteName => "ТЭК-Торг";
+        public override int MaxItemsOnPage => 25;        
 
         public override IResponse MakeFreshResponse => new TekTorgResponse(this.MyRequest);
 

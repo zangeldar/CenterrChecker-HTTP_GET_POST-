@@ -24,7 +24,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.1.9.%2a</ApplicationVersion>
+    <ApplicationVersion>1.1.10.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -94,6 +94,10 @@
     <ProjectReference Include="..\IAuction\IAuction.csproj">
       <Project>{0164D8FB-B0B7-4B6E-BFE0-4720F07DF9A4}</Project>
       <Name>IAuction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RosElTorg\RosElTorg.csproj">
+      <Project>{1594E157-69B9-4A1A-92CB-3074ED54F113}</Project>
+      <Name>RosElTorg</Name>
     </ProjectReference>
     <ProjectReference Include="..\SberbankAST\SberbankAST.csproj">
       <Project>{104af94f-a174-47e0-b5cb-ca8f5fb802db}</Project>

@@ -1,4 +1,5 @@
 ﻿using IAuction;
+using RosElTorg;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -140,6 +141,9 @@ namespace ConsoleApp_WIN
                                 break;
                             case "TekTorgRequest":
                                 curReq = ATorgRequest.LoadMyRequestObjectXML(new TekTorg.TekTorgRequest(), item);
+                                break;
+                            case "RosElTorgRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new RosElTorg.RosElTorgRequest(), item);
                                 break;
                             default:
                                 Console.WriteLine("Unknown request type: " + checkType + " of file: " + item + ". Check necessary DLLs!");

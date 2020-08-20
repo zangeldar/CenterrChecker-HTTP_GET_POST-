@@ -10,6 +10,7 @@ namespace TorgiASV
     public class TorgASVResponse : ATorgResponse
     {
         public override string SiteName { get { return "Торги АСВ"; } }
+        //public override int MaxItemsOnPage => throw new NotImplementedException();
 
         public override IResponse MakeFreshResponse
         {
@@ -90,7 +91,7 @@ namespace TorgiASV
                 result += item.ToString(html);
 
             if (html)
-                result += @"</table>";
+                result += @"</table>";           
 
             return result;
         }

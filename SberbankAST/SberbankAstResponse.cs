@@ -10,8 +10,9 @@ namespace SberbankAST
 {
     [Serializable]
     public class SberbankAstResponse : ATorgResponse
-    {
+    {        
         public override string SiteName => "Сбербанк-АСТ";
+        public override int MaxItemsOnPage => 20;
         public SberbankAstResponse(string searchStr) : base(searchStr)
         {
             this.MyRequest = new SberbankAstRequest(searchStr);

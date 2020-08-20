@@ -9,7 +9,7 @@ namespace TorgiASV
     public class TorgASV : ATorg
     {
         private string baseUrl = "https://www.torgiasv.ru/";
-        public Exception LastError { get; private set; }
+        //public Exception LastError { get; private set; }
         /*
         public TorgASV(List<_Tag> itemsList)
         {

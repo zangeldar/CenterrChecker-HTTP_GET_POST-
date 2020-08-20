@@ -9,6 +9,8 @@ namespace B2B
     [Serializable]
     public class B2BResponse : ATorgResponse
     {
+        public override string SiteName => "B2B-центр";
+        public override int MaxItemsOnPage => 20;
         public B2BResponse (string searchStr) : base(searchStr)
         {
             this.MyRequest = new B2BRequest(searchStr);
@@ -25,7 +27,7 @@ namespace B2B
 
         public B2BResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 
-        public override string SiteName => "B2B-центр";
+        
 
         public override IResponse MakeFreshResponse
         {

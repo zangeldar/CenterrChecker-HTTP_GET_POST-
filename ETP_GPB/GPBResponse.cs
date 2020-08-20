@@ -9,6 +9,8 @@ namespace ETP_GPB
     [Serializable]
     public class GPBResponse : ATorgResponse
     {
+        public override string SiteName => "ЭТП ГПБ";
+        public override int MaxItemsOnPage => 30;
         public GPBResponse(string searchStr) : base(searchStr)
         {
             this.MyRequest = new GPBRequest(searchStr);
@@ -24,8 +26,6 @@ namespace ETP_GPB
             FillListResponse();
         }
         public GPBResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
-
-        public override string SiteName => "ЭТП ГПБ";
 
         public override IResponse MakeFreshResponse
         {

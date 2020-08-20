@@ -9,6 +9,9 @@ namespace CenterRu
     [Serializable]
     public class CenterrResponse : ATorgResponse
     {
+        public override string SiteName => "Центр Реализации";
+        public override int MaxItemsOnPage => 20;
+
         public CenterrResponse(string searchStr) : base(searchStr)
         {
             base.MyRequest = new CenterrRequest(searchStr);
@@ -25,7 +28,7 @@ namespace CenterRu
             base.ListResponse = listResp;
         }
 
-        public override string SiteName { get { return "Центр Реализации"; } }
+        
 
         public override IResponse MakeFreshResponse
         {
@@ -34,6 +37,8 @@ namespace CenterRu
                 return new CenterrResponse(this.MyRequest);
             }
         }
+
+        
 
         public override IResponse LoadFromXml(string fileName = "lastrequest.req")
         {
