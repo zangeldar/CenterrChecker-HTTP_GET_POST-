@@ -175,6 +175,7 @@ namespace SberbankAST
             }
 
             lastAnswer = new StreamReader(response.GetResponseStream(), Encoding.UTF8).ReadToEnd();    // put result in lastAnswer to cache     
+            response.Dispose();
 
             return lastAnswer;
         }

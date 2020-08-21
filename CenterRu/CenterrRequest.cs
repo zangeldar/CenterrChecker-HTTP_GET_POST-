@@ -14,15 +14,17 @@ namespace CenterRu
         override public string Type { get { return "Centerr"; } }
         override public string ServiceURL { get { return "https://bankrupt.centerr.ru"; } }
         //public Exception LastError() { return lastError; }
-        public CenterrRequest()
+        public CenterrRequest() : base()
         {
-            InitialiseParameters();
+            //InitialiseParameters();
         }
 
-        public CenterrRequest(string searchStr)
+        public CenterrRequest(string searchStr) : base(searchStr)
         {
+            /*
             InitialiseParameters();
             SearchString = searchStr;
+            */
         }
 
         protected string _cviewstate;

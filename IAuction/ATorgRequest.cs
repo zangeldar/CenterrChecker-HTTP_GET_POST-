@@ -13,20 +13,36 @@ namespace IAuction
         // Часть интерфейса
         /////////////////////////////
 
-   
+
+        /// <summary>
+        /// Тип запроса (идентификатор, маркер)
+        /// Используется для распознавания типа запроса из XML
+        /// </summary>
         public abstract string Type { get; }
-        
+
+        /// <summary>
+        /// Пользовательское название сайта
+        /// </summary>
         public abstract string SiteName { get; }
-        
+
+        /// <summary>
+        /// Базовый URL сайта
+        /// </summary>
         public abstract string ServiceURL { get; }
-        
+
+        /// <summary>
+        /// Строка для поиска
+        /// </summary>
         public abstract string SearchString { get; set; }
 
         //public abstract string GetResponse { get; }        
         //public abstract string GetRequestStringPrintable();        
         //public abstract IRequest LoadFromXML(string fileName = "lastrequest.req");
 
-        
+        /// <summary>
+        /// Создать результат запроса
+        /// </summary>
+        /// <returns></returns>
         public abstract IResponse MakeResponse();
         //public abstract ATorgResponse MakeResponse();
         //public abstract void ResetParameters();
@@ -36,7 +52,10 @@ namespace IAuction
         //часть абстрактного класса
         /////////////////////////////
 
-        public SerializableDictionary<string, string> MyParameters { get; set; }        
+        /// <summary>
+        /// Спец.словарь параметров запроса
+        /// </summary>
+        public SerializableDictionary<string, string> MyParameters { get; set; }
 
         /// <summary>
         /// Конструктор запроса с пустыми параметрами поиска
@@ -62,26 +81,47 @@ namespace IAuction
         protected abstract void InitialiseParameters(); // очистить параметры поиска
         /// <summary>
         /// Функция инициализации запроса, для получения уникальных идентификаторов сеанса
+        /// Здесь регулируется переменная initialise
         /// </summary>
-        /// <returns></returns>
-        protected abstract bool Initialize(); // здесь регулируется переменная initialise
+        /// <returns>Возвращает переменную успеха инициализации</returns>
+        protected abstract bool Initialize(); // 
         /// <summary>
         /// Функция выполнения пустого запроса без параметров. 
-        /// Как правило, используется в процедуре инициализации для получения уникальных идентификаторов сеанса.
-        /// Функция должна устанавливать значение внутренней переменной initialise
+        /// Как правило, используется в процедуре инициализации для получения уникальных идентификаторов сеанса, если этого требуется. 
+        /// Функция должна устанавливать значение внутренней переменной initialise.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Возвращает результат запросав виде строки</returns>
         protected abstract string getBlankResponse();   // получить пустой ответ для инициализации параметров
         /// <summary>
-        /// Функция для получения тела запроса строкой из параметров поиска
+        /// Функция для получения тела запроса из параметров поиска
         /// </summary>
-        /// <returns></returns>
-        protected abstract string myRawPostData();  // создается тело запроса из параметров поиска
+        /// <returns>Возвращает тело запроса в виде строки</returns>
+        protected virtual string myRawPostData() 
+        {
+            string result = "";
+            bool first = true;
+            foreach (KeyValuePair<string, string> item in MyParameters)
+            {
+                if (item.Value != "")
+                {
+                    if (first)
+                    {
+                        result += "?";
+                        first = false;
+                    }
+                    else
+                        result += "&";
+                    result += item.Key + "=" + item.Value;
+                }
+            }
+
+            return result;
+        }
         /// <summary>
-        /// Функция получения результата запроса.
+        /// Создает и выполняет запрос из параметров поиска.
         /// </summary>
         /// <param name="postData">тело запроса строкой. По-умолчанию пусто.</param>
-        /// <returns></returns>
+        /// <returns>Возвращает строку результата запроса</returns>
         protected abstract string MakePost(string postData = "");   // отправить запрос
         /// <summary>
         /// Внутренняя переменная, показывающая состояние инициализации запроса.
@@ -93,11 +133,22 @@ namespace IAuction
         /// </summary>
         protected string lastAnswer;
 
+        /// <summary>
+        /// Требуется для работы с HTTPS
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="certification"></param>
+        /// <param name="chain"></param>
+        /// <param name="sslPolicyErrors"></param>
+        /// <returns></returns>
         public bool AcceptAllCertifications(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certification, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
         {
             return true;
         }
 
+        /// <summary>
+        /// Получить результат запроса, инициализировава, при необходимости
+        /// </summary>
         public string GetResponse
         {
             get
@@ -109,6 +160,12 @@ namespace IAuction
             }
         }
         
+        /// <summary>
+        /// Вспомогательная функция для получения всех параметров поиска в одну строку
+        /// Используется при создании имени файла
+        /// </summary>
+        /// <param name="separator">(НЕОБЯЗАТЕЛЬНО) Строка-разделитель</param>
+        /// <returns>Строка параметров поиска</returns>
         public virtual string AllParametersInString(string separator = "")
         {
             string parSet = "";
@@ -127,7 +184,7 @@ namespace IAuction
         /// </summary>
         /// <param name="curObj">Объект ATorgRequest для сохранения</param>
         /// <param name="fileName">Имя фалйа для сохранения объекта</param>
-        /// <returns></returns>
+        /// <returns>Возвращает результат сохранения</returns>
         static public bool SaveMyRequestObjectXML(ATorgRequest curObj, string fileName = "lastrequest.req")
         {
             bool result = false;
@@ -158,7 +215,7 @@ namespace IAuction
         /// </summary>
         /// <param name="curObj">Объект ATorgRequest для загрузки</param>
         /// <param name="fileName">Имя файла загрузки объекта</param>
-        /// <returns></returns>
+        /// <returns>Возвращает результат загрузки</returns>
         static public IRequest LoadMyRequestObjectXML(ATorgRequest curObj, string fileName = "lastrequest.req")
         {
             try
@@ -188,26 +245,47 @@ namespace IAuction
         protected Exception lastError;
         public Exception LastError() { return lastError; }
         
+        /// <summary>
+        /// Сбрасывает параметры поиска на параметры по-умолчанию
+        /// </summary>
         public void ResetParameters()
         {
             InitialiseParameters();
         }
 
+        /// <summary>
+        /// Сбрасывает значение переменной инициализации
+        /// </summary>
         public void ResetInit()
         {
             initialised = false;
         }
 
+        /// <summary>
+        /// Загружает запрос из файла XML (Десериализация)
+        /// </summary>
+        /// <param name="fileName">Имя файла</param>
+        /// <returns>Загруженный запрос</returns>
         public IRequest LoadFromXML(string fileName = "lastrequest.req")
         {
             return LoadMyRequestObjectXML(this, fileName);
         }
 
+        /// <summary>
+        /// Сохраняет запрос в файл XML (Сериализация)
+        /// </summary>
+        /// <param name="fileName">Имя файла</param>
+        /// <returns>Результат загрузки</returns>
         public bool SaveToXml(string fileName = "lastrequest.req")
         {
             return SaveMyRequestObjectXML(this, fileName);
         }
 
+        /// <summary>
+        /// Генерирует произвольное имя файла, чтобы исключить перезапись
+        /// </summary>
+        /// <param name="fileName">Исходное имя файла</param>
+        /// <returns>Модифицированная строка имени файла</returns>
         static protected string GetRandomFileName(string fileName)
         {
             string result = fileName;

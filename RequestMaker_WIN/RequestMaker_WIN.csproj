@@ -129,6 +129,10 @@
       <Project>{1594E157-69B9-4A1A-92CB-3074ED54F113}</Project>
       <Name>RosElTorg</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RTSTender\RTSTender.csproj">
+      <Project>{642F33A1-96E4-470B-9CF7-54E6A18B4044}</Project>
+      <Name>RTSTender</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SberbankAST\SberbankAST.csproj">
       <Project>{104af94f-a174-47e0-b5cb-ca8f5fb802db}</Project>
       <Name>SberbankAST</Name>

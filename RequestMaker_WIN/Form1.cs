@@ -18,6 +18,7 @@ using UTender;
 using ETP_GPB;
 using TekTorg;
 using RosElTorg;
+using RTSTender;
 
 namespace RequestMaker_WIN
 {
@@ -29,21 +30,38 @@ namespace RequestMaker_WIN
             MyInitialize();
         }
 
+        const string ASVorgRU       =   "АСВ сайт";                         //  0
+        const string B2B            =   "B2B центр";                        //  1
+        const string CenterRu       =   "Центр Реализации";                 //  2
+        const string ETP_GPB        =   "ЭТП ГПБ";                          //  3
+        const string RosElTorg      =   "РосЭлТорг";                        //  4
+        const string RTSTender      =   "РТС-тендер";                       //  5
+        const string SberbankAST    =   "Сбербанк-АСТ";                     //  6
+        const string TekTorg        =   "ТЭК-Торг *";                       //  7
+        const string TorgiASV       =   "Торги АСВ";                        //  8
+        const string UTender        =   "Ю-Тендер";                         //  9
+        const string ZakupkiGov     =   "ГосЗакупки";                       //  10
+
         private void MyInitialize()
         {
-            cBoxType.Items.Add("РосЭлТорг");
-            cBoxType.Items.Add("АСВ сайт");
-            cBoxType.Items.Add("Торги АСВ");
-            cBoxType.Items.Add("Центр Реализации");
-            cBoxType.Items.Add("Сбербанк-АСТ");
-            cBoxType.Items.Add("B2B центр");
-            cBoxType.Items.Add("ЭТП ГПБ");
-            cBoxType.Items.Add("Ю-Тендер");
-            cBoxType.Items.Add("ГосЗакупки");
-            cBoxType.Items.Add("ТЭК-Торг");
+            cBoxType.Items.Add(ASVorgRU);
+            cBoxType.Items.Add(B2B);
+            cBoxType.Items.Add(CenterRu);
+            cBoxType.Items.Add(ETP_GPB);
+            cBoxType.Items.Add(RosElTorg);
+            cBoxType.Items.Add(RTSTender);
+            cBoxType.Items.Add(SberbankAST);
+            cBoxType.Items.Add(TekTorg);
+            cBoxType.Items.Add(TorgiASV);
+            cBoxType.Items.Add(UTender);
+            cBoxType.Items.Add(ZakupkiGov);
             cBoxType.SelectedIndex = 0;
             searchBox.Text = "";
             logBox.Text = "";
+            // debug
+            cBoxType.SelectedIndex = 5;
+            searchBox.Text = "техническая жидкость";
+            Button_Click(btnResp, EventArgs.Empty);
         }
 
         private IRequest curRequest;
@@ -77,7 +95,7 @@ namespace RequestMaker_WIN
             AddLog("Создаем запрос к \"" + typeStr + "\"..", false);
             switch (typeStr)
             {
-                case "РосЭлТорг":
+                case RosElTorg:
                     curRequest = new RosElTorgRequest(searchBox.Text);
                     error = false;
                     AddLog("УСПЕШНО!");
@@ -89,7 +107,7 @@ namespace RequestMaker_WIN
                         AddLog("УСПЕШНО!");
                     }
                     break;
-                case "АСВ сайт":
+                case ASVorgRU:
                     curRequest = new ASVorgRequest(searchBox.Text);
                     error = false;
                     AddLog("УСПЕШНО!");
@@ -101,7 +119,7 @@ namespace RequestMaker_WIN
                         AddLog("УСПЕШНО!");
                     }
                     break;
-                case "Торги АСВ":                    
+                case TorgiASV:                    
                     curRequest = new TorgASVRequest(searchBox.Text);
                     error = false;
                     AddLog("УСПЕШНО!");
@@ -113,7 +131,7 @@ namespace RequestMaker_WIN
                         AddLog("УСПЕШНО!");
                     }                        
                     break;
-                case "Центр Реализации":                    
+                case CenterRu:                    
                     curRequest = new CenterrRequest(searchBox.Text);
                     error = false;
                     AddLog("УСПЕШНО!");
@@ -125,7 +143,7 @@ namespace RequestMaker_WIN
                         AddLog("УСПЕШНО!");                        
                     }                        
                     break;
-                case "Сбербанк-АСТ":
+                case SberbankAST:
                     curRequest = new SberbankAstRequest(searchBox.Text);
                     error = false;
                     AddLog("УСПЕШНО!");
@@ -137,7 +155,7 @@ namespace RequestMaker_WIN
                         AddLog("УСПЕШНО!");
                     }
                     break;
-                case "B2B центр":
+                case B2B:
                     curRequest = new B2BRequest(searchBox.Text);
                     error = false;
                     AddLog("УСПЕШНО!");
@@ -149,7 +167,7 @@ namespace RequestMaker_WIN
                         AddLog("УСПЕШНО!");
                     }
                     break;
-                case "ЭТП ГПБ":
+                case ETP_GPB:
                     curRequest = new GPBRequest(searchBox.Text);
                     error = false;
                     AddLog("УСПЕШНО!");
@@ -161,7 +179,7 @@ namespace RequestMaker_WIN
                         AddLog("УСПЕШНО!");
                     }
                     break;
-                case "Ю-Тендер":
+                case UTender:
                     curRequest = new UTenderRequest(searchBox.Text);
                     error = false;
                     AddLog("УСПЕШНО!");
@@ -173,7 +191,7 @@ namespace RequestMaker_WIN
                         AddLog("УСПЕШНО!");
                     }
                     break;
-                case "ГосЗакупки":
+                case ZakupkiGov:
                     curRequest = new ZakupkiGovRequest(searchBox.Text);
                     error = false;
                     AddLog("УСПЕШНО!");
@@ -185,7 +203,7 @@ namespace RequestMaker_WIN
                         AddLog("УСПЕШНО!");
                     }
                     break;
-                case "ТЭК-Торг":
+                case TekTorg:
                     curRequest = new TekTorgRequest(searchBox.Text);
                     error = false;
                     AddLog("УСПЕШНО!");
@@ -193,6 +211,18 @@ namespace RequestMaker_WIN
                     {
                         AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
                         curResponse = new TekTorgResponse(curRequest);
+                        error = false;
+                        AddLog("УСПЕШНО!");
+                    }
+                    break;
+                case RTSTender:
+                    curRequest = new RTSTenderRequest(searchBox.Text);
+                    error = false;
+                    AddLog("УСПЕШНО!");
+                    if (needResponse)
+                    {
+                        AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
+                        curResponse = new RTSTenderResponse(curRequest);
                         error = false;
                         AddLog("УСПЕШНО!");
                     }
