@@ -20,8 +20,9 @@ namespace HtmlParser
         }        
         virtual public bool IsProto { get; protected set; }
         public string Value { get; protected set; }
+        //public string Value { get; }
         public int Level { get; private set; }
-        public ProtoTag Parent { get; private set; }
+        public Tag Parent { get; private set; }
         /*
         public ProtoTag(string inpString, int level=0)
         {
@@ -30,10 +31,10 @@ namespace HtmlParser
             this.Level = level;
         }
         */
-        public ProtoTag(string inpString, ProtoTag parent)
+        public ProtoTag(string inpString, Tag parent)
         {
             this.IsProto = true;
-            this.Value = inpString;
+            this.Value = inpString;            
             this.Parent = parent;
             this.Level = 0;
             if (parent != null)
@@ -102,6 +103,11 @@ namespace HtmlParser
         public string CutOffBefore { get; private set; }
         public string CutOffAfter { get; private set; }
         public int ErrorCount { get; private set; }
+        //new public string Value { get { return SrcString.Replace(CutOffAfter, ""); } }
+        public string GetValue()
+        {
+            return Value.Replace(CutOffAfter, "");
+        }
 
         /*
         public Tag(string inpString, int level=0) : base(inpString, level)
@@ -375,17 +381,31 @@ namespace HtmlParser
         {
             inpString = inpString.Trim();
             bool openQuotes = false;
+            bool openHooks = false; // признак открытых скобок. переработать так, чтобы при открытых скобках игнорировалось все спец.символы (кавыччки, равно), пока скобки не закроются
             bool noQuotesButValue = false;
             string currentStr = "";
             string attName = "";
             string attValue = "";
             char prevChar = new Char();
             foreach (char item in inpString)
-            {                
+            {
+                // Следим за открытием скобок
+                if (item == '(')
+                    openHooks = true;
+                else if (item == ')')
+                    openHooks = false;
+
                 if (item == '"' || item == '\'' || noQuotesButValue)
                 {
                     if (openQuotes) // если до этого кавычки были открыты, то curStr  - это значение
                     {
+                        if (openHooks) // если были открыты скобки, то игноиируем кавычки
+                        {
+                            currentStr += item;
+                            prevChar = item;
+                            continue;
+                        }
+
                         attValue = currentStr;
                         currentStr = "";
                         if (attName == "")
@@ -393,14 +413,14 @@ namespace HtmlParser
                             if (Attributes.ContainsKey(attValue))
                                 attValue += attValue;
                             Attributes.Add(attValue, attName);
-                        }                            
+                        }
                         else
                         {
                             if (Attributes.ContainsKey(attName))
                                 attName += attName;
                             Attributes.Add(attName, attValue);
                         }
-                            
+
                         attName = "";
                         attValue = "";
                         noQuotesButValue = false;
@@ -408,7 +428,8 @@ namespace HtmlParser
                     openQuotes = !openQuotes;
                     prevChar = item;
                     continue;   // чтобы не добавлять кавычки в значение
-                }
+                }                
+
                 if (!openQuotes)            // если кавычки не открывались
                 {
                     if (item == ' ' || item == '"' || item == '\'' || item== '\n' || item == '\t')         // и встретили пробел, то следующим будет символ нового аттрибута
@@ -606,11 +627,16 @@ namespace HtmlParser
         {
             if (inpString == null)
                 return null;
-            string result = inpString.Replace("&quot;", "\"").Replace("&#160;", " ").Replace("&nbsp;", " ").Replace("\t", " ");
+            string result = inpString.Replace("&quot;", "\"").                  // заменяем Кавычки
+                Replace("&#160;", " ").                                         // заменяем Разделитель разрядов
+                Replace("&nbsp;", " ").                                         // заменяем пустой символ
+                Replace("&#xA0;", " ").                                         // заменяем Разделитель разрядов
+                Replace("&#8381;", "RUB.").                                     // заменяем РУБЛЬ
+                Replace("\t", " ");                                             // заменяем Табуляцию
             //&#8381
-            result = result.Replace("&#8381;", "RUB.");
+            //result = result.Replace("&#8381;", "RUB.");
             if (!toHtml)
-                result = result.Replace("\n", " ").Replace("\r", " ");
+                result = result.Replace("\n", " | ").Replace("\r", " | ");      // заменяем переводы СТРОКИ
             return result;
         }
     }

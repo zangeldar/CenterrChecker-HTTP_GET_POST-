@@ -29,9 +29,12 @@ namespace ASVorgRU
         {
             if (!(myReq is ASVorgRequest))
                 return;
+            // Lines below already exist in base class
+            /*
             this.MyRequest = myReq;
             this.MyRequest.ResetInit();
             FillListResponse();
+            */
         }
         public ASVorgResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 

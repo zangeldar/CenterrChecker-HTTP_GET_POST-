@@ -23,9 +23,12 @@ namespace SberbankAST
         {
             if (!(myReq is SberbankAstRequest))
                 return;
+            // Lines below already exist in base class
+            /*
             this.MyRequest = myReq;
             this.MyRequest.ResetInit();
             FillListResponse();
+            */
         }
         public SberbankAstResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 
@@ -136,7 +139,7 @@ namespace SberbankAST
                 XmlSerializer ser = new XmlSerializer(typeof(MyDataRow));
                 MyDataRow myDataRow = (MyDataRow)ser.Deserialize(new StringReader(myRoot.tableXml));
                 */
-            }
+        }
             catch (Exception e)
             {
                 lastError = e;

@@ -20,10 +20,12 @@ namespace ETP_GPB
         {
             if (!(myReq is GPBRequest))
                 return;
+            // Lines below already exist in base class
+            /*
             this.MyRequest = myReq;
-            this.MyRequest.ResetInit();
-            
+            this.MyRequest.ResetInit();            
             FillListResponse();
+            */
         }
         public GPBResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 

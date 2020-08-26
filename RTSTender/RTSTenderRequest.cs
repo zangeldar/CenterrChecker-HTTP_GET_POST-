@@ -1,4 +1,5 @@
-﻿using IAuction;
+﻿using HtmlParser;
+using IAuction;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Web;
 
 namespace RTSTender
 {
+    [Serializable]
     public class RTSTenderRequest : ATorgRequest
     {
         public RTSTenderRequest() : base() { }
@@ -18,6 +20,7 @@ namespace RTSTender
         public override string ServiceURL => "https://www.rts-tender.ru/";
 
         private string Token = "";
+        private string Cookies = "";
 
         public override string SearchString
         {
@@ -44,9 +47,12 @@ namespace RTSTender
 
         protected override string getBlankResponse()
         {
-            initialised = true;
-            return "";
-            throw new NotImplementedException();
+            string tmpStr = makeAnPost(ServiceURL + "poisk/", "", false);
+            if (Token != "" & Cookies != "")
+                initialised = true;
+            else if (lastError != null)
+                return lastError.Message;
+            return "";            
         }
 
         protected override void InitialiseParameters()
@@ -65,9 +71,10 @@ namespace RTSTender
 
         protected override bool Initialize()
         {
+            lastError = null;
+            initialised = false;
             getBlankResponse();
             return initialised;
-            throw new NotImplementedException();
         }
 
         protected override string myRawPostData()
@@ -86,7 +93,33 @@ namespace RTSTender
 
         protected override string MakePost(string postData = "")
         {
-            string tmpStr = makeAnPost(ServiceURL + "poisk/", "", false);
+            // Вычленяем ID searchProfile для получения результатов поиска
+            {
+                /*
+                List<Tag> res = HTMLParser.Parse(tmpStr);
+                bool needBreak = false;
+                string searchPriofileId = "";
+                foreach (Tag item in res)
+                {
+                    foreach (Tag inItem in item.LookForChildTag("input", true, new KeyValuePair<string, string>("id", "SearchProfile")))
+                    {
+                        if (inItem.Attributes.ContainsKey("value"))
+                        {
+                            searchPriofileId = inItem.Attributes["value"];
+                            if (searchPriofileId != "")
+                            {
+                                needBreak = true;
+                                break;
+                            }
+
+                        }
+                    }
+                    if (needBreak)
+                        break;
+                }
+                */
+            }
+            
             return makeAnPost(ServiceURL + "poisk/search/ajaxwithfullmodel", postData, true);
         }
 
@@ -113,15 +146,31 @@ namespace RTSTender
             request.Method = "POST";
             if (!isPOST)
                 request.Method = "GET";
-
-            if (isPOST)
+            else
+            {
                 request.Headers.Add("X-XSRF-TOKEN", Token);
+                request.KeepAlive = true;
+                {
+                    var sp = request.ServicePoint;
+                    var prop = sp.GetType().GetProperty("HttpBehaviour",
+                        System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                    prop.SetValue(sp, (byte)0, null);
+                }
+                //request.Connection = "Keep-Alive";
+                request.Headers.Add("Cache-Control", "no-cache");
+                request.ServicePoint.Expect100Continue = false;
+                request.ContentLength = bytes.Length;
+                
+                request.Headers.Add("Cookie", Cookies);                
+            }
+                
 
             //request.KeepAlive = true;
             //request.KeepAlive = false;
             //request.Timeout = System.Threading.Timeout.Infinite;
             //request.ProtocolVersion = HttpVersion.Version10;
 
+            request.Referer = "https://www.rts-tender.ru/poisk/";
             request.Accept = "application/json, text/plain, */*";
             //request.Accept = "*/*";
             request.Headers.Add("DNT", "1");
@@ -133,19 +182,9 @@ namespace RTSTender
             request.Headers.Add("Accept-Encoding", "gzip, deflate");
             request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
             //request.ContentLength = postData.Length;            
-            request.ContentLength = bytes.Length;            
+            
+            
             //request.SendChunked = true;
-
-            //request.Headers.Add("Accept", "*/*");
-
-            //request.Headers.Add("X-Requested-With", "XMLHttpRequest");
-            //request.Headers.Add("X-MicrosoftAjax", "Delta=true");
-            //request.Headers.Add("Cache-Control", "no-cache");
-            //request.Headers.Add("Referer",              "https://www.rts-tender.ru/");
-            //request.Referer = url;
-
-
-
 
 
             /*
@@ -153,7 +192,7 @@ namespace RTSTender
             {
                 stream.Write(data, 0, data.Length);
             }
-             */
+            */
 
             HttpWebResponse response;
 
@@ -197,13 +236,19 @@ namespace RTSTender
                 {
                     if (response.Headers.Keys[i] == "Set-Cookie")
                     {
-                        string tmpStr = response.Headers[i];
-                        if (tmpStr.Contains("XSRF-TOKEN="))
+                        Cookies += response.Headers[i];
+
+                        // Вычленяем XSRF-Token, если он потребуется..
+                        
+                        if (Cookies.Contains("XSRF-TOKEN="))
                         {
-                            int start = tmpStr.IndexOf("XSRF-TOKEN=");
-                            int end = tmpStr.Substring(start).IndexOf(";");
-                            Token = tmpStr.Substring(start, end).Replace("XSRF-TOKEN=", "");
-                        }                            
+                            int start = Cookies.IndexOf("XSRF-TOKEN=");
+                            int end = Cookies.Substring(start).IndexOf(";");
+                            Token = Cookies.Substring(start, end).Replace("XSRF-TOKEN=", "");
+                        }
+                        
+
+                        break;
                     }  
                 }
             }

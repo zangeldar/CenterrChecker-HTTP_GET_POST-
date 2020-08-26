@@ -59,9 +59,11 @@ namespace RequestMaker_WIN
             searchBox.Text = "";
             logBox.Text = "";
             // debug
+            /*
             cBoxType.SelectedIndex = 5;
             searchBox.Text = "техническая жидкость";
             Button_Click(btnResp, EventArgs.Empty);
+            */
         }
 
         private IRequest curRequest;

@@ -5,6 +5,7 @@ using System.Text;
 namespace RTSTender
 {
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
+    [Serializable]
     public class Filter
     {
         public Filter()
@@ -119,6 +120,7 @@ namespace RTSTender
         public bool ApplicationFillingNotCompleted { get; set; }
     }
 
+    [Serializable]
     public class AjaxRequest
     {
         public AjaxRequest(string searchStr="", bool searchInFiles = false)

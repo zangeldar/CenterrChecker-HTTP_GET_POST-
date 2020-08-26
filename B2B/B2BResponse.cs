@@ -20,9 +20,12 @@ namespace B2B
         {
             if (!(myReq is B2BRequest))
                 return;
+            // Lines below already exist in base class
+            /*
             this.MyRequest = myReq;
             this.MyRequest.ResetInit();
             FillListResponse();
+            */
         }
 
         public B2BResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }

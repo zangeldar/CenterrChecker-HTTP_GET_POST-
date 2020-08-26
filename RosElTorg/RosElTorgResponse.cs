@@ -14,9 +14,7 @@ namespace RosElTorg
         //public string Type => "RosElTorg";
 
         public override IResponse MakeFreshResponse => new RosElTorgResponse(this.MyRequest);
-
         
-
         public RosElTorgResponse(string searchStr) : base(searchStr)
         {
             this.MyRequest = new RosElTorgRequest(searchStr);
@@ -26,9 +24,12 @@ namespace RosElTorg
         {
             if (!(myReq is RosElTorgRequest))
                 return;
+            // Lines below already exist in base class
+            /*
             this.MyRequest = myReq;
             this.MyRequest.ResetInit();
             FillListResponse();
+            */
         }
         public RosElTorgResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 

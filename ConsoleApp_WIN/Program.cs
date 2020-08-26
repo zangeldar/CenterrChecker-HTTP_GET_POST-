@@ -1,5 +1,4 @@
 ﻿using IAuction;
-using RosElTorg;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -145,6 +144,9 @@ namespace ConsoleApp_WIN
                             case "RosElTorgRequest":
                                 curReq = ATorgRequest.LoadMyRequestObjectXML(new RosElTorg.RosElTorgRequest(), item);
                                 break;
+                            case "RTSTenderRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new RTSTender.RTSTenderRequest(), item);
+                                break;
                             default:
                                 Console.WriteLine("Unknown request type: " + checkType + " of file: " + item + ". Check necessary DLLs!");
                                 break;
@@ -156,9 +158,11 @@ namespace ConsoleApp_WIN
                             Console.Write(checkType + " found! Get result..");
                             myReqObjects.Add(curReq);                            
                             IResponse newResp = curReq.MakeResponse();
+                            //IResponse newResp = curReq.GetResponse;
                             Console.WriteLine(" SUCCESS");
                             //newResp.SaveToXml((newResp.SiteName + "_" + newResp.MyRequest.SearchString).Replace(" ", "") + ".resp");
-                            SFileIO.SaveMyResponse(newResp, responseDir + "\\" + (newResp.SiteName + "_" + newResp.MyRequest.SearchString).Replace(" ", "") + ".resp");
+                            if (!SFileIO.SaveMyResponse(newResp, responseDir + "\\" + (newResp.SiteName + "_" + newResp.MyRequest.SearchString).Replace(" ", "") + ".resp"))
+                                Console.WriteLine("WARNING! Can't save response object");
                             if (newResp.ListResponse != null)
                             {
                                 if (newResp.ListResponse.Count() > 0)

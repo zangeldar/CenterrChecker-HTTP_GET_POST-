@@ -23,9 +23,12 @@ namespace ZakupkiGov
         {
             if (!(myReq is ZakupkiGovRequest))
                 return;
+            // Lines below already exist in base class
+            /*
             this.MyRequest = myReq;
             this.MyRequest.ResetInit();
             FillListResponse();
+            */
         }
 
         public ZakupkiGovResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }

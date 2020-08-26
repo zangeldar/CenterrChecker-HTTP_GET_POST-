@@ -24,9 +24,12 @@ namespace TekTorg
         {
             if (!(myReq is TekTorgRequest))
                 return;
+            // Lines below already exist in base class
+            /*
             this.MyRequest = myReq;
             this.MyRequest.ResetInit();
             FillListResponse();
+            */
         }
 
         public TekTorgResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }

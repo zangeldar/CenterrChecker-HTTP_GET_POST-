@@ -29,9 +29,12 @@ namespace TorgiASV
         {
             if (!(myReq is TorgASVRequest))
                 return;
+            // Lines below already exist in base class
+            /*
             this.MyRequest = myReq;
             this.MyRequest.ResetInit();
             FillListResponse();
+            */
         }
         public TorgASVResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 
@@ -165,6 +168,6 @@ namespace TorgiASV
         ///
         ///////////////////
 
-        
+
     }
 }

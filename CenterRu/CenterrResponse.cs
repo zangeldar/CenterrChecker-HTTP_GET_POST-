@@ -19,7 +19,9 @@ namespace CenterRu
 
         public CenterrResponse(IRequest myReq) : base(myReq)
         {
-            base.MyRequest = myReq;
+            //base.MyRequest = myReq;
+            if (!(myReq is CenterrRequest))
+                return;
         }
 
         public CenterrResponse(CenterrRequest myReq, List<IObject> listResp) : base(myReq, listResp)
