@@ -16,14 +16,15 @@ namespace RTSTender
         {
             MyInitialize();
             string tmpStr = "";
+            string sepStr = " | ";
             foreach (Tag item in inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "card-item__cell")))
             {
                 if (item.IsProto & !item.IsComment)
-                    tmpStr += item.Value + " | ";
+                    tmpStr += item.Value + sepStr;
                 else
                     foreach (Tag inItem in item.LookForChildTag(null))
                         if (!inItem.IsComment)
-                            tmpStr += inItem.Value + " | ";
+                            tmpStr += inItem.Value + sepStr;
                 foreach (Tag inItem in item.LookForChildTag("span", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "link")))
                 {
                     if (inItem.Attributes.ContainsKey("onclick"))
@@ -31,6 +32,7 @@ namespace RTSTender
                             NoteUrl = inItem.Attributes["onclick"].Replace("window.open(\"", "").Replace("\",\"_blank\")", "");
                 }
             }
+            tmpStr = tmpStr.Remove(tmpStr.LastIndexOf(sepStr));
             NoteStr = tmpStr.Replace("\n", "").Replace("\t", "");
             while (NoteStr.Contains("  "))
                 NoteStr = NoteStr.Replace("  ", " ");
