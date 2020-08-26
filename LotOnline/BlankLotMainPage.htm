@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=100" />
+    <!--
+<script type="text/javascript">
+        window.qbaka || (function(a,c){a.__qbaka_eh=a.onerror;a.__qbaka_reports=[];a.onerror=function(){a.__qbaka_reports.push(arguments);if(a.__qbaka_eh)try{a.__qbaka_eh.apply(a,arguments)}catch(b){}};a.onerror.qbaka=1;a.qbaka={report:function(){a.__qbaka_reports.push([arguments, new Error()]);},customParams:{},set:function(a,b){qbaka.customParams[a]=b},exec:function(a){try{a()}catch(b){qbaka.reportException(b)}},reportException:function(){}};var b=c.createElement("script"),e=c.getElementsByTagName("script")[0],d=function(){e.parentNode.insertBefore(b,e)};b.type="text/javascript";b.async=!0;b.src="//cdn.qbaka.net/reporting.js";"[object Opera]"==a.opera?c.addEventListener("DOMContentLoaded",d):d();qbaka.key="21235ffd58919c1a47cebad715c182e8"})(window,document);qbaka.options={autoStacktrace:1,trackEvents:1};
+</script>
+--><title>
+        Всероссийская универсальная электронная торговая площадка LOT-ONLINE.RU</title>
+
+    <meta charset="utf-8" />
+    <meta name="description" content="Электронная торговая площадка Lot-online – единственная всероссийская универсальной торговая площадка для продажи государственного и частного"/>
+    <meta name="keywords" content="электронная торговая площадка, Lot-online, лот онлайн, лот, онлайн, торги, оператор электронных торгов, электронные торги, закупки, закупки по 223-фз"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name='yandex-verification' content='49b567726afc6d9a' />
+	<meta name="google-site-verification" content="4aWGEUG60pJTym55zGSMgVtWiKtN7fO_9JTUE6LSoA0" />
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
+
+
+    <link type="text/css" href="/css/jquery.autocomplete.custom.min.css?e1ede1de" rel="stylesheet"  media="screen" />
+
+
+    <link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.13.custom.min.css?e1ede1de" rel="stylesheet"  media="screen" />
+        <link rel="stylesheet" type="text/css" href="/css/fileupload/jquery.fileupload-ui.min.css?e1ede1de" media="screen"/>
+        <link type="text/css" href="/css/layout-compress.min.css?e1ede1de" rel="stylesheet"  media="screen" />
+        <link rel="stylesheet" type="text/css" href="/css/refactor-main-pages.min.css?e1ede1de" media="screen"/>
+        <link type="text/css" href="/css/demo_table.min.css?e1ede1de" rel="stylesheet" media="screen">
+        <link type="text/css" href="/css/new-styles/print.min.css?e1ede1de" rel="stylesheet" media="print">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700&amp;amp;subset=cyrillic-ext">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.jscrollpane.min.css?e1ede1de" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.selectBoxIt.min.css?e1ede1de" media="screen"/>
+    <link type="text/css" href="/css/jquery-ui-timepicker-addon.min.css?e1ede1de" rel="stylesheet" media="screen">
+    <link type="text/css" href="/css/demo_page.min.css?e1ede1de" rel="stylesheet" media="screen">
+    <link type="text/css" href="/css/ui.jqgrid.min.css?e1ede1de" rel="stylesheet" media="screen">
+    <link type="text/css" href="/css/slider.min.css?e1ede1de" rel="stylesheet" media="screen">
+    <link type="text/css" href="/css/new-styles/jquery.qtip.min.css?e1ede1de" rel="stylesheet" media="screen">
+
+    <!--[if gte IE 9]>
+        <link type="text/css" rel="stylesheet" href="/css/ie.min.css?e1ede1de" media="screen"/>
+    <![endif]-->
+
+    <script type="text/javascript">
+        FAILED_LOAD_DATA = 'Ошибка получения данных с сервера';
+        OK_TEXT="OK";
+        CANCEL_TEXT="Отмена";
+        LOGIN_URL = "https://lot-online.ru" + "/login.html";
+        OFFICE_DOMAIN = "lot-online.ru";
+        GZ_DOMAIN = "https://gz.lot-online.ru";
+        AJAX_LOGIN_URL = "https://lot-online.ru/ajax-login.html";
+        IS_USER_LOGGED_IN_URL = "/hlp/chkuser.rest";
+        AJAX_REGISTRATION_URL = "https://lot-online.ru/ajax-register.html"
+    </script>
+
+    <script type="text/javascript" src="/js/jquery-1.6.4.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery-ui-1.8.13.custom.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.tmpl.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.pagination.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.tablescroll.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.jstree.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.cookie.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.form.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.validate.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.uniform.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/rah-common.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/common.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.ui.datepicker-ru.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/datatables/jquery.dataTables.rowGrouping.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/datatables/jquery.dataTables.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.selectBoxIt.min.js?e1ede1de" ></script>
+    <script type="text/javascript" src="/js/jquery.watermarkinput.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.anythingslider.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.jcarousel.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.block-ui.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.placeholder.min.js?e1ede1de"></script>
+    <script type="text/javascript" src="/js/jquery.qtip.min.js?e1ede1de"></script>
+
+    <script type="text/javascript" src="/js/jqgrid/locale/grid.locale-ru.min.js?e1ede1de"></script>
+        <script type="text/javascript" src="/js/jqgrid/jquery.jqGrid.min.js?e1ede1de"></script>
+
+    <script src="/js/modernizr-1.7.min.js?e1ede1de"></script>
+    <!-- To make old browsers CSS3-compatible -->
+    <!-- To make IE media queries compatible -->
+
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P5TGSG7');</script>
+<!-- End Google Tag Manager -->
+</head>
+
+<body class="page-new-layout page-office">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P5TGSG7"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!--div id="site-notice" class="e-corner-notice">
+    <p id="corner-notice">
+        <a title="Обратный звонок" href="/feedback.html"></a>
+    </p>
+</div-->
+<div id="iframeRegisterDialogContainer" title='Регистрация учётной записи'></div>
+
+<div id="iframeDialogContainer" title='Авторизация'></div>
+
+<div class="page">
+    <div class="page-wrap">
+        <div id="headerInfo" class="header-info-fix">
+            <div class="header-info">
+                        <div class="logo">
+                            <a href="https://lot-online.ru">
+                                <img alt="Всероссийская универсальная электронная торговая площадка LOT-ONLINE.RU" src="/images/logo_rad.svg" >
+                            </a>
+                        </div>
+                <script type="text/javascript" src="/js/urlEncode.min.js?e1ede1de"></script>
+<script type="text/javascript" src="/js/server_date.min.js?e1ede1de"></script>
+
+<script type="text/javascript">
+    var SERVER_TIME = null;
+    $(document).ready(function() {
+        var options = {};
+        options.today = 'Сегодня';
+        options.serverTime = 'Серверное время';
+        options.serverTimestamp = 1598443413880;
+        options.serverOffset = 10800000;
+        SERVER_TIME = new ServerTime(options);
+        SERVER_TIME.initTimeOnPage();
+    });
+</script>
+
+<section class="current-time">
+    <p id="today" class="today">Сегодня: <span class="date">26.08.2020</span></p>
+
+    <p id="serverTime" class="time">Серверное время: <time>15:03:33</time>&nbsp;<span class="span-timezone">(MCK)</span></p>
+    <p class="support">Круглосуточная поддержка: <span class="tel">8 800 777 5757</span> (звонок по России бесплатный)</p>
+<div>Мобильное приложение продаж: <a href="https://itunes.apple.com/ru/app/%D0%B2%D1%81%D0%B5%D0%B7%D0%B0%D0%BB%D0%BE%D0%B3%D0%B8/id1225556297?l=ru&amp;ls=1&amp;mt=8" title="iOS"><div style="width:24px;height:24px;display:inline-block;vertical-align:middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><style type="text/css">.apple{fill:#FFFFFF;}</style><path class="apple" d="M255.9 120.9l9.1-15.7c5.6-9.8 18.1-13.1 27.9-7.5 9.8 5.6 13.1 18.1 7.5 27.9l-87.5 151.5h63.3c20.5 0 32 24.1 23.1 40.8H113.8c-11.3 0-20.4-9.1-20.4-20.4 0-11.3 9.1-20.4 20.4-20.4h52l66.6-115.4-20.8-36.1c-5.6-9.8-2.3-22.2 7.5-27.9 9.8-5.6 22.2-2.3 27.9 7.5l8.9 15.7zm-78.7 218l-19.6 34c-5.6 9.8-18.1 13.1-27.9 7.5-9.8-5.6-13.1-18.1-7.5-27.9l14.6-25.2c16.4-5.1 29.8-1.2 40.4 11.6zm168.9-61.7h53.1c11.3 0 20.4 9.1 20.4 20.4 0 11.3-9.1 20.4-20.4 20.4h-29.5l19.9 34.5c5.6 9.8 2.3 22.2-7.5 27.9-9.8 5.6-22.2 2.3-27.9-7.5-33.5-58.1-58.7-101.6-75.4-130.6-17.1-29.5-4.9-59.1 7.2-69.1 13.4 23 33.4 57.7 60.1 104zM256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216z"></path></svg></div></a>  <a href="https://play.google.com/store/apps/details?id=com.redmadrobot.rah" title="Android"><div style="width:24px;height:24px;display:inline-block;vertical-align:middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><style type="text/css">.google{fill:#FFFFFF;}</style><path class="google" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"></path></svg></div></a></div>
+</section>
+
+
+<section id="user-block">
+    <ul class="ul-user">
+        <li class="li-lang">
+    <div id="language-selector">
+        <ul>
+            <li class="fl fl-rus">
+                <span class="span-fl"></span>
+            <span>
+            русский</span></li>
+            <li class="fl fl-us">
+                <span class="span-fl"></span>
+            <span>
+            <a href="/home/changelanguage.html?lang=en&backref=https%3a%2f%2flot-online.ru%2fhome%2fsearchByAllDomains.html%3fkeyWords%3d%25D1%2582%25D0%25B5%25D1%2585%25D0%25BD%25D0%25B8%25D1%2587%25D0%25B5%25D1%2581%25D0%25BA%2b%25D0%25B6%25D0%25B8%25D0%25B4%25D0%25BA%25D0%25BE%25D1%2581%25D1%2582">
+            english</a>
+            </span></li>
+        </ul>
+    </div>
+        </li>
+
+        <li><a class="ajaxRegistration" href="javascript:">Зарегистрироваться</a></li>
+            <li><a class="loginFromMainPage" href="javascript:;">Войти</a></li>
+        </ul>
+</section>
+
+</div>
+        </div>
+        <div id="header-container">
+            <header>
+                    <section id="branding">
+                        <div class="headline">
+                            <h1 class="headline-title catalog-title">
+                                        Электронная торговая площадка
+                                    </h1>
+                                </div>
+                    </section>
+                    <div class="social-links">
+                        </div>
+            </header>
+        </div>
+        <script type="text/javascript"
+        src="/js/horizontal_version.menu-aim.min.js?e1ede1de"></script>
+
+<div class="main-nav-wrapper">
+    <nav id="category" class="main-nav">
+        <ul id="mainMenu" class="dropdown-menu">
+            <li id="officeId" class="li-lot-online_ru">
+                <a href="//lot-online.ru">
+                    <span>Главная</span>
+                </a>
+                <ul class="popover">
+                    <li class="submenu__item">
+    <a class="submenu__link" href="/static/about.html">
+        <span>О портале</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/contacts.html">
+        <span>Контакты</span>
+    </a>
+</li>
+</ul>
+            </li>
+            <li id="purchasesId" class="li-trade_lot-online_ru">
+                        <a href="//trade.lot-online.ru">
+                        <span>
+                            Закупки</span>
+                        </a>
+                        <ul class="popover">
+                            <!-- <li class="submenu__item">
+    <a class="submenu__link" href="//trade.lot-online.ru/">
+        <span>Реестр закупок</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/docs.html">
+        <span>Документы</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/contacts_zakupki.html">
+        <span>Контакты</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/faq_zakupki.html">
+        <span>FAQ</span>
+    </a>
+</li> -->
+<li class="submenu__item"><a class="submenu__link" href="https://tender.lot-online.ru/">223-ФЗ</a></li>
+<li class="submenu__item"><a class="submenu__link" href="https://gz.lot-online.ru/">44-ФЗ</a></li>
+<li class="submenu__item"><a class="submenu__link" href="https://msp.lot-online.ru/">223-ФЗ для МСП</a></li>
+<li class="submenu__item"><a class="submenu__link" href="https://trade.lot-online.ru/">223-ФЗ (Архив)</a></li>
+</ul>
+                    </li>
+                <li id="auctionId" class="li-rad_lot-online_ru">
+                        <a href="//rad.lot-online.ru">
+                        <span>
+                            Аукционы РАД</span>
+                        </a>
+                        <ul class="popover">
+                            <li class="submenu__item">
+    <a class="submenu__link" href="//rad.lot-online.ru">
+        <span>Аукционы РАД</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="//sales.lot-online.ru/e-auction/lots.xhtml?sgUnid=42">
+        <span>Имущество частных собственников</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="//lot-online.ru/mil">
+        <span>Имущество Минобороны</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/docs_auction.html">
+        <span>Документы</span>
+    </a>
+</li>
+<!-- <li class="submenu__item">
+    <a class="submenu__link" href="/static/faq.html">
+        <span>FAQ</span>
+    </a>
+</li> --></ul>
+                    </li>
+                <li id="bankruptcyId" class="li-sales_lot-online_ru">
+                        <a href="//sales.lot-online.ru">
+                        <span>
+                            Банкротство</span>
+                        </a>
+                        <ul class="popover">
+                            <li>
+    <a href="//sales.lot-online.ru/e-auction/lots.xhtml?sgUnid=22">
+        <span>Реестр торгов</span>
+    </a>
+</li>
+<li>
+    <a href="//sales.lot-online.ru/e-auction/docsPage.xhtml">
+        <span>Документы</span>
+    </a>
+</li>
+<li>
+    <a href="//sales.lot-online.ru/e-auction/Regulations.xhtml">
+        <span>Инструкции</span>
+    </a>
+</li>
+<li>
+    <a href="//sales.lot-online.ru/e-auction/help/HTMLindex.html">
+        <span>Справка</span>
+    </a>
+</li>
+<li>
+    <a href="/static/contacts_bankruptcy.html">
+        <span>Контакты</span>
+    </a>
+</li></ul>
+                    </li>
+                <li id="pledgeId" class="li-zalog_lot-online_ru">
+                        <a href="//zalog.lot-online.ru">
+                        <span>
+                            Залоги</span>
+                        </a>
+                        <ul class="popover">
+                            <!-- <li class="submenu__item">
+    <a class="submenu__link"  href="http://zalog.lot-online.ru/static/about_zalogi.html">
+        <span>О проекте</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link"  href="https://zalog.lot-online.ru/news/index.html?domain=pledge">
+        <span>Новости</span>
+    </a>
+</li> -->
+<li class="submenu__item">
+    <a class="submenu__link"  href="https://zalog.lot-online.ru/collateral/catalog.html">
+        <span>Реестр объектов</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link"  href="http://zalog.lot-online.ru/static/docs_zalogi.html">
+        <span>Документы</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link"  href="http://zalog.lot-online.ru/static/price_zalogi.html">
+        <span>Тарифы</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link"  href="http://zalog.lot-online.ru/static/contacts_zalogi.html">
+        <span>Контакты</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link"  href="http://zalog.lot-online.ru/static/faq_zalogi.html">
+        <span>FAQ</span>
+    </a>
+</li>
+</ul>
+                    </li>
+                <li id="confiscateId" class="li-confiscate_lot-online_ru">
+                        <a href="//confiscate.lot-online.ru">
+                        <span>
+                            Обращенное в собственность</span>
+                        </a>
+                        <ul class="popover">
+                            <li class="submenu__item">
+    <a class="submenu__link" href="//confiscate.lot-online.ru/">
+        <span>Реестр процедур</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/docs_confiscate.html">
+        <span>Документы</span>
+    </a>
+</li>
+<!-- <li class="submenu__item">
+    <a class="submenu__link" href="/static/faq.html">
+        <span>FAQ</span>
+    </a>
+</li> -->
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/tariffs_confiscate.html">
+        <span>Тарифы</span>
+    </a>
+</li>
+<!-- <li class="submenu__item">
+    <a class="submenu__link" href="/static/contacts_confiscate.html">
+        <span>Контакты</span>
+    </a>
+</li> -->
+</ul>
+                    </li>
+                <li id="leaseId" class="li-lease_lot-online_ru">
+                        <a href="//lease.lot-online.ru">
+                        <span>
+                            Аренда</span>
+                        </a>
+                        <ul class="popover">
+                            <li class="submenu__item">
+    <a class="submenu__link" href="//lease.lot-online.ru/">
+        <span>Реестр процедур</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/docs_lease.html">
+        <span>Документы</span>
+    </a>
+</li>
+<!-- <li class="submenu__item">
+    <a class="submenu__link" href="/static/faq.html">
+        <span>FAQ</span>
+    </a>
+</li> -->
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/tariffs_lease.html">
+        <span>Тарифы</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/contacts_lease.html">
+        <span>Контакты</span>
+    </a>
+</li>
+</ul>
+                    </li>
+                <li id="privatizationId" class="li-privatization_lot-online_ru">
+                        <a href="//privatization.lot-online.ru">
+                        <span>
+                            Приватизация</span>
+                        </a>
+                        <ul class="popover">
+                            <li class="submenu__item">
+    <a class="submenu__link" href="//privatization.lot-online.ru/">
+        <span>Реестр процедур</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/docs_privatization.html">
+        <span>Документы</span>
+    </a>
+</li>
+<!-- <li class="submenu__item">
+    <a class="submenu__link" href="/static/faq.html">
+        <span>FAQ</span>
+    </a>
+</li> -->
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/tariffs_privatization.html">
+        <span>Тарифы</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/contacts_privatization.html">
+        <span>Контакты</span>
+    </a>
+</li>
+</ul>
+                    </li>
+                <li id="arrestedId" class="li-arrested_lot-online_ru">
+                        <a href="//arrested.lot-online.ru">
+                        <span>
+                            Арестованное</span>
+                        </a>
+                        <ul class="popover">
+                            <li class="submenu__item">
+    <a class="submenu__link" href="//arrested.lot-online.ru/">
+        <span>Реестр процедур</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/docs_arrested.html">
+        <span>Документы</span>
+    </a>
+</li>
+<!-- <li class="submenu__item">
+    <a class="submenu__link" href="/static/faq.html">
+        <span>FAQ</span>
+    </a>
+</li> -->
+<!-- <li class="submenu__item">
+    <a class="submenu__link" href="/static/tariffs_arrested.html">
+        <span>Тарифы</span>
+    </a>
+</li> -->
+<!--<li>-->
+    <!--<a href="/static/contacts_confiscate.html">-->
+        <!--<span>Контакты</span>-->
+    <!--</a>-->
+<!--</li>-->
+</ul>
+                    </li>
+                <li id="fishId" class="li-fish_lot-online_ru">
+                        <a href="//fish.lot-online.ru">
+                        <span>
+                            Росрыболовство</span>
+                        </a>
+                        <ul class="popover">
+                            <li class="submenu__item">
+    <a class="submenu__link" href="//fish.lot-online.ru/">
+        <span>Реестр процедур</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/docs_fish.html">
+        <span>Документы</span>
+    </a>
+</li>
+<!-- <li class="submenu__item">
+    <a class="submenu__link" href="http://zakupki.gov.ru/epz/main/public/document/view.html?sectionId=920">
+        <span>Независимый регистратор</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/faq.html">
+        <span>FAQ</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/tariffs_fish.html">
+        <span>Тарифы</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/contacts_fish.html">
+        <span>Контакты</span>
+    </a>
+</li>
+ --></ul>
+                    </li>
+                <li class="li-last" id="ecpId">
+                <a href="https://lot-online.ru/static/ecp.html">
+                <span>
+                    ЭП</span>
+                </a>
+                <ul class="popover">
+                    <li class="submenu__item">
+    <a class="submenu__link" href="/static/ecp_list.html">
+        <span>Список удостоверяющих центров</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/ecp.html">
+        <span>Заказать подпись (ЭП)</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="https://lot-online.ru/signature/check.html">
+        <span>Проверка ЭП</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="https://lot-online.ru/doc/223_docs/Rukovodstvo_po_ispolzovaniyu_i_nastroike_PKI.pdf">
+        <span>Инструкция</span>
+    </a>
+</li>
+<li class="submenu__item">
+    <a class="submenu__link" href="/static/faq_ecp.html">
+        <span>FAQ</span>
+    </a>
+</li>
+</ul>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+<script type="text/javascript" src="/js/navigation-common.min.js?e1ede1de"></script>
+<div class=""><script type="text/javascript" src="/js/jquery.block-ui.min.js?e1ede1de"></script>
+<script type="text/javascript" src="/js/mediator.min.js?e1ede1de"></script>
+<script type="text/javascript" src="/js/filter/agregatedSearchGrid.min.js?e1ede1de"></script>
+<script type="text/javascript" src="/js/filter/agregatedSearch.min.js?e1ede1de"></script>
+
+<script type="text/javascript">
+    $(function() {
+        MEDIATOR = new Mediator({
+            filterData: null
+        });
+
+        var places = [];
+        
+                places.push({
+                    type: "confiscate",
+                    url: "confiscate.lot-online.ru",
+                    searchDataUrl: "confiscate.lot-online.ru/search.rest",
+                    viewDataUrl: "confiscate.lot-online.ru/viewfoundobject.html",
+                    indExternal: ""
+                });
+            
+                places.push({
+                    type: "arrested",
+                    url: "arrested.lot-online.ru",
+                    searchDataUrl: "arrested.lot-online.ru/search.rest",
+                    viewDataUrl: "arrested.lot-online.ru/viewfoundobject.html",
+                    indExternal: ""
+                });
+            
+                places.push({
+                    type: "auto",
+                    url: "rad.lot-online.ru",
+                    searchDataUrl: "rad.lot-online.ru/search.rest",
+                    viewDataUrl: "sales.lot-online.ru/e-auction/auctionLotProperty.xhtml",
+                    indExternal: "true"
+                });
+            
+                places.push({
+                    type: "purchases",
+                    url: "trade.lot-online.ru",
+                    searchDataUrl: "trade.lot-online.ru/search.rest",
+                    viewDataUrl: "trade.lot-online.ru/viewfoundobject.html",
+                    indExternal: ""
+                });
+            
+                places.push({
+                    type: "privatization",
+                    url: "privatization.lot-online.ru",
+                    searchDataUrl: "privatization.lot-online.ru/search.rest",
+                    viewDataUrl: "privatization.lot-online.ru/viewfoundobject.html",
+                    indExternal: ""
+                });
+            
+                places.push({
+                    type: "fish",
+                    url: "fish.lot-online.ru",
+                    searchDataUrl: "fish.lot-online.ru/search.rest",
+                    viewDataUrl: "fish.lot-online.ru/viewfoundobject.html",
+                    indExternal: ""
+                });
+            
+                places.push({
+                    type: "ddy",
+                    url: "rad.lot-online.ru",
+                    searchDataUrl: "rad.lot-online.ru/search.rest",
+                    viewDataUrl: "sales.lot-online.ru/e-auction/auctionLotProperty.xhtml",
+                    indExternal: "true"
+                });
+            
+                places.push({
+                    type: "pledge",
+                    url: "zalog.lot-online.ru",
+                    searchDataUrl: "zalog.lot-online.ru/search.rest",
+                    viewDataUrl: "zalog.lot-online.ru/viewfoundobject.html",
+                    indExternal: ""
+                });
+            
+                places.push({
+                    type: "lease",
+                    url: "lease.lot-online.ru",
+                    searchDataUrl: "lease.lot-online.ru/search.rest",
+                    viewDataUrl: "lease.lot-online.ru/viewfoundobject.html",
+                    indExternal: ""
+                });
+            
+                places.push({
+                    type: "auction",
+                    url: "rad.lot-online.ru",
+                    searchDataUrl: "rad.lot-online.ru/search.rest",
+                    viewDataUrl: "rad.lot-online.ru/viewfoundobject.html",
+                    indExternal: ""
+                });
+            
+
+        var options = {
+            defaultSortOrder : 'desc',
+            defaultSortField : 'publicationDate',
+            emptyMessage : 'Ничего не найдено',
+            noPriceMessage : 'Цена не определена'
+        };
+        var agregatedSearch = new AgregatedSearch(places, options);
+        agregatedSearch.init();
+        MEDIATOR.registerListener (agregatedSearch, MEDIATOR_PROPERTY_VALUE_CHANGED_EVENT, agregatedSearch.applyFiltering);
+        new FilterVisibilitySwitcher();
+
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#searchableDomainSelect").selectBoxIt({
+            autoWidth:false
+        });
+
+        var searchableDomainsByUrls = {
+            
+            'all':'https' + '://' + 'lot-online.ru/home/searchByAllDomains.html' , 
+            'confiscate':'https' + '://' + 'confiscate.lot-online.ru/lot/categories-grid.html' , 
+            'arrested':'https' + '://' + 'arrested.lot-online.ru/lot/categories-grid.html' , 
+            'auto':'https' + '://' + 'sales.lot-online.ru/e-auction/lots.xhtml?sgUnid=11' , 
+            'purchases':'https' + '://' + 'trade.lot-online.ru/lot/categories-grid.html' , 
+            'privatization':'https' + '://' + 'privatization.lot-online.ru/lot/categories-grid.html' , 
+            'fish':'https' + '://' + 'fish.lot-online.ru/lot/categories-grid.html' , 
+            'ddy':'https' + '://' + 'sales.lot-online.ru/e-auction/lots.xhtml?sgUnid=10' , 
+            'pledge':'https' + '://' + 'zalog.lot-online.ru/collateral/catalog.html' , 
+            'lease':'https' + '://' + 'lease.lot-online.ru/lot/categories-grid.html' , 
+            'auction':'https' + '://' + 'rad.lot-online.ru/lot/categories-grid.html' 
+        };
+        $('#mainSearch').placeholder();
+
+        $("#searchableDomainSelect").change(function () {
+            $("#searchDomainForm").attr("action", searchableDomainsByUrls[$("#searchableDomainSelect").val()]);
+        }).trigger("change");
+    });
+</script>
+
+<div class="wrap-search search-project">
+    <div class="pnl-search-project">
+        <form id="searchDomainForm" action="/home/searchByAllDomains.html" method="GET">
+            <div class="col col-wrapper">
+                <div class="col col-txt">
+                    <input id="mainSearch" type="text" name="keyWords"
+                           placeholder="Поиск по реестрам процедур и каталогам"
+                           value="техническ жидкост"/>
+                    <input type="hidden" name="useFilterParamsFromURL" value="true"/>
+                </div>
+                <div class="col col-select">
+                    <select id="searchableDomainSelect">
+                        <option value="all">Все направления</option>
+                        <option
+                                        
+                                        value="confiscate">
+                                    Обращенное в собственность государства</option>
+                            <option
+                                        
+                                        value="arrested">
+                                    Арестованное имущество</option>
+                            <option
+                                        
+                                        value="auto">
+                                    Продажа транспорта</option>
+                            <option
+                                        
+                                        value="purchases">
+                                    Закупки</option>
+                            <option
+                                        
+                                        value="privatization">
+                                    Приватизация</option>
+                            <option
+                                        
+                                        value="fish">
+                                    Росрыболовство</option>
+                            <option
+                                        
+                                        value="ddy">
+                                    Новостройки</option>
+                            <option
+                                        
+                                        value="pledge">
+                                    Залоговое имущество</option>
+                            <option
+                                        
+                                        value="lease">
+                                    Аренда</option>
+                            <option
+                                        
+                                        value="auction">
+                                    Аукционы РАД</option>
+                            </select>
+                </div>
+            </div>
+            <div class="col col-btn col-last">
+                <button class="bt">Поиск</button>
+            </div>
+        </form>
+    </div>
+</div><div class="aggregated-search">
+<div class="breadcrumbs">
+<ul class="menu">
+    <li>
+                <a class="confiscateGridShowAllLink" href="//confiscate.lot-online.ru/lot/categories-grid.html">
+                    Обращенное в собственность государства
+                    (<span id="confiscateGridSearchCount">?</span>)
+                </a>
+            </li>
+        <li>
+                <a class="arrestedGridShowAllLink" href="//arrested.lot-online.ru/lot/categories-grid.html">
+                    Арестованное имущество
+                    (<span id="arrestedGridSearchCount">?</span>)
+                </a>
+            </li>
+        <li>
+                <a class="autoGridShowAllLink" href="//sales.lot-online.ru/e-auction/lots.xhtml?sgUnid=11">
+                    Продажа транспорта
+                    (<span id="autoGridSearchCount">?</span>)
+                </a>
+            </li>
+        <li>
+                <a class="purchasesGridShowAllLink" href="//trade.lot-online.ru/lot/categories-grid.html">
+                    Закупки
+                    (<span id="purchasesGridSearchCount">?</span>)
+                </a>
+            </li>
+        <li>
+                <a class="privatizationGridShowAllLink" href="//privatization.lot-online.ru/lot/categories-grid.html">
+                    Приватизация
+                    (<span id="privatizationGridSearchCount">?</span>)
+                </a>
+            </li>
+        <li>
+                <a class="fishGridShowAllLink" href="//fish.lot-online.ru/lot/categories-grid.html">
+                    Росрыболовство
+                    (<span id="fishGridSearchCount">?</span>)
+                </a>
+            </li>
+        <li>
+                <a class="ddyGridShowAllLink" href="//sales.lot-online.ru/e-auction/lots.xhtml?sgUnid=10">
+                    Новостройки
+                    (<span id="ddyGridSearchCount">?</span>)
+                </a>
+            </li>
+        <li>
+                <a class="pledgeGridShowAllLink" href="//zalog.lot-online.ru/collateral/catalog.html">
+                    Залоговое имущество
+                    (<span id="pledgeGridSearchCount">?</span>)
+                </a>
+            </li>
+        <li>
+                <a class="leaseGridShowAllLink" href="//lease.lot-online.ru/lot/categories-grid.html">
+                    Аренда
+                    (<span id="leaseGridSearchCount">?</span>)
+                </a>
+            </li>
+        <li>
+                <a class="auctionGridShowAllLink" href="//rad.lot-online.ru/lot/categories-grid.html">
+                    Аукционы РАД
+                    (<span id="auctionGridSearchCount">?</span>)
+                </a>
+            </li>
+        </ul>
+</div>
+<div class="content-wrapper">
+    <div class="settings settings-2 clear">
+        <div class="sidebar">
+            <div class="hgroup">
+                <h3>Фильтр</h3>
+            <span class="action" style="float: right;">
+                <a id="toggleFilterBtn" class="link link-settings icon-opened">
+                    <span class="link-text" style="display: inline-block;">Свернуть</span><span class="link-icon icon-opened"></span>
+                </a>
+            </span>
+            </div>
+        </div>
+    <div class="content">
+        <div class="nav-settings">
+            <div class="action action-left">
+                <div class="ui-paging-info">
+                    <span class="pagination-pagesize-label action-headline">
+                        Сортировать по:
+                    </span>
+                    <span class="action-field">
+                        <select id="sortColumn" class="ui-pg-selbox">
+                            <option id="publicationDate_desc">дате публикации, сначала новые</option>
+                            <option id="publicationDate_asc">дате публикации, сначала старые</option>
+                            <option id="startPrice_desc">цене, сначала дорогие</option>
+                            <option id="startPrice_asc">цене, сначала недорогие</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="collateral-list clearfix">
+    <div class="sidebar filters-sidebar open">
+
+            <script type="text/javascript" src="/js/openCloseWindow.min.js?e1ede1de"></script>
+<script type="text/javascript" src="/js/collateral/collateral_fias_selector.min.js?e1ede1de"></script>
+<script type="text/javascript" src="/js/text.highlighter.min.js?e1ede1de"></script>
+<script type="text/javascript" src="/js/filter/agregatedSearchFilter.min.js?e1ede1de"></script>
+<script type="text/javascript" src="/js/jquery.numeric.min.js?e1ede1de"></script>
+
+<script type="text/javascript">
+    var COMMON_LOT_FILTER = null;
+    $(function() {
+        $("#priceFrom").numeric({digits: 15, mantissa: 0, decimal: false, negative: false});
+        $("#priceTo").numeric({digits: 15, mantissa: 0, decimal: false, negative: false});
+
+        COMMON_LOT_FILTER = new CommonLotFilter({
+            minPrice: 0,
+            maxPrice: 1000000
+        });
+
+        new FiasSelector({
+            loadingMessage: "Загрузка...",
+            regionLabel: "Регион",
+            noResultsLbl: "адрес не найден"
+        }).init();
+
+        $("#sortColumn").selectBoxIt({
+            autoWidth: false
+        });
+
+    });
+
+</script>
+
+
+<div id="filters" class="form filters-zalog">
+    <div id="filters-nav" class="row  content-tabbed tabs-special">
+        <ul>
+            <li id="li-tenders" class="li-selected">
+                <label>
+                    <span class="inline">Общий</span>
+                </label>
+            </li>
+            </ul>
+        </div>
+    <div class="filters-pnl">
+
+
+<div id="commonFilterContainer">
+    <div class="row" id="keyWordsContainer">
+        <label for="keyWords">
+            <span class="label-inner">
+                <strong class="filter-title">Поиск по слову</strong>
+                </span>
+        </label>
+        <div class="field">
+            <input id="keyWords" maxlength="100" type="text" name="keyWords" value="техническ жидкост"
+                   class="clearable"/>
+            <a href="javascript:;" class="clear-btn"  title="Очистить" >Очистить</a>
+                <a href="javascript:;" class="search-btn" title="Искать">Поиск</a>
+            </div>
+    </div>
+
+    <div class="row" id="datesContainer">
+        <div class="label-inner">
+            <strong class="filter-title">Дата публикации</strong>
+            </div>
+
+        <span class="field field-dp cols">
+            <label class=" col col-half">
+                <span class="inline">
+                    с</span>
+                <div class="clearable">
+                <input type="text" id="publicationDateFrom" class="dtFilterDate date_picker clearable" maxlength="10"
+                       readonly="true"
+                       name="publicationDateFrom"
+                       value=""/>
+                <a href="javascript:;" class="clear-date-btn"  title="Очистить" style="display: none;">Очистить</a>
+                </div>
+            </label>
+
+            <label class=" col col-half col-last">
+                <span class="inline">
+                    по</span>
+                <div class="clearable">
+                <input type="text" id="publicationDateTo" class="dtFilterDate date_picker" maxlength="10"
+                       readonly="true"
+                       name="publicationDateTo"
+                       value=""/>
+                <a href="javascript:;" class="clear-date-btn"  title="Очистить" style="display: none;">Очистить</a>
+                </div>
+            </label>
+        </span>
+    </div>
+
+    <div class="row" id="organizationContainer">
+        <label for="organization">
+        <span class="label-inner">
+            <strong class="filter-title">Организация</strong>
+            </span>
+        </label>
+
+        <div class="field">
+            <input id="organization" maxlength="100" type="text" name="organization"
+                   class="clearable"
+                   value=""/>
+            <a href="javascript:;" class="clear-btn"  title="Очистить" style="display: none;">Очистить</a>
+                <a href="javascript:;" class="search-btn" title="Искать">Поиск</a>
+            </div>
+    </div>
+
+
+    <div class="row row-multiple-fields" id="priceContainer" style="display: none">
+        <span class="label-inner">
+            <strong class="filter-title">
+                Цена</strong>
+            </span>
+        <span class="field field-date">
+            <label class="">
+                <span class="inline">с</span>
+                <input type="text" id="priceFrom" maxlength="15"
+                       name="priceFrom" value=""/>
+            </label>
+
+            <label class="">
+                <span class="inline">по</span>
+                <input type="text" id="priceTo" maxlength="15"
+                       name="priceTo" value=""/>
+            </label>
+        </span>
+
+        <div class="field field-slider" style="display: none">
+            <div class="slider-scale">
+                <span id="price-slider-price-min" class="slider-min"></span>
+                <span id="price-slider-price-max" class="slider-max"></span>
+            </div>
+            <div class="slider-filter">
+                <div id="price_slider"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row row-multiple-fields" id="addressContainer">
+        <div id="countryDiv">
+            <span class="label-inner"><strong class="fias-title">Страна/Регион</strong>
+                </span>
+            <span class="field">
+                <select id="countryId" name="countryCode"
+                         class="clearable">
+                    <option value=""><p style="color: #708090">Страна</p></option>
+                    <option value="1001" style="background-color: #d4d7f3;">
+                            Россия</option>
+                    <option value="4001" >
+                            Абхазия</option>
+                    <option value="5001" >
+                            Австралия</option>
+                    <option value="6001" >
+                            Австрия</option>
+                    <option value="7001" >
+                            Азавад</option>
+                    <option value="8001" >
+                            Азад Кашмир</option>
+                    <option value="9001" >
+                            Азербайджан</option>
+                    <option value="10001" >
+                            Азорские острова</option>
+                    <option value="11001" >
+                            Аландские острова</option>
+                    <option value="12001" >
+                            Албания</option>
+                    <option value="13001" >
+                            Алжир</option>
+                    <option value="49001" >
+                            Американские Виргинские острова</option>
+                    <option value="14001" >
+                            Американское Самоа</option>
+                    <option value="15001" >
+                            Ангилья</option>
+                    <option value="16001" >
+                            Ангола</option>
+                    <option value="17001" >
+                            Андорра</option>
+                    <option value="18001" >
+                            Антигуа и Барбуда</option>
+                    <option value="19001" >
+                            Аомынь (Макао)</option>
+                    <option value="20001" >
+                            Аргентина</option>
+                    <option value="21001" >
+                            Армения</option>
+                    <option value="22001" >
+                            Аруба</option>
+                    <option value="23001" >
+                            Афганистан</option>
+                    <option value="24001" >
+                            Багамы</option>
+                    <option value="25001" >
+                            Бангладеш</option>
+                    <option value="26001" >
+                            Барбадос</option>
+                    <option value="27001" >
+                            Бахрейн</option>
+                    <option value="29001" >
+                            Белиз</option>
+                    <option value="28001" >
+                            Белоруссия</option>
+                    <option value="30001" >
+                            Бельгия</option>
+                    <option value="31001" >
+                            Бенин</option>
+                    <option value="32001" >
+                            Бермуды</option>
+                    <option value="33001" >
+                            Болгария</option>
+                    <option value="34001" >
+                            Боливия</option>
+                    <option value="35001" >
+                            Босния и Герцеговина (БиГ)</option>
+                    <option value="36001" >
+                            Ботсвана</option>
+                    <option value="37001" >
+                            Бразилия</option>
+                    <option value="38001" >
+                            Британская территория в Индийском океане</option>
+                    <option value="48001" >
+                            Британские Виргинские острова</option>
+                    <option value="39001" >
+                            Бруней</option>
+                    <option value="40001" >
+                            Буркина-Фасо</option>
+                    <option value="41001" >
+                            Бурунди</option>
+                    <option value="42001" >
+                            Бутан</option>
+                    <option value="43001" >
+                            Вануату</option>
+                    <option value="44001" >
+                            Ватикан</option>
+                    <option value="45001" >
+                            Великобритания</option>
+                    <option value="46001" >
+                            Венгрия</option>
+                    <option value="47001" >
+                            Венесуэла</option>
+                    <option value="50001" >
+                            Восточный Тимор</option>
+                    <option value="51001" >
+                            Вьетнам</option>
+                    <option value="52001" >
+                            Габон</option>
+                    <option value="53001" >
+                            Гавайи</option>
+                    <option value="54001" >
+                            Гаити</option>
+                    <option value="55001" >
+                            Гайана</option>
+                    <option value="56001" >
+                            Гамбия</option>
+                    <option value="57001" >
+                            Гана</option>
+                    <option value="58001" >
+                            Гваделупа</option>
+                    <option value="59001" >
+                            Гватемала</option>
+                    <option value="238001" >
+                            Гвиана</option>
+                    <option value="60001" >
+                            Гвинея</option>
+                    <option value="61001" >
+                            Гвинея-Бисау</option>
+                    <option value="62001" >
+                            Германия</option>
+                    <option value="63001" >
+                            Гернси</option>
+                    <option value="64001" >
+                            Гибралтар</option>
+                    <option value="65001" >
+                            Гондурас</option>
+                    <option value="66001" >
+                            Гонконг (Сянган)</option>
+                    <option value="67001" >
+                            Гренада</option>
+                    <option value="68001" >
+                            Гренландия</option>
+                    <option value="69001" >
+                            Греция</option>
+                    <option value="70001" >
+                            Грузия</option>
+                    <option value="71001" >
+                            Гуам</option>
+                    <option value="72001" >
+                            Дания</option>
+                    <option value="107001" >
+                            Демократическая Республика Конго</option>
+                    <option value="73001" >
+                            Джерси</option>
+                    <option value="74001" >
+                            Джибути</option>
+                    <option value="75001" >
+                            Доминика</option>
+                    <option value="76001" >
+                            Доминиканская Республика</option>
+                    <option value="77001" >
+                            Египет</option>
+                    <option value="78001" >
+                            Замбия</option>
+                    <option value="79001" >
+                            Зимбабве</option>
+                    <option value="80001" >
+                            Израиль</option>
+                    <option value="81001" >
+                            Индия</option>
+                    <option value="82001" >
+                            Индонезия</option>
+                    <option value="83001" >
+                            Иордания</option>
+                    <option value="84001" >
+                            Ирак</option>
+                    <option value="85001" >
+                            Иран</option>
+                    <option value="86001" >
+                            Ирландия</option>
+                    <option value="87001" >
+                            Исландия</option>
+                    <option value="2001" >
+                            Испания</option>
+                    <option value="3001" >
+                            Италия</option>
+                    <option value="88001" >
+                            Йемен</option>
+                    <option value="89001" >
+                            Кабо-Верде</option>
+                    <option value="90001" >
+                            Казахстан</option>
+                    <option value="91001" >
+                            Каймановы острова</option>
+                    <option value="92001" >
+                            Камбоджа</option>
+                    <option value="93001" >
+                            Камерун</option>
+                    <option value="94001" >
+                            Канада</option>
+                    <option value="95001" >
+                            Канарские острова</option>
+                    <option value="96001" >
+                            Катар</option>
+                    <option value="97001" >
+                            Кения</option>
+                    <option value="98001" >
+                            Кипр</option>
+                    <option value="99001" >
+                            Киргизия</option>
+                    <option value="100001" >
+                            Кирибати</option>
+                    <option value="102001" >
+                            Китайская Республика</option>
+                    <option value="101001" >
+                            КНР</option>
+                    <option value="189001" >
+                            Княжество Себорга</option>
+                    <option value="103001" >
+                            Кокосовые острова</option>
+                    <option value="104001" >
+                            Колумбия</option>
+                    <option value="105001" >
+                            Коморы</option>
+                    <option value="108001" >
+                            Корейская Народно-Демократическая Республика</option>
+                    <option value="111001" >
+                            Коста-Рика</option>
+                    <option value="112001" >
+                            Кот-д&#039;Ивуар</option>
+                    <option value="113001" >
+                            Куба</option>
+                    <option value="114001" >
+                            Кувейт</option>
+                    <option value="116001" >
+                            Кюрасао</option>
+                    <option value="117001" >
+                            Лаос</option>
+                    <option value="118001" >
+                            Латвия</option>
+                    <option value="119001" >
+                            Лесото</option>
+                    <option value="120001" >
+                            Либерия</option>
+                    <option value="121001" >
+                            Ливан</option>
+                    <option value="122001" >
+                            Ливия</option>
+                    <option value="123001" >
+                            Литва</option>
+                    <option value="124001" >
+                            Лихтенштейн</option>
+                    <option value="125001" >
+                            Люксембург</option>
+                    <option value="126001" >
+                            Маврикий</option>
+                    <option value="127001" >
+                            Мавритания</option>
+                    <option value="128001" >
+                            Мадагаскар</option>
+                    <option value="129001" >
+                            Мадейра</option>
+                    <option value="130001" >
+                            Майотта</option>
+                    <option value="131001" >
+                            Македония</option>
+                    <option value="132001" >
+                            Малави</option>
+                    <option value="133001" >
+                            Малайзия</option>
+                    <option value="134001" >
+                            Мали</option>
+                    <option value="135001" >
+                            Мальдивы</option>
+                    <option value="136001" >
+                            Мальта</option>
+                    <option value="137001" >
+                            Марокко</option>
+                    <option value="138001" >
+                            Мартиника</option>
+                    <option value="139001" >
+                            Маршалловы Острова</option>
+                    <option value="140001" >
+                            Мексика</option>
+                    <option value="141001" >
+                            Мелилья</option>
+                    <option value="142001" >
+                            Микронезия</option>
+                    <option value="143001" >
+                            Мозамбик</option>
+                    <option value="144001" >
+                            Молдавия</option>
+                    <option value="145001" >
+                            Монако</option>
+                    <option value="146001" >
+                            Монголия</option>
+                    <option value="147001" >
+                            Монтсеррат</option>
+                    <option value="148001" >
+                            Мьянма</option>
+                    <option value="150001" >
+                            Нагорно-Карабахская Республика</option>
+                    <option value="151001" >
+                            Намибия</option>
+                    <option value="152001" >
+                            Науру</option>
+                    <option value="153001" >
+                            Непал</option>
+                    <option value="154001" >
+                            Нигер</option>
+                    <option value="155001" >
+                            Нигерия</option>
+                    <option value="156001" >
+                            Нидерланды</option>
+                    <option value="157001" >
+                            Никарагуа</option>
+                    <option value="158001" >
+                            Ниуэ</option>
+                    <option value="159001" >
+                            Новая Зеландия</option>
+                    <option value="160001" >
+                            Новая Каледония</option>
+                    <option value="161001" >
+                            Норвегия</option>
+                    <option value="163001" >
+                            Объединённые Арабские Эмираты</option>
+                    <option value="164001" >
+                            Оман</option>
+                    <option value="149001" >
+                            Остров Мэн</option>
+                    <option value="162001" >
+                            Остров Норфолк</option>
+                    <option value="178001" >
+                            Остров Рождества</option>
+                    <option value="115001" >
+                            Острова Кука</option>
+                    <option value="172001" >
+                            Острова Питкэрн</option>
+                    <option value="188001" >
+                            Острова Святой Елены, Вознесения и Тристан-да-Кунья</option>
+                    <option value="165001" >
+                            Пакистан</option>
+                    <option value="166001" >
+                            Палау</option>
+                    <option value="167001" >
+                            Палестина</option>
+                    <option value="168001" >
+                            Панама</option>
+                    <option value="169001" >
+                            Папуа — Новая Гвинея</option>
+                    <option value="170001" >
+                            Парагвай</option>
+                    <option value="171001" >
+                            Перу</option>
+                    <option value="173001" >
+                            Польша</option>
+                    <option value="174001" >
+                            Португалия</option>
+                    <option value="175001" >
+                            Приднестровская Молдавская Республика</option>
+                    <option value="176001" >
+                            Пуэрто-Рико</option>
+                    <option value="106001" >
+                            Республика Конго</option>
+                    <option value="109001" >
+                            Республика Корея</option>
+                    <option value="110001" >
+                            Республика Косово</option>
+                    <option value="177001" >
+                            Реюньон</option>
+                    <option value="179001" >
+                            Руанда</option>
+                    <option value="180001" >
+                            Румыния</option>
+                    <option value="181001" >
+                            Сальвадор</option>
+                    <option value="182001" >
+                            Самоа</option>
+                    <option value="183001" >
+                            Сан-Марино</option>
+                    <option value="184001" >
+                            Сан-Томе и Принсипи</option>
+                    <option value="186001" >
+                            Саудовская Аравия</option>
+                    <option value="185001" >
+                            Сахарская Арабская Демократическая Республика</option>
+                    <option value="187001" >
+                            Свазиленд</option>
+                    <option value="190001" >
+                            Северные Марианские острова</option>
+                    <option value="192001" >
+                            Сейшельские Острова</option>
+                    <option value="194001" >
+                            Сен-Бартельми</option>
+                    <option value="195001" >
+                            Сен-Мартен</option>
+                    <option value="196001" >
+                            Сен-Пьер и Микелон</option>
+                    <option value="193001" >
+                            Сенегал</option>
+                    <option value="197001" >
+                            Сент-Винсент и Гренадины</option>
+                    <option value="198001" >
+                            Сент-Китс и Невис</option>
+                    <option value="199001" >
+                            Сент-Люсия</option>
+                    <option value="200001" >
+                            Сербия</option>
+                    <option value="201001" >
+                            Сеута</option>
+                    <option value="202001" >
+                            Силенд</option>
+                    <option value="204001" >
+                            Сингапур</option>
+                    <option value="203001" >
+                            Синт-Маартен</option>
+                    <option value="205001" >
+                            Сирия</option>
+                    <option value="206001" >
+                            Словакия</option>
+                    <option value="207001" >
+                            Словения</option>
+                    <option value="209001" >
+                            Соломоновы Острова</option>
+                    <option value="210001" >
+                            Сомали</option>
+                    <option value="211001" >
+                            Сомалиленд</option>
+                    <option value="212001" >
+                            Судан</option>
+                    <option value="213001" >
+                            Суринам</option>
+                    <option value="208001" >
+                            США</option>
+                    <option value="214001" >
+                            Сьерра-Леоне</option>
+                    <option value="218001" >
+                            Тёркс и Кайкос</option>
+                    <option value="215001" >
+                            Таджикистан</option>
+                    <option value="216001" >
+                            Таиланд</option>
+                    <option value="217001" >
+                            Танзания</option>
+                    <option value="219001" >
+                            Того</option>
+                    <option value="220001" >
+                            Токелау</option>
+                    <option value="221001" >
+                            Тонга</option>
+                    <option value="222001" >
+                            Тринидад и Тобаго</option>
+                    <option value="223001" >
+                            Тувалу</option>
+                    <option value="224001" >
+                            Тунис</option>
+                    <option value="191001" >
+                            Турецкая Республика Северного Кипра</option>
+                    <option value="225001" >
+                            Туркмения</option>
+                    <option value="226001" >
+                            Турция</option>
+                    <option value="227001" >
+                            Уганда</option>
+                    <option value="228001" >
+                            Узбекистан</option>
+                    <option value="229001" >
+                            Украина</option>
+                    <option value="230001" >
+                            Уоллис и Футуна</option>
+                    <option value="231001" >
+                            Уругвай</option>
+                    <option value="232001" >
+                            Фарерские острова</option>
+                    <option value="233001" >
+                            Фиджи</option>
+                    <option value="234001" >
+                            Филиппины</option>
+                    <option value="235001" >
+                            Финляндия</option>
+                    <option value="236001" >
+                            Фолклендские острова</option>
+                    <option value="237001" >
+                            Франция</option>
+                    <option value="239001" >
+                            Французская Полинезия</option>
+                    <option value="240001" >
+                            Французские Южные и Антарктические Территории</option>
+                    <option value="241001" >
+                            Хорватия</option>
+                    <option value="242001" >
+                            Центральноафриканская Республика</option>
+                    <option value="243001" >
+                            Чад</option>
+                    <option value="244001" >
+                            Черногория</option>
+                    <option value="245001" >
+                            Чехия</option>
+                    <option value="246001" >
+                            Чили</option>
+                    <option value="247001" >
+                            Швейцария</option>
+                    <option value="248001" >
+                            Швеция</option>
+                    <option value="249001" >
+                            Шпицберген</option>
+                    <option value="250001" >
+                            Шри-Ланка</option>
+                    <option value="251001" >
+                            Эквадор</option>
+                    <option value="252001" >
+                            Экваториальная Гвинея</option>
+                    <option value="253001" >
+                            Эритрея</option>
+                    <option value="254001" >
+                            Эстония</option>
+                    <option value="255001" >
+                            Эфиопия</option>
+                    <option value="258001" >
+                            ЮАР</option>
+                    <option value="256001" >
+                            Южная Георгия и Южные Сандвичевы острова</option>
+                    <option value="257001" >
+                            Южная Осетия</option>
+                    <option value="259001" >
+                            Южный Судан</option>
+                    <option value="260001" >
+                            Ямайка</option>
+                    <option value="261001" >
+                            Япония</option>
+                    </select>
+                <a href="javascript:;" class="clear-sel-btn"  title="Очистить" style="display: none;">Очистить</a>
+                <br/><span style="color: red;"></span>
+            </span>
+            <span>
+                <span class="field">
+                    <select id="level_1" name="regionCode"  class="clearable">
+                        <option value="" selected="selected"><p style="color: #708090">Регион</p></option>
+                            </select>
+                    <a href="javascript:;" class="clear-sel-btn"  title="Очистить" style="display: none;">Очистить</a>
+                    </span>
+            </span>
+        </div>
+
+        <div class="field" id="autonomyDiv" style="display: none;">
+             <select id="level_2">
+                <option></option>
+            </select>
+        </div>
+
+        <div style="display: none">
+            <div id="areaDiv" style="display: none;">
+                <select id="level_3">
+                    <option></option>
+                </select>
+            </div>
+
+            <div id="cityDiv" style="display: none;">
+                <select id="level_4">
+                    <option></option>
+                </select>
+            </div>
+
+            <div id="ctarDiv">
+                <span class="label-inner"><strong class="fias-title">
+                    Внутригородской район</strong>
+                </span>
+                <span class="field">
+                    <select id="level_5">
+                        <option></option>
+                    </select>
+                </span>
+            </div>
+
+            <div id="placeDiv">
+                <span class="label-inner">
+                    <strong class="fias-title">Населенный пункт</strong>
+                </span>
+                <span class="field" style="display: none;">
+                    <select id="level_6">
+                        <option></option>
+                    </select>
+                </span>
+            </div>
+
+            <div id="streetDiv">
+                <span class="label-inner">
+                    <strong class="fias-title">Улица</strong>
+                </span>
+                <span class="field">
+                    <input id="level_7"/>
+                    <input id="streetId" type="hidden"/>
+                </span>
+            </div>
+
+            <div id="extrDiv">
+                <span class="label-inner">
+                    <strong class="fias-title">Доп. территория</strong>
+                </span>
+                <span class="field">
+                    <select id="level_90">
+                        <option></option>
+                    </select>
+                </span>
+            </div>
+
+            <div id="addExtrDiv">
+                <span class="label-inner">
+                    <strong class="fias-title">Улица на доп. территории</strong>
+                </span>
+                <span class="field">
+                    <select id="level_91">
+                        <option></option>
+                    </select>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div></div>
+
+        <div class="collapse-content main-content">
+            <div class="content_toggler">
+                        <div class="section-headline">
+                            <span class="col-inline col-section">Обращенное в собственность государства</span>
+                            <span class="col-inline col-message no_results_msg" style="display: none">
+                                Ничего не найдено</span>
+                            <span class="col-inline col-pagi pagination_wrapper" style="display: none">
+                                <span class="col-inline">
+                                    Показано лотов</span>
+                                <a class="bt-icon pagination_wrapper_prev" href="javascript:;">«</a>
+                                <span class="col-inline pagi-wrap-numbers">
+                                    <span class="pagination_wrapper_from"></span>-<span class="pagination_wrapper_to"></span>
+                                </span>
+                                <a class="bt-icon pagination_wrapper_next" href="javascript:;">»</a>
+                                <span class="col-inline">из&nbsp;<span class="pagination_wrapper_total"></span></span>
+                            </span>
+                            <img class="col-inline data_loading_img" src="/images/preloader.gif"/>
+                            <span class="col-inline col-action col-last text-right">
+                                <a class="confiscateGridShowAllLink confiscateGridHideableShowAllLink link" href="//confiscate.lot-online.ru/lot/categories-grid.html" style="display: none">
+                                    Показать все</a>
+                                <a class="link-action icon-closed">»</a>
+                            </span>
+                        </div>
+                        <div class="searchResultContent section-content">
+                            <div class="filteredGridDiv">
+                                <table id="confiscateGrid" class="gridTable tbl-zalog tbl-dislay-list">
+                                    <tr><td></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <div class="content_toggler">
+                        <div class="section-headline">
+                            <span class="col-inline col-section">Арестованное имущество</span>
+                            <span class="col-inline col-message no_results_msg" style="display: none">
+                                Ничего не найдено</span>
+                            <span class="col-inline col-pagi pagination_wrapper" style="display: none">
+                                <span class="col-inline">
+                                    Показано лотов</span>
+                                <a class="bt-icon pagination_wrapper_prev" href="javascript:;">«</a>
+                                <span class="col-inline pagi-wrap-numbers">
+                                    <span class="pagination_wrapper_from"></span>-<span class="pagination_wrapper_to"></span>
+                                </span>
+                                <a class="bt-icon pagination_wrapper_next" href="javascript:;">»</a>
+                                <span class="col-inline">из&nbsp;<span class="pagination_wrapper_total"></span></span>
+                            </span>
+                            <img class="col-inline data_loading_img" src="/images/preloader.gif"/>
+                            <span class="col-inline col-action col-last text-right">
+                                <a class="arrestedGridShowAllLink arrestedGridHideableShowAllLink link" href="//arrested.lot-online.ru/lot/categories-grid.html" style="display: none">
+                                    Показать все</a>
+                                <a class="link-action icon-closed">»</a>
+                            </span>
+                        </div>
+                        <div class="searchResultContent section-content">
+                            <div class="filteredGridDiv">
+                                <table id="arrestedGrid" class="gridTable tbl-zalog tbl-dislay-list">
+                                    <tr><td></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <div class="content_toggler">
+                        <div class="section-headline">
+                            <span class="col-inline col-section">Продажа транспорта</span>
+                            <span class="col-inline col-message no_results_msg" style="display: none">
+                                Ничего не найдено</span>
+                            <span class="col-inline col-pagi pagination_wrapper" style="display: none">
+                                <span class="col-inline">
+                                    Показано лотов</span>
+                                <a class="bt-icon pagination_wrapper_prev" href="javascript:;">«</a>
+                                <span class="col-inline pagi-wrap-numbers">
+                                    <span class="pagination_wrapper_from"></span>-<span class="pagination_wrapper_to"></span>
+                                </span>
+                                <a class="bt-icon pagination_wrapper_next" href="javascript:;">»</a>
+                                <span class="col-inline">из&nbsp;<span class="pagination_wrapper_total"></span></span>
+                            </span>
+                            <img class="col-inline data_loading_img" src="/images/preloader.gif"/>
+                            <span class="col-inline col-action col-last text-right">
+                                <a class="autoGridShowAllLink autoGridHideableShowAllLink link" href="//sales.lot-online.ru/e-auction/lots.xhtml?sgUnid=11" style="display: none">
+                                    Показать все</a>
+                                <a class="link-action icon-closed">»</a>
+                            </span>
+                        </div>
+                        <div class="searchResultContent section-content">
+                            <div class="filteredGridDiv">
+                                <table id="autoGrid" class="gridTable tbl-zalog tbl-dislay-list">
+                                    <tr><td></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <div class="content_toggler">
+                        <div class="section-headline">
+                            <span class="col-inline col-section">Закупки</span>
+                            <span class="col-inline col-message no_results_msg" style="display: none">
+                                Ничего не найдено</span>
+                            <span class="col-inline col-pagi pagination_wrapper" style="display: none">
+                                <span class="col-inline">
+                                    Показано лотов</span>
+                                <a class="bt-icon pagination_wrapper_prev" href="javascript:;">«</a>
+                                <span class="col-inline pagi-wrap-numbers">
+                                    <span class="pagination_wrapper_from"></span>-<span class="pagination_wrapper_to"></span>
+                                </span>
+                                <a class="bt-icon pagination_wrapper_next" href="javascript:;">»</a>
+                                <span class="col-inline">из&nbsp;<span class="pagination_wrapper_total"></span></span>
+                            </span>
+                            <img class="col-inline data_loading_img" src="/images/preloader.gif"/>
+                            <span class="col-inline col-action col-last text-right">
+                                <a class="purchasesGridShowAllLink purchasesGridHideableShowAllLink link" href="//trade.lot-online.ru/lot/categories-grid.html" style="display: none">
+                                    Показать все</a>
+                                <a class="link-action icon-closed">»</a>
+                            </span>
+                        </div>
+                        <div class="searchResultContent section-content">
+                            <div class="filteredGridDiv">
+                                <table id="purchasesGrid" class="gridTable tbl-zalog tbl-dislay-list">
+                                    <tr><td></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <div class="content_toggler">
+                        <div class="section-headline">
+                            <span class="col-inline col-section">Приватизация</span>
+                            <span class="col-inline col-message no_results_msg" style="display: none">
+                                Ничего не найдено</span>
+                            <span class="col-inline col-pagi pagination_wrapper" style="display: none">
+                                <span class="col-inline">
+                                    Показано лотов</span>
+                                <a class="bt-icon pagination_wrapper_prev" href="javascript:;">«</a>
+                                <span class="col-inline pagi-wrap-numbers">
+                                    <span class="pagination_wrapper_from"></span>-<span class="pagination_wrapper_to"></span>
+                                </span>
+                                <a class="bt-icon pagination_wrapper_next" href="javascript:;">»</a>
+                                <span class="col-inline">из&nbsp;<span class="pagination_wrapper_total"></span></span>
+                            </span>
+                            <img class="col-inline data_loading_img" src="/images/preloader.gif"/>
+                            <span class="col-inline col-action col-last text-right">
+                                <a class="privatizationGridShowAllLink privatizationGridHideableShowAllLink link" href="//privatization.lot-online.ru/lot/categories-grid.html" style="display: none">
+                                    Показать все</a>
+                                <a class="link-action icon-closed">»</a>
+                            </span>
+                        </div>
+                        <div class="searchResultContent section-content">
+                            <div class="filteredGridDiv">
+                                <table id="privatizationGrid" class="gridTable tbl-zalog tbl-dislay-list">
+                                    <tr><td></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <div class="content_toggler">
+                        <div class="section-headline">
+                            <span class="col-inline col-section">Росрыболовство</span>
+                            <span class="col-inline col-message no_results_msg" style="display: none">
+                                Ничего не найдено</span>
+                            <span class="col-inline col-pagi pagination_wrapper" style="display: none">
+                                <span class="col-inline">
+                                    Показано лотов</span>
+                                <a class="bt-icon pagination_wrapper_prev" href="javascript:;">«</a>
+                                <span class="col-inline pagi-wrap-numbers">
+                                    <span class="pagination_wrapper_from"></span>-<span class="pagination_wrapper_to"></span>
+                                </span>
+                                <a class="bt-icon pagination_wrapper_next" href="javascript:;">»</a>
+                                <span class="col-inline">из&nbsp;<span class="pagination_wrapper_total"></span></span>
+                            </span>
+                            <img class="col-inline data_loading_img" src="/images/preloader.gif"/>
+                            <span class="col-inline col-action col-last text-right">
+                                <a class="fishGridShowAllLink fishGridHideableShowAllLink link" href="//fish.lot-online.ru/lot/categories-grid.html" style="display: none">
+                                    Показать все</a>
+                                <a class="link-action icon-closed">»</a>
+                            </span>
+                        </div>
+                        <div class="searchResultContent section-content">
+                            <div class="filteredGridDiv">
+                                <table id="fishGrid" class="gridTable tbl-zalog tbl-dislay-list">
+                                    <tr><td></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <div class="content_toggler">
+                        <div class="section-headline">
+                            <span class="col-inline col-section">Новостройки</span>
+                            <span class="col-inline col-message no_results_msg" style="display: none">
+                                Ничего не найдено</span>
+                            <span class="col-inline col-pagi pagination_wrapper" style="display: none">
+                                <span class="col-inline">
+                                    Показано лотов</span>
+                                <a class="bt-icon pagination_wrapper_prev" href="javascript:;">«</a>
+                                <span class="col-inline pagi-wrap-numbers">
+                                    <span class="pagination_wrapper_from"></span>-<span class="pagination_wrapper_to"></span>
+                                </span>
+                                <a class="bt-icon pagination_wrapper_next" href="javascript:;">»</a>
+                                <span class="col-inline">из&nbsp;<span class="pagination_wrapper_total"></span></span>
+                            </span>
+                            <img class="col-inline data_loading_img" src="/images/preloader.gif"/>
+                            <span class="col-inline col-action col-last text-right">
+                                <a class="ddyGridShowAllLink ddyGridHideableShowAllLink link" href="//sales.lot-online.ru/e-auction/lots.xhtml?sgUnid=10" style="display: none">
+                                    Показать все</a>
+                                <a class="link-action icon-closed">»</a>
+                            </span>
+                        </div>
+                        <div class="searchResultContent section-content">
+                            <div class="filteredGridDiv">
+                                <table id="ddyGrid" class="gridTable tbl-zalog tbl-dislay-list">
+                                    <tr><td></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <div class="content_toggler">
+                        <div class="section-headline">
+                            <span class="col-inline col-section">Залоговое имущество</span>
+                            <span class="col-inline col-message no_results_msg" style="display: none">
+                                Ничего не найдено</span>
+                            <span class="col-inline col-pagi pagination_wrapper" style="display: none">
+                                <span class="col-inline">
+                                    Показано лотов</span>
+                                <a class="bt-icon pagination_wrapper_prev" href="javascript:;">«</a>
+                                <span class="col-inline pagi-wrap-numbers">
+                                    <span class="pagination_wrapper_from"></span>-<span class="pagination_wrapper_to"></span>
+                                </span>
+                                <a class="bt-icon pagination_wrapper_next" href="javascript:;">»</a>
+                                <span class="col-inline">из&nbsp;<span class="pagination_wrapper_total"></span></span>
+                            </span>
+                            <img class="col-inline data_loading_img" src="/images/preloader.gif"/>
+                            <span class="col-inline col-action col-last text-right">
+                                <a class="pledgeGridShowAllLink pledgeGridHideableShowAllLink link" href="//zalog.lot-online.ru/collateral/catalog.html" style="display: none">
+                                    Показать все</a>
+                                <a class="link-action icon-closed">»</a>
+                            </span>
+                        </div>
+                        <div class="searchResultContent section-content">
+                            <div class="filteredGridDiv">
+                                <table id="pledgeGrid" class="gridTable tbl-zalog tbl-dislay-list">
+                                    <tr><td></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <div class="content_toggler">
+                        <div class="section-headline">
+                            <span class="col-inline col-section">Аренда</span>
+                            <span class="col-inline col-message no_results_msg" style="display: none">
+                                Ничего не найдено</span>
+                            <span class="col-inline col-pagi pagination_wrapper" style="display: none">
+                                <span class="col-inline">
+                                    Показано лотов</span>
+                                <a class="bt-icon pagination_wrapper_prev" href="javascript:;">«</a>
+                                <span class="col-inline pagi-wrap-numbers">
+                                    <span class="pagination_wrapper_from"></span>-<span class="pagination_wrapper_to"></span>
+                                </span>
+                                <a class="bt-icon pagination_wrapper_next" href="javascript:;">»</a>
+                                <span class="col-inline">из&nbsp;<span class="pagination_wrapper_total"></span></span>
+                            </span>
+                            <img class="col-inline data_loading_img" src="/images/preloader.gif"/>
+                            <span class="col-inline col-action col-last text-right">
+                                <a class="leaseGridShowAllLink leaseGridHideableShowAllLink link" href="//lease.lot-online.ru/lot/categories-grid.html" style="display: none">
+                                    Показать все</a>
+                                <a class="link-action icon-closed">»</a>
+                            </span>
+                        </div>
+                        <div class="searchResultContent section-content">
+                            <div class="filteredGridDiv">
+                                <table id="leaseGrid" class="gridTable tbl-zalog tbl-dislay-list">
+                                    <tr><td></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <div class="content_toggler">
+                        <div class="section-headline">
+                            <span class="col-inline col-section">Аукционы РАД</span>
+                            <span class="col-inline col-message no_results_msg" style="display: none">
+                                Ничего не найдено</span>
+                            <span class="col-inline col-pagi pagination_wrapper" style="display: none">
+                                <span class="col-inline">
+                                    Показано лотов</span>
+                                <a class="bt-icon pagination_wrapper_prev" href="javascript:;">«</a>
+                                <span class="col-inline pagi-wrap-numbers">
+                                    <span class="pagination_wrapper_from"></span>-<span class="pagination_wrapper_to"></span>
+                                </span>
+                                <a class="bt-icon pagination_wrapper_next" href="javascript:;">»</a>
+                                <span class="col-inline">из&nbsp;<span class="pagination_wrapper_total"></span></span>
+                            </span>
+                            <img class="col-inline data_loading_img" src="/images/preloader.gif"/>
+                            <span class="col-inline col-action col-last text-right">
+                                <a class="auctionGridShowAllLink auctionGridHideableShowAllLink link" href="//rad.lot-online.ru/lot/categories-grid.html" style="display: none">
+                                    Показать все</a>
+                                <a class="link-action icon-closed">»</a>
+                            </span>
+                        </div>
+                        <div class="searchResultContent section-content">
+                            <div class="filteredGridDiv">
+                                <table id="auctionGrid" class="gridTable tbl-zalog tbl-dislay-list">
+                                    <tr><td></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <div style="margin-top:10px;"><p><strong>Не нашли нужной информации? Попробуйте найти через Яндекс:</strong></p>
+                <div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'http://yandex.ru/sitesearch','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #2012095','suggest':true,'target':'_blank','tld':'ru','type':2,'searchid':2012095,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#FFFFFF','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':null,'input_placeholderColor':'#000000','input_borderColor':'#7F9DB9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_blank"><input type="hidden" name="searchid" value="2012095"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value="техническ жидкост"/><input type="submit" value="Найти"/></form></div><style type="text/css">.ya-page_js_yes .ya-site-form_inited_no { display: none; }</style><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script></div>
+        </div>
+</div>
+</div>
+</div></div></div>
+
+    <div class="footer">
+        <!-- copyright -->
+<div class="copyright cols">
+    <div class="col">
+        <p>&copy; 2010-<script type="text/javascript">var mdate = new Date(); document.write(mdate.getFullYear());</script></p><a href="http://auction-house.ru/" class="fn org">Российский аукционный дом - проведение аукционов по покупке и продаже государственной и частной собственности - недвижимости, бизнеса, предметов искусства</a>
+    </div>
+    <div class="col">
+        <p>Федеральный номер:<span class="tel"> 8 800 777 5757 </span>(звонок по России бесплатный)</p>
+        email:<span class="email"> support@lot-online.ru</span>
+    </div>
+</div>
+<!-- /copyright --></div>
+</div>
+
+
+
+<div id="snapshotDialog" style="display:none"
+     title='Снимок'></div>
+
+<div id="warningDialog" style="display:none" title="Предупреждение">
+    <div class="dlg-content-wrap">
+        <span id="notificationText"></span>
+    </div>
+</div>
+
+<div id="confirmDialog" style="display:none" title="Подтверждение">
+    <div class="dlg-content-wrap">
+        <span id="confirmationText"></span>
+    </div>
+</div>
+
+<!--[if lt IE 7 ]>
+<script  type="text/javascript" src="/js/dd_belatedpng.min.js?e1ede1de"></script>
+<script type="text/javascript"> DD_belatedPNG.fix('img, .png_bg'); </script>
+<![endif]-->
+</body>
+</html>
+
+

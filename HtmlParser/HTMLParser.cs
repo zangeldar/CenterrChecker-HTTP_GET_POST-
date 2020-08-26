@@ -636,7 +636,13 @@ namespace HtmlParser
             //&#8381
             //result = result.Replace("&#8381;", "RUB.");
             if (!toHtml)
-                result = result.Replace("\n", " | ").Replace("\r", " | ");      // заменяем переводы СТРОКИ
+            {
+                string strPattern = " | ";
+                result = result.Replace("\n", strPattern).Replace("\r", strPattern);      // заменяем переводы СТРОКИ
+                while (result.Contains(strPattern + strPattern))
+                    result = result.Replace(strPattern + strPattern, strPattern);
+            }
+                
             return result;
         }
     }
