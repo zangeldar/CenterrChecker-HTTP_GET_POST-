@@ -286,7 +286,16 @@ namespace ConsoleApp_WIN
                     else if (newResp.HaveNewRecords(oldItem))
                     {
                         if (File.Exists(newResp.SiteName + ".err"))
-                            File.Delete(newResp.SiteName + ".err");
+                            try
+                            {                                
+                                File.Delete(newResp.SiteName + ".err");
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine("WARNING! Couldn't delete file \"" + newResp.SiteName + ".err ! Error message: " + e.Message);
+                                //throw;
+                            }
+                        
 
                         Console.WriteLine("Found changes for \"" + newResp.SiteName + "\"!");
                         newResp.SaveToXml(responseDir + "\\" + (newResp.SiteName + "_" + newResp.MyRequest.SearchString).Replace(" ", "") + ".resp", true);
@@ -310,7 +319,15 @@ namespace ConsoleApp_WIN
                     {
                         if (File.Exists(newResp.SiteName + ".err"))
                         {
-                            File.Delete(newResp.SiteName + ".err");
+                            try
+                            {
+                                File.Delete(newResp.SiteName + ".err");
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine("WARNING! Couldn't delete file \"" + newResp.SiteName + ".err ! Error message: " + e.Message);
+                                //throw;
+                            }
                             SendMailRemind("Работа сайта \"" + newResp.SiteName + "\" восстановлена." + Environment.NewLine                                        
                                         + "Однако, \" по запросу \"" + newResp.MyRequest.AllParametersInString("_")
                                         + "\" новых результатов не обнаружено!" + Environment.NewLine
