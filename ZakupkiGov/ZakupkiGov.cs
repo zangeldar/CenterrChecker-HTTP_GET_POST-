@@ -288,16 +288,16 @@ namespace ZakupkiGov
                     @"{11}" + "</td></tr>";                           // Секция  
             
             result += String.Format(formatStr,
-                baseUrl + LotNameUrl.Replace("https://zakupki.gov.ru", ""), HTMLParser.ClearHtml(LotNumberStr),
-                HTMLParser.ClearHtml(LotNameStr), 
-                baseUrl + OrganizerUrl.Replace("https://zakupki.gov.ru", ""), HTMLParser.ClearHtml(OrganizerStr),
-                HTMLParser.ClearHtml(PriceStart),
-                HTMLParser.ClearHtml(Status),
+                baseUrl + LotNameUrl.Replace("https://zakupki.gov.ru", ""), HTMLParser.ClearHtml(LotNumberStr, html),
+                HTMLParser.ClearHtml(LotNameStr, html), 
+                baseUrl + OrganizerUrl.Replace("https://zakupki.gov.ru", ""), HTMLParser.ClearHtml(OrganizerStr, html),
+                HTMLParser.ClearHtml(PriceStart, html),
+                HTMLParser.ClearHtml(Status, html),
                 DateFinishAccept,
                 DateUpdate, 
                 DatePost,
-                HTMLParser.ClearHtml(TorgType),
-                HTMLParser.ClearHtml(Section)
+                HTMLParser.ClearHtml(TorgType, html),
+                HTMLParser.ClearHtml(Section, html)
                 );
                 
             

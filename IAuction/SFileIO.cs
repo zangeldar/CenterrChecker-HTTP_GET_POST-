@@ -141,5 +141,64 @@ namespace IAuction
             return result;
         }
         */
+
+        public static bool SaveMyObject(Object curObj, string fileName = "temp.obj", bool overwrite = false)
+        {
+            bool result = false;
+
+            if (!overwrite)
+                fileName = GetRandomFileName(fileName);
+            else
+            {
+                if (File.Exists(fileName))
+                    try
+                    {
+                        File.Delete(fileName);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Can't delete the old file: " + fileName);
+                        Console.WriteLine("Will be overwritten " + fileName);
+                        //throw;
+                    }
+            }
+
+
+            try
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                using (Stream output = File.OpenWrite(fileName))
+                {
+                    bf.Serialize(output, curObj);
+                }
+                result = true;
+            }
+            catch (Exception e)
+            {
+                result = false;
+                //throw;
+            }
+
+            return result;
+        }
+
+        public static Object LoadMyObject(string fileName = "temp.obj")
+        {
+            Object result = null;
+            try
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                using (Stream input = File.OpenRead(fileName))
+                {
+                    result = (Object)bf.Deserialize(input);
+                }
+            }
+            catch (Exception e)
+            {
+                result = null;
+                //throw;
+            }
+            return result;
+        }
     }
 }

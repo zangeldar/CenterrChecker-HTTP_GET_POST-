@@ -55,6 +55,7 @@ namespace ZakupkiGov
 
         protected override string myRawPostData()
         {
+            
             string result = "";
             bool first = true;
             foreach (KeyValuePair<string, string> item in MyParameters)
@@ -73,6 +74,7 @@ namespace ZakupkiGov
             }
 
             return "/epz/order/extendedsearch/results.html" + result;
+            return "/epz/order/extendedsearch/results.html" + base.myRawPostData();
         }
 
         ///////////////////////////////////////////

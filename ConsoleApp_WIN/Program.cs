@@ -245,9 +245,27 @@ namespace ConsoleApp_WIN
                         // здесь надо сохранять ошибку, чтобы на случай повтора ошибки не забивать почту уведомлениями
                         // если ошибка была ранее, то не отправлять уведомление
                         // в случае получения нормального ответа в другом месте удалять файл-флаг ошибки
-                        SendMailRemind("Ошибка получения результатов запроса от площадки! Обратитесь к разработчику!" + Environment.NewLine 
-                            + "Сообщение об ошибке: " + Environment.NewLine
-                            + msg, "[" + newResp.SiteName + "] ОШИБКА!", MailRecipients);
+                        string myExMessage = "Произошла новая ошибка";
+                        if (File.Exists(newResp.SiteName + ".err"))
+                        {   
+                            MyException prevExc = MyException.LoadFromFile(newResp.SiteName + ".err");                            
+                            if (prevExc != null)
+                            {                                
+                                if (prevExc.InnerException.Message == newResp.MyRequest.LastError().Message)
+                                    continue;
+                                myExMessage = "Произошла другая ошибка";
+                            }                
+                        }
+
+                        MyException myExc = new MyException(newResp, myExMessage, newResp.MyRequest.LastError());
+                        myExc.SaveToFile(newResp.SiteName + ".err", true);
+
+                        SendMailRemind("Ошибка получения результатов запроса от площадки! Возможно, сайт недоступен." + Environment.NewLine
+                                        + "Если на сайте \"" + newResp.SiteName
+                                        + "\" по запросу \"" + newResp.MyRequest.AllParametersInString("_")
+                                        + "\" есть результаты, тогда обратитесь к разработчику!" + Environment.NewLine
+                                        + "Сообщение об ошибке: " + Environment.NewLine
+                                        + msg, "[" + newResp.SiteName + "] ОШИБКА!", MailRecipients);
                     }
                     /*
                     else if (newResp.ListResponse.Count() < 1)
@@ -267,6 +285,9 @@ namespace ConsoleApp_WIN
                     */
                     else if (newResp.HaveNewRecords(oldItem))
                     {
+                        if (File.Exists(newResp.SiteName + ".err"))
+                            File.Delete(newResp.SiteName + ".err");
+
                         Console.WriteLine("Found changes for \"" + newResp.SiteName + "\"!");
                         newResp.SaveToXml(responseDir + "\\" + (newResp.SiteName + "_" + newResp.MyRequest.SearchString).Replace(" ", "") + ".resp", true);
                         
@@ -287,6 +308,17 @@ namespace ConsoleApp_WIN
                     }
                     else
                     {
+                        if (File.Exists(newResp.SiteName + ".err"))
+                        {
+                            File.Delete(newResp.SiteName + ".err");
+                            SendMailRemind("Работа сайта \"" + newResp.SiteName + "\" восстановлена." + Environment.NewLine                                        
+                                        + "Однако, \" по запросу \"" + newResp.MyRequest.AllParametersInString("_")
+                                        + "\" новых результатов не обнаружено!" + Environment.NewLine
+                                        + "В случае появления новых результатов, Вы получите уведомление в обычном режиме.",
+                                        "[" + newResp.SiteName + "] РАБОТА ВОЗОБНОВЛЕНА", MailRecipients);
+                        }
+
+                            
                         if (debug)
                             Console.WriteLine("Recieved " + newResp.ListResponse.Count() + " items");
                         Console.WriteLine(newResp.SiteName + ": Nothing new..");
@@ -338,7 +370,7 @@ namespace ConsoleApp_WIN
                     + Environment.NewLine);
                 //throw;
                 return false;
-            }
+            }            
         }
     }
 }
