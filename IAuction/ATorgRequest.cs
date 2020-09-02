@@ -177,6 +177,8 @@ namespace IAuction
             if (parSet.Length > separator.Length)
                 parSet = parSet.Remove(0, separator.Length);
 
+            parSet = parSet.Replace(":", "").Replace("\\", "").Replace("/", "");
+
             return parSet;
         }
         /// <summary>

@@ -16,6 +16,7 @@ using ASVorgRU;
 using UTender;
 using ZakupkiGov;
 using LotOnline;
+using LotOnline.Sales;
 
 namespace TEST
 {
@@ -24,7 +25,8 @@ namespace TEST
         static private void DoTest(IRequest testReq, ref IResponse testResp)
         {
             string ResultStr = "";
-            string fileName = testReq.Type + "_" + testReq.AllParametersInString();
+            //string fileName = testReq.Type + "_" + testReq.AllParametersInString();
+            string fileName = testReq.Type + "_" + testReq.SearchString.Replace(" ", "").Replace(":","").Replace("\\","").Replace("/","");
             testReq.SaveToXml(fileName + ".req");
                         
             testResp = testReq.MakeResponse();            
@@ -87,9 +89,13 @@ namespace TEST
 
             testReq = new TorgASVRequest("торг");
             DoTest(testReq, ref testResp);
-            */
+            
             testReq = new LotOnlineRequest("техническ жидкост");
             testReq = new RadLotOnlineRequest("техническ жидкост");
+            DoTest(testReq, ref testResp);
+            */
+
+            testReq = new LotOnlineSalesRequest("пирит");
             DoTest(testReq, ref testResp);
             
             
