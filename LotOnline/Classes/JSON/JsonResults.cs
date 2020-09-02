@@ -40,7 +40,7 @@ namespace LotOnline
         public string Code { get; set; }
 
         [JsonProperty("address")]
-        public object Address { get; set; }
+        public string Address { get; set; }
 
         [JsonProperty("organization")]
         public string Organization { get; set; }

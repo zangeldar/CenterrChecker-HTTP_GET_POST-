@@ -1,4 +1,4 @@
-﻿using MyHTMLParser;
+﻿using HtmlParser;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,8 +14,9 @@ namespace TEST
         }
 
         string ITest.GetTest(string testData, bool cached = true)
-        {            
-            _Tag myPar = new _Tag(testData, testData);
+        {
+            //_Tag myPar = new _Tag(testData, testData);
+            Tag myPar = new Tag(testData, null);
 
 
 

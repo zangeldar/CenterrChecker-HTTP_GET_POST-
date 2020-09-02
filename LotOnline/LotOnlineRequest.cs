@@ -15,15 +15,16 @@ namespace LotOnline
 
         public override string Type => "LotOnline";
 
-        public override string SiteName => "Лот-Онлайн (РАД)";
+        public override string SiteName => "Лот-Онлайн";
 
-        public override string ServiceURL => "https://lot-online.ru/";
+        public override string ServiceURL => "https://rad.lot-online.ru/";
 
         public override string SearchString { get => MyParameters["keyWords"]; set => MyParameters["keyWords"] = value; }
 
         public override IResponse MakeResponse()
         {
             return new LotOnlineResponse(this);
+            //return LotOnlineResponse.FactoryMethod(this, ServiceURL);
         }
 
         protected override string getBlankResponse()
@@ -61,13 +62,20 @@ namespace LotOnline
             return initialised;
         }
 
+        /*
+        protected override string myRawPostData()
+        {
+            return base.myRawPostData();
+        }
+        */
+
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL + "search.rest/", postData);
+            return makeAnPost(ServiceURL + "search.rest", postData);
         }
 
         // ПЕРЕДЕЛАТЬ 
-        private string makeAnPost(string url = "https://zakupki.gov.ru/", string postData = "")
+        private string makeAnPost(string url = "https://lot-online.ru/", string postData = "")
         {
             ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
             postData = postData.Replace("+", "%2B");
@@ -84,7 +92,7 @@ namespace LotOnline
             //request.Headers.Add("X-Requested-With", "XMLHttpRequest");
             //request.Headers.Add("X-MicrosoftAjax", "Delta=true");
             //request.Headers.Add("Cache-Control", "no-cache");
-            //request.Headers.Add("Referer",              "https://zakupki.gov.ru/");
+            //request.Headers.Add("Referer",              "https://lot-online.ru/");
             request.Referer = url;
             request.Headers.Add("Accept-Language", "ru-RU");    //Accept-Language:ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
             //request.Headers.Add("User-Agent",           "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko");

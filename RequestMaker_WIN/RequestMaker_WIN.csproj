@@ -125,6 +125,10 @@
       <Project>{0164D8FB-B0B7-4B6E-BFE0-4720F07DF9A4}</Project>
       <Name>IAuction</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LotOnline\LotOnline.csproj">
+      <Project>{4E2C5626-A775-43FC-847F-872810BC216A}</Project>
+      <Name>LotOnline</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RosElTorg\RosElTorg.csproj">
       <Project>{1594E157-69B9-4A1A-92CB-3074ED54F113}</Project>
       <Name>RosElTorg</Name>

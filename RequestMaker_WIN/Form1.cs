@@ -19,6 +19,7 @@ using ETP_GPB;
 using TekTorg;
 using RosElTorg;
 using RTSTender;
+using LotOnline;
 
 namespace RequestMaker_WIN
 {
@@ -41,6 +42,7 @@ namespace RequestMaker_WIN
         const string TorgiASV       =   "Торги АСВ";                        //  8
         const string UTender        =   "Ю-Тендер";                         //  9
         const string ZakupkiGov     =   "ГосЗакупки";                       //  10
+        const string LotOnline      =   "Лот-Онлайн";                       //  11
 
         private void MyInitialize()
         {
@@ -55,6 +57,7 @@ namespace RequestMaker_WIN
             cBoxType.Items.Add(TorgiASV);
             cBoxType.Items.Add(UTender);
             cBoxType.Items.Add(ZakupkiGov);
+            cBoxType.Items.Add(LotOnline);
             cBoxType.SelectedIndex = 0;
             searchBox.Text = "";
             logBox.Text = "";
@@ -225,6 +228,19 @@ namespace RequestMaker_WIN
                     {
                         AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
                         curResponse = new RTSTenderResponse(curRequest);
+                        error = false;
+                        AddLog("УСПЕШНО!");
+                    }
+                    break;
+                case LotOnline:
+                    curRequest = new LotOnlineRequest(searchBox.Text);
+                    error = false;
+                    AddLog("УСПЕШНО!");
+                    if (needResponse)
+                    {
+                        AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
+                        curResponse = new LotOnlineResponse(curRequest);
+                        //curResponse = LotOnlineResponse.FactoryMethod(curRequest);
                         error = false;
                         AddLog("УСПЕШНО!");
                     }

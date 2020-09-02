@@ -15,6 +15,7 @@ using ETP_GPB;
 using ASVorgRU;
 using UTender;
 using ZakupkiGov;
+using LotOnline;
 
 namespace TEST
 {
@@ -59,6 +60,7 @@ namespace TEST
             IResponse testResp = null;
             //testReq = new TorgASVRequest("пирит");
 
+            /*
             testReq = new ZakupkiGovRequest("техническая жидкость");
             DoTest(testReq, ref testResp);
 
@@ -85,7 +87,11 @@ namespace TEST
 
             testReq = new TorgASVRequest("торг");
             DoTest(testReq, ref testResp);
-
+            */
+            testReq = new LotOnlineRequest("техническ жидкост");
+            testReq = new RadLotOnlineRequest("техническ жидкост");
+            DoTest(testReq, ref testResp);
+            
             
             
 
