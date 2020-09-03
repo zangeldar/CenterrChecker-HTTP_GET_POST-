@@ -39,7 +39,7 @@ namespace SberbankAST
                 return new SberbankAstResponse(this.MyRequest);
             }
         }
-
+        
         public override IResponse LoadFromXml(string fileName = "lastrequest.req")
         {
             return SFileIO.LoadMyResponse(fileName);

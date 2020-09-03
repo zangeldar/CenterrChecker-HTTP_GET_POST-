@@ -14,7 +14,7 @@ namespace LotOnline.Sales
         public LotOnlineSalesRequest(string searchStr) : base(searchStr) { }
         public override string Type => "LotOnline.Sales";
 
-        public override string SiteName => "Банкротство Лот-Онлайн";
+        public override string SiteName => "РАД Банкротство";
 
         public override string ServiceURL => "https://sales.lot-online.ru/";
 

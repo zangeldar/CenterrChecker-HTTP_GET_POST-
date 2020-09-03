@@ -107,7 +107,7 @@ namespace IAuction
             // need to make an response
             //this.MyRequest = IRequest(searchStr);
             //this.MyRequest = ATorgRequest(searchStr);
-            FillListResponse();
+            //FillListResponse();
         }
         /// <summary>
         /// Конструктор для получения нового Результата по имеющемуся Запросу
@@ -136,10 +136,16 @@ namespace IAuction
         /// Признак нового ответа
         /// </summary>
         protected bool freshResponse = false;
+        protected string lastAnswer = "";
         /// <summary>
         /// Заполняет объекты торга по результатам запроса
         /// </summary>
-        protected abstract void FillListResponse();
+        protected virtual void FillListResponse()
+        {
+            lastAnswer = MyRequest.GetResponse;
+            if (lastAnswer == null)
+                return;
+        }
         
         /// <summary>
         /// (НЕ ИСПОЛЬЗУЕТСЯ) Выравнивает список списков по максимальным значениям, чтобы получить таблицу
@@ -213,7 +219,7 @@ namespace IAuction
         /// <summary>
         /// Указывает максимально возможное количество результатов за один запрос (на 1 страницу)
         /// </summary>
-        public virtual int MaxItemsOnPage => 0;
+        public abstract int MaxItemsOnPage { get; }
         //public IResponse MakeFreshResponse { get; protected set; }
         private bool haveNewRecords;
         /// <summary>

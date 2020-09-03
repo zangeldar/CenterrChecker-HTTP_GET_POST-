@@ -54,6 +54,8 @@ namespace LotOnline
 
         public override IResponse MakeFreshResponse => throw new NotImplementedException();
 
+        public override int MaxItemsOnPage => 5;
+
         protected override string CreateTableForMailing(bool html = true)
         {
             throw new NotImplementedException();

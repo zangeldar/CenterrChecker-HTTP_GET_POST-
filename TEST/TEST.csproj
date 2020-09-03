@@ -14,6 +14,7 @@
     <ProjectReference Include="..\B2B\B2B.csproj" />
     <ProjectReference Include="..\CenterRu\CenterRu.csproj" />
     <ProjectReference Include="..\ETP_GPB\ETP_GPB.csproj" />
+    <ProjectReference Include="..\LotOnline.Gz\LotOnline.Gz.csproj" />
     <ProjectReference Include="..\LotOnline.Sales\LotOnline.Sales.csproj" />
     <ProjectReference Include="..\LotOnline\LotOnline.csproj" />
     <ProjectReference Include="..\SberbankAST\SberbankAST.csproj" />

@@ -9,13 +9,19 @@ namespace LotOnline.Sales
     [Serializable]
     public class LotOnlineSalesResponse : ATorgResponse
     {
-        public LotOnlineSalesResponse(string searchStr) : base(searchStr) { }
+        public LotOnlineSalesResponse(string searchStr) : base(searchStr)
+        {
+            MyRequest = new LotOnlineSalesRequest(searchStr);
+            FillListResponse();
+        }
         public LotOnlineSalesResponse(IRequest myReq) : base(myReq) { }
         public LotOnlineSalesResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 
         public override string SiteName => "Банкротство Лот-Онлайн";
 
         public override IResponse MakeFreshResponse => throw new NotImplementedException();
+
+        public override int MaxItemsOnPage => 9;
 
         protected override string CreateTableForMailing(bool html = true)
         {
@@ -41,7 +47,7 @@ namespace LotOnline.Sales
             List<LotOnlineSales> workList = new List<LotOnlineSales>();
 
             foreach (Tag item in SearchResult)
-                workList.Add(new LotOnlineSales(item));
+                workList.Add(new LotOnlineSales(item, MyRequest.ServiceURL));
 
             this.ListResponse = workList;
         }

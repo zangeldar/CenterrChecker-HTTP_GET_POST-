@@ -17,6 +17,7 @@ using UTender;
 using ZakupkiGov;
 using LotOnline;
 using LotOnline.Sales;
+using LotOnline.Gz;
 
 namespace TEST
 {
@@ -26,7 +27,7 @@ namespace TEST
         {
             string ResultStr = "";
             //string fileName = testReq.Type + "_" + testReq.AllParametersInString();
-            string fileName = testReq.Type + "_" + testReq.SearchString.Replace(" ", "").Replace(":","").Replace("\\","").Replace("/","");
+            string fileName = testReq.Type + "_" + testReq.SearchString.Replace(" ", "").Replace(":","").Replace("\\","").Replace("/","").Replace("*","");
             testReq.SaveToXml(fileName + ".req");
                         
             testResp = testReq.MakeResponse();            
@@ -95,10 +96,13 @@ namespace TEST
             DoTest(testReq, ref testResp);
             */
 
+            /*
             testReq = new LotOnlineSalesRequest("пирит");
             DoTest(testReq, ref testResp);
-            
-            
+            */
+
+            testReq = new LotOnlineGzRequest("техническ* жидкост");
+            DoTest(testReq, ref testResp);
             
 
             Console.WriteLine("Well done.");
