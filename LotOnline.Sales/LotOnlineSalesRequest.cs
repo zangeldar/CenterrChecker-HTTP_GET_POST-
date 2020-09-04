@@ -115,5 +115,9 @@ namespace LotOnline.Sales
             return lastAnswer;
         }
 
+        public override string AllParametersInString(string separator = "")
+        {
+            return base.AllParametersInString(separator);
+        }
     }
 }

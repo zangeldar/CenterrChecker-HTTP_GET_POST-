@@ -125,6 +125,18 @@
       <Project>{0164D8FB-B0B7-4B6E-BFE0-4720F07DF9A4}</Project>
       <Name>IAuction</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LotOnline.Gz\LotOnline.Gz.csproj">
+      <Project>{5DF4BD05-D90C-42AD-9402-10F348B941FD}</Project>
+      <Name>LotOnline.Gz</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LotOnline.Sales\LotOnline.Sales.csproj">
+      <Project>{CFAFB93E-3310-4794-8722-E8ADD349934C}</Project>
+      <Name>LotOnline.Sales</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LotOnline.Tender\LotOnline.Tender.csproj">
+      <Project>{FD8CE489-EF75-4C30-BF59-EDA7E8979A3D}</Project>
+      <Name>LotOnline.Tender</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LotOnline\LotOnline.csproj">
       <Project>{4E2C5626-A775-43FC-847F-872810BC216A}</Project>
       <Name>LotOnline</Name>

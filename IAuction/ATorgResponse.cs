@@ -22,7 +22,7 @@ namespace IAuction
         /// Имя сайта, выводимое пользователю
         /// User-friendly SiteName
         /// </summary>
-        public abstract string SiteName { get; }
+        public virtual string SiteName { get; protected set; }
         //public abstract IRequest MyRequest { get; }
         //public abstract IEnumerable<IObject> ListResponse { get; private set; }
         //public abstract IEnumerable<IObject> NewRecords { get; }
@@ -118,6 +118,7 @@ namespace IAuction
             if (!(myReq is IRequest))
                 return;
             this.MyRequest = myReq;
+            this.SiteName = myReq.SiteName;
             this.MyRequest.ResetInit();
             FillListResponse();
         }
@@ -129,6 +130,7 @@ namespace IAuction
         public ATorgResponse(ATorgRequest myReq, List<IObject> listResp)
         {
             this.MyRequest = myReq;
+            this.SiteName = myReq.SiteName;
             this.ListResponse = listResp;
             freshResponse = false;
         }

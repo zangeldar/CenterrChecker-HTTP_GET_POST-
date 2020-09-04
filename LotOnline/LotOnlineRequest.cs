@@ -17,7 +17,7 @@ namespace LotOnline
 
         public override string SiteName => "Лот-Онлайн";
 
-        public override string ServiceURL => "https://rad.lot-online.ru/";
+        public override string ServiceURL => "https://lot-online.ru/";
 
         public override string SearchString { get => MyParameters["keyWords"]; set => MyParameters["keyWords"] = value; }
 

@@ -317,7 +317,7 @@ namespace HtmlParser
             IsSelfClosed = (Name.StartsWith("img") || IsSelfClosed);
             IsSelfClosed = (Name.StartsWith("input") || IsSelfClosed);
 
-            if (Name.StartsWith("!"))
+            if (Name.StartsWith("!") | Name.StartsWith("?"))
             {
                 IsSelfClosed = true;
                 /*

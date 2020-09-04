@@ -9,7 +9,7 @@ namespace TorgiASV
     [Serializable]
     public class TorgASVResponse : ATorgResponse
     {
-        public override string SiteName { get { return "Торги АСВ"; } }
+        //public override string SiteName { get { return "Торги АСВ"; } }
         //public override int MaxItemsOnPage => throw new NotImplementedException();
 
         public override IResponse MakeFreshResponse
@@ -20,9 +20,12 @@ namespace TorgiASV
             }
         }
 
+        public override int MaxItemsOnPage => 5;
+
         public TorgASVResponse(string searchStr) : base(searchStr)
         {
             this.MyRequest = new TorgASVRequest(searchStr);
+            this.SiteName = this.MyRequest.SiteName;
             FillListResponse();
         }
         public TorgASVResponse(IRequest myReq) : base(myReq)
@@ -101,14 +104,18 @@ namespace TorgiASV
 
         protected override void FillListResponse()
         {
+            /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
+                */
+
+            base.FillListResponse();
 
             //            
             List<Tag> SearchResult = new List<Tag>();
 
-            List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            List<Tag> HTMLDoc = HTMLParser.Parse(lastAnswer);
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)

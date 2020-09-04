@@ -37,7 +37,7 @@
             // 
             // btnReq
             // 
-            this.btnReq.Location = new System.Drawing.Point(12, 65);
+            this.btnReq.Location = new System.Drawing.Point(12, 47);
             this.btnReq.Name = "btnReq";
             this.btnReq.Size = new System.Drawing.Size(100, 23);
             this.btnReq.TabIndex = 0;
@@ -47,30 +47,34 @@
             // 
             // cBoxType
             // 
+            this.cBoxType.Dock = System.Windows.Forms.DockStyle.Top;
             this.cBoxType.FormattingEnabled = true;
-            this.cBoxType.Location = new System.Drawing.Point(12, 12);
+            this.cBoxType.Location = new System.Drawing.Point(0, 0);
             this.cBoxType.Name = "cBoxType";
-            this.cBoxType.Size = new System.Drawing.Size(216, 21);
+            this.cBoxType.Size = new System.Drawing.Size(240, 21);
             this.cBoxType.TabIndex = 1;
             // 
             // searchBox
             // 
-            this.searchBox.Location = new System.Drawing.Point(12, 39);
+            this.searchBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.searchBox.Location = new System.Drawing.Point(0, 21);
             this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(216, 20);
+            this.searchBox.Size = new System.Drawing.Size(240, 20);
             this.searchBox.TabIndex = 2;
             // 
             // logBox
             // 
-            this.logBox.Location = new System.Drawing.Point(12, 94);
+            this.logBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.logBox.Location = new System.Drawing.Point(0, 76);
             this.logBox.Multiline = true;
             this.logBox.Name = "logBox";
-            this.logBox.Size = new System.Drawing.Size(216, 225);
-            this.logBox.TabIndex = 3;
+            this.logBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.logBox.Size = new System.Drawing.Size(240, 255);
+            this.logBox.TabIndex = 30;
             // 
             // btnResp
             // 
-            this.btnResp.Location = new System.Drawing.Point(128, 65);
+            this.btnResp.Location = new System.Drawing.Point(128, 47);
             this.btnResp.Name = "btnResp";
             this.btnResp.Size = new System.Drawing.Size(100, 23);
             this.btnResp.TabIndex = 4;
@@ -84,10 +88,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(240, 331);
             this.Controls.Add(this.btnResp);
+            this.Controls.Add(this.btnReq);
             this.Controls.Add(this.logBox);
             this.Controls.Add(this.searchBox);
             this.Controls.Add(this.cBoxType);
-            this.Controls.Add(this.btnReq);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);

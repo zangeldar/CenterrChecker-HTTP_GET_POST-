@@ -9,7 +9,7 @@ namespace ASVorgRU
     [Serializable]
     public class ASVorgResponse : ATorgResponse
     {
-        public override string SiteName => "АСВ сайт";
+        //public override string SiteName => "АСВ сайт";
         public override int MaxItemsOnPage => 55;
 
         public override IResponse MakeFreshResponse
@@ -23,6 +23,7 @@ namespace ASVorgRU
         public ASVorgResponse(string searchStr) : base(searchStr)
         {
             this.MyRequest = new ASVorgRequest(searchStr);
+            this.SiteName = this.MyRequest.SiteName;
             FillListResponse();
         }
         public ASVorgResponse(IRequest myReq) : base(myReq)
@@ -129,15 +130,19 @@ namespace ASVorgRU
 
         protected override void FillListResponse()
         {
+            /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
+            */
+
+            base.FillListResponse();
 
             //
             List<Tag> SearchResultTmp = new List<Tag>();
             List<ASVorg> workList = new List<ASVorg>();
 
-            List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            List<Tag> HTMLDoc = HTMLParser.Parse(lastAnswer);
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)
@@ -151,13 +156,13 @@ namespace ASVorgRU
 
             if (SearchResult.Count < 1)
             {
-                if (myWorkAnswer.Contains("emptyResultsBlock"))
+                if (lastAnswer.Contains("emptyResultsBlock"))
                 {
                     lastError = new Exception("Поиск не дал результатов");
                     this.ListResponse = workList;
                     return;
                 }
-                lastError = new Exception("Ответ сервера не содержит данных (ожидались результаты с тегом \"div\" и классом \"procedure__data\"):" + Environment.NewLine + myWorkAnswer);
+                lastError = new Exception("Ответ сервера не содержит данных (ожидались результаты с тегом \"div\" и классом \"procedure__data\"):" + Environment.NewLine + lastAnswer);
                 this.ListResponse = workList;
                 return;
             }

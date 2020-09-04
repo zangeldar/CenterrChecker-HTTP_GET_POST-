@@ -10,15 +10,16 @@ namespace LotOnline.Gz
     public class LotOnlineGzResponse : ATorgResponse
     {
         public LotOnlineGzResponse (string searchStr) : base(searchStr)
-        {
+        {            
             MyRequest = new LotOnlineGzRequest(searchStr);
+            this.SiteName = this.MyRequest.SiteName;
             FillListResponse();            
         }
 
         public LotOnlineGzResponse(IRequest myReq) : base(myReq) { }
         public LotOnlineGzResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 
-        public override string SiteName => "РАД Закупки";
+        //public override string SiteName => "РАД Закупки";        
 
         public override IResponse MakeFreshResponse => throw new NotImplementedException();
 

@@ -12,12 +12,13 @@ namespace LotOnline.Sales
         public LotOnlineSalesResponse(string searchStr) : base(searchStr)
         {
             MyRequest = new LotOnlineSalesRequest(searchStr);
+            this.SiteName = this.MyRequest.SiteName;
             FillListResponse();
         }
         public LotOnlineSalesResponse(IRequest myReq) : base(myReq) { }
         public LotOnlineSalesResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 
-        public override string SiteName => "Банкротство Лот-Онлайн";
+        //public override string SiteName => "Банкротство Лот-Онлайн";        
 
         public override IResponse MakeFreshResponse => throw new NotImplementedException();
 
@@ -30,13 +31,16 @@ namespace LotOnline.Sales
 
         protected override void FillListResponse()
         {
+            /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
+            */
+            base.FillListResponse();
               
             List<Tag> SearchResult = new List<Tag>();
 
-            List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            List<Tag> HTMLDoc = HTMLParser.Parse(lastAnswer);
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)

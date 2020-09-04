@@ -1,8 +1,101 @@
-﻿using System;
+﻿using IAuction;
+using System;
+using System.Collections.Generic;
 
 namespace LotOnline.Tender
 {
-    public class LotOnlineTender
+    [Serializable]
+    public class LotOnlineTender:ATorg
     {
+        public string baseUrl { get; private set; }
+
+        public string TorgNumberStr { get; private set; }
+        public string TorgNumberUrl { get; private set; }
+        public string Organizer { get; private set; }
+        public string DateStart { get; private set; }
+        public string DateFinish { get; private set; }
+        public string DateSummation { get; private set; }
+        public string DateDemand { get; private set; }
+        public string DatePlacement { get; private set; }
+        public string Section { get; private set; }
+        public string Type { get; private set; }
+        public string Status { get; private set; }
+
+        public string DemandCounts { get; private set; }
+        public string Deposit { get; private set; }
+        public string Participant { get; private set; }
+        public string UUID { get; private set; }
+        public string WinnerPrice { get; private set; }
+
+        public string Customer { get; private set; }
+        public string Note { get; private set; }
+        public string Okdp2 { get; private set; }
+        public string RegionCodes { get; private set; }        
+
+        public LotOnlineTender(List inpItem, string baseUrl = "https://tender.lot-online.ru/") : base()
+        {
+            this.baseUrl = baseUrl;
+
+            LotNameStr = inpItem.Title;
+            LotNameUrl = inpItem.LotLink;
+            PriceStart = inpItem.Price;            
+
+            LotNumberStr = inpItem.LotNumber.ToString();
+            TorgNumberStr = inpItem.Identifier;
+            TorgNumberUrl = inpItem.OfferLink;
+            Organizer = inpItem.Organizer.Title + " [" + inpItem.Organizer.Inn + "]";
+            Organizer = inpItem.Organizer.ToString();
+            DateStart = inpItem.GdStartDate;
+            DateFinish = inpItem.GdEndDate;
+            DateSummation = inpItem.SummationDate;
+            DateDemand = inpItem.ViewDemandDate;
+            DatePlacement = inpItem.PlacementDate;
+            Type = inpItem.PlacementType;
+            Section = inpItem.Type;                                             //  BUYING ; 
+            Status = inpItem.State.Title + " [" + inpItem.State.Code + "]";
+
+            DemandCounts = inpItem.DemandsCount.ToString();
+            Deposit = inpItem.Deposit;
+            Participant = inpItem.Participant.ToString();
+            UUID = inpItem.Uuid;
+            WinnerPrice = inpItem.WinnerPrice;
+
+            if (inpItem.Customer.Length > 0)
+            {
+                List<string> tmpList = new List<string>();
+                foreach (Organizer item in inpItem.Customer)
+                    tmpList.Add(item.ToString());
+
+                Customer = SFileIO.ArrayToString(tmpList, " | ");
+            }
+
+            if (inpItem.Features.Length > 0)
+            {
+                Note = SFileIO.ArrayToString(inpItem.Features, " | ");
+            }
+
+            if (inpItem.Okdp2.Length > 0)
+            {
+                Okdp2 = SFileIO.ArrayToString(inpItem.Okdp2, " | ");
+            }
+
+            if (RegionCodes != null)
+                if (RegionCodes.Length > 0)
+                {
+                    RegionCodes = SFileIO.ArrayToString(inpItem.RegionCodes, " | ");
+                }
+
+            
+        }
+
+        public override bool Equals(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string ToString(bool html)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

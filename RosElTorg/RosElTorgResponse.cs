@@ -9,7 +9,7 @@ namespace RosElTorg
     [Serializable]
     public class RosElTorgResponse : ATorgResponse
     {
-        public override string SiteName => "РосЭлТорг";
+        //public override string SiteName => "РосЭлТорг";
         public override int MaxItemsOnPage => 5;
         //public string Type => "RosElTorg";
 
@@ -18,6 +18,7 @@ namespace RosElTorg
         public RosElTorgResponse(string searchStr) : base(searchStr)
         {
             this.MyRequest = new RosElTorgRequest(searchStr);
+            this.SiteName = this.MyRequest.SiteName;
             FillListResponse();
         }
         public RosElTorgResponse(IRequest myReq) : base(myReq)
@@ -91,13 +92,16 @@ namespace RosElTorg
 
         protected override void FillListResponse()
         {
+            /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
+            */
+            base.FillListResponse();
 
             List<Tag> SearchResult = new List<Tag>();
 
-            List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            List<Tag> HTMLDoc = HTMLParser.Parse(lastAnswer);
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)

@@ -200,5 +200,21 @@ namespace IAuction
             }
             return result;
         }
+
+        public static string ArrayToString(IEnumerable<string> inpArray, string separator = "")
+        {
+            string parSet = "";
+
+            foreach (string item in inpArray)
+                if (item.Length > 0)
+                    parSet += separator + item;
+
+            if (parSet.Length > separator.Length)
+                parSet = parSet.Remove(0, separator.Length);
+
+            //parSet = parSet.Replace(":", "").Replace("\\", "").Replace("/", "");
+
+            return parSet;
+        }
     }
 }

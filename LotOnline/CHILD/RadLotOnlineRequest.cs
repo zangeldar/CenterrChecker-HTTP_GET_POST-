@@ -8,6 +8,7 @@ namespace LotOnline
     public class RadLotOnlineRequest:LotOnlineRequest
     {
         public override string ServiceURL => "https://rad.lot-online.ru/";
+        public override string SiteName => "Лот-Онлайн РАД";
         public RadLotOnlineRequest() : base() { }
         public RadLotOnlineRequest(string searchStr) : base(searchStr) { }
     }

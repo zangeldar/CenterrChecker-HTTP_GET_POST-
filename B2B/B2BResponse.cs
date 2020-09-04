@@ -9,11 +9,12 @@ namespace B2B
     [Serializable]
     public class B2BResponse : ATorgResponse
     {
-        public override string SiteName => "B2B-центр";
+        //public override string SiteName => "B2B-центр";
         public override int MaxItemsOnPage => 20;
         public B2BResponse (string searchStr) : base(searchStr)
         {
             this.MyRequest = new B2BRequest(searchStr);
+            this.SiteName = this.MyRequest.SiteName;
             FillListResponse();
         }
         public B2BResponse(IRequest myReq) : base(myReq)
@@ -55,16 +56,18 @@ namespace B2B
         protected override void FillListResponse()
         {
             //throw new NotImplementedException();
+            /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
+            */
+            base.FillListResponse();
 
-            
             //
             // /*
             List<Tag> SearchResult = new List<Tag>();
 
-            List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            List<Tag> HTMLDoc = HTMLParser.Parse(lastAnswer);
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)
@@ -76,19 +79,19 @@ namespace B2B
 
             if (SearchResult.Count < 1)
             {
-                if (myWorkAnswer.Contains("search-results empty_results"))
+                if (lastAnswer.Contains("search-results empty_results"))
                 {
                     lastError = new Exception("Поиск не дал результатов");
                     this.ListResponse = workList;
                     return;
                 }
-                lastError = new Exception("Ответ сервера не содержит данных (ожидалась 1 таблица с тегом \"tbody\"):" + Environment.NewLine + myWorkAnswer);
+                lastError = new Exception("Ответ сервера не содержит данных (ожидалась 1 таблица с тегом \"tbody\"):" + Environment.NewLine + lastAnswer);
                 this.ListResponse = workList;
                 return;
             }
             else if (SearchResult.Count > 1)
             {
-                lastError = new Exception("Ответ сервера содержит неожиданную структуру (ожидалась 1 таблица с тегом \"tbody\"):" + Environment.NewLine + myWorkAnswer);
+                lastError = new Exception("Ответ сервера содержит неожиданную структуру (ожидалась 1 таблица с тегом \"tbody\"):" + Environment.NewLine + lastAnswer);
                 this.ListResponse = workList;
                 return;
             }

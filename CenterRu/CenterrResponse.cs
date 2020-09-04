@@ -9,12 +9,14 @@ namespace CenterRu
     [Serializable]
     public class CenterrResponse : ATorgResponse
     {
-        public override string SiteName => "Центр Реализации";
+        //public override string SiteName => "Центр Реализации";
         public override int MaxItemsOnPage => 20;
 
         public CenterrResponse(string searchStr) : base(searchStr)
         {
             base.MyRequest = new CenterrRequest(searchStr);
+            this.SiteName = this.MyRequest.SiteName;
+            FillListResponse();
         }
 
         public CenterrResponse(IRequest myReq) : base(myReq)
@@ -114,15 +116,17 @@ namespace CenterRu
 
         protected override void FillListResponse()
         {
-            
+            /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
+                */
 
+            base.FillListResponse();
             //            
             List<Tag> SearchResult = new List<Tag>();
 
-            List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            List<Tag> HTMLDoc = HTMLParser.Parse(lastAnswer);
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)

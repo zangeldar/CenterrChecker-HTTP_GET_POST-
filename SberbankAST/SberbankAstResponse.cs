@@ -11,11 +11,12 @@ namespace SberbankAST
     [Serializable]
     public class SberbankAstResponse : ATorgResponse
     {        
-        public override string SiteName => "Сбербанк-АСТ";
+        //public override string SiteName => "Сбербанк-АСТ";
         public override int MaxItemsOnPage => 20;
         public SberbankAstResponse(string searchStr) : base(searchStr)
         {
             this.MyRequest = new SberbankAstRequest(searchStr);
+            this.SiteName = this.MyRequest.SiteName;
             FillListResponse();
         }
         
@@ -114,18 +115,20 @@ namespace SberbankAST
         protected override void FillListResponse()
         {
             //throw new NotImplementedException();
+            base.FillListResponse();
 
             List<SberbankAst> curList = new List<SberbankAst>();
             JsonResponseData dataJson;
-
+            /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
+                */
 
             try
             {
                 // парсим первый уровень ответа (JSON)
-                JsonResponse myResp = JsonConvert.DeserializeObject<JsonResponse>(myWorkAnswer);
+                JsonResponse myResp = JsonConvert.DeserializeObject<JsonResponse>(lastAnswer);
 
                 // парсим второй уровень ответа (JSON)
                 JsonRoot myRoot = JsonConvert.DeserializeObject<JsonRoot>(myResp.data);

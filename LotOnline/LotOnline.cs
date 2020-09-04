@@ -13,7 +13,7 @@ namespace LotOnline
         public string Description { get; private set; }
         public string Organisator { get; private set; }
         public string DateStart { get; private set; }
-        public LotOnline(JsonRow inpRow, string baseUrl = "https://lot-online.ru/1")
+        public LotOnline(JsonRow inpRow, string baseUrl = "https://lot-online.ru/")
         {
             if (baseUrl != null)
                 if (baseUrl != "")

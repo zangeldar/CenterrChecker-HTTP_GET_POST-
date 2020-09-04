@@ -9,7 +9,7 @@ namespace TekTorg
     [Serializable]
     public class TekTorgResponse : ATorgResponse
     {
-        public override string SiteName => "ТЭК-Торг";
+        //public override string SiteName => "ТЭК-Торг";
         public override int MaxItemsOnPage => 25;        
 
         public override IResponse MakeFreshResponse => new TekTorgResponse(this.MyRequest);
@@ -17,6 +17,7 @@ namespace TekTorg
         public TekTorgResponse (string searchStr) : base(searchStr)
         {
             this.MyRequest = new TekTorgRequest(searchStr);
+            this.SiteName = this.MyRequest.SiteName;
             FillListResponse();
         }
 
@@ -106,13 +107,17 @@ namespace TekTorg
 
         protected override void FillListResponse()
         {
+            /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
+                */
+            base.FillListResponse();
+
 
             List<Tag> SearchResult = new List<Tag>();
 
-            List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            List<Tag> HTMLDoc = HTMLParser.Parse(lastAnswer);
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)

@@ -12,6 +12,7 @@ namespace RTSTender
         public RTSTenderResponse(string searchStr) : base(searchStr)
         {
             this.MyRequest = new RTSTenderRequest(searchStr);
+            this.SiteName = this.MyRequest.SiteName;
             FillListResponse();
         }
         public RTSTenderResponse(IRequest myReq) : base(myReq)
@@ -27,7 +28,7 @@ namespace RTSTender
         }
         public RTSTenderResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 
-        public override string SiteName => "РТС-тендер";
+        //public override string SiteName => "РТС-тендер";
         public override int MaxItemsOnPage => 10;
 
         public override IResponse MakeFreshResponse => new RTSTenderResponse(this.MyRequest);

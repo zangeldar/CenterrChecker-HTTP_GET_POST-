@@ -9,11 +9,12 @@ namespace ETP_GPB
     [Serializable]
     public class GPBResponse : ATorgResponse
     {
-        public override string SiteName => "ЭТП ГПБ";
+        //public override string SiteName => "ЭТП ГПБ";
         public override int MaxItemsOnPage => 30;
         public GPBResponse(string searchStr) : base(searchStr)
         {
             this.MyRequest = new GPBRequest(searchStr);
+            this.SiteName = this.MyRequest.SiteName;
             FillListResponse();
         }
         public GPBResponse(IRequest myReq) : base(myReq)
@@ -127,14 +128,18 @@ namespace ETP_GPB
         protected override void FillListResponse()
         {
             //throw new NotImplementedException();
+            /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
+                */
+
+            base.FillListResponse();
 
             List<Tag> SearchResult = new List<Tag>();
             List<GPB> workList = new List<GPB>();
             
-            List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            List<Tag> HTMLDoc = HTMLParser.Parse(lastAnswer);
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)
@@ -144,13 +149,13 @@ namespace ETP_GPB
             
             if (SearchResult.Count < 1)
             {
-                if (myWorkAnswer.Contains("emptyResultsBlock"))
+                if (lastAnswer.Contains("emptyResultsBlock"))
                 {
                     lastError = new Exception("Поиск не дал результатов");
                     this.ListResponse = workList;
                     return;
                 }
-                lastError = new Exception("Ответ сервера не содержит данных (ожидались результаты с тегом \"div\" и классом \"procedure__data\"):" + Environment.NewLine + myWorkAnswer);
+                lastError = new Exception("Ответ сервера не содержит данных (ожидались результаты с тегом \"div\" и классом \"procedure__data\"):" + Environment.NewLine + lastAnswer);
                 this.ListResponse = workList;
                 return;
             }           

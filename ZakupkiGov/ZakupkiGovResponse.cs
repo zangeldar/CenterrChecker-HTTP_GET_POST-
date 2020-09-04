@@ -9,13 +9,14 @@ namespace ZakupkiGov
     [Serializable]
     public class ZakupkiGovResponse : ATorgResponse
     {
-        public override string SiteName => "ГосЗакупки";
+        //public override string SiteName => "ГосЗакупки";
         public override int MaxItemsOnPage => 10;
         public override IResponse MakeFreshResponse => new ZakupkiGovResponse(this.MyRequest);
 
         public ZakupkiGovResponse(string searchStr) : base(searchStr)
         {
             this.MyRequest = new ZakupkiGovRequest(searchStr);
+            this.SiteName = this.MyRequest.SiteName;
             FillListResponse();
         }
 
@@ -104,14 +105,17 @@ namespace ZakupkiGov
 
         protected override void FillListResponse()
         {
+            /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
+                */
+            base.FillListResponse();
 
             //            
             List<Tag> SearchResult = new List<Tag>();
 
-            List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            List<Tag> HTMLDoc = HTMLParser.Parse(lastAnswer);
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)                    

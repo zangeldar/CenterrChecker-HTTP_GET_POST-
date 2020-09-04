@@ -18,6 +18,7 @@ using ZakupkiGov;
 using LotOnline;
 using LotOnline.Sales;
 using LotOnline.Gz;
+using LotOnline.Tender;
 
 namespace TEST
 {
@@ -101,9 +102,14 @@ namespace TEST
             DoTest(testReq, ref testResp);
             */
 
+            /*
             testReq = new LotOnlineGzRequest("техническ* жидкост");
             DoTest(testReq, ref testResp);
-            
+            */
+
+            testReq = new LotOnlineTenderRequest("техническ");
+            DoTest(testReq, ref testResp);
+
 
             Console.WriteLine("Well done.");
             Console.ReadKey();

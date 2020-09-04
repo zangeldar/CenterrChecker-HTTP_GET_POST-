@@ -1,0 +1,19 @@
+﻿https://tender.lot-online.ru/app/SearchLots/page#
+{
+	"query":
+	{
+		"title":"%D0%B6%D0%B8%D0%B4%D0%BA%D0%BE%D1%81%D1%82"
+	}, 
+	"filter":
+	{
+		"state":
+		[
+			"ALL"
+		]
+	}, 
+	"sort":
+	{
+		"placementDate":false
+	}
+}
+жидкост

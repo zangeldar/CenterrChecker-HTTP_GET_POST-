@@ -10,11 +10,13 @@ namespace LotOnline
     public class LotOnlineResponse : ATorgResponse
     {
         public string baseUrl { get; private set; }        
-        public LotOnlineResponse(string searchStr, string baseUrl= "https://lot-online.ru/5") : base(searchStr)
+        public LotOnlineResponse(string searchStr, string baseUrl= "https://lot-online.ru/") : base(searchStr)
         {
             if (baseUrl != null)
                 if (baseUrl != "")
                     this.baseUrl = baseUrl;
+            this.MyRequest = new LotOnlineRequest(searchStr);
+            this.SiteName = this.MyRequest.SiteName;
         }
         public LotOnlineResponse(IRequest myReq) : base(myReq)
         {
@@ -25,7 +27,7 @@ namespace LotOnline
             this.baseUrl = myReq.ServiceURL;
         }
         /*
-        public static LotOnlineResponse FactoryMethod(string searchStr, string baseUrl = "https://lot-online.ru/5")
+        public static LotOnlineResponse FactoryMethod(string searchStr, string baseUrl = "https://lot-online.ru/")
         {
             if (baseUrl != null)
                 if (baseUrl != "")
@@ -33,7 +35,7 @@ namespace LotOnline
             return new LotOnlineResponse(searchStr);
         }
 
-        public static LotOnlineResponse FactoryMethod(IRequest myReq, string baseUrl = "https://lot-online.ru/4")
+        public static LotOnlineResponse FactoryMethod(IRequest myReq, string baseUrl = "https://lot-online.ru/")
         {
             if (baseUrl != null)
                 if (baseUrl != "")
@@ -41,7 +43,7 @@ namespace LotOnline
             return new LotOnlineResponse(myReq);
         }
 
-        public static LotOnlineResponse FactoryMethod(ATorgRequest myReq, List<IObject> listResp, string baseUrl = "https://lot-online.ru/3")
+        public static LotOnlineResponse FactoryMethod(ATorgRequest myReq, List<IObject> listResp, string baseUrl = "https://lot-online.ru/")
         {
             if (baseUrl != null)
                 if (baseUrl != "")
@@ -50,9 +52,9 @@ namespace LotOnline
         }
         */
 
-        public override string SiteName => "Лот-Онлайн";
+        //public override string SiteName => "Лот-Онлайн";        
 
-        public override IResponse MakeFreshResponse => throw new NotImplementedException();
+        public override IResponse MakeFreshResponse => new LotOnlineResponse(this.MyRequest);
 
         public override int MaxItemsOnPage => 5;
 
@@ -63,12 +65,16 @@ namespace LotOnline
 
         protected override void FillListResponse()
         {
+            /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
+                */
+
+            base.FillListResponse();
 
             List<LotOnline> workList = new List<LotOnline>();
-            JsonResults myResp = JsonConvert.DeserializeObject<JsonResults>(myWorkAnswer);
+            JsonResults myResp = JsonConvert.DeserializeObject<JsonResults>(lastAnswer);
 
             foreach (JsonRow item in myResp.Rows)
                 workList.Add(new LotOnline(item, MyRequest.ServiceURL));

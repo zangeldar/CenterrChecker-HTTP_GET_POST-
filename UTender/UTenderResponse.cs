@@ -13,6 +13,7 @@ namespace UTender
 
         public UTenderResponse(string searchStr) : base(searchStr)
         {
+            //this.SiteName = this.MyRequest.SiteName;
         }
 
         public UTenderResponse(IRequest myReq) : base(myReq)
