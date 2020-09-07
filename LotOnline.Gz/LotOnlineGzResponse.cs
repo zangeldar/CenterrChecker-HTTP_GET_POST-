@@ -30,9 +30,10 @@ namespace LotOnline.Gz
             throw new NotImplementedException();
         }
 
-        protected override void FillListResponse()
+        protected override bool FillListResponse()
         {
-            base.FillListResponse();
+            if (!base.FillListResponse())
+                return false;
             //throw new NotImplementedException();
 
             List<LotOnlineGz> curlist = new List<LotOnlineGz>();
@@ -45,7 +46,7 @@ namespace LotOnline.Gz
             catch (Exception e)
             {
                 lastError = e;
-                return;
+                return false;
                 //throw;
             }
             if(myResp != null)
@@ -59,6 +60,8 @@ namespace LotOnline.Gz
                                             curlist.Add(new LotOnlineGz(item.Procedure, MyRequest.ServiceURL));
 
             ListResponse = curlist;
+
+            return true;
         }
     }
 }

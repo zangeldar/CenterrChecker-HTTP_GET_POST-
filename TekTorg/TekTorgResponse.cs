@@ -105,14 +105,15 @@ namespace TekTorg
             return result;
         }
 
-        protected override void FillListResponse()
+        protected override bool FillListResponse()
         {
             /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
                 */
-            base.FillListResponse();
+            if (!base.FillListResponse())
+                return false;
 
 
             List<Tag> SearchResult = new List<Tag>();
@@ -132,9 +133,9 @@ namespace TekTorg
 
             this.ListResponse = workList;
 
-            return;
+            return true;
 
-            throw new NotImplementedException();
+            
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 namespace LotOnline
 {
     [Serializable]
-    public class LotOnlineRequest : ATorgRequest
+    public abstract class LotOnlineRequest : ATorgRequest
     {
         public LotOnlineRequest() : base() { }
         public LotOnlineRequest(string searchStr) : base(searchStr) { }

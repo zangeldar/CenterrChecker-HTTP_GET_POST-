@@ -1,5 +1,6 @@
 ﻿using IAuction;
 using System;
+using System.Collections.Generic;
 
 namespace LotOnline.Gz
 {
@@ -69,6 +70,17 @@ namespace LotOnline.Gz
         public override string ToString(bool html)
         {
             throw new NotImplementedException();
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 198564345;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Organisator);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Status);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Type);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Note);
+            return hashCode;
         }
     }
 }

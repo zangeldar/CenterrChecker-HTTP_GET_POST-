@@ -102,7 +102,7 @@ namespace TorgiASV
             return result;
         }
 
-        protected override void FillListResponse()
+        protected override bool FillListResponse()
         {
             /*
             string myWorkAnswer = MyRequest.GetResponse;
@@ -110,7 +110,8 @@ namespace TorgiASV
                 return;
                 */
 
-            base.FillListResponse();
+            if (!base.FillListResponse())
+                return false;
 
             //            
             List<Tag> SearchResult = new List<Tag>();
@@ -131,7 +132,7 @@ namespace TorgiASV
 
             this.ListResponse = workList;
 
-            return;
+            return true;
             /*
             //  По старому парсеру, на основе RegEx
             List<TorgASV> curList = new List<TorgASV>();

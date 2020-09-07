@@ -53,7 +53,7 @@ namespace B2B
             return SFileIO.SaveMyResponse(this, fileName, overwrite);
         }
         
-        protected override void FillListResponse()
+        protected override bool FillListResponse()
         {
             //throw new NotImplementedException();
             /*
@@ -61,7 +61,8 @@ namespace B2B
             if (myWorkAnswer == null)
                 return;
             */
-            base.FillListResponse();
+            if (!base.FillListResponse())
+                return false;
 
             //
             // /*
@@ -83,17 +84,17 @@ namespace B2B
                 {
                     lastError = new Exception("Поиск не дал результатов");
                     this.ListResponse = workList;
-                    return;
+                    return false;
                 }
                 lastError = new Exception("Ответ сервера не содержит данных (ожидалась 1 таблица с тегом \"tbody\"):" + Environment.NewLine + lastAnswer);
                 this.ListResponse = workList;
-                return;
+                return false;
             }
             else if (SearchResult.Count > 1)
             {
                 lastError = new Exception("Ответ сервера содержит неожиданную структуру (ожидалась 1 таблица с тегом \"tbody\"):" + Environment.NewLine + lastAnswer);
                 this.ListResponse = workList;
-                return;
+                return false;
             }
 
             foreach (Tag item in SearchResult[0].ChildTags)
@@ -102,7 +103,7 @@ namespace B2B
             }
 
             this.ListResponse = workList;
-            return;
+            return true;
             // */
             //            
 

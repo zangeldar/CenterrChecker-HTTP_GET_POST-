@@ -128,7 +128,7 @@ namespace ASVorgRU
         }
         */
 
-        protected override void FillListResponse()
+        protected override bool FillListResponse()
         {
             /*
             string myWorkAnswer = MyRequest.GetResponse;
@@ -136,7 +136,8 @@ namespace ASVorgRU
                 return;
             */
 
-            base.FillListResponse();
+            if (!base.FillListResponse())
+                return false;
 
             //
             List<Tag> SearchResultTmp = new List<Tag>();
@@ -160,11 +161,11 @@ namespace ASVorgRU
                 {
                     lastError = new Exception("Поиск не дал результатов");
                     this.ListResponse = workList;
-                    return;
+                    return false;
                 }
                 lastError = new Exception("Ответ сервера не содержит данных (ожидались результаты с тегом \"div\" и классом \"procedure__data\"):" + Environment.NewLine + lastAnswer);
                 this.ListResponse = workList;
-                return;
+                return false;
             }
 
             foreach (Tag item in SearchResult)
@@ -173,7 +174,7 @@ namespace ASVorgRU
             }
 
             this.ListResponse = workList;
-            return;
+            return true;
 
             //            
             /*

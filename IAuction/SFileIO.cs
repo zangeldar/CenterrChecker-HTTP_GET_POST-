@@ -28,8 +28,7 @@ namespace IAuction
                         Console.WriteLine("Will be overwritten " + fileName);
                         //throw;
                     }                    
-            }
-                
+            }                
             
             try
             {

@@ -103,14 +103,15 @@ namespace ZakupkiGov
             return result;
         }
 
-        protected override void FillListResponse()
+        protected override bool FillListResponse()
         {
             /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
                 */
-            base.FillListResponse();
+            if (!base.FillListResponse())
+                return false;
 
             //            
             List<Tag> SearchResult = new List<Tag>();
@@ -130,7 +131,7 @@ namespace ZakupkiGov
 
             this.ListResponse = workList;
 
-            return;
+            return true;
         }
     }
 }

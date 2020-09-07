@@ -45,7 +45,7 @@ namespace CenterRu
             }
             catch (Exception e)
             {
-
+                LastError = e;
                 //throw;
             }
         }

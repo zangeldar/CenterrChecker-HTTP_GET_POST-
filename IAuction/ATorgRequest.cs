@@ -205,7 +205,7 @@ namespace IAuction
             }
             catch (Exception e)
             {
-                result = false;
+                result = false;                
                 //throw;
             }
 
@@ -232,8 +232,7 @@ namespace IAuction
             }
             catch (Exception e)
             {
-                return null;
-                //throw;
+                return null;                
             }
             return curObj;
         }

@@ -57,11 +57,52 @@ namespace IAuction
         ///
         */
         /// <summary>
+        /// Массив строк заголовка таблицы вывода результатов. Используется в функции CreateTableForMailing(bool)
+        /// </summary>
+        public string[] tableHead { get; private set; }
+        /// <summary>
         /// Возвращающает данные для отправки на электронную почту пользователю
         /// </summary>
         /// <param name="html">Задает формат вывода HTML(истина), или CSV(ложь\не указано)</param>
         /// <returns>Результат запроса в виде таблицы</returns>
-        protected abstract string CreateTableForMailing(bool html = true);
+        protected virtual string CreateTableForMailing(bool html = true)
+        {
+            string result;
+            string rowStart;
+            string rowEnd;
+            string rowSeparatorSt;
+            string rowSeparatorEn;
+            if (html)
+            {
+                rowStart = @"<tr>";
+                rowEnd = @"</tr>";
+                rowSeparatorSt = @"<th>";
+                rowSeparatorEn = @"</th>";
+                result = @"<table border=""1"">";
+            }
+            else
+            {
+                rowStart = @"";
+                rowEnd = "\n";
+                rowSeparatorSt = @"";
+                rowSeparatorEn = @";";
+                result = "";
+            }
+
+            result += rowStart;
+            foreach (string item in tableHead)
+                result += rowSeparatorSt + item + rowSeparatorEn;
+
+            result += rowSeparatorEn;
+
+            foreach (ATorg item in NewRecords)
+                result += item.ToString(html);
+
+            if (html)
+                result += @"</table>";
+
+            return result;
+        }
         /// <summary>
         /// Подготавливает тело письма для отправки на электронную почту
         /// </summary>
@@ -142,11 +183,16 @@ namespace IAuction
         /// <summary>
         /// Заполняет объекты торга по результатам запроса
         /// </summary>
-        protected virtual void FillListResponse()
+        protected virtual bool FillListResponse()
         {
             lastAnswer = MyRequest.GetResponse;
             if (lastAnswer == null)
-                return;
+            {
+                if (lastError == null)
+                    lastError = MyRequest.LastError();
+                return false;
+            }                
+            return true;
         }
         
         /// <summary>

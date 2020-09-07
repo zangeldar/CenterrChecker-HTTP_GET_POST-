@@ -24,7 +24,7 @@ namespace ZakupkiGov
         public string DateUpdate { get; private set; }
         public string DateFinishAccept { get; private set; }
         ////
-        public Exception LastError { get; private set; }
+        //public Exception LastError { get; private set; }
 
         public ZakupkiGov(Tag inpTag)
         {
@@ -117,7 +117,7 @@ namespace ZakupkiGov
             workList = inpTag.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "registry-entry__body-href"));
             foreach (Tag item in workList)
             {
-                bool needBreak = false;
+                //bool needBreak = false;
                 foreach (Tag itemCh in item.ChildTags)
                 {
                     if (itemCh.Name == "a")
@@ -129,20 +129,21 @@ namespace ZakupkiGov
                         }
                             
 
-                        foreach (Tag itemChCh in itemCh.ChildTags)
+                        foreach (Tag itemChCh in itemCh.LookForChildTag(null))
                             if (itemChCh.IsProto & !itemChCh.IsComment)
                             {
-                                OrganizerStr = itemChCh.Value;
-                                needBreak = true;
-                                break;
+                                OrganizerStr += itemChCh.Value+" ";
+                                //needBreak = true;
+                                //break;
                             }
-                        if (needBreak)
-                            break;
+                        //if (needBreak)
+                          //  break;
                     }
                 }
-                if (needBreak)
-                    break;
+                //if (needBreak)
+                  //  break;
             }
+            OrganizerStr = OrganizerStr.Replace("  ", " ");
 
             // Price
             workList = inpTag.LookForChildTag("div", true, new KeyValuePair<string, string>("class", "price-block__value"));

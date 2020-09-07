@@ -29,15 +29,16 @@ namespace LotOnline.Sales
             throw new NotImplementedException();
         }
 
-        protected override void FillListResponse()
+        protected override bool FillListResponse()
         {
             /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
                 return;
             */
-            base.FillListResponse();
-              
+            if (!base.FillListResponse())
+                return false;
+
             List<Tag> SearchResult = new List<Tag>();
 
             List<Tag> HTMLDoc = HTMLParser.Parse(lastAnswer);
@@ -54,6 +55,7 @@ namespace LotOnline.Sales
                 workList.Add(new LotOnlineSales(item, MyRequest.ServiceURL));
 
             this.ListResponse = workList;
+            return true;
         }
     }
 }

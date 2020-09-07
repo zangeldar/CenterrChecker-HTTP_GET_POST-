@@ -114,7 +114,7 @@ namespace CenterRu
             return result;
         }
 
-        protected override void FillListResponse()
+        protected override bool FillListResponse()
         {
             /*
             string myWorkAnswer = MyRequest.GetResponse;
@@ -122,7 +122,8 @@ namespace CenterRu
                 return;
                 */
 
-            base.FillListResponse();
+            if (!base.FillListResponse())
+                return false;
             //            
             List<Tag> SearchResult = new List<Tag>();
 
@@ -139,7 +140,7 @@ namespace CenterRu
             {
                 Exception e = new Exception("Nothing found!");
                 this.ListResponse = workList;
-                return;
+                return false;
             }
 
             foreach (Tag item in SearchResult)
@@ -149,7 +150,7 @@ namespace CenterRu
 
             this.ListResponse = workList;
             freshResponse = true;
-            return;
+            return true;
 
             //return;
             //

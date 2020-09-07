@@ -29,9 +29,10 @@ namespace LotOnline.Tender
             throw new NotImplementedException();
         }
 
-        protected override void FillListResponse()
+        protected override bool FillListResponse()
         {
-            base.FillListResponse();
+            if (!base.FillListResponse())
+                return false;
 
             List<LotOnlineTender> curlist = new List<LotOnlineTender>();
             JsonResponse myResp;
@@ -43,7 +44,7 @@ namespace LotOnline.Tender
             catch (Exception e)
             {
                 lastError = e;
-                return;
+                return false;
                 //throw;
             }
             
@@ -53,6 +54,8 @@ namespace LotOnline.Tender
                         curlist.Add(new LotOnlineTender(item, MyRequest.ServiceURL));                        
 
             ListResponse = curlist;
+
+            return true;
         }
     }
 }

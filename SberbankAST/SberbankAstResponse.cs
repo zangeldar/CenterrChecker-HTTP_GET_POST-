@@ -112,10 +112,11 @@ namespace SberbankAST
             return result;
         }
 
-        protected override void FillListResponse()
+        protected override bool FillListResponse()
         {
             //throw new NotImplementedException();
-            base.FillListResponse();
+            if (!base.FillListResponse())
+                return false;
 
             List<SberbankAst> curList = new List<SberbankAst>();
             JsonResponseData dataJson;
@@ -146,7 +147,7 @@ namespace SberbankAST
             catch (Exception e)
             {
                 lastError = e;
-                return;
+                return false;
                 //throw;
             }            
 
@@ -154,6 +155,7 @@ namespace SberbankAST
                 curList.Add(new SberbankAst(hit));
 
             ListResponse = curList;
+            return true;
         }
     }
 }

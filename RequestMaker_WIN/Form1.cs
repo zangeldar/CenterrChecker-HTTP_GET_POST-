@@ -45,7 +45,7 @@ namespace RequestMaker_WIN
         const string TorgiASV       =   "Торги АСВ";                        //  8
         const string UTender        =   "Ю-Тендер";                         //  9
         const string ZakupkiGov     =   "ГосЗакупки";                       //  10
-        const string LotOnline      =   "Лот-Онлайн";                       //  11
+        //const string LotOnline      =   "Лот-Онлайн";                       //  11
         const string LotOnlineArrested      = "Лот-Онлайн Арест";                       //  12
         const string LotOnlineConfiscate    = "Лот-Онлайн Конфискат";                   //  13
         const string LotOnlineFish          = "Лот-Онлайн Рыба";                        //  14
@@ -72,7 +72,7 @@ namespace RequestMaker_WIN
             cBoxType.Items.Add(TorgiASV);                                                   //  08
             cBoxType.Items.Add(UTender);                                                    //  09
             cBoxType.Items.Add(ZakupkiGov);                                                 //  10
-            cBoxType.Items.Add(LotOnline);                                                  //  11
+            //cBoxType.Items.Add(LotOnline);                                                  //  11    // сам LotOnline не отдает результаты, он запрашивает их у сторонныих площадок. Может, имеет смысл сделать в этом запросе запросы по всем дочкам, разбирать ответы и давать объекты кастованные родительским классом  LotOnline
             cBoxType.Items.Add(LotOnlineArrested);                                          //  12
             cBoxType.Items.Add(LotOnlineConfiscate);                                        //  13
             cBoxType.Items.Add(LotOnlineFish);                                              //  14
@@ -271,6 +271,7 @@ namespace RequestMaker_WIN
                     }
                     break;
                 //  11
+                /*
                 case LotOnline:
                     curRequest = new LotOnlineRequest(searchBox.Text);
                     error = false;
@@ -284,6 +285,7 @@ namespace RequestMaker_WIN
                         AddLog("УСПЕШНО!");
                     }
                     break;
+                    */
                 //  12
                 case LotOnlineArrested:
                     curRequest = new ArrestedLotOnlineRequest(searchBox.Text);
@@ -442,11 +444,21 @@ namespace RequestMaker_WIN
                     error = true;
                     AddLog("ОШИБКА: Неизвестная площадка!");
                     return;
-                    break;
+                    //break;
             }
             
             if (needResponse)
             {
+                if (curResponse == null)
+                {
+                    AddLog("Ответ Не получен!");
+                    return;
+                } else if (curResponse.ListResponse == null)
+                {
+                    AddLog("Ответ не корректен. Ошибка: " + curResponse.LastError().Message);
+                    return;
+                }
+
                 AddLog("Получено результатов: " + curResponse.ListResponse.Count());                
                 int c = 0;
                 AddLog("----------");

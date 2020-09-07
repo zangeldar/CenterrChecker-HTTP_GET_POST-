@@ -89,15 +89,14 @@ namespace RTSTender
             return result;
         }
 
-        protected override void FillListResponse()
+        protected override bool FillListResponse()
         {
-            string myWorkAnswer = MyRequest.GetResponse;
-            if (myWorkAnswer == null)
-                return;
+            if (!base.FillListResponse())
+                return false;
 
             List<Tag> SearchResult = new List<Tag>();
 
-            List<Tag> HTMLDoc = HTMLParser.Parse(myWorkAnswer);
+            List<Tag> HTMLDoc = HTMLParser.Parse(lastAnswer);
             foreach (Tag item in HTMLDoc)
             {
                 if (!item.IsProto)
@@ -118,9 +117,8 @@ namespace RTSTender
 
             this.ListResponse = workList;
 
-            return;
-
-            throw new NotImplementedException();
+            return true;
+                        
             //throw new NotImplementedException();
         }
     }

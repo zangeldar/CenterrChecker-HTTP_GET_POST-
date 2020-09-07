@@ -1,6 +1,7 @@
 ﻿using HtmlParser;
 using IAuction;
 using System;
+using System.Collections.Generic;
 
 namespace LotOnline.Sales
 {
@@ -65,6 +66,14 @@ namespace LotOnline.Sales
         public override string ToString(bool html)
         {
             throw new NotImplementedException();
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 71509727;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(baseUrl);
+            return hashCode;
         }
     }
 }

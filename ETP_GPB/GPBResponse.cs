@@ -125,7 +125,7 @@ namespace ETP_GPB
             return result;
         }
 
-        protected override void FillListResponse()
+        protected override bool FillListResponse()
         {
             //throw new NotImplementedException();
             /*
@@ -134,7 +134,8 @@ namespace ETP_GPB
                 return;
                 */
 
-            base.FillListResponse();
+            if (!base.FillListResponse())
+                return false;
 
             List<Tag> SearchResult = new List<Tag>();
             List<GPB> workList = new List<GPB>();
@@ -153,20 +154,18 @@ namespace ETP_GPB
                 {
                     lastError = new Exception("Поиск не дал результатов");
                     this.ListResponse = workList;
-                    return;
+                    return false;
                 }
                 lastError = new Exception("Ответ сервера не содержит данных (ожидались результаты с тегом \"div\" и классом \"procedure__data\"):" + Environment.NewLine + lastAnswer);
                 this.ListResponse = workList;
-                return;
+                return false;
             }           
 
             foreach (Tag item in SearchResult)
-            {
                 workList.Add(new GPB(item));
-            }
 
             this.ListResponse = workList;
-            return;
+            return true;
         }
     }
 }

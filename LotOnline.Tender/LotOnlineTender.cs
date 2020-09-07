@@ -97,5 +97,32 @@ namespace LotOnline.Tender
         {
             throw new NotImplementedException();
         }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1478811981;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(TorgNumberStr);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(TorgNumberUrl);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Organizer);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DateStart);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DateFinish);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DateSummation);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DateDemand);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DatePlacement);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Section);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Type);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Status);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DemandCounts);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Deposit);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Participant);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(UUID);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(WinnerPrice);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Customer);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Note);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Okdp2);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(RegionCodes);
+            return hashCode;
+        }
     }
 }
