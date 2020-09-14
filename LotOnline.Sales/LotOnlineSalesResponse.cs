@@ -20,14 +20,17 @@ namespace LotOnline.Sales
 
         //public override string SiteName => "Банкротство Лот-Онлайн";        
 
-        public override IResponse MakeFreshResponse => throw new NotImplementedException();
+        public override IResponse MakeFreshResponse => new LotOnlineSalesResponse(MyRequest);
 
         public override int MaxItemsOnPage => 9;
 
+        /*
         protected override string CreateTableForMailing(bool html = true)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return base.CreateTableForMailing(html);
         }
+        */
 
         protected override bool FillListResponse()
         {
@@ -52,9 +55,17 @@ namespace LotOnline.Sales
             List<LotOnlineSales> workList = new List<LotOnlineSales>();
 
             foreach (Tag item in SearchResult)
-                workList.Add(new LotOnlineSales(item, MyRequest.ServiceURL));
+                workList.Add(new LotOnlineSales(item, MyRequest));
 
             this.ListResponse = workList;
+
+            tableHead = new string[]
+            {
+                "№",
+                "Наименование",
+                "Цена"
+            };
+
             return true;
         }
     }

@@ -147,6 +147,41 @@ namespace ConsoleApp_WIN
                             case "RTSTenderRequest":
                                 curReq = ATorgRequest.LoadMyRequestObjectXML(new RTSTender.RTSTenderRequest(), item);
                                 break;
+
+                            case "ArrestedLotOnlineRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new LotOnline.ArrestedLotOnlineRequest(), item);
+                                break;
+                            case "ConfiscateLotOnlineRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new LotOnline.ConfiscateLotOnlineRequest(), item);
+                                break;
+                            case "FishLotOnlineRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new LotOnline.FishLotOnlineRequest(), item);
+                                break;
+                            case "LeaseLotOnlineRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new LotOnline.LeaseLotOnlineRequest(), item);
+                                break;
+                            case "PrivatizationLotOnlineRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new LotOnline.PrivatizationLotOnlineRequest(), item);
+                                break;
+                            case "RadLotOnlineRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new LotOnline.RadLotOnlineRequest(), item);
+                                break;
+                            case "TradeLotOnlineRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new LotOnline.TradeLotOnlineRequest(), item);
+                                break;
+                            case "ZalogLotOnlineRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new LotOnline.ZalogLotOnlineRequest(), item);
+                                break;
+                            case "LotOnlineGzRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new LotOnline.Gz.LotOnlineGzRequest(), item);
+                                break;
+                            case "LotOnlineSalesRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new LotOnline.Sales.LotOnlineSalesRequest(), item);
+                                break;
+                            case "LotOnlineTenderRequest":
+                                curReq = ATorgRequest.LoadMyRequestObjectXML(new LotOnline.Tender.LotOnlineTenderRequest(), item);
+                                break;
+
                             default:
                                 Console.WriteLine("Unknown request type: " + checkType + " of file: " + item + ". Check necessary DLLs!");
                                 break;

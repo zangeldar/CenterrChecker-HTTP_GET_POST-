@@ -59,7 +59,7 @@ namespace IAuction
         /// <summary>
         /// Массив строк заголовка таблицы вывода результатов. Используется в функции CreateTableForMailing(bool)
         /// </summary>
-        public string[] tableHead { get; private set; }
+        public string[] tableHead { get; protected set; }
         /// <summary>
         /// Возвращающает данные для отправки на электронную почту пользователю
         /// </summary>

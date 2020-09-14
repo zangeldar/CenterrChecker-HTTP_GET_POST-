@@ -8,7 +8,7 @@ namespace ZakupkiGov
     [Serializable]
     public class ZakupkiGov : ATorg
     {
-        private string baseUrl = "https://www.zakupki.gov.ru/";
+        //private string baseUrl = "https://www.zakupki.gov.ru/";
         public override string internalID { get; protected set; }
         public override string LotNameStr { get; protected set; }
         public override string LotNameUrl { get; protected set; }
@@ -26,7 +26,7 @@ namespace ZakupkiGov
         ////
         //public Exception LastError { get; private set; }
 
-        public ZakupkiGov(Tag inpTag)
+        public ZakupkiGov(Tag inpTag, IRequest myReq):base(myReq)
         {
             // registry-entry__header-top__title text-truncate
             List<Tag> workList;

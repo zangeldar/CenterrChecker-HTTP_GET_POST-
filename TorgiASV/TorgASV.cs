@@ -8,7 +8,7 @@ namespace TorgiASV
     [Serializable]
     public class TorgASV : ATorg
     {
-        private string baseUrl = "https://www.torgiasv.ru/";
+        //private string baseUrl = "https://www.torgiasv.ru/";
         //public Exception LastError { get; private set; }
         /*
         public TorgASV(List<_Tag> itemsList)
@@ -38,7 +38,7 @@ namespace TorgiASV
             LotNumberStr = itemsList[9].Value;
         }
     */
-        public TorgASV(Tag inpTag)
+        public TorgASV(Tag inpTag, IRequest myReq):base(myReq)
         {            
             List<Tag> Parents = inpTag.LookForParentTag("div", true, new KeyValuePair<string, string>("class", "lot-catalog__group"));
             Tag lowerParent = null;

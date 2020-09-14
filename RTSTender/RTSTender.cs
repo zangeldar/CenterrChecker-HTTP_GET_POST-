@@ -8,11 +8,11 @@ namespace RTSTender
     [Serializable]
     public class RTSTender : ATorg
     {
-        const string baseUrl = "https://www.rts-tender.ru/"; 
+        //const string baseUrl = "https://www.rts-tender.ru/"; 
         private void MyInitialize()
         {
         }
-        public RTSTender(Tag inpTag)
+        public RTSTender(Tag inpTag, IRequest myReq):base(myReq)
         {
             MyInitialize();
             string tmpStr = "";

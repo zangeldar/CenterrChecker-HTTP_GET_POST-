@@ -8,7 +8,7 @@ namespace ETP_GPB
     [Serializable]
     public class GPB : ATorg
     {
-        private string baseUrl = "https://etpgpb.ru/procedure/";
+        //private string baseUrl = "https://etpgpb.ru/procedure/";
         public override string internalID { get; protected set; }
         public override string LotNameStr { get; protected set; }
         public override string LotNameUrl { get; protected set; }
@@ -23,7 +23,7 @@ namespace ETP_GPB
         public string DateAcceptFinish { get; private set; }
         public string Region { get; private set; }
         
-        public GPB (Tag inpTag)
+        public GPB (Tag inpTag, IRequest myReq):base(myReq)
         {
             FillByTag(inpTag);
         }

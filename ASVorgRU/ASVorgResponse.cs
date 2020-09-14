@@ -170,7 +170,7 @@ namespace ASVorgRU
 
             foreach (Tag item in SearchResult)
             {
-                workList.Add(new ASVorg(item));
+                workList.Add(new ASVorg(item, MyRequest));
             }
 
             this.ListResponse = workList;

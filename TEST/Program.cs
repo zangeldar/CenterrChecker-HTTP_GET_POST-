@@ -351,7 +351,7 @@ namespace TEST
             List<GPB> GPBList = new List<GPB>();
             foreach (Tag item in SearchResult)
             {
-                GPBList.Add(new GPB(item));
+                GPBList.Add(new GPB(item, new GPBRequest()));
             }
 
 

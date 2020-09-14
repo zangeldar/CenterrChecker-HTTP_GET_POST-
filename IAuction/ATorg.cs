@@ -79,10 +79,41 @@ namespace IAuction
         /////////////////
         ///Часть абстрактного класса
         ///
-        abstract public override bool Equals(object obj);
+        public override bool Equals(object obj)
+        {
+            if (!(obj is ATorg))
+                return false;
+            ATorg curObj = (ATorg)obj;
+
+            for (int i = 0; i < TableRowMeans.Length; i++)
+                if (TableRowMeans[i] != curObj.TableRowMeans[i])
+                    return false;
+            for (int i = 0; i < TableRowUrls.Length; i++)
+                if (TableRowUrls[i] != curObj.TableRowUrls[i])
+                    return false;
+
+            return true;
+        }
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            var hashCode = 198564345;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+
+            foreach (string item in TableRowMeans)
+                hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(item);
+
+            foreach (string item in TableRowUrls)
+                hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(item);
+
+            /*
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Organisator);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Status);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Type);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Note);
+            */
+            return hashCode;
+
+            //return base.GetHashCode();
         }
     }
 }

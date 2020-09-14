@@ -59,7 +59,7 @@ namespace LotOnline
 
         public override IResponse MakeFreshResponse => new LotOnlineResponse(this.MyRequest);
 
-        public override int MaxItemsOnPage => 5;
+        public override int MaxItemsOnPage => 10;
 
         protected override string CreateTableForMailing(bool html = true)
         {
@@ -111,6 +111,8 @@ namespace LotOnline
             "Описание",
             "Источник"
         };
+        
+        
 
         protected override bool FillListResponse()
         {

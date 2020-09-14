@@ -99,7 +99,7 @@ namespace B2B
 
             foreach (Tag item in SearchResult[0].ChildTags)
             {
-                workList.Add(new B2B(item));
+                workList.Add(new B2B(item, MyRequest));
             }
 
             this.ListResponse = workList;

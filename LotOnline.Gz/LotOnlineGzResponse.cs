@@ -16,19 +16,21 @@ namespace LotOnline.Gz
             FillListResponse();            
         }
 
-        public LotOnlineGzResponse(IRequest myReq) : base(myReq) { }
+        public LotOnlineGzResponse(IRequest myReq) : base(myReq){}
         public LotOnlineGzResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp) { }
 
         //public override string SiteName => "РАД Закупки";        
-
-        public override IResponse MakeFreshResponse => throw new NotImplementedException();
+                
+        public override IResponse MakeFreshResponse => new LotOnlineGzResponse(MyRequest);
 
         public override int MaxItemsOnPage => 10;
 
+        /*
         protected override string CreateTableForMailing(bool html = true)
         {
             throw new NotImplementedException();
         }
+        */           
 
         protected override bool FillListResponse()
         {
@@ -38,7 +40,7 @@ namespace LotOnline.Gz
 
             List<LotOnlineGz> curlist = new List<LotOnlineGz>();
             JsonResponse myResp;
-
+            
             try
             {
                 myResp = JsonConvert.DeserializeObject<JsonResponse>(lastAnswer);
@@ -57,9 +59,20 @@ namespace LotOnline.Gz
                                 foreach (Entity item in myResp.Data.Entities)
                                     if (item != null)
                                         if (item.Procedure != null)
-                                            curlist.Add(new LotOnlineGz(item.Procedure, MyRequest.ServiceURL));
+                                            curlist.Add(new LotOnlineGz(item.Procedure, MyRequest));
 
             ListResponse = curlist;
+
+            tableHead = new string[]
+            {
+                "№",
+                "Наименование",
+                "Организатор",
+                "Цена",
+                "Статус",
+                "Тип",
+                "Заметки",
+            };
 
             return true;
         }

@@ -128,7 +128,7 @@ namespace TorgiASV
             List<TorgASV> workList = new List<TorgASV>();
 
             foreach (Tag item in SearchResult)
-                workList.Add(new TorgASV(item));
+                workList.Add(new TorgASV(item, MyRequest));
 
             this.ListResponse = workList;
 

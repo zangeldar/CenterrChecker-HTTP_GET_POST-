@@ -20,14 +20,16 @@ namespace LotOnline.Tender
 
         //public override string SiteName => "РАД Тендер";
 
-        public override IResponse MakeFreshResponse => throw new NotImplementedException();
+        public override IResponse MakeFreshResponse => new LotOnlineTenderResponse(this.MyRequest);
 
         public override int MaxItemsOnPage => 20;
 
+        /*
         protected override string CreateTableForMailing(bool html = true)
         {
             throw new NotImplementedException();
         }
+        */
 
         protected override bool FillListResponse()
         {
@@ -51,9 +53,34 @@ namespace LotOnline.Tender
             if (myResp != null)
                 if (myResp.List != null)
                     foreach (List item in myResp.List)
-                        curlist.Add(new LotOnlineTender(item, MyRequest.ServiceURL));                        
+                        curlist.Add(new LotOnlineTender(item, MyRequest));                        
 
             ListResponse = curlist;
+
+            tableHead = new string[]
+            {
+                "№ торга",
+                "Наименование",
+                "№ лота",
+                "Организатор",
+                "Получатель",
+                "Регионы",
+                "Цена",
+                "Депозит",
+                "Дата размещения",
+                "Дата заявки",
+                "Дата начала",
+                "Дата окончания",
+                "Дата итогов",
+                "Статус",
+                "Тип",
+                "Секция",
+                "Заметки",
+                "ОКДП",
+                "Кол-во заявок",
+                "Участники",
+                "UUID"
+            };
 
             return true;
         }

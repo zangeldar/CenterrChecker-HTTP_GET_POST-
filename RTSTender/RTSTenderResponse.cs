@@ -113,7 +113,7 @@ namespace RTSTender
             List<RTSTender> workList = new List<RTSTender>();
 
             foreach (Tag item in SearchResult)
-                workList.Add(new RTSTender(item));
+                workList.Add(new RTSTender(item, MyRequest));
 
             this.ListResponse = workList;
 

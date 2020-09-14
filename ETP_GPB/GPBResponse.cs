@@ -162,7 +162,7 @@ namespace ETP_GPB
             }           
 
             foreach (Tag item in SearchResult)
-                workList.Add(new GPB(item));
+                workList.Add(new GPB(item, MyRequest));
 
             this.ListResponse = workList;
             return true;

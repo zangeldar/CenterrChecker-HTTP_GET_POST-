@@ -41,7 +41,13 @@ namespace LotOnline.Tender
 
         public override string ServiceURL => "https://tender.lot-online.ru/";
 
-        
+        public override string AllParametersInString(string separator = "")
+        {
+            //return base.AllParametersInString(separator);
+            return SearchString;
+        }
+
+
 
         public override IResponse MakeResponse()
         {

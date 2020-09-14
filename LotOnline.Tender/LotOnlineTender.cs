@@ -7,7 +7,7 @@ namespace LotOnline.Tender
     [Serializable]
     public class LotOnlineTender:ATorg
     {
-        public string baseUrl { get; private set; }
+        //public string baseUrl { get; private set; }
 
         public string TorgNumberStr { get; private set; }
         public string TorgNumberUrl { get; private set; }
@@ -32,13 +32,20 @@ namespace LotOnline.Tender
         public string Okdp2 { get; private set; }
         public string RegionCodes { get; private set; }        
 
-        public LotOnlineTender(List inpItem, string baseUrl = "https://tender.lot-online.ru/") : base()
+        public LotOnlineTender(List inpItem, IRequest myReq) : base(myReq)
         {
-            this.baseUrl = baseUrl;
+            //this.baseUrl = baseUrl;
 
             LotNameStr = inpItem.Title;
             LotNameUrl = inpItem.LotLink;
-            PriceStart = inpItem.Price;            
+            PriceStart = inpItem.Price;
+            /*
+            {
+                PriceStart = PriceStart.Replace("<br/>", " ");
+                PriceStart = PriceStart.Replace("<br/>", " ");
+                PriceStart = PriceStart.Replace("<br/>", " ");
+
+            }*/
 
             LotNumberStr = inpItem.LotNumber.ToString();
             TorgNumberStr = inpItem.Identifier;
@@ -85,14 +92,69 @@ namespace LotOnline.Tender
                     RegionCodes = SFileIO.ArrayToString(inpItem.RegionCodes, " | ");
                 }
 
-            
+            TableRowMeans = new string[]
+            {
+                TorgNumberStr,
+                LotNameStr,
+                LotNumberStr,
+                Organizer,
+                Customer,
+                RegionCodes,
+                PriceStart,
+                Deposit,
+                DatePlacement,
+                DateDemand,
+                DateStart,
+                DateFinish,
+                DateSummation,
+                Status,
+                Type,
+                Section,
+                Note,
+                Okdp2,
+                DemandCounts,
+                Participant,
+                WinnerPrice,
+                UUID
+            };
+
+            TableRowUrls = new string[]
+            {
+                TorgNumberUrl,
+                LotNameUrl,
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            };
         }
 
+        
         public override bool Equals(object obj)
         {
-            throw new NotImplementedException();
+            if (!(obj is LotOnlineTender))
+                return false;
+
+            return base.Equals(obj);
         }
 
+        /*
         public override string ToString(bool html)
         {
             throw new NotImplementedException();
@@ -124,5 +186,6 @@ namespace LotOnline.Tender
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(RegionCodes);
             return hashCode;
         }
+        */
     }
 }

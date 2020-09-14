@@ -8,16 +8,12 @@ namespace LotOnline.Sales
     [Serializable]
     public class LotOnlineSales : ATorg
     {
-        public string baseUrl { get; private set; }
-        public LotOnlineSales(Tag inpTag, string baseUrl= "https://sales.lot-online.ru/e-auction/")
-        {
-            if (baseUrl != null)
-                if (baseUrl != "")
-                    this.baseUrl = baseUrl;
-
-            this.baseUrl.Replace("e-auction", "");
+        //public string baseUrl { get; private set; }
+        public LotOnlineSales(Tag inpTag, IRequest myReq):base(myReq)
+        {            
+            this.baseUrl = this.baseUrl.Replace("e-auction", "");
             this.baseUrl += "e-auction/";
-            this.baseUrl.Replace("//", "/");
+            this.baseUrl = this.baseUrl.Replace("//", "/");
 
             foreach (Tag item in inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("id", "new-field-title")))
             {
@@ -34,6 +30,7 @@ namespace LotOnline.Sales
                         break;
                 }
             }
+            LotNameUrl = this.baseUrl + LotNameUrl.Substring(0, LotNameUrl.IndexOf(";jsessionid=")) + LotNameUrl.Substring(LotNameUrl.IndexOf("?parm"));
 
             foreach (Tag item in inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("id", "new-field-lot")))
             {
@@ -57,16 +54,32 @@ namespace LotOnline.Sales
                     break;
             }
 
+            TableRowMeans = new string[]
+            {
+                LotNumberStr,
+                LotNameStr,
+                PriceStart
+            };
+            TableRowUrls = new string[TableRowMeans.Length];
+            TableRowUrls = new string[]
+            {
+                "",
+                LotNameUrl,
+                ""
+            };
         }
+        
         public override bool Equals(object obj)
         {
-            throw new NotImplementedException();
+            if (!(obj is LotOnlineSales))
+                return false;
+            return base.Equals(obj);
         }
-
+        /*
         public override string ToString(bool html)
         {
             throw new NotImplementedException();
-        }
+        }                
 
         public override int GetHashCode()
         {
@@ -75,5 +88,6 @@ namespace LotOnline.Sales
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(baseUrl);
             return hashCode;
         }
+        */        
     }
 }

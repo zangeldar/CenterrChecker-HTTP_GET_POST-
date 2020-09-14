@@ -7,7 +7,7 @@ namespace LotOnline
     [Serializable]
     public class LotOnline : ATorg
     {
-        public string baseUrl { get; private set; }
+        //public string baseUrl { get; private set; }
         public string Source { get; private set; }
 
         public string Address { get; private set; }
@@ -15,11 +15,13 @@ namespace LotOnline
         public string Description { get; private set; }
         public string Organisator { get; private set; }
         public string DateStart { get; private set; }
-        public LotOnline(JsonRow inpRow, IRequest myReq)
-        {            
+        public LotOnline(JsonRow inpRow, IRequest myReq):base(myReq)
+        {     
+            /*
             if (myReq.ServiceURL != null)
                 if (myReq.ServiceURL != "")
                     this.baseUrl = myReq.ServiceURL;
+            */
             this.Source = myReq.SiteName;
             this.LotNumberStr = inpRow.Id;
             this.PriceStart = inpRow.Price;
@@ -115,8 +117,14 @@ namespace LotOnline
         {
             var hashCode = -1042135788;
             hashCode = hashCode * -1521134295 + base.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LotNameStr);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LotNameUrl);
+
+            foreach (string item in Means)
+                hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(item);
+
+            /*
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LotNameStr);
+            
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LotNumberStr);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(PriceStart);
 
@@ -125,6 +133,7 @@ namespace LotOnline
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Description);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Organisator);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DateStart);
+            */
 
             internalID = hashCode.ToString();
 

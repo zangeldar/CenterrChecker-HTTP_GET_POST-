@@ -9,9 +9,9 @@ namespace B2B
     [Serializable]
     public class B2B : ATorg
     {
-        private string baseUrl = "https://www.b2b-center.ru/";        
+        //private string baseUrl = "https://www.b2b-center.ru/";        
 
-        public B2B(Tag inpTag)
+        public B2B(Tag inpTag, IRequest myReq) : base(myReq)
         {
             if (inpTag.ChildTags.Count != 4)
             {
@@ -25,6 +25,7 @@ namespace B2B
                 {
                     LotNameUrl = item.Attributes["href"];
                     LotNameUrl = LotNameUrl.Substring(0, LotNameUrl.LastIndexOf("#btid="));
+                    LotNameUrl = baseUrl + LotNameUrl;
                 }
                     
                 foreach (Tag inItem in item.ChildTags)
@@ -78,7 +79,7 @@ namespace B2B
                 }
 
             OrganizerStr = inpTag.ChildTags[1].ChildTags[0].ChildTags[0].Value;
-            OrganizerUrl = inpTag.ChildTags[1].ChildTags[0].Attributes["href"];
+            OrganizerUrl = baseUrl + inpTag.ChildTags[1].ChildTags[0].Attributes["href"];
 
             DateAcceptStart = inpTag.ChildTags[2].ChildTags[0].Value;
             DateAcceptFinish = inpTag.ChildTags[3].ChildTags[0].Value;
@@ -189,11 +190,11 @@ namespace B2B
                     @"{8}" + "</td></tr>";
 
             result += String.Format(formatStr,
-                baseUrl + LotNameUrl,
+                LotNameUrl,
                 LotNumberStr,
                 TorgName,
                 Description, //LotNameStr,
-                baseUrl + OrganizerUrl,
+                OrganizerUrl,
                 OrganizerStr,
                 TorgType,
                 DateAcceptStart,

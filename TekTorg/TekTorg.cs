@@ -8,10 +8,10 @@ namespace TekTorg
     [Serializable]
     public class TekTorg : ATorg
     {
-        private string baseUrl = "https://www.tektorg.ru/";
+        //private string baseUrl = "https://www.tektorg.ru/";
         //public Exception LastError { get; private set; }
 
-        public TekTorg(Tag inpTag)
+        public TekTorg(Tag inpTag, IRequest myReq):base(myReq)
         {
             if (inpTag.Name == "div")
             {

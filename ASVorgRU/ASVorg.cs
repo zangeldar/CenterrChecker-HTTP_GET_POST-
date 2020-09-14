@@ -8,7 +8,7 @@ namespace ASVorgRU
     [Serializable]
     public class ASVorg : ATorg
     {
-        public ASVorg(Tag inpTag)
+        public ASVorg(Tag inpTag, IRequest myReq) : base(myReq)
         {
             string tmpResult="";
 
@@ -20,6 +20,7 @@ namespace ASVorgRU
                     {
                         LotNameUrl = item.Attributes["href"];
                         LotNameUrl = LotNameUrl.Substring(0, LotNameUrl.LastIndexOf("?sphrase_id"));
+                        LotNameUrl = baseUrl + LotNameUrl;
                         break;
                     }
 
@@ -79,7 +80,7 @@ namespace ASVorgRU
         */
 
 
-        private string baseUrl = "https://www.asv.org.ru/";
+        //private string baseUrl = "https://www.asv.org.ru/";
         public override string internalID { get; protected set; }
         public override string LotNameStr { get; protected set; }
         public override string LotNameUrl { get; protected set; }
@@ -136,7 +137,7 @@ namespace ASVorgRU
 
             result += String.Format(formatStr,
                     HTMLParser.ClearHtml(Section, html),
-                    baseUrl + LotNameUrl, HTMLParser.ClearHtml(LotNameStr, html),
+                    LotNameUrl, HTMLParser.ClearHtml(LotNameStr, html),
                     HTMLParser.ClearHtml(Description, html)
                     );         
             return result;

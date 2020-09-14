@@ -96,6 +96,22 @@
       <Project>{0164D8FB-B0B7-4B6E-BFE0-4720F07DF9A4}</Project>
       <Name>IAuction</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LotOnline.Gz\LotOnline.Gz.csproj">
+      <Project>{5df4bd05-d90c-42ad-9402-10f348b941fd}</Project>
+      <Name>LotOnline.Gz</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LotOnline.Sales\LotOnline.Sales.csproj">
+      <Project>{cfafb93e-3310-4794-8722-e8add349934c}</Project>
+      <Name>LotOnline.Sales</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LotOnline.Tender\LotOnline.Tender.csproj">
+      <Project>{fd8ce489-ef75-4c30-bf59-eda7e8979a3d}</Project>
+      <Name>LotOnline.Tender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LotOnline\LotOnline.csproj">
+      <Project>{4e2c5626-a775-43fc-847f-872810bc216a}</Project>
+      <Name>LotOnline</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RosElTorg\RosElTorg.csproj">
       <Project>{1594E157-69B9-4A1A-92CB-3074ED54F113}</Project>
       <Name>RosElTorg</Name>
