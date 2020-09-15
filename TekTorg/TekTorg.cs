@@ -19,12 +19,15 @@ namespace TekTorg
                     if (inpTag.Attributes["class"] == "section-procurement__item")
                         FillByBlock(inpTag);
             }
+            /*
+            // This block to Fill by Table representation
             else if (true)
             {
                 if (true)
                     if (true)
                         FillByTableRow(inpTag);
             }
+            */
             else
             {
                 LastError = new Exception("Unknown format of TekTorg Tag");

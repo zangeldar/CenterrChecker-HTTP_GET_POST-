@@ -237,8 +237,8 @@ namespace TEST
 
             foreach (Hit hit in myDataRow.Hits)
             {
-                Console.WriteLine(new SberbankAst(hit).ToString(false));
-                Console.WriteLine(new SberbankAst(hit).ToString(true));
+                Console.WriteLine(new SberbankAst(hit, myReq).ToString(false));
+                Console.WriteLine(new SberbankAst(hit, myReq).ToString(true));
             }
         }
 

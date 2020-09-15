@@ -24,7 +24,8 @@ namespace B2B
                 if (item.Attributes.ContainsKey("href"))
                 {
                     LotNameUrl = item.Attributes["href"];
-                    LotNameUrl = LotNameUrl.Substring(0, LotNameUrl.LastIndexOf("#btid="));
+                    if (LotNameUrl.Contains("#btid="))
+                        LotNameUrl = LotNameUrl.Substring(0, LotNameUrl.LastIndexOf("#btid="));
                     LotNameUrl = baseUrl + LotNameUrl;
                 }
                     
@@ -41,7 +42,8 @@ namespace B2B
             LotNameUrl = inpTag.ChildTags[0].ChildTags[0].Attributes["href"];
             LotNameStr = inpTag.ChildTags[0].ChildTags[0].ChildTags[0].Value;
             */
-            TorgType = LotNameStr.Substring(0, LotNameStr.IndexOf("№") - 1);
+            if (LotNameStr.Contains("№"))
+                TorgType = LotNameStr.Substring(0, LotNameStr.IndexOf("№") - 1);
             LotNumberStr = LotNameStr.Substring(LotNameStr.IndexOf("№") + 1).TrimEnd();
 
             /*

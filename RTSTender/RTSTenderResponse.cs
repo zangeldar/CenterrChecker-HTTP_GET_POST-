@@ -33,6 +33,7 @@ namespace RTSTender
 
         public override IResponse MakeFreshResponse => new RTSTenderResponse(this.MyRequest);
 
+        /*
         protected override string CreateTableForMailing(bool html = true)
         {
             string result;
@@ -88,6 +89,7 @@ namespace RTSTender
 
             return result;
         }
+        */
 
         protected override bool FillListResponse()
         {
@@ -116,6 +118,20 @@ namespace RTSTender
                 workList.Add(new RTSTender(item, MyRequest));
 
             this.ListResponse = workList;
+
+            tableHead = new string[]
+            {
+                "№ торга",
+                "Торг",
+                "Организатор",
+                "Заказчик",
+                "Адрес поставки",
+                "Цена",
+                "Дата публикации",
+                "Дата окончания приема заявок",
+                "Параметры торга",
+                "Подробности"
+            };
 
             return true;
                         

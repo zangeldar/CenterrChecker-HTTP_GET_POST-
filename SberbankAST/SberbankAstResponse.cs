@@ -152,7 +152,7 @@ namespace SberbankAST
             }            
 
             foreach (Hit hit in dataJson.Hits.Hits)
-                curList.Add(new SberbankAst(hit));
+                curList.Add(new SberbankAst(hit, MyRequest));
 
             ListResponse = curList;
             return true;

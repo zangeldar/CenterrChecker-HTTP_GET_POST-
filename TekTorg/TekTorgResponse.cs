@@ -129,7 +129,7 @@ namespace TekTorg
             List<TekTorg> workList = new List<TekTorg>();
 
             foreach (Tag item in SearchResult)
-                workList.Add(new TekTorg(item));
+                workList.Add(new TekTorg(item, MyRequest));
 
             this.ListResponse = workList;
 

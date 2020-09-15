@@ -30,7 +30,12 @@ namespace LotOnline.Sales
                         break;
                 }
             }
-            LotNameUrl = this.baseUrl + LotNameUrl.Substring(0, LotNameUrl.IndexOf(";jsessionid=")) + LotNameUrl.Substring(LotNameUrl.IndexOf("?parm"));
+            string tmpStr = "";
+            if (LotNameUrl.Contains(";jsessionid="))
+                tmpStr = LotNameUrl.Substring(0, LotNameUrl.IndexOf(";jsessionid="));
+            if (LotNameUrl.Contains("?parm"))
+                LotNameUrl = tmpStr + LotNameUrl.Substring(LotNameUrl.IndexOf("?parm"));
+            LotNameUrl = this.baseUrl + LotNameUrl;
 
             foreach (Tag item in inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("id", "new-field-lot")))
             {

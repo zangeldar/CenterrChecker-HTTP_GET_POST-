@@ -8,7 +8,7 @@ namespace SberbankAST
     [Serializable]
     public class SberbankAst : ATorg
     {
-        public SberbankAst(Hit inpHit)
+        public SberbankAst(Hit inpHit, IRequest myReq):base(myReq)
         {
             //internalID = inpHit._id;
             TorgNameStr = inpHit.Source.PurchName;           // Описание закупки "Открытый запрос котировок в электронной форме на право заключение договора на поставку ГСМ и технических жидкостей для автомобильного транспорта"            
@@ -97,7 +97,7 @@ namespace SberbankAST
         public override string ToString(bool html)
         {
             //throw new NotImplementedException();
-            string baseUri = "https://sberbank-ast.ru";
+            //string baseUri = "https://sberbank-ast.ru";
             string result = "";
 
             if (html)

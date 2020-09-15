@@ -74,7 +74,7 @@ namespace ZakupkiGov
             }
 
             return "/epz/order/extendedsearch/results.html" + result;
-            return "/epz/order/extendedsearch/results.html" + base.myRawPostData();
+            //return "/epz/order/extendedsearch/results.html" + base.myRawPostData();
         }
 
         ///////////////////////////////////////////

@@ -62,7 +62,8 @@ namespace ZakupkiGov
                         if (itemCh.Attributes.ContainsKey("href"))
                         {
                             LotNameUrl = itemCh.Attributes["href"];
-                            LotNameUrl = LotNameUrl.Substring(0, LotNameUrl.LastIndexOf("&backUrl="));
+                            if (LotNameUrl.Contains("&backUrl="))
+                                LotNameUrl = LotNameUrl.Substring(0, LotNameUrl.LastIndexOf("&backUrl="));
                         }
                             
 
@@ -125,7 +126,8 @@ namespace ZakupkiGov
                         if (itemCh.Attributes.ContainsKey("href"))
                         {
                             OrganizerUrl = itemCh.Attributes["href"];
-                            OrganizerUrl = OrganizerUrl.Substring(0, OrganizerUrl.LastIndexOf("&backUrl="));
+                            if (OrganizerUrl.Contains("&backUrl="))
+                                OrganizerUrl = OrganizerUrl.Substring(0, OrganizerUrl.LastIndexOf("&backUrl="));
                         }
                             
 

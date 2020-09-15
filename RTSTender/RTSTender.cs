@@ -32,6 +32,8 @@ namespace RTSTender
                             NoteUrl = inItem.Attributes["onclick"].Replace("window.open(\"", "").Replace("\",\"_blank\")", "");
                 }
             }
+            NoteUrl = baseUrl + NoteUrl;
+
             tmpStr = tmpStr.Remove(tmpStr.LastIndexOf(sepStr));
             NoteStr = tmpStr.Replace("\n", "").Replace("\t", "");
             while (NoteStr.Contains("  "))
@@ -43,6 +45,7 @@ namespace RTSTender
                     if (item.Attributes["href"] != "")
                         LotNameUrl = item.Attributes["href"];
             }
+            LotNameUrl = baseUrl + LotNameUrl;
 
             foreach (Tag item in inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "card-item__about")))
             {
@@ -56,6 +59,7 @@ namespace RTSTender
                             LotNumberStr = inInItem.Value;
                 }
             }
+            LotNumberUrl = baseUrl + LotNumberUrl;
 
             foreach (Tag item in inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "card-item__title")))
             {
@@ -179,10 +183,40 @@ namespace RTSTender
                         break;
                 }
             }
+            OrganisatorUrl = baseUrl + OrganisatorUrl;
+            RegionUrl = baseUrl + RegionUrl;
                         
             foreach (Tag item in inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "card-content__row parent")))
                 foreach (Tag inItem in item.LookForChildTag("table", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "card-table")))
                     Content = inItem.GetValue();
+
+            TableRowMeans = new string[]
+            {
+                LotNumberStr,
+                LotNameStr,
+                HTMLParser.ClearHtml(OrganisatorStr, true),
+                HTMLParser.ClearHtml(OrgAcceptStr, true),
+                HTMLParser.ClearHtml(RegionStr, true),
+                HTMLParser.ClearHtml(PriceStart, true),
+                DateAcceptStart,
+                DateAcceptFinish,
+                NoteStr,
+                Content
+            };
+
+            TableRowUrls = new string[]
+            {
+                baseUrl + LotNumberUrl,
+                baseUrl + LotNameUrl,
+                baseUrl + OrganisatorUrl,
+                "",
+                baseUrl + RegionUrl,
+                "",
+                "",
+                "",
+                baseUrl + NoteUrl,
+                ""
+            };
         }
 
         /*
@@ -213,6 +247,9 @@ namespace RTSTender
         {
             if (!(obj is RTSTender))
                 return false;
+            return base.Equals(obj);
+
+            /*
             RTSTender curObj = (RTSTender)obj;
 
             if (this.internalID == curObj.internalID &
@@ -238,6 +275,7 @@ namespace RTSTender
 
                 return true;
             return false;
+            */
         }
 
         public override int GetHashCode()
@@ -269,6 +307,7 @@ namespace RTSTender
             return hashCode;
         }
 
+        /*
         public override string ToString(bool html)
         {
             string result = "";
@@ -339,6 +378,7 @@ namespace RTSTender
 
             return result;
         }
+        */
     }
 }
 

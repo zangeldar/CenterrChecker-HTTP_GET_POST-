@@ -127,7 +127,7 @@ namespace ZakupkiGov
             List<ZakupkiGov> workList = new List<ZakupkiGov>();
 
             foreach (Tag item in SearchResult)
-                workList.Add(new ZakupkiGov(item));
+                workList.Add(new ZakupkiGov(item,MyRequest));
 
             this.ListResponse = workList;
 

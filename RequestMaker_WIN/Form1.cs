@@ -28,39 +28,22 @@ namespace RequestMaker_WIN
 {
     public partial class Form1 : Form
     {
+        
         public Form1()
         {
             InitializeComponent();
             MyInitialize();
         }
 
-        const string ASVorgRU       =   "АСВ сайт";                         //  0
-        const string B2B            =   "B2B центр";                        //  1
-        const string CenterRu       =   "Центр Реализации";                 //  2
-        const string ETP_GPB        =   "ЭТП ГПБ";                          //  3
-        const string RosElTorg      =   "РосЭлТорг";                        //  4
-        const string RTSTender      =   "РТС-тендер";                       //  5
-        const string SberbankAST    =   "Сбербанк-АСТ";                     //  6
-        const string TekTorg        =   "ТЭК-Торг *";                       //  7
-        const string TorgiASV       =   "Торги АСВ";                        //  8
-        const string UTender        =   "Ю-Тендер";                         //  9
-        const string ZakupkiGov     =   "ГосЗакупки";                       //  10
-        //const string LotOnline      =   "Лот-Онлайн";                       //  11
-        const string LotOnlineArrested      = "Лот-Онлайн Арест";                       //  12
-        const string LotOnlineConfiscate    = "Лот-Онлайн Конфискат";                   //  13
-        const string LotOnlineFish          = "Лот-Онлайн Рыба";                        //  14
-        const string LotOnlineLease         = "Лот-Онлайн Лизинг";                      //  15
-        const string LotOnlinePrivatization = "Лот-Онлайн Приватизация";                //  16
-        const string LotOnlineRad           = "Лот-Онлайн РАД";                         //  17
-        const string LotOnlineTrade         = "Лот-Онлайн Торги";                    //  18
-        const string LotOnlineZalog         = "Лот-Онлайн Залог";                       //  19
-
-        const string LotOnlineGz        = "РАД Закупки";                    //  20
-        const string LotOnlineSales     = "РАД Банкротство";                //  21
-        const string LotOnlineTender    = "РАД Тендер **";                     //  22
+        
 
         private void MyInitialize()
         {
+            foreach (KeyValuePair<string, ETPStruct> item in MyConst.ETP)
+            {
+                cBoxType.Items.Add(item.Key);
+            }
+            /*
             cBoxType.Items.Add(ASVorgRU);                                                   //  00
             cBoxType.Items.Add(B2B);                                                        //  01
             cBoxType.Items.Add(CenterRu);                                                   //  02
@@ -84,6 +67,7 @@ namespace RequestMaker_WIN
             cBoxType.Items.Add(LotOnlineGz);                                                //  20
             cBoxType.Items.Add(LotOnlineSales);                                             //  21
             cBoxType.Items.Add(LotOnlineTender);                                            //  22
+            */
             cBoxType.SelectedIndex = 0;                               
             searchBox.Text = "";
             logBox.Text = "";
@@ -125,8 +109,10 @@ namespace RequestMaker_WIN
             bool error = true;
 
             AddLog("Создаем запрос к \"" + typeStr + "\"..", false);
+            /*
             switch (typeStr)
             {
+
                 //  00
                 case RosElTorg:
                     curRequest = new RosElTorgRequest(searchBox.Text);
@@ -270,6 +256,7 @@ namespace RequestMaker_WIN
                         AddLog("УСПЕШНО!");
                     }
                     break;
+            */
                 //  11
                 /*
                 case LotOnline:
@@ -286,6 +273,7 @@ namespace RequestMaker_WIN
                     }
                     break;
                     */
+            /*
                 //  12
                 case LotOnlineArrested:
                     curRequest = new ArrestedLotOnlineRequest(searchBox.Text);
@@ -446,9 +434,28 @@ namespace RequestMaker_WIN
                     return;
                     //break;
             }
-            
+            */
+
+            if (!MyConst.ETP.ContainsKey(typeStr))
+            {
+                AddLog("НЕИЗВЕСТНАЯ ПЛОЩАДКА: " + typeStr);
+                return;
+            }
+
+            System.Reflection.ConstructorInfo ci = MyConst.ETP[typeStr].RequestType.GetConstructor(new Type[] {  typeof(string) });
+            curRequest = (IRequest)ci.Invoke(new object[] { searchBox.Text });
+            error = false;
+            AddLog("УСПЕШНО!");
+
+
             if (needResponse)
             {
+                AddLog("Получаем ответ от \"" + typeStr + "\"..", false);
+                ci = MyConst.ETP[typeStr].ResponseType.GetConstructor(new Type[] { typeof(IRequest) });
+                curResponse = (IResponse)ci.Invoke(new object[] { curRequest });
+                error = false;
+                AddLog("УСПЕШНО!");
+
                 if (curResponse == null)
                 {
                     AddLog("Ответ Не получен!");
