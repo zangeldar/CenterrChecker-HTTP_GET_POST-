@@ -17,7 +17,8 @@ namespace LotOnline
 
         public override string SiteName => "Лот-Онлайн";
 
-        public override string ServiceURL => "https://lot-online.ru/";
+        public override string SiteURL => "https://lot-online.ru/";
+        public override string ServURL => "search.rest";
 
         public override string SearchString { get => MyParameters["keyWords"]; set => MyParameters["keyWords"] = value; }
 
@@ -71,7 +72,7 @@ namespace LotOnline
 
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL + "search.rest", postData);
+            return makeAnPost(SiteURL + ServURL, postData);
         }
 
         // ПЕРЕДЕЛАТЬ 

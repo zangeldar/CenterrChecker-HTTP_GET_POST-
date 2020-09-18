@@ -49,7 +49,7 @@ namespace SberbankAST
                 
         public override bool Equals(object obj)
         {
-            //throw new NotImplementedException();
+            
             if (!(obj is SberbankAst))
                 return false;
             SberbankAst curObj = (SberbankAst)obj;
@@ -96,7 +96,7 @@ namespace SberbankAST
 
         public override string ToString(bool html)
         {
-            //throw new NotImplementedException();
+            
             //string baseUri = "https://sberbank-ast.ru";
             string result = "";
 

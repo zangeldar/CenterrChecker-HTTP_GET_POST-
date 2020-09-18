@@ -38,12 +38,14 @@ namespace TekTorg
 
         private void FillByBlock(Tag inpTag)
         {
+            /*
             if (inpTag.ChildTags.Count != 3)
             {
                 Exception e = new Exception("Unknown format! Must be contain 3 child Tags");
                 LastError = e;
                 return;
             }
+            */
 
             // SECTION
             foreach (Tag item in inpTag.LookForChildTag("i", false, new System.Collections.Generic.KeyValuePair<string, string>("class", "section-procurement__item-logo")))

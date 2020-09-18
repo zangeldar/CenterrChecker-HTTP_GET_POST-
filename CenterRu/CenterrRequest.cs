@@ -10,9 +10,11 @@ namespace CenterRu
     [Serializable]
     public class CenterrRequest : ATorgRequest
     {
+        public override bool isBuy => false;
         override public string SiteName { get { return "Центр Реализации"; } }
         override public string Type { get { return "Centerr"; } }
-        override public string ServiceURL { get { return "https://bankrupt.centerr.ru"; } }
+        override public string SiteURL { get { return "https://bankrupt.centerr.ru"; } }
+        override public string ServURL { get { return ""; } }
         //public Exception LastError() { return lastError; }
         public CenterrRequest() : base()
         {
@@ -108,7 +110,7 @@ namespace CenterRu
         }
         private string makeAnPost(string url = "https://bankrupt.centerr.ru", string postData = "")
         {
-            url = ServiceURL;
+            url = SiteURL;
             var request = (HttpWebRequest)WebRequest.Create(url);
             postData = postData.Replace("+", "%2B");
             request.Method = "POST";
@@ -158,7 +160,7 @@ namespace CenterRu
         }
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL, postData);
+            return makeAnPost(SiteURL, postData);
         }
 
         override public string SearchString
@@ -166,6 +168,8 @@ namespace CenterRu
             get { return MyParameters["vPurchaseLot_lotTitle"]; }
             set { MyParameters["vPurchaseLot_lotTitle"] = value; }
         }
+
+        
 
         override protected void InitialiseParameters()
         {
@@ -212,8 +216,12 @@ namespace CenterRu
 
         override public IResponse MakeResponse()
         {
-            return new CenterrResponse(this);
-            //throw new NotImplementedException("Making Response from request will be implemented later");
+            return new CenterrResponse(this);            
+        }
+
+        public override string GetSearchUrl()
+        {
+            return SiteURL + ServURL;
         }
     }
 }

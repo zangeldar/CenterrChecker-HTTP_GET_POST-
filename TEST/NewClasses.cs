@@ -13,7 +13,7 @@ namespace TEST
     {
         override public string SiteName { get { return "Центр Реализации"; } }
         override public string Type { get { return "Centerr"; } }
-        override public string ServiceURL { get { return "http://bankrupt.centerr.ru"; } }
+        override public string SiteURL { get { return "http://bankrupt.centerr.ru"; } }
         //public Exception LastError() { return lastError; }
         public CenterrRequestNew()
         {
@@ -155,7 +155,7 @@ namespace TEST
         }
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL, postData);
+            return makeAnPost(SiteURL, postData);
         }        
 
         override public string SearchString
@@ -163,6 +163,8 @@ namespace TEST
             get { return MyParameters["vPurchaseLot_lotTitle"]; }
             set { MyParameters["vPurchaseLot_lotTitle"] = value; }
         }
+
+        public override string ServURL => throw new NotImplementedException();
 
         override protected void InitialiseParameters()
         {
@@ -220,10 +222,12 @@ namespace TEST
 
         public override string SiteName { get { return "Торги АСВ"; } }
 
-        public override string ServiceURL { get { return "https://www.torgiasv.ru"; } }
+        public override string SiteURL { get { return "https://www.torgiasv.ru"; } }
+        public override string ServURL => "/search/";
 
         public override string SearchString { get { return MyParameters["q"]; } set { MyParameters["q"] = value; } }
         
+
         protected override string getBlankResponse()
         {
             initialised = true;
@@ -247,7 +251,7 @@ namespace TEST
 
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL, postData);
+            return makeAnPost(SiteURL, postData);
         }
 
         protected override string myRawPostData()
@@ -269,7 +273,7 @@ namespace TEST
                 }
             }
 
-            return "/search/" + result;
+            return ServURL + result;
         }
         public override IResponse MakeResponse()
         {

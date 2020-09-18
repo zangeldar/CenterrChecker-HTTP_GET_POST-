@@ -145,7 +145,7 @@ namespace CenterRu
 
             foreach (Tag item in SearchResult)
             {
-                workList.Add(new Centerr(item));
+                workList.Add(new Centerr(item, MyRequest));
             }
 
             this.ListResponse = workList;

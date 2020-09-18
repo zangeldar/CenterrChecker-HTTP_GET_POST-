@@ -10,15 +10,18 @@ namespace LotOnline.Sales
     [Serializable]
     public class LotOnlineSalesRequest : ATorgRequest
     {
+        public override bool isBuy => false;
         public LotOnlineSalesRequest() : base() { }
         public LotOnlineSalesRequest(string searchStr) : base(searchStr) { }
         public override string Type => "LotOnline.Sales";
 
         public override string SiteName => "РАД Банкротство";
 
-        public override string ServiceURL => "https://sales.lot-online.ru/";
+        public override string SiteURL => "https://sales.lot-online.ru/";
 
         public override string SearchString { get => Base64Decode(MyParameters["cscs"]); set => MyParameters["cscs"] = Base64Encode(value); }
+
+        public override string ServURL => "e-auction/lots.xhtml";
 
         private string Base64Encode(string plainText)
         {
@@ -58,7 +61,7 @@ namespace LotOnline.Sales
 
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL + "e-auction/lots.xhtml", postData);
+            return makeAnPost(SiteURL + ServURL, postData);
         }
 
         private string makeAnPost(string url = "https://sales.lot-online.ru/", string postData = "")

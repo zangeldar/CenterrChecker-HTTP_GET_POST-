@@ -5,6 +5,12 @@ namespace IAuction
     public interface IRequest
     {
         /// <summary>
+        /// Тип торговой площадки:
+        /// Закупки - true
+        /// Реализации - false
+        /// </summary>
+        bool isBuy { get; }
+        /// <summary>
         /// Текстовый идентификатор площадки
         /// </summary>
         string Type { get; }
@@ -15,7 +21,11 @@ namespace IAuction
         /// <summary>
         /// URL площадки
         /// </summary>
-        string ServiceURL { get; }
+        string SiteURL { get; }
+        /// <summary>
+        /// URL для запроса
+        /// </summary>
+        string ServURL { get; }
         /// <summary>
         /// Поле доступа к строке поиска по умолчанию (параметр "название лота")
         /// </summary>
@@ -36,6 +46,11 @@ namespace IAuction
         /// Функция сброса статуса инициализации
         /// </summary>
         void ResetInit();                                                       // Сбросить статус инициализации
+        /// <summary>
+        /// Возвращает результирующую строку для поиска (актуально для GET запросов)
+        /// </summary>
+        /// <returns></returns>
+        string GetSearchUrl();
         /// <summary>
         /// Функция сохранения этого объекта в файл (Сериализация XML)
         /// </summary>

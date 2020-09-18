@@ -44,18 +44,18 @@ namespace SberbankAST
         public override IResponse LoadFromXml(string fileName = "lastrequest.req")
         {
             return SFileIO.LoadMyResponse(fileName);
-            //throw new NotImplementedException();
+            
         }
 
         public override bool SaveToXml(string fileName = "lastrequest.req", bool overwrite = false)
         {
             return SFileIO.SaveMyResponse(this, fileName, overwrite);
-            //throw new NotImplementedException();
+            
         }
 
         protected override string CreateTableForMailing(bool html = true)
         {
-            //throw new NotImplementedException();
+            
             string result;
             string rowStart;
             string rowEnd;
@@ -114,7 +114,7 @@ namespace SberbankAST
 
         protected override bool FillListResponse()
         {
-            //throw new NotImplementedException();
+            
             if (!base.FillListResponse())
                 return false;
 

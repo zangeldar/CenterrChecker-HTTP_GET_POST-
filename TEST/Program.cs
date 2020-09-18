@@ -19,6 +19,7 @@ using LotOnline;
 using LotOnline.Sales;
 using LotOnline.Gz;
 using LotOnline.Tender;
+using TekTorg;
 
 namespace TEST
 {
@@ -106,8 +107,12 @@ namespace TEST
             testReq = new LotOnlineGzRequest("техническ* жидкост");
             DoTest(testReq, ref testResp);
             */
-
+            /*
             testReq = new LotOnlineTenderRequest("техническ");
+            DoTest(testReq, ref testResp);
+            */
+
+            testReq = new TekTorgRequest("дом");
             DoTest(testReq, ref testResp);
 
 

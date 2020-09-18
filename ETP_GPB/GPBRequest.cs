@@ -11,6 +11,7 @@ namespace ETP_GPB
     [Serializable]
     public class GPBRequest : ATorgRequest        
     {
+        public override bool isBuy => true;
         public GPBRequest() : base() { }
         public GPBRequest(string searchStr) : base(searchStr) { }
 
@@ -18,9 +19,11 @@ namespace ETP_GPB
 
         public override string SiteName => "ЭТП ГПБ";
 
-        public override string ServiceURL => "https://etpgpb.ru/";
+        public override string SiteURL => "https://etpgpb.ru/";
 
         public override string SearchString { get => MyParameters["search"]; set => MyParameters["search"] = value; }
+
+        public override string ServURL => "procedures/";
 
         public override IResponse MakeResponse()
         {
@@ -50,7 +53,7 @@ namespace ETP_GPB
 
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL, postData);
+            return makeAnPost(SiteURL, postData);
         }
 
         protected override string myRawPostData()
@@ -74,7 +77,7 @@ namespace ETP_GPB
                 }
             }
 
-            return "procedures/" + result;
+            return ServURL + result;
         }
 
         private string makeAnPost(string url = "https://etpgpb.ru/", string postData = "")
@@ -89,7 +92,7 @@ namespace ETP_GPB
             request.Method = "GET";
             //request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
             request.ContentType = "application/x-www-form-urlencoded; charset=windows-1251";
-            request.Host = ServiceURL.Substring(ServiceURL.IndexOf(":") + 3).Replace("/", "");
+            request.Host = SiteURL.Substring(SiteURL.IndexOf(":") + 3).Replace("/", "");
             request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko";
             request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
             request.Headers.Add("Accept-Language", "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3");    //Accept-Language:ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7                        

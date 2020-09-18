@@ -1,5 +1,4 @@
-﻿using ASVorgRU;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,30 +63,30 @@ namespace RequestMaker_WIN
 
         public static Dictionary<string, ETPStruct> ETP = new Dictionary<string, ETPStruct>()
         {
-            { "АСВ сайт",                   new ETPStruct("ASVOrg", typeof(ASVorgRequest), typeof(ASVorgResponse))},
-            { "B2B центр",                  new ETPStruct("B2B", typeof(B2B.B2BRequest), typeof(B2B.B2BResponse))},
-            { "Центр Реализации",           new ETPStruct("CenterRu", typeof(CenterRu.CenterrRequest), typeof(CenterRu.CenterrResponse))},
-            { "ЭТП ГПБ",                    new ETPStruct("ETP_GPB", typeof(ETP_GPB.GPBRequest), typeof(ETP_GPB.GPBResponse))},
-            { "РосЭлТорг",                  new ETPStruct("RosElTorg", typeof(RosElTorg.RosElTorgRequest), typeof(RosElTorg.RosElTorgResponse))},
-            { "РТС-тендер",                 new ETPStruct("RTSTender", typeof(RTSTender.RTSTenderRequest), typeof(RTSTender.RTSTenderResponse))},
-            { "Сбербанк-АСТ",               new ETPStruct("SberbankAST", typeof(SberbankAST.SberbankAstRequest), typeof(SberbankAST.SberbankAstResponse))},
-            { "ТЭК-Торг *",                 new ETPStruct("TekTorg", typeof(TekTorg.TekTorgRequest), typeof(TekTorg.TekTorgResponse))},
-            { "Торги АСВ",                  new ETPStruct("TorgiASV", typeof(TorgiASV.TorgASVRequest), typeof(TorgiASV.TorgASVResponse))},
-            { "Ю-Тендер",                   new ETPStruct("UTender", typeof(UTender.UTenderRequest), typeof(UTender.UTenderResponse))},
-            { "ГосЗакупки",                 new ETPStruct("ZakupkiGov", typeof(ZakupkiGov.ZakupkiGovRequest), typeof(ZakupkiGov.ZakupkiGovResponse))},
+            { "АСВ сайт",                   new ETPStruct("ASVOrg", typeof(ASVorgRU.ASVorgRequest), typeof(ASVorgRU.ASVorgResponse), (new ASVorgRU.ASVorgRequest().isBuy))},
+            { "B2B центр",                  new ETPStruct("B2B", typeof(B2B.B2BRequest), typeof(B2B.B2BResponse), (new B2B.B2BRequest().isBuy))},
+            { "Центр Реализации",           new ETPStruct("CenterRu", typeof(CenterRu.CenterrRequest), typeof(CenterRu.CenterrResponse), (new CenterRu.CenterrRequest().isBuy))},
+            { "ЭТП ГПБ",                    new ETPStruct("ETP_GPB", typeof(ETP_GPB.GPBRequest), typeof(ETP_GPB.GPBResponse), (new ETP_GPB.GPBRequest().isBuy))},
+            { "РосЭлТорг",                  new ETPStruct("RosElTorg", typeof(RosElTorg.RosElTorgRequest), typeof(RosElTorg.RosElTorgResponse), (new RosElTorg.RosElTorgRequest().isBuy))},
+            { "РТС-тендер",                 new ETPStruct("RTSTender", typeof(RTSTender.RTSTenderRequest), typeof(RTSTender.RTSTenderResponse), (new RTSTender.RTSTenderRequest().isBuy))},
+            { "Сбербанк-АСТ",               new ETPStruct("SberbankAST", typeof(SberbankAST.SberbankAstRequest), typeof(SberbankAST.SberbankAstResponse), (new SberbankAST.SberbankAstRequest().isBuy))},
+            { "ТЭК-Торг *",                 new ETPStruct("TekTorg", typeof(TekTorg.TekTorgRequest), typeof(TekTorg.TekTorgResponse), (new TekTorg.TekTorgRequest().isBuy))},
+            { "Торги АСВ",                  new ETPStruct("TorgiASV", typeof(TorgiASV.TorgASVRequest), typeof(TorgiASV.TorgASVResponse), (new TorgiASV.TorgASVRequest().isBuy))},
+            { "Ю-Тендер",                   new ETPStruct("UTender", typeof(UTender.UTenderRequest), typeof(UTender.UTenderResponse), (new UTender.UTenderRequest().isBuy))},
+            { "ГосЗакупки",                 new ETPStruct("ZakupkiGov", typeof(ZakupkiGov.ZakupkiGovRequest), typeof(ZakupkiGov.ZakupkiGovResponse), (new ZakupkiGov.ZakupkiGovRequest().isBuy))},
 
-            { "Лот-Онлайн Арест",           new ETPStruct("LotOnlineArrested", typeof(LotOnline.ArrestedLotOnlineRequest), typeof(LotOnline.LotOnlineResponse))},
-            { "Лот-Онлайн Конфискат",       new ETPStruct("LotOnlineConfiscate", typeof(LotOnline.ConfiscateLotOnlineRequest), typeof(LotOnline.LotOnlineResponse))},
-            { "Лот-Онлайн Рыба",            new ETPStruct("LotOnlineFish", typeof(LotOnline.FishLotOnlineRequest), typeof(LotOnline.LotOnlineResponse))},
-            { "Лот-Онлайн Лизинг",          new ETPStruct("LotOnlineLease", typeof(LotOnline.LeaseLotOnlineRequest), typeof(LotOnline.LotOnlineResponse))},
-            { "Лот-Онлайн Приватизация",    new ETPStruct("LotOnlinePrivatization", typeof(LotOnline.PrivatizationLotOnlineRequest), typeof(LotOnline.LotOnlineResponse))},
-            { "Лот-Онлайн РАД",             new ETPStruct("LotOnlineRad", typeof(LotOnline.RadLotOnlineRequest), typeof(LotOnline.LotOnlineResponse))},
-            { "Лот-Онлайн Торги",           new ETPStruct("LotOnlineTrade", typeof(LotOnline.TradeLotOnlineRequest), typeof(LotOnline.LotOnlineResponse))},
-            { "Лот-Онлайн Залог",           new ETPStruct("LotOnlineZalog", typeof(LotOnline.ZalogLotOnlineRequest), typeof(LotOnline.LotOnlineResponse))},
+            { "Лот-Онлайн Арест",           new ETPStruct("LotOnlineArrested", typeof(LotOnline.ArrestedLotOnlineRequest), typeof(LotOnline.LotOnlineResponse), (new LotOnline.ArrestedLotOnlineRequest().isBuy))},
+            { "Лот-Онлайн Конфискат",       new ETPStruct("LotOnlineConfiscate", typeof(LotOnline.ConfiscateLotOnlineRequest), typeof(LotOnline.LotOnlineResponse), (new LotOnline.ConfiscateLotOnlineRequest().isBuy))},
+            { "Лот-Онлайн Рыба",            new ETPStruct("LotOnlineFish", typeof(LotOnline.FishLotOnlineRequest), typeof(LotOnline.LotOnlineResponse), (new LotOnline.FishLotOnlineRequest().isBuy))},
+            { "Лот-Онлайн Лизинг",          new ETPStruct("LotOnlineLease", typeof(LotOnline.LeaseLotOnlineRequest), typeof(LotOnline.LotOnlineResponse), (new LotOnline.LeaseLotOnlineRequest().isBuy))},
+            { "Лот-Онлайн Приватизация",    new ETPStruct("LotOnlinePrivatization", typeof(LotOnline.PrivatizationLotOnlineRequest), typeof(LotOnline.LotOnlineResponse), (new LotOnline.PrivatizationLotOnlineRequest().isBuy))},
+            { "Лот-Онлайн РАД",             new ETPStruct("LotOnlineRad", typeof(LotOnline.RadLotOnlineRequest), typeof(LotOnline.LotOnlineResponse), (new LotOnline.RadLotOnlineRequest().isBuy))},
+            { "Лот-Онлайн Торги *",         new ETPStruct("LotOnlineTrade", typeof(LotOnline.TradeLotOnlineRequest), typeof(LotOnline.LotOnlineResponse), (new LotOnline.TradeLotOnlineRequest().isBuy))},
+            { "Лот-Онлайн Залог",           new ETPStruct("LotOnlineZalog", typeof(LotOnline.ZalogLotOnlineRequest), typeof(LotOnline.LotOnlineResponse), (new LotOnline.ZalogLotOnlineRequest().isBuy))},
 
-            { "РАД Закупки",                new ETPStruct("LotOnlineGz", typeof(LotOnline.Gz.LotOnlineGzRequest), typeof(LotOnline.Gz.LotOnlineGzResponse))},
-            { "РАД Банкротство",            new ETPStruct("LotOnlineSales", typeof(LotOnline.Sales.LotOnlineSalesRequest), typeof(LotOnline.Sales.LotOnlineSalesResponse))},
-            { "РАД Тендер **",              new ETPStruct("LotOnlineTender", typeof(LotOnline.Tender.LotOnlineTenderRequest), typeof(LotOnline.Tender.LotOnlineTenderResponse))},
+            { "РАД Закупки",                new ETPStruct("LotOnlineGz", typeof(LotOnline.Gz.LotOnlineGzRequest), typeof(LotOnline.Gz.LotOnlineGzResponse), (new LotOnline.Gz.LotOnlineGzRequest().isBuy))},
+            { "РАД Банкротство",            new ETPStruct("LotOnlineSales", typeof(LotOnline.Sales.LotOnlineSalesRequest), typeof(LotOnline.Sales.LotOnlineSalesResponse), (new LotOnline.Sales.LotOnlineSalesRequest().isBuy))},
+            { "РАД Тендер **",              new ETPStruct("LotOnlineTender", typeof(LotOnline.Tender.LotOnlineTenderRequest), typeof(LotOnline.Tender.LotOnlineTenderResponse), (new LotOnline.Tender.LotOnlineTenderRequest().isBuy))},
         };
 
         

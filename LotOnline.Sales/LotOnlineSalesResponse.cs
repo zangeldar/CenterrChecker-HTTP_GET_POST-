@@ -27,7 +27,7 @@ namespace LotOnline.Sales
         /*
         protected override string CreateTableForMailing(bool html = true)
         {
-            //throw new NotImplementedException();
+            
             return base.CreateTableForMailing(html);
         }
         */

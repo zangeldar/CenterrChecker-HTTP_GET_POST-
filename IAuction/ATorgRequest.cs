@@ -13,6 +13,8 @@ namespace IAuction
         // Часть интерфейса
         /////////////////////////////
 
+        public abstract bool isBuy { get; }
+        public bool isSell => !isBuy;
 
         /// <summary>
         /// Тип запроса (идентификатор, маркер)
@@ -28,8 +30,11 @@ namespace IAuction
         /// <summary>
         /// Базовый URL сайта
         /// </summary>
-        public abstract string ServiceURL { get; }
-
+        public abstract string SiteURL { get; }
+        /// <summary>
+        /// URL для запроса
+        /// </summary>
+        public abstract string ServURL { get; }
         /// <summary>
         /// Строка для поиска
         /// </summary>
@@ -159,7 +164,9 @@ namespace IAuction
                 return MakePost(myRawPostData());
             }
         }
-        
+               
+
+
         /// <summary>
         /// Вспомогательная функция для получения всех параметров поиска в одну строку
         /// Используется при создании имени файла
@@ -312,6 +319,11 @@ namespace IAuction
             }
 
             return result;
+        }
+
+        virtual public string GetSearchUrl()
+        {
+            return SiteURL + ServURL + myRawPostData().Replace(SiteURL,"").Replace(ServURL,"");
         }
     }
 }

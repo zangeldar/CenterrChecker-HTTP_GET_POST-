@@ -43,19 +43,19 @@ namespace B2B
 
         public override IResponse LoadFromXml(string fileName = "lastrequest.req")
         {
-            //throw new NotImplementedException();
+            
             return SFileIO.LoadMyResponse(fileName);
         }
 
         public override bool SaveToXml(string fileName = "lastrequest.req", bool overwrite = false)
         {
-            //throw new NotImplementedException();
+            
             return SFileIO.SaveMyResponse(this, fileName, overwrite);
         }
         
         protected override bool FillListResponse()
         {
-            //throw new NotImplementedException();
+            
             /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)
@@ -170,7 +170,7 @@ namespace B2B
 
         protected override string CreateTableForMailing(bool html = true)
         {
-            //throw new NotImplementedException();
+            
 
             string result;
             string rowStart;

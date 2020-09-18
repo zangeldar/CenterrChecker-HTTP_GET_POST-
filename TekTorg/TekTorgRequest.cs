@@ -10,13 +10,15 @@ namespace TekTorg
     [Serializable]
     public class TekTorgRequest : ATorgRequest
     {
+        public override bool isBuy => true;
         public TekTorgRequest() : base() { }
         public TekTorgRequest(string searchStr) : base(searchStr) { }
         public override string Type => "TekTorg";
 
         public override string SiteName => "ТЭК-Торг";
 
-        public override string ServiceURL => "https://www.tektorg.ru/";
+        public override string SiteURL => "https://www.tektorg.ru/";
+        public override string ServURL => "procedures";
 
         public override string SearchString { get => MyParameters["q"]; set => MyParameters["q"] = value; }
 
@@ -53,7 +55,7 @@ namespace TekTorg
 
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL, postData);
+            return makeAnPost(SiteURL, postData);
         }
 
         protected override string myRawPostData()
@@ -75,7 +77,7 @@ namespace TekTorg
                 }
             }
 
-            return "/procedures" + result;
+            return ServURL + result;
         }
 
         private string makeAnPost(string url = "https://www.tektorg.ru/", string postData = "")
@@ -102,7 +104,11 @@ namespace TekTorg
             request.Headers.Add("DNT", "1");
             request.Headers.Add("Accept-Encoding", "gzip, deflate");
 
+            
+
             request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+
+            request.Timeout = 240000;
 
             /*
             using (var stream = request.GetRequestStream())

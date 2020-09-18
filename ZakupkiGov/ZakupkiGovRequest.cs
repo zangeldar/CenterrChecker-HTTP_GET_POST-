@@ -10,6 +10,7 @@ namespace ZakupkiGov
     [Serializable]
     public class ZakupkiGovRequest : ATorgRequest
     {
+        public override bool isBuy => true;
         public ZakupkiGovRequest() : base() { }
         public ZakupkiGovRequest(string searchStr) : base(searchStr) { }
 
@@ -17,7 +18,8 @@ namespace ZakupkiGov
 
         public override string SiteName => "ГосЗакупки";
 
-        public override string ServiceURL => "https://zakupki.gov.ru/";
+        public override string SiteURL => "https://zakupki.gov.ru/";
+        public override string ServURL => "/epz/order/extendedsearch/results.html";
 
         public override string SearchString { get => MyParameters["searchString"]; set => MyParameters["searchString"] = value; }
 
@@ -50,7 +52,7 @@ namespace ZakupkiGov
 
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL, postData);
+            return makeAnPost(SiteURL, postData);
         }
 
         protected override string myRawPostData()
@@ -73,7 +75,7 @@ namespace ZakupkiGov
                 }
             }
 
-            return "/epz/order/extendedsearch/results.html" + result;
+            return ServURL + result;
             //return "/epz/order/extendedsearch/results.html" + base.myRawPostData();
         }
 

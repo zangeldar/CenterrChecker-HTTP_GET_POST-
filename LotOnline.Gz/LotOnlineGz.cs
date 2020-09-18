@@ -62,7 +62,8 @@ namespace LotOnline.Gz
                 Note += "Только СМП/СОНО" + sep;
             if (inpItem.IsMp44)
                 Note += "Преимущество СМП/СОНО" + sep;
-            Note = Note.Remove(Note.LastIndexOf(sep));
+            if (Note.Contains(sep))
+                Note = Note.Remove(Note.LastIndexOf(sep));
 
             TableRowMeans = new string[]
             {
@@ -114,7 +115,7 @@ namespace LotOnline.Gz
         /*
         public override string ToString(bool html)
         {
-            //throw new NotImplementedException();
+            
             string result = "";
 
             if (html)

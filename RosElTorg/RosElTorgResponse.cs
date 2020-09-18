@@ -113,7 +113,7 @@ namespace RosElTorg
             List<RosElTorg> workList = new List<RosElTorg>();
 
             foreach (Tag item in SearchResult)
-                workList.Add(new RosElTorg(item));
+                workList.Add(new RosElTorg(item, MyRequest));
 
             this.ListResponse = workList;
 

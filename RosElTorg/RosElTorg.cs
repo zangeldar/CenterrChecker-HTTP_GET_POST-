@@ -8,7 +8,7 @@ namespace RosElTorg
     [Serializable]
     public class RosElTorg : ATorg
     {
-        private string baseUrl = "https://www.roseltorg.ru/";
+        //private string baseUrl = "https://www.roseltorg.ru/";
         //public string Type => "RosElTorg";
         public override string internalID { get; protected set; }
         public override string LotNameStr { get; protected set; }
@@ -31,7 +31,7 @@ namespace RosElTorg
                 TorgType = DateAcceptFinish = "";
         }
 
-        public RosElTorg(Tag inpTag)
+        public RosElTorg(Tag inpTag, IRequest myReq):base(myReq)
         {
             InitializeStrings();
             // Status

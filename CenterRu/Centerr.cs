@@ -8,9 +8,8 @@ namespace CenterRu
     [Serializable]
     public class Centerr : ATorg
     {
-        public Centerr(Tag inpTag)
-        {
-            
+        public Centerr(Tag inpTag, IRequest myReq) : base(myReq)
+        {            
             if (inpTag.ChildTags.Count != 11)
                 return;
             // class = "purchase-type-public-offer"
@@ -74,7 +73,7 @@ namespace CenterRu
             TorgType = itemsList[10].ItemString;
         }
         */
-        virtual protected string baseUrl { get { return "http://bankrupt.centerr.ru"; } }
+        //override protected string baseUrl { get { return "http://bankrupt.centerr.ru"; } }
         override public string internalID { get; protected set; }
         //public StringUri TorgNumber { get; private set; }
         public string TorgNumberStr { get; private set; }

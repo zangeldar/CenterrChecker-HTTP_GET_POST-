@@ -80,6 +80,11 @@ namespace LotOnline.Sales
                 return false;
             return base.Equals(obj);
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
         /*
         public override string ToString(bool html)
         {
@@ -93,6 +98,6 @@ namespace LotOnline.Sales
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(baseUrl);
             return hashCode;
         }
-        */        
+        */
     }
 }
