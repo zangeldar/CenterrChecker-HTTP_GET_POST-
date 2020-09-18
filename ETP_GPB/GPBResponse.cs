@@ -41,13 +41,13 @@ namespace ETP_GPB
 
         public override IResponse LoadFromXml(string fileName = "lastrequest.req")
         {
-            //throw new NotImplementedException();
+            
             return SFileIO.LoadMyResponse(fileName);
         }
 
         public override bool SaveToXml(string fileName = "lastrequest.req", bool overwrite = false)
         {
-            //throw new NotImplementedException();
+            
             return SFileIO.SaveMyResponse(this, fileName, overwrite);
         }
 
@@ -127,7 +127,7 @@ namespace ETP_GPB
 
         protected override bool FillListResponse()
         {
-            //throw new NotImplementedException();
+            
             /*
             string myWorkAnswer = MyRequest.GetResponse;
             if (myWorkAnswer == null)

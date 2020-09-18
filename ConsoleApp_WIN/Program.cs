@@ -205,7 +205,7 @@ namespace ConsoleApp_WIN
                                 else // ответ есть, но пустой
                                 {
                                     SendMailRemind("Ответ получен, но не содержит результатов! Возможно, по Вашему запросу теперь ничего не найдено. Если на сайте \""
-                                        + newResp.SiteName + "\" по запросу \"" + newResp.MyRequest.AllParametersInString("_")
+                                        + newResp.SiteName + "(" + newResp.MyRequest.GetSearchUrl() + ")" + "\" по запросу \"" + newResp.MyRequest.AllParametersInString("_")
                                         + "\" есть результаты, тогда обратитесь к разработчику!" + Environment.NewLine
                                         + "Сообщение об ошибке: " + Environment.NewLine
                                         + "WARNING! \"" + newResp.SiteName + "\"", "[" + newResp.SiteName + "] ВНИМАНИЕ! Результаты для НОВОГО запроса не найдены.", MailRecipients);
@@ -219,7 +219,9 @@ namespace ConsoleApp_WIN
                                 if (newResp.MyRequest.LastError() != null)
                                     msg += " : " + newResp.MyRequest.LastError().Message;
                                 Console.WriteLine(msg);
-                                SendMailRemind("Ошибка получения результатов НОВОГО запроса! Обратитесь к разработчику!" + Environment.NewLine
+                                SendMailRemind("Ошибка получения результатов НОВОГО запроса!" +Environment.NewLine + 
+                                    "Если на сайте " + newResp.SiteName + "(" + newResp.MyRequest.GetSearchUrl() + ")" + " выдаются результаты по запросу " + newResp.MyRequest.AllParametersInString("_") +
+                                    ", тогда обратитесь к разработчику!" + Environment.NewLine
                                     + "Сообщение об ошибке: " + Environment.NewLine
                                     + msg, "[" + newResp.SiteName + "] ОШИБКА!", MailRecipients);
                             }
@@ -296,7 +298,7 @@ namespace ConsoleApp_WIN
                         myExc.SaveToFile(newResp.SiteName + ".err", true);
 
                         SendMailRemind("Ошибка получения результатов запроса от площадки! Возможно, сайт недоступен." + Environment.NewLine
-                                        + "Если на сайте \"" + newResp.SiteName
+                                        + "Если на сайте \"" + newResp.SiteName + "(" + newResp.MyRequest.GetSearchUrl() + ")"
                                         + "\" по запросу \"" + newResp.MyRequest.AllParametersInString("_")
                                         + "\" есть результаты, тогда обратитесь к разработчику!" + Environment.NewLine
                                         + "Сообщение об ошибке: " + Environment.NewLine
@@ -339,7 +341,7 @@ namespace ConsoleApp_WIN
                         {
                             // исчезли старые записи
                             SendMailRemind("Ответ получен, но не содержит результатов! Возможно, по Вашему запросу теперь ничего не найдено. Если на сайте \""
-                            + newResp.SiteName + "\" по запросу \"" + newResp.MyRequest.AllParametersInString("_")
+                            + newResp.SiteName + "(" + newResp.MyRequest.GetSearchUrl() + ")" + "\" по запросу \"" + newResp.MyRequest.AllParametersInString("_")
                             + "\" есть результаты, тогда обратитесь к разработчику!" + Environment.NewLine
                             + "Сообщение об ошибке: " + Environment.NewLine
                             + "WARNING! \"" + newResp.SiteName + "\"", "[" + newResp.SiteName + "] ВНИМАНИЕ! Получен пустой ответ.", MailRecipients);

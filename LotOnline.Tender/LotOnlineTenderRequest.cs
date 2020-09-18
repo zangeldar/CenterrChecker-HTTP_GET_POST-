@@ -12,6 +12,7 @@ namespace LotOnline.Tender
     [Serializable]
     public class LotOnlineTenderRequest : ATorgRequest
     {
+        public override bool isBuy => true;
         public LotOnlineTenderRequest() : base() { }
         public LotOnlineTenderRequest(string searchStr) : base(searchStr)
         {
@@ -39,7 +40,9 @@ namespace LotOnline.Tender
 
         public override string SiteName => "РАД Тендер";
 
-        public override string ServiceURL => "https://tender.lot-online.ru/";
+        public override string SiteURL => "https://tender.lot-online.ru/";
+
+        public override string ServURL => "searchServlet";
 
         public override string AllParametersInString(string separator = "")
         {
@@ -83,7 +86,7 @@ namespace LotOnline.Tender
             // https://tender.lot-online.ru/app/SearchLots/page#
             //return makeAnPost(ServiceURL + "app/SearchLots/page#", postData);
             //return makeAnPost(ServiceURL + "searchServlet?query=", postData);
-            return makeAnPost(ServiceURL + "searchServlet", postData);
+            return makeAnPost(SiteURL + ServURL, postData);
         }
                 
         private string JsonSerialize(Object inpObj)
@@ -124,7 +127,7 @@ namespace LotOnline.Tender
             //request.ContentType = "application/json";
             //request.Referer = url + "/UnitedPurchaseList.aspx";
             //request.Host = ServiceURL;
-            request.Referer = ServiceURL + "app/SearchLots/page";
+            request.Referer = SiteURL + "app/SearchLots/page";
             //request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko";
             request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/7.0)";
 
@@ -181,5 +184,7 @@ namespace LotOnline.Tender
 
             return lastAnswer;
         }
+
+
     }
 }

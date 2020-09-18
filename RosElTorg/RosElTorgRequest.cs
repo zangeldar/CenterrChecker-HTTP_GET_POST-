@@ -10,6 +10,7 @@ namespace RosElTorg
     [Serializable]
     public class RosElTorgRequest : ATorgRequest
     {
+        public override bool isBuy => true;
         public RosElTorgRequest() : base() { }
         public RosElTorgRequest(string searchStr) : base(searchStr) { }
 
@@ -17,9 +18,11 @@ namespace RosElTorg
 
         public override string SiteName => "РосЭлТорг";
 
-        public override string ServiceURL => "https://www.roseltorg.ru/";
+        public override string SiteURL => "https://www.roseltorg.ru/";
 
         public override string SearchString { get => MyParameters["query_field"]; set => MyParameters["query_field"] = value; }
+
+        public override string ServURL => "/procedures/search";
 
         public override IResponse MakeResponse()
         {
@@ -48,7 +51,7 @@ namespace RosElTorg
 
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL, postData);
+            return makeAnPost(SiteURL, postData);
         }
 
         protected override string myRawPostData()
@@ -70,7 +73,7 @@ namespace RosElTorg
                 }
             }
 
-            return "/procedures/search" + result;
+            return ServURL + result;
         }
 
         private string makeAnPost(string url = "https://www.roseltorg.ru/", string postData = "")

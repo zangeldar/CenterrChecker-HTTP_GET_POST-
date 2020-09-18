@@ -10,6 +10,7 @@ namespace TorgiASV
     [Serializable]
     public class TorgASVRequest : ATorgRequest
     {
+        public override bool isBuy => false;
         public TorgASVRequest():base() {}
 
         public TorgASVRequest(string searchStr) : base(searchStr) {}
@@ -18,9 +19,11 @@ namespace TorgiASV
 
         public override string SiteName => "Торги АСВ";
 
-        public override string ServiceURL => "https://www.torgiasv.ru";
+        public override string SiteURL => "https://www.torgiasv.ru";
 
         public override string SearchString { get => MyParameters["q"]; set => MyParameters["q"] = value; }
+
+        public override string ServURL => "/search/";
 
         public override IResponse MakeResponse()
         {
@@ -50,7 +53,7 @@ namespace TorgiASV
 
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL, postData);
+            return makeAnPost(SiteURL, postData);
         }
 
         protected override string myRawPostData()
@@ -72,7 +75,7 @@ namespace TorgiASV
                 }
             }
 
-            return "/search/" + result;
+            return ServURL + result;
         }
         //////////////////
         /// 
@@ -102,6 +105,7 @@ namespace TorgiASV
             request.Headers.Add("Accept-Encoding", "gzip, deflate");
 
             request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+            request.Timeout = 240000;
 
             /*
             using (var stream = request.GetRequestStream())

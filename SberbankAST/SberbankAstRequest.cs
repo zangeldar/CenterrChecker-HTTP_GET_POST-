@@ -12,6 +12,7 @@ namespace SberbankAST
     [Serializable]
     public class SberbankAstRequest : ATorgRequest
     {
+        public override bool isBuy => true;
         private Elasticrequest elRequest;
         //private void MakeElRequest(SerializableDictionary<string, string> )
         private void MakeElRequest()
@@ -37,7 +38,7 @@ namespace SberbankAST
 
         public override string SiteName => "Сбербанк-АСТ";
 
-        public override string ServiceURL => "https://www.sberbank-ast.ru/";
+        public override string SiteURL => "https://www.sberbank-ast.ru/";
 
         public override string SearchString {
             get => MyParameters["SearchString"];
@@ -49,9 +50,11 @@ namespace SberbankAST
 
         }
 
+        public override string ServURL => "SearchQuery.aspx?name=Main";
+
         public override IResponse MakeResponse()
         {
-            //throw new NotImplementedException();
+            
             return new SberbankAstResponse(this);
         }
 
@@ -60,7 +63,7 @@ namespace SberbankAST
             //string result = makeAnPost();
             initialised = true;
             return "";
-            //throw new NotImplementedException();
+            
         }
 
         protected override void InitialiseParameters()
@@ -70,21 +73,21 @@ namespace SberbankAST
                 { "SearchString", ""}
             };
             elRequest = new Elasticrequest();
-            //throw new NotImplementedException();
+            
         }
 
         protected override bool Initialize()
         {
             getBlankResponse();
             return initialised;
-            //throw new NotImplementedException();
+            
         }
 
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL+ "SearchQuery.aspx?name=Main", postData);
+            return makeAnPost(SiteURL+ ServURL, postData);
             //return makeAnPost(ServiceURL + "UnitedPurchaseList.aspx", postData);
-            //throw new NotImplementedException();
+            
         }
 
         protected override string myRawPostData()
@@ -125,7 +128,7 @@ namespace SberbankAST
             request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
             request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
             //request.Referer = url + "/UnitedPurchaseList.aspx";
-            request.Referer = ServiceURL + "UnitedPurchaseList.aspx";
+            request.Referer = SiteURL + "UnitedPurchaseList.aspx";
             request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko";
             request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/7.0)";
 
@@ -178,6 +181,11 @@ namespace SberbankAST
             response.Dispose();
 
             return lastAnswer;
+        }
+
+        public override string GetSearchUrl()
+        {
+            return SiteURL + ServURL;
         }
     }
 }

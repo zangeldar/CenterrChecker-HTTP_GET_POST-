@@ -9,9 +9,6 @@ namespace TorgiASV
     [Serializable]
     public class TorgASVResponse : ATorgResponse
     {
-        //public override string SiteName { get { return "Торги АСВ"; } }
-        //public override int MaxItemsOnPage => throw new NotImplementedException();
-
         public override IResponse MakeFreshResponse
         {
             get
@@ -133,43 +130,6 @@ namespace TorgiASV
             this.ListResponse = workList;
 
             return true;
-            /*
-            //  По старому парсеру, на основе RegEx
-            List<TorgASV> curList = new List<TorgASV>();
-
-            myHTMLParser myParser = new myHTMLParser();
-            List<_Tag> myList = myParser.getTags(myWorkAnswer, "ul");
-            List<_Tag> resList = new List<_Tag>();
-
-            bool found = false;     // вычленяем из всех списков на странице только нужный
-            foreach (_Tag item in myList)
-            {
-                foreach (tagAttribute atItem in item.Attributes)
-                {
-                    if (atItem.Name == "class" & atItem.Value == "component-list lot-catalog__list")
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                if (found)
-                {
-                    resList.Add(item);
-                    break;
-                }
-            }
-
-            this.ListResponse = curList;
-            //if (!found)
-            if (resList.Count == 0) // если результатов нет
-                return;         // тогда возврат
-            foreach (_Tag item in resList[0].InnerTags)    // заполняем результаты по списку
-            {
-                curList.Add(new TorgASV(item.InnerTags));
-            }
-            this.ListResponse = curList;
-            //
-            */
         }
 
         ////////////////

@@ -36,7 +36,7 @@ namespace LotOnline.Gz
         {
             if (!base.FillListResponse())
                 return false;
-            //throw new NotImplementedException();
+            
 
             List<LotOnlineGz> curlist = new List<LotOnlineGz>();
             JsonResponse myResp;

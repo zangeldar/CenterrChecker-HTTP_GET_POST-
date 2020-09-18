@@ -368,6 +368,8 @@ namespace IAuction
                 lastError = MyRequest.LastError();
                 return result;
             }
+            if (checkRows == null)  // Если старый список пуст (такое возможно, если был таймаут при получении первых результатов), 
+                return inpList.ToList();  // то возвращать список нового запроса.
             bool needBreak = false;
             for (int i = 0; i < inpList.Count(); i++)
             {

@@ -23,11 +23,11 @@ namespace LotOnline
         */
         public LotOnlineResponse(IRequest myReq) : base(myReq)
         {
-            this.baseUrl = myReq.ServiceURL;            
+            this.baseUrl = myReq.SiteURL;            
         }
         public LotOnlineResponse(ATorgRequest myReq, List<IObject> listResp) : base(myReq, listResp)
         {
-            this.baseUrl = myReq.ServiceURL;
+            this.baseUrl = myReq.SiteURL;
         }
         /*
         public static LotOnlineResponse FactoryMethod(string searchStr, string baseUrl = "https://lot-online.ru/")

@@ -11,12 +11,14 @@ namespace RequestMaker_WIN
         public string Name { get; private set; }
         public Type RequestType { get; private set; }
         public Type ResponseType { get; private set; }        
+        public bool TorgType { get; private set; }
 
-        public ETPStruct(string name, Type reqType, Type respType)
+        public ETPStruct(string name, Type reqType, Type respType, bool torgType)
         {
             Name = name;
             RequestType = reqType;
             ResponseType = respType;
+            TorgType = torgType;
         }
     }
 }

@@ -13,11 +13,12 @@ namespace RTSTender
     [Serializable]
     public class RTSTenderRequest : ATorgRequest
     {
+        public override bool isBuy => true;
         public RTSTenderRequest() : base() { }
         public RTSTenderRequest(string searchStr) : base(searchStr) { }
         public override string Type => "RTSTender";
         public override string SiteName => "РТС-тендер";
-        public override string ServiceURL => "https://www.rts-tender.ru/";
+        public override string SiteURL => "https://www.rts-tender.ru/";
 
         private string Token = "";
         private string Cookies = "";
@@ -31,6 +32,8 @@ namespace RTSTender
                 MakeASPRequest();
             }
         }
+
+        public override string ServURL => "poisk/search/ajaxwithfullmodel";
 
         private AjaxRequest aspRequest;
         private void MakeASPRequest()
@@ -47,7 +50,7 @@ namespace RTSTender
 
         protected override string getBlankResponse()
         {
-            string tmpStr = makeAnPost(ServiceURL + "poisk/", "", false);
+            string tmpStr = makeAnPost(SiteURL + "poisk/", "", false);
             if (Token != "" & Cookies != "")
                 initialised = true;
             else if (lastError != null)
@@ -120,7 +123,7 @@ namespace RTSTender
                 */
             }
             
-            return makeAnPost(ServiceURL + "poisk/search/ajaxwithfullmodel", postData, true);
+            return makeAnPost(SiteURL + ServURL, postData, true);
         }
 
         /// <summary>

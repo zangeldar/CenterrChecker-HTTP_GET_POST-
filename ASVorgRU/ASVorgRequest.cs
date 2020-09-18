@@ -11,6 +11,8 @@ namespace ASVorgRU
     [Serializable]
     public class ASVorgRequest : ATorgRequest
     {
+        static public bool isBuyTest => false;
+        public override bool isBuy => false;
         public ASVorgRequest() : base() {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
@@ -23,9 +25,13 @@ namespace ASVorgRU
 
         public override string SiteName => "АСВ сайт";
 
-        public override string ServiceURL => "https://www.asv.org.ru";
+        public override string SiteURL => "https://www.asv.org.ru";
 
         public override string SearchString { get => MyParameters["q"]; set => MyParameters["q"] = value; }
+
+        public override string ServURL => "/search/index.php";
+
+        
 
         public override IResponse MakeResponse()
         {
@@ -55,7 +61,7 @@ namespace ASVorgRU
 
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL, postData);
+            return makeAnPost(SiteURL, postData);
         }
 
         protected override string myRawPostData()
@@ -80,7 +86,7 @@ namespace ASVorgRU
                 }
             }
 
-            return "/search/index.php" + result;
+            return ServURL + result;
         }
 
         private string makeAnPost(string url = "https://www.asv.org.ru", string postData = "")
@@ -113,6 +119,7 @@ namespace ASVorgRU
             //request.Referer = url;
 
             request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+            request.Timeout = 240000;
 
             HttpWebResponse response;
 

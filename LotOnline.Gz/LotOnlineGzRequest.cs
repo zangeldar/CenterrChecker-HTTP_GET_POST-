@@ -11,6 +11,7 @@ namespace LotOnline.Gz
     [Serializable]
     public class LotOnlineGzRequest : ATorgRequest
     {
+        public override bool isBuy => true;
         public LotOnlineGzRequest() : base() { }
         private JsonRequest jsonReq;
         private void MakeJsonRequest()
@@ -29,7 +30,7 @@ namespace LotOnline.Gz
 
         public override string SiteName => "РАД Закупки";
 
-        public override string ServiceURL => "https://gz.lot-online.ru/";
+        public override string SiteURL => "https://gz.lot-online.ru/";
 
         public override string SearchString
         {
@@ -40,6 +41,8 @@ namespace LotOnline.Gz
                 MakeJsonRequest();
             }
         }
+
+        public override string ServURL => "etp_back/api/list";
 
         public override IResponse MakeResponse()
         {
@@ -69,7 +72,7 @@ namespace LotOnline.Gz
 
         protected override string MakePost(string postData = "")
         {
-            return makeAnPost(ServiceURL + "etp_back/api/list", postData);
+            return makeAnPost(SiteURL + ServURL, postData);
         }
 
         protected override string myRawPostData()
@@ -98,7 +101,7 @@ namespace LotOnline.Gz
             request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
             request.ContentType = "application/json";
             //request.Referer = url + "/UnitedPurchaseList.aspx";
-            request.Referer = ServiceURL + "UnitedPurchaseList.aspx";
+            request.Referer = SiteURL + "UnitedPurchaseList.aspx";
             request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko";
             request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/7.0)";
 
@@ -152,6 +155,11 @@ namespace LotOnline.Gz
             response.Dispose();
 
             return lastAnswer;
+        }
+
+        public override string GetSearchUrl()
+        {
+            return SiteURL + ServURL;
         }
     }
 }

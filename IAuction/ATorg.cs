@@ -17,9 +17,9 @@ namespace IAuction
         }
         public ATorg(IRequest myReq)
         {
-            if (myReq.ServiceURL != null)
-                if (myReq.ServiceURL != "")
-                    this.baseUrl = myReq.ServiceURL;
+            if (myReq.SiteURL != null)
+                if (myReq.SiteURL != "")
+                    this.baseUrl = myReq.SiteURL;
             InitializeParams();
         }
         private void InitializeParams()
@@ -50,6 +50,8 @@ namespace IAuction
         public virtual string LotNumberStr { get; protected set; }
         public virtual string ToString(bool html)
         {
+            if (LastError != null)
+                return LastError.Message;
             string result = "";
 
             if (html)

@@ -150,7 +150,7 @@ namespace ETP_GPB
   
         public override string ToString(bool html)
         {
-            //throw new NotImplementedException();
+            
             string result = "";
             string formatStr = @"{0}" + ";" +
                     @"{2}" + ";" +

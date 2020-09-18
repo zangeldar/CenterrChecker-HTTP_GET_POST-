@@ -11,6 +11,7 @@ namespace B2B
     [Serializable]
     public class B2BRequest : ATorgRequest
     {
+        public override bool isBuy => true;
         public B2BRequest() : base() { }
         public B2BRequest(string searchStr) : base(searchStr) { }
 
@@ -18,26 +19,26 @@ namespace B2B
 
         public override string SiteName => "B2B-центр";
 
-        public override string ServiceURL => "https://www.b2b-center.ru/";
+        public override string SiteURL => "https://www.b2b-center.ru/";
+        public override string ServURL => "/market/";
 
         public override string SearchString { get => MyParameters["f_keyword"]; set => MyParameters["f_keyword"] = value; }
-
+        
         public override IResponse MakeResponse()
-        {
-            //throw new NotImplementedException();
+        {            
             return new B2BResponse(this);
         }
 
         protected override string getBlankResponse()
         {
-            //throw new NotImplementedException();
+            
             initialised = true;
             return "";
         }
 
         protected override void InitialiseParameters()
         {
-            //throw new NotImplementedException();
+            
             MyParameters = new SerializableDictionary<string, string>
             {
                 { "f_keyword", "" },
@@ -47,20 +48,20 @@ namespace B2B
 
         protected override bool Initialize()
         {
-            //throw new NotImplementedException();
+            
             getBlankResponse();
             return initialised;
         }
 
         protected override string MakePost(string postData = "")
         {
-            //throw new NotImplementedException();
-            return makeAnPost(ServiceURL, postData);
+            
+            return makeAnPost(SiteURL, postData);
         }
 
         protected override string myRawPostData()
         {
-            //throw new NotImplementedException();
+            
             string result = "";
             bool first = true;
             foreach (KeyValuePair<string, string> item in MyParameters)
@@ -81,7 +82,8 @@ namespace B2B
                 }
             }
 
-            return "/market/" + result;
+            //return "/market/" + result;
+            return ServURL + result;
         }
 
         private string makeAnPost(string url = "https://www.asv.org.ru", string postData = "")
@@ -96,7 +98,7 @@ namespace B2B
             request.Method = "GET";
             //request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
             request.ContentType = "application/x-www-form-urlencoded; charset=windows-1251";
-            request.Host = ServiceURL.Substring(ServiceURL.IndexOf(":") + 3).Replace("/","");
+            request.Host = SiteURL.Substring(SiteURL.IndexOf(":") + 3).Replace("/","");
             request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko";
             request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
             request.Headers.Add("Accept-Language", "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3");    //Accept-Language:ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7                        

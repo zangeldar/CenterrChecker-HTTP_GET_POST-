@@ -1,0 +1,2496 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# ">
+    <head>
+        <meta charset="utf-8" />
+<meta name="title" content="Все закупки | ТЭК-Торг" />
+<link rel="canonical" href="https://www.tektorg.ru/procedures" />
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="Production" content="1.0.10" />
+<meta name="description" content="Все закупки | ТЭК-Торг" />
+<link rel="shortcut icon" href="/themes/tektorg/favicon.ico" type="image/vnd.microsoft.icon" />
+
+        <title>Все закупки | ТЭК-Торг</title>
+        <style media="all">
+@import url("/core/modules/system/css/components/ajax-progress.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/align.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/autocomplete-loading.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/fieldgroup.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/container-inline.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/clearfix.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/details.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/hidden.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/item-list.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/js.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/nowrap.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/position-container.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/progress.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/reset-appearance.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/resize.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/sticky-header.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/system-status-counter.css?qgqzzs");
+@import url("/core/modules/system/css/components/system-status-report-counters.css?qgqzzs");
+@import url("/core/modules/system/css/components/system-status-report-general-info.css?qgqzzs");
+@import url("/core/modules/system/css/components/tabledrag.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/tablesort.module.css?qgqzzs");
+@import url("/core/modules/system/css/components/tree-child.module.css?qgqzzs");
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.css" media="all" />
+<style media="all">
+@import url("/themes/tektorg/css/all.min.css?qgqzzs");
+@import url("/themes/tektorg/fonts/OpenSans.css?qgqzzs");
+@import url("/themes/tektorg/css/style.css?qgqzzs");
+</style>
+<style media="print">
+@import url("/themes/tektorg/css/print.css?qgqzzs");
+</style>
+<style media="all">
+@import url("/themes/tektorg/css/jquery-ui.css?qgqzzs");
+@import url("/themes/tektorg/slick/slick.css?qgqzzs");
+@import url("/themes/tektorg/slick/slick-theme.css?qgqzzs");
+@import url("/themes/tektorg/jquery.fly/style.css?qgqzzs");
+@import url("/themes/tektorg/owl.carousel/owl.carousel.css?qgqzzs");
+</style>
+
+        
+<!--[if lte IE 8]>
+<script src="/core/assets/vendor/html5shiv/html5shiv.min.js?v=3.7.3"></script>
+<![endif]-->
+<script src="/core/assets/vendor/jquery/jquery.min.js?v=2.2.4"></script>
+<script src="/themes/tektorg/js/jquery-3.2.1.min.js?v=1.1"></script>
+<script src="/themes/tektorg/slick/slick.min.js?v=1.1"></script>
+<script src="/themes/tektorg/js/jquery-ui.min.js?v=1.1"></script>
+<script src="/themes/tektorg/js/datepicker-ru.js?v=1.1"></script>
+<script src="/themes/tektorg/jquery.fly/script.js?v=1.1"></script>
+<script src="/themes/tektorg/owl.carousel/owl.carousel.min.js?v=1.1"></script>
+<script src="/themes/tektorg/js/jquery.maskedinput_1.2.2.js?v=1.1"></script>
+<script src="/themes/tektorg/js/initOwlCarousel.js?v=1.1"></script>
+<script src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+<script src="https://yastatic.net/share2/share.js"></script>
+
+                <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61681149-3"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-61681149-3');
+        </script>
+                <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+            var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+            j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-NSCV45');
+        </script>
+                        <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){
+            n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];
+            t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s);
+        }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '2114120115327776');
+        fbq('track', 'PageView');</script>
+                        <script>!function(){var t=document.createElement("script");
+        t.async=!0,t.src="https://vk.com/js/api/openapi.js?160",t.onload=function(){
+        VK.Retargeting.Init("VK-RTRG-329523-hQHHI"),VK.Retargeting.Hit()},
+        document.head.appendChild(t)}();</script>
+                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    </head>
+        <body class="content-page">
+                <script>(function(d,w,c){(w[c]=w[c]||[]).push(function(){try{
+            w.yaCounter47749948 = new Ya.Metrika({
+                id:47749948,clickmap:true,trackLinks:true,accurateTrackBounce:true,
+                webvisor:true,trackHash:true,ecommerce:"dataLayer"});
+            }catch(e){}});
+	    var n=d.getElementsByTagName("script")[0],s=d.createElement("script"),
+            f=function(){n.parentNode.insertBefore(s,n);};s.async=true;
+	    s.src="https://mc.yandex.ru/metrika/watch.js";
+	    if(w.opera=="[object Opera]"){d.addEventListener("DOMContentLoaded",f,false);}
+            else{f();}
+        })(document, window, "yandex_metrika_callbacks");
+        </script>
+                <noscript>
+                        <div><img src="https://mc.yandex.ru/watch/47749948" style="position:absolute;left:-9999px;" alt="" /></div>
+                                    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSCV45" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+                                    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2114120115327776&ev=PageView&noscript=1" />
+                                    <img src="https://vk.com/rtrg?p=VK-RTRG-329523-hQHHI" style="position:fixed;left:-999px;" alt="" />
+                    </noscript>
+        
+        <header class="page-header">
+    <div class="page-header__white">
+        <div class="page-header__whiteWrapper">
+                            <a href="/" class="page-header__logo">
+                <img src="/themes/tektorg/images/tektorg.svg?v=2018-11-6" alt="ТЭК-торг" />             </a>
+                    <div class="page-header__title">
+                <span class="page-header__downTitle"></span>
+            </div>
+            <div class="page-header__contacts">
+                <div class="page-header__order-docs">
+                    <a class="btn" href="/service/documents">Заказать бухгалтерские документы</a>                 </div>
+                <div class="page-header__contactLinks">
+                    <a href="/help" tooltip="Центр поддержки" ><i class="fas fa-question"></i></a>
+                                    <a href="skype:live:Tektorg?call" tooltip="live:Tektorg"><i class="fab fa-skype"></i></a>
+                                                    <a href="mailto:help@tektorg.ru" tooltip="help@tektorg.ru"><i class="fas fa-envelope"></i></a>
+                                    <a href="/themes/tektorg/files/tv.exe" tooltip="Удаленная техподдержка">                         <span class="fa-stack" style="margin-left: -2.2px;">
+                            <i class="fa  fa-circle fa-inverse" style="margin-top: 3.5px;font-size:24px;"></i>
+                            <i class="fa fa-stack-1x fa-arrows-h" style="color:#214e8d;margin-top: -1px;"></i>
+                        </span>
+                    </a>
+                </div>
+                <span class="page-header__telephone">
+                                    <span><a href="tel:+7 (495) 734-81-18">+7 (495) 734-81-18</a></span>
+                                    <span><a href="tel:+7 (499) 705-81-18">+7 (499) 705-81-18</a></span>
+                                </span>
+            </div>
+        </div>
+    </div>
+    <div class="page-header__mainNav">
+        <div class="page-header__mainNavWrapper">
+            <nav class="main-nav  main-nav--closed">
+    <div class="main-nav__button">
+        <button class="main-nav__toggle">Открыть меню</button>         <a href="javascript:;" class="main-nav__menuWord">Меню</a>     </div>
+    <ul class="main-nav__items">
+            <li>
+                    <a href="/organizer" data-drupal-link-system-path="node/4082">Организаторам</a>
+                </li>
+            <li>
+                    <a href="/suppliers" data-drupal-link-system-path="node/756">Поставщикам</a>
+                </li>
+            <li>
+                    <a href="/education" data-drupal-link-system-path="education">Обучение</a>
+                </li>
+            <li>
+                    <a href="/tariff" data-drupal-link-system-path="tariff">Тарифы</a>
+                </li>
+            <li>
+                    <a href="/e-signature" data-drupal-link-system-path="e-signature">Электронная подпись</a>
+                </li>
+            <li>
+                    <a href="/documents" data-drupal-link-system-path="documents">Документы</a>
+                </li>
+            <li>
+                    <a href="/service" data-drupal-link-system-path="service">Услуги</a>
+                </li>
+            <li>
+                    <a href="/news/press" data-drupal-link-system-path="news/press">Новости</a>
+                </li>
+            <li>
+                    <a href="/about" data-drupal-link-system-path="node/5">О компании</a>
+                </li>
+        </ul>
+</nav>
+<div class="page-header__loginButtons">
+    <a class="page-header__loginBtn" href="javascript:;" onclick="flyShow('#loginLogin')">Вход</a>     <a class="page-header__registrationBtn" href="javascript:;" onclick="flyShow('#loginRegistration')">Регистрация</a> </div>
+<div id="loginLogin" style="display:none">
+    <div class="fly-heap">Вход</div>     <div class="fly-wbody">
+        <div class="login-registration">             <div class="lr-desc">Выберите секцию площадки, на которую хотите зайти:</div>
+            <ul>
+                                            <li>
+                    <a href="https://44.tektorg.ru/authentication/login" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2019-11/%D0%B3%D0%BE%D1%81%20%D0%BB%D0%BE%D0%B3%D0%BE%20100%D1%85100_0.jpg)"></i>
+                                            Государственные закупки
+                    </a>
+                    	        </li>
+                                                            <li>
+                    <a href="https://rn.tektorg.ru/#auth/login" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2017-08/%D1%80%D0%BE%D1%81%D0%BD%D0%B5%D1%84%D1%82%D1%8C_0.png)"></i>
+                                            ПАО «НК «Роснефть», закупки
+                    </a>
+                    	        </li>
+                                                            <li>
+                    <a href="https://irao.tektorg.ru/#auth/login" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2018-02/inter%20rao_0.jpg)"></i>
+                                            Интер РАО
+                    </a>
+                    	        </li>
+                                                            <li>
+                    <a href="https://tender.tektorg.ru/#auth/login" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2017-08/%D1%80%D0%BE%D1%81%D0%BD%D0%B5%D1%84%D1%82%D1%8C_0_0.png)"></i>
+                                            ПАО «НК «Роснефть», продажа нефтепродуктов
+                    </a>
+                    	        </li>
+                                                            <li>
+                    <a href="https://gb.tektorg.ru/#auth/login" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2017-08/%D0%B3%D0%B0%D0%B7%D0%BF%D1%80%D0%BE%D0%BC0.jpg)"></i>
+                                            Газпром бурение
+                    </a>
+                    	        </li>
+                                                            <li>
+                    <a href="https://zakupki.tektorg.ru/#auth/login" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2019-11/12_0_1.png)"></i>
+                                            223-ФЗ и Коммерческие закупки
+                    </a>
+                    	        </li>
+                                                            <li>
+                    <a href="https://sale.tektorg.ru/#auth/login" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2019-11/12_0.png)"></i>
+                                            Продажа имущества
+                    </a>
+                    	        </li>
+                                                            <li>
+                    <a href="https://arest.tektorg.ru/login" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2020-06/12.png)"></i>
+                                             Продажа арестованного имущества 
+                    </a>
+                    	        </li>
+                                                            <li>
+                    <a href="https://kim.tektorg.ru/#auth/login" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2019-11/market-icon.png)"></i>
+                                            Интернет-магазин
+                    </a>
+                    	        </li>
+                                                            <li>
+                    <a href="https://kim.tektorg.ru/#auth/login" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2019-11/header-menu-tyumen.png)"></i>
+                                            Портал поставщиков Тюменской области
+                    </a>
+                    	        </li>
+                                                            <li>
+                    <a href="https://zakupki.tektorg.ru/#auth/login" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2019-11/header-menu-sm.png)"></i>
+                                            Силовые машины
+                    </a>
+                    	        </li>
+                                                            <li>
+                    <a href="https://fin.tektorg.ru" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2019-04/f2%20%281%29.png)"></i>
+                                            Финансовые сервисы
+                    </a>
+                    	        </li>
+                                        </ul>
+        </div>
+    </div>
+</div>
+<div id="loginRegistration" style="display:none">
+    <div class="fly-heap">Регистрация</div>     <div class="fly-wbody">
+        <div class="login-registration">             <div class="lr-desc">Выберите секцию площадки, на которой хотите зарегистрироваться:</div>
+            <ul>
+                                            <li>
+                    <a href="https://44.tektorg.ru/" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2019-11/%D0%B3%D0%BE%D1%81%20%D0%BB%D0%BE%D0%B3%D0%BE%20100%D1%85100_0.jpg)"></i>
+                                            Государственные закупки
+                    </a>
+                </li>
+                                                            <li>
+                    <a href="https://rn.tektorg.ru/#front/register" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2017-08/%D1%80%D0%BE%D1%81%D0%BD%D0%B5%D1%84%D1%82%D1%8C_0.png)"></i>
+                                            ПАО «НК «Роснефть», закупки
+                    </a>
+                </li>
+                                                            <li>
+                    <a href="https://irao.tektorg.ru/#front/register" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2018-02/inter%20rao_0.jpg)"></i>
+                                            Интер РАО
+                    </a>
+                </li>
+                                                            <li>
+                    <a href="https://tender.tektorg.ru/#front/register" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2017-08/%D1%80%D0%BE%D1%81%D0%BD%D0%B5%D1%84%D1%82%D1%8C_0_0.png)"></i>
+                                            ПАО «НК «Роснефть», продажа нефтепродуктов
+                    </a>
+                </li>
+                                                            <li>
+                    <a href="https://gb.tektorg.ru/#front/register" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2017-08/%D0%B3%D0%B0%D0%B7%D0%BF%D1%80%D0%BE%D0%BC0.jpg)"></i>
+                                            Газпром бурение
+                    </a>
+                </li>
+                                                            <li>
+                    <a href="https://zakupki.tektorg.ru/#front/register" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2019-11/12_0_1.png)"></i>
+                                            223-ФЗ и Коммерческие закупки
+                    </a>
+                </li>
+                                                            <li>
+                    <a href="https://sale.tektorg.ru/#front/register" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2019-11/12_0.png)"></i>
+                                            Продажа имущества
+                    </a>
+                </li>
+                                                            <li>
+                    <a href="https://arest.tektorg.ru/register" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2020-06/12.png)"></i>
+                                             Продажа арестованного имущества 
+                    </a>
+                </li>
+                                                            <li>
+                    <a href="https://kim.tektorg.ru/#front/register" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2019-11/market-icon.png)"></i>
+                                            Интернет-магазин
+                    </a>
+                </li>
+                                                            <li>
+                    <a href="https://kim.tektorg.ru/#front/register" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2019-11/header-menu-tyumen.png)"></i>
+                                            Портал поставщиков Тюменской области
+                    </a>
+                </li>
+                                                            <li>
+                    <a href="https://zakupki.tektorg.ru/#front/register" target="_blank">
+                                            <i style="background-image:url(/sites/default/files/2019-11/header-menu-sm.png)"></i>
+                                            Силовые машины
+                    </a>
+                </li>
+                                                                    </ul>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+    <div class="page-header__menu">
+        <div class="wrap">
+            <div class="page-header__menu-menu">
+                <a href="javascript:;" class="menu-link">Секции ЭТП</a>                 <ul>
+    <li class="item-procedures active">
+            <span class="activSubMenu2">Все секции</span>
+        </li>
+    <li class="item-44-fz">
+            <a href="/44-fz" data-drupal-link-system-path="node/2898">Государственные закупки</a>
+        </li>
+    <li class="item-rosneft">
+            <a href="/rosneft" data-drupal-link-system-path="node/8">Роснефть</a>
+        </li>
+    <li class="item-interao">
+            <a href="/interao" title="секция компании Интер РАО" data-drupal-link-system-path="node/875">Интер РАО</a>
+        </li>
+    <li class="item-223-fz">
+            <a href="/223-fz" data-drupal-link-system-path="node/75">223-ФЗ и Коммерческие закупки</a>
+        </li>
+    <li class="item-rzd">
+            <a href="/rzd" data-drupal-link-system-path="node/26">РЖД</a>
+        </li>
+    <li class="item-mosenergo">
+            <a href="/mosenergo" data-drupal-link-system-path="node/2991">ТЭК Мосэнерго</a>
+        </li>
+    <li class="item-upravlenie_zakazchika">
+            <a href="/upravlenie_zakazchika" data-drupal-link-system-path="node/3592">Управление заказчика</a>
+        </li>
+    <li class="item-silovyi_machine">
+            <a href="/silovyi_machine" data-drupal-link-system-path="node/3484">Силовые машины</a>
+        </li>
+    <li class="item-gazprom">
+            <a href="/gazprom" data-drupal-link-system-path="node/10">Газпром бурение</a>
+        </li>
+    <li class="item-portal_tyumen">
+            <a href="/portal_tyumen" data-drupal-link-system-path="node/3267">Портал поставщиков Тюменской области</a>
+        </li>
+    <li class="item-tenders">
+            <a href="/tenders" data-drupal-link-system-path="node/76">Продажа нефтепродуктов</a>
+        </li>
+    <li class="item-sale">
+            <a href="/sale" data-drupal-link-system-path="node/11">Продажа имущества</a>
+        </li>
+    <li class="item-arrested-sale">
+            <a href="/arrested-sale" data-drupal-link-system-path="node/3848">Продажа арестованного имущества</a>
+        </li>
+    <li class="item-market">
+            <a href="/market" data-drupal-link-system-path="node/896">Интернет-магазин</a>
+        </li>
+    <li class="item-https-fin-tektorg-ru-orders-create">
+            <a href="https://fin.tektorg.ru/orders/create">Финансовые сервисы</a>
+        </li>
+</ul>
+
+            </div>
+            <div class="page-header__menu-search">
+                <form id='headerSearch' action="/search" method="get" onsubmit="addUAEvent('Поиск', 'Обычный поиск', {elemId:'headerSearch', selector:'input[name=keys]'});">
+                    <input class="submit" type="submit" value="" title="Поиск" />                     <input class="input" type="text" name="keys" placeholder="Поиск" />                     <input type="hidden" name="lang" value="ru" />                 </form>
+            </div>
+                        <div class="page-header__langs">
+                <ul block="pereklucatelazyka" class="langs"><li data-drupal-link-query="{&quot;order&quot;:&quot;desc&quot;,&quot;q&quot;:&quot;\u0434\u043e\u043c&quot;,&quot;sort&quot;:&quot;datestart&quot;}" data-drupal-link-system-path="procedures" class="is-active"><a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="language-link session-active is-active" data-drupal-link-query="{&quot;order&quot;:&quot;desc&quot;,&quot;q&quot;:&quot;\u0434\u043e\u043c&quot;,&quot;sort&quot;:&quot;datestart&quot;}" data-drupal-link-system-path="procedures">ru</a></li><li data-drupal-link-query="{&quot;lang&quot;:&quot;en&quot;,&quot;order&quot;:&quot;desc&quot;,&quot;q&quot;:&quot;\u0434\u043e\u043c&quot;,&quot;sort&quot;:&quot;datestart&quot;}" data-drupal-link-system-path="procedures"><a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&amp;lang=en" class="language-link" data-drupal-link-query="{&quot;lang&quot;:&quot;en&quot;,&quot;order&quot;:&quot;desc&quot;,&quot;q&quot;:&quot;\u0434\u043e\u043c&quot;,&quot;sort&quot;:&quot;datestart&quot;}" data-drupal-link-system-path="procedures">en</a></li></ul>
+            </div>
+                    </div>
+    </div>
+</header>
+<script src="/themes/tektorg/js/header.js?20181204"></script>
+        <main class="single-section">
+    <style>
+.breadcrumbs ol{margin:0;padding:0;list-style:none none;}
+.breadcrumbs li{display:inline;}
+.breadcrumbs li:after{content:'›';margin:0 5px;}
+.breadcrumbs li:last-of-type:after{content:'';}
+</style>
+<section class="breadcrumbs">
+    <div class="breadcrumbs__wrapper">
+        <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a class="breadcrumbs__section" itemprop="item" href="/">
+                    <span itemprop="name">ЭТП ТЭК-Торг</span>
+                </a>
+                            <meta itemprop="position" content="1" />
+            </li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <link itemprop="item" href="https://www.tektorg.ru/procedures" />
+                <span class="breadcrumbs__current" itemprop="name">Все закупки</span>
+                            <meta itemprop="position" content="2" />
+            </li>
+                </ol>
+    </div>
+</section>
+    <section class="general">
+        <div class="general__wrapper">
+                    <aside class="left-menu">
+                <div class="left-menu__title">
+    <div class="left-menu__yellow-stripe"></div>
+    <div class="left-menu__title-wrapper">
+            <div class="left-menu__titles">
+            <h2 class="left-menu__title-title">Все секции</h2>
+        </div>
+                    <span class="left-menu__items-open">Разделы</span>     </div>
+</div>
+
+<ul class="left-menu__items">
+        <li class="left-menu__item"><a href="/44-fz/procedures" class="left-menu__item-link">Государственные закупки</a></li>
+            <li class="left-menu__item"><a href="/rosneft/procedures" class="left-menu__item-link">Роснефть</a></li>
+            <li class="left-menu__item"><a href="/rosnefttkp/procedures" class="left-menu__item-link">Роснефть - Запросы Т(КП)</a></li>
+            <li class="left-menu__item"><a href="/interao/procedures" class="left-menu__item-link">Интер РАО</a></li>
+            <li class="left-menu__item"><a href="/223-fz/procedures" class="left-menu__item-link">223-ФЗ и Коммерческие закупки</a></li>
+            <li class="left-menu__item"><a href="/rzd/procedures" class="left-menu__item-link">РЖД</a></li>
+            <li class="left-menu__item"><a href="/mosenergo/procedures" class="left-menu__item-link">ТЭК Мосэнерго</a></li>
+            <li class="left-menu__item"><a href="/upravlenie_zakazchika/procedures" class="left-menu__item-link">Управление заказчика</a></li>
+            <li class="left-menu__item"><a href="/silovyi_machine/procedures" class="left-menu__item-link">Силовые машины</a></li>
+            <li class="left-menu__item"><a href="/gazprom/procedures" class="left-menu__item-link">Газпром бурение</a></li>
+            <li class="left-menu__item"><a href="/portal_tyumen/procedures" class="left-menu__item-link">Портал поставщиков Тюменской области </a></li>
+            <li class="left-menu__item"><a href="/tenders/procedures" class="left-menu__item-link">Продажа нефтепродуктов</a></li>
+            <li class="left-menu__item"><a href="/sale/procedures" class="left-menu__item-link">Продажа имущества</a></li>
+            <li class="left-menu__item"><a href="/sale178/procedures" class="left-menu__item-link">Продажа и аренда гос. и муниципального имущества</a></li>
+            <li class="left-menu__item"><a href="/les/procedures" class="left-menu__item-link">Аренда лесных участков</a></li>
+            <li class="left-menu__item"><a href="/arrested-sale" class="left-menu__item-link">Продажа арестованного имущества</a></li>
+            <li class="left-menu__item"><a href="/market/procedures" class="left-menu__item-link">Интернет-магазин</a></li>
+    </ul>
+  <a href="/help"    onclick="addUAEvent('Левый баннер', 'Все секции', 'Есть вопросы?')">
+        	    <img src="/sites/default/files/2017-11/%D1%82%D0%B5%D1%85-%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0.jpg" alt="Есть вопросы?" />
+      </a>
+
+            </aside>
+                    <section class="index">
+                <div class="index__wrapper">
+                    <h1 class="section-procurement__title">Поиск процедур</h1> 
+
+<form id="procedureSearchForm" action="" method="get" onsubmit="addUAEvent('Поиск', 'Расширенный поиск', {elemId:'procedureSearchForm', selector:'input[name=q]'}); disableEmpty(this);">
+    <input type="hidden" name="lang" value="ru" />     <div class="form-procurement">
+            <div class="form__group form__group--keywords">
+            <label class="label">Ключевые слова</label>             <input type="text" name="q" value="дом" data-placeholder="0" />
+                </div>
+                <div class="form__group  form__group--region">
+            <label class="label">Регион поставки</label>             <input type="text" name="region" value="" />
+        </div>
+                        <div class="form__group form__group--select form__group--double">
+            <label class="label">Тип реализуемого имущества</label>             <select name="ownership">
+                <option value="">Все</option>                             <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                        </select>
+        </div>
+                <div class="form__group form__group--select form__group--triple">
+            <label class="label">Регион ПИ</label>             <select name="propreg">
+                <option value="">Все</option>                             <option>Алтайский край</option>
+                            <option>Амурская область</option>
+                            <option>Ангарск</option>
+                            <option>Апшеронский район</option>
+                            <option>Архангельская область</option>
+                            <option>Астраханская область</option>
+                            <option>Базарный Карабулак</option>
+                            <option>Балашовский район</option>
+                            <option>Белгород</option>
+                            <option>Белгородская область</option>
+                            <option>Брянская область</option>
+                            <option>Буй</option>
+                            <option>Венгрия</option>
+                            <option>Волгоградская область</option>
+                            <option>Вологодская область</option>
+                            <option>Вольск</option>
+                            <option>Воронеж</option>
+                            <option>Воронежская область</option>
+                            <option>Город Москва столица Российской Федерации город федерального значения</option>
+                            <option>Город Санкт-Петербург город федерального значения</option>
+                            <option>Духовницкое</option>
+                            <option>Забайкальский край</option>
+                            <option>Ивановская область</option>
+                            <option>Ижевск</option>
+                            <option>Иркутская область</option>
+                            <option>Калининградская область</option>
+                            <option>Калужская область</option>
+                            <option>Кемеровская область - Кузбасс</option>
+                            <option>Кострома</option>
+                            <option>Костромская область</option>
+                            <option>Краснодарский край</option>
+                            <option>Краснокамский район</option>
+                            <option>Краснопартизанский район</option>
+                            <option>Красноярский край</option>
+                            <option>Красный Кут</option>
+                            <option>Курганская область</option>
+                            <option>Липецкая область</option>
+                            <option>Магаданская область</option>
+                            <option>Московская область</option>
+                            <option>Мурманск</option>
+                            <option>Мурманская область</option>
+                            <option>Наро-Фоминск</option>
+                            <option>Ненецкий автономный округ (Архангельская область)</option>
+                            <option>Нефтеюганский район</option>
+                            <option>Нижегородская область</option>
+                            <option>Нижневартовский район</option>
+                            <option>Новосибирская область</option>
+                            <option>Озинки</option>
+                            <option>Округа Саратовского р-на/</option>
+                            <option>Омская область</option>
+                            <option>Оренбург</option>
+                            <option>Оренбургская</option>
+                            <option>Оренбургская область</option>
+                            <option>Орловская область</option>
+                            <option>Пензенская область</option>
+                            <option>Первомайский район</option>
+                            <option>Пермский край</option>
+                            <option>Петровск</option>
+                            <option>Приморский край</option>
+                            <option>Псковская область</option>
+                            <option>Республика Адыгея (Адыгея)</option>
+                            <option>Республика Башкортостан</option>
+                            <option>Республика Бурятия</option>
+                            <option>Республика Дагестан</option>
+                            <option>Республика Калмыкия</option>
+                            <option>Республика Карелия</option>
+                            <option>Республика Коми</option>
+                            <option>Республика Крым</option>
+                            <option>Республика Мордовия</option>
+                            <option>Республика Саха (Якутия)</option>
+                            <option>Республика Северная Осетия-Алания</option>
+                            <option>Республика Татарстан (Татарстан)</option>
+                            <option>Ровное</option>
+                            <option>Романовка</option>
+                            <option>Ростовская область</option>
+                            <option>Рязанская область</option>
+                            <option>Рязань</option>
+                            <option>Самара</option>
+                            <option>Самарская</option>
+                            <option>Самарская область</option>
+                            <option>Самарский</option>
+                            <option>Самойловка</option>
+                            <option>Саратов</option>
+                            <option>Сахалинская область</option>
+                            <option>Свердловская область</option>
+                            <option>Сельские населенные пункты областного подчинения Мурманской области, находящиеся в ведении федеральных органов государственной власти и управления/</option>
+                            <option>Славянский район</option>
+                            <option>Смоленская область</option>
+                            <option>Ставропольский край</option>
+                            <option>Ставропольский район</option>
+                            <option>Тамбовская область</option>
+                            <option>Татищево</option>
+                            <option>Тверская область</option>
+                            <option>Томская область</option>
+                            <option>Тульская область</option>
+                            <option>Тюменская область</option>
+                            <option>Удмуртская Республика</option>
+                            <option>Украина</option>
+                            <option>Ульяновская область</option>
+                            <option>Усинск</option>
+                            <option>Хабаровский край</option>
+                            <option>Ханты-Мансийский автономный округ - Югра (Тюменская область)</option>
+                            <option>Ханты-Мансийский автономный округ-Югра</option>
+                            <option>Челябинская область</option>
+                            <option>Чеченская Республика*</option>
+                            <option>Чувашская Республика - Чувашия</option>
+                            <option>Чукотский автономный округ</option>
+                            <option>Эвенкийский автономный округ (Красноярский край)</option>
+                            <option>Ямало-Ненецкий автономный округ (Тюменская область)</option>
+                            <option>Ярославская область</option>
+                            <option>ж/д ст Питерка</option>
+                            <option>п Иркутский</option>
+                            <option>с Александров Гай</option>
+                            <option>с Крепость Узень</option>
+                            <option>с Мунино</option>
+                            <option>ст Барнуковка</option>
+                        </select>
+        </div>
+                <div class="form__group--select form__group--type smallSelect">
+            <label class="label">Способ проведения закупки / определения поставщика (тип процедуры)</label>
+            <div class="form__group-selector">
+                <input class="form__group-selector-hidden" type="hidden" name="type" value="" />
+                <input class="form__group-selector-input" type="text" readonly placeholder="Все типы" />                 <div class="form__group-selector-block">
+                                    <label>
+                        <input type="checkbox" value="2;18;48;91;83" title="Аукцион" />
+                        Аукцион
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="93" title="Аукцион (заявка в двух частях)" />
+                        Аукцион (заявка в двух частях)
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="80;98" title="Без названия" />
+                        Без названия
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="88" title="Двухэтапный конкурс в электронной форме" />
+                        Двухэтапный конкурс в электронной форме
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="16;44;60" title="Закупка у единственного поставщика" />
+                        Закупка у единственного поставщика
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="68" title="Запрос (Т)КП" />
+                        Запрос (Т)КП
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="78;70;74;90" title="Запрос котировок" />
+                        Запрос котировок
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="85" title="Запрос котировок в электронной форме" />
+                        Запрос котировок в электронной форме
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="89" title="Запрос оферт" />
+                        Запрос оферт
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="21;4;34;50;69" title="Запрос предложений" />
+                        Запрос предложений
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="65" title="Запрос предложений (делимый объем)" />
+                        Запрос предложений (делимый объем)
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="66" title="Запрос предложений (неделимый объем)" />
+                        Запрос предложений (неделимый объем)
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="86" title="Запрос предложений в электронной форме" />
+                        Запрос предложений в электронной форме
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="5;35;54" title="Запрос цен" />
+                        Запрос цен
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="77" title="Конкурентные переговоры" />
+                        Конкурентные переговоры
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="3;19;49;79;92" title="Конкурс" />
+                        Конкурс
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="96" title="Открытый аукцион с закрытой формой представления предложений о цене" />
+                        Открытый аукцион с закрытой формой представления предложений о цене
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="97" title="Открытый аукцион с открытой формой представления предложений о цене" />
+                        Открытый аукцион с открытой формой представления предложений о цене
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="72" title="Открытый запрос цен" />
+                        Открытый запрос цен
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="84" title="Открытый конкурс" />
+                        Открытый конкурс
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="87" title="Открытый конкурс с ограниченным участием в электронной форме" />
+                        Открытый конкурс с ограниченным участием в электронной форме
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="73" title="Переторжка в заочной форме" />
+                        Переторжка в заочной форме
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="67" title="Предварительная квалификация" />
+                        Предварительная квалификация
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="53" title="Предварительный отбор" />
+                        Предварительный отбор
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="95" title="Продажа без объявления цены" />
+                        Продажа без объявления цены
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="94" title="Публичное предложение" />
+                        Публичное предложение
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="61" title="Тендер" />
+                        Тендер
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="46" title="Тендер с онлайн подачей ценовых предложений (на повышение)" />
+                        Тендер с онлайн подачей ценовых предложений (на повышение)
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="71" title="Тендер с онлайн подачей ценовых предложений (на понижение)" />
+                        Тендер с онлайн подачей ценовых предложений (на понижение)
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="81" title="Ценовой запрос" />
+                        Ценовой запрос
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="82" title="Экспресс-заказ" />
+                        Экспресс-заказ
+                    </label>
+                                </div>
+            </div>
+        </div>
+                <div class="form__group--select form__group--status smallSelect">
+            <label class="label">Статусы процедур (стадии)</label>             <div class="form__group-selector">
+                <input class="form__group-selector-hidden" type="hidden" name="status" value="" />
+                <input class="form__group-selector-input" type="text" readonly placeholder="Любой статус" />                 <div class="form__group-selector-block">
+                                    <label>
+                        <input type="checkbox" value="322;324;325;228;229;323;281" title="" />
+                        
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="278" title="Аннулировано" />
+                        Аннулировано
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="172;8;7;197;237;252;276;277;217;241;218;293" title="Архив" />
+                        Архив
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="297" title="Архив: отменена организатором" />
+                        Архив: отменена организатором
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="299" title="Архив: процедура не состоялась, контракт заключен" />
+                        Архив: процедура не состоялась, контракт заключен
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="298" title="Архив: процедура не состоялась, контракт не заключен" />
+                        Архив: процедура не состоялась, контракт не заключен
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="310" title="Архив: процедура состоялась (совместная закупка), контракты заключены частично" />
+                        Архив: процедура состоялась (совместная закупка), контракты заключены частично
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="296" title="Архив: процедура состоялась, договор не заключен" />
+                        Архив: процедура состоялась, договор не заключен
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="331" title="В стадии проведения" />
+                        В стадии проведения
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="180" title="Вскрытие квалификационных частей" />
+                        Вскрытие квалификационных частей
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="236" title="Вскрытие оферт" />
+                        Вскрытие оферт
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="280" title="Выбор победителей" />
+                        Выбор победителей
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="274" title="Заказы сформированы" />
+                        Заказы сформированы
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="292" title="Заключение договора" />
+                        Заключение договора
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="303" title="Закупка приостановлена" />
+                        Закупка приостановлена
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="328" title="Идет прием заявок" />
+                        Идет прием заявок
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="272" title="На рассмотрении заказчика" />
+                        На рассмотрении заказчика
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="270" title="На рассмотрении поставщика" />
+                        На рассмотрении поставщика
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="327" title="Объявлен" />
+                        Объявлен
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="334" title="Ожидание начала следующего шага" />
+                        Ожидание начала следующего шага
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="279" title="Ожидание снижения цен" />
+                        Ожидание снижения цен
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="302;306;307;308;309;311" title="Определение поставщика (подрядчика, исполнителя) завершено" />
+                        Определение поставщика (подрядчика, исполнителя) завершено
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="320" title="Опубликована" />
+                        Опубликована
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="271;247" title="Отменен" />
+                        Отменен
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="300" title="Отменена по требованию контролирующего органа" />
+                        Отменена по требованию контролирующего органа
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="273" title="Отменено заказчиком" />
+                        Отменено заказчиком
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="10;9;284;242;220;199" title="Отменён" />
+                        Отменён
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="290" title="Очные торги в электронной форме (подача окончательных ЦП)" />
+                        Очные торги в электронной форме (подача окончательных ЦП)
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="301" title="Подана жалоба" />
+                        Подана жалоба
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="288" title="Подача заявок" />
+                        Подача заявок
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="235" title="Подведение итогов" />
+                        Подведение итогов
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="182" title="Подписание итогового протокола" />
+                        Подписание итогового протокола
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="178" title="Постквалификация" />
+                        Постквалификация
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="261;268;246;256;266;267;212;222;243;314;316;191;201;210;318" title="Прием заявок" />
+                        Прием заявок
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="330" title="Прием заявок окончен" />
+                        Прием заявок окончен
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="294" title="Приостановлена оператором" />
+                        Приостановлена оператором
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="295" title="Приостановлена по техническим причинам" />
+                        Приостановлена по техническим причинам
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="186;187;21;22;11;12;1;2;175;179;245;239" title="Приём заявок" />
+                        Приём заявок
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="321" title="Приём заявок 1 этапа" />
+                        Приём заявок 1 этапа
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="230" title="Приём оферт" />
+                        Приём оферт
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="275" title="Просрочено" />
+                        Просрочено
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="188;189;3;4;5;6;18;17;16;30;40;171;13;14;173;176;177;183;184;185;224;225;269;226;190;192;193;194;195;196;198;200;202;203;249;248;258;250;251;253;254;255;259;208;204;260;262;263;264;265;219;244;282;257;240;283;285;286;287;211;213;214;215;216;221;223;227;238;231;232;315;317;205;206;207;304;305;233;234;209" title="Работа комиссии" />
+                        Работа комиссии
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="291" title="Рассмотрение вторых частей (подведение итогов)" />
+                        Рассмотрение вторых частей (подведение итогов)
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="181" title="Рассмотрение квалификационных частей" />
+                        Рассмотрение квалификационных частей
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="289" title="Рассмотрение первых частей (вскрытие конвертов)" />
+                        Рассмотрение первых частей (вскрытие конвертов)
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="319" title="Создана" />
+                        Создана
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="329" title="Торги завершены" />
+                        Торги завершены
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="333" title="Торги по лоту отменены" />
+                        Торги по лоту отменены
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="332" title="Торги по лоту приостановлены" />
+                        Торги по лоту приостановлены
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="313" title="Тур завершен, запущен следующий тур" />
+                        Тур завершен, запущен следующий тур
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="174" title="Уточнение извещения о закупке" />
+                        Уточнение извещения о закупке
+                    </label>
+                                    <label>
+                        <input type="checkbox" value="326" title="Черновик" />
+                        Черновик
+                    </label>
+                                </div>
+            </div>
+        </div>
+                    <div class="form__group form__group--publication-date">             <label class="label">Дата публикации процедуры</label>
+            <div class="form__group-calendarWrapper">
+                                <input autocomplete="nope" id="datepubfrom" type="text" name="dpfrom" value="" placeholder="с" />                                             <input autocomplete="nope" id="datepubto" type="text" name="dpto" value="" placeholder="по" />                         </div>
+        </div>
+                <div class="form__group form__group--request-date">
+            <label class="label">Дата окончания приема заявок</label>
+            <div class="form__group-calendarWrapper">
+                                <input autocomplete="nope" id="dateendfrom" type="text" name="defrom" value="" placeholder="с" />                                             <input autocomplete="nope" id="dateendto" type="text" name="deto" value="" placeholder="по" />                         </div>
+        </div>
+                <div class="form__group form__group--okwed">
+            <label class="label">Код классификатора ОКВЭД2 (для лота)</label>             <input type="text" id="okved2" name="okved2" value="" />
+            <a onclick="flyInputAjax('/ajax/okved2.php')" class="form__group--okwed-link">Поиск по классификатору</a>                 </div>
+                <div class="form__group form__group--okpd">
+            <label class="label">Код классификатора ОКПД2 (для лота)</label>             <input type="text" id="okpd2" name="okpd2" value="" />
+            <a onclick="flyInputAjax('/ajax/okpd2.php')" class="form__group--okpd-link">Поиск по классификатору</a>                 </div>
+                <div class="form__group form__group--select form__group--triple">
+            <label class="label">Обеспечение</label>             <select name="ensure">
+                <option value="">Все</option>                 <option value="y">С обеспечением</option>                 <option value="n">Без обеспечения</option>             </select>
+        </div>
+                <div class="form__group form__group--select form__group--triple">
+            <label class="label">МСП</label>             <select name="msp">
+                <option value="">Все</option>                 <option value="y">Для МСП</option>                 <option value="n">Для не МСП</option>             </select>
+        </div>
+                <div class="form__group form__group--check form__group--triple">
+            <label class="label">Наличие ЭП для участия</label>             <label class="checkbox" rel="checkboxsign">
+                <input type="checkbox" class="checkbox" id="checkboxsign" name="sign" value="y" />
+                Участие без ЭП             </label>
+        </div>
+                <div class="form__group form__group--check form__group--triple">
+            <label class="label">Стоимость участия</label>             <label class="checkbox" rel="checkboxpop">
+                <input type="checkbox" class="checkbox" id="checkboxpop" name="pop" value="y" />
+                Плата не взимается             </label>
+        </div>
+                <div class="form__group form__group--request-date">
+            <label class="label">Начальная цена</label>
+            <div class="form__group-price">
+                <input autocomplete="nope" type="text" name="startpricefrom" value="" placeholder="с" />                 <input autocomplete="nope" type="text" name="startpriceto" value="" placeholder="по" />             </div>
+        </div>
+                    </div>
+    <div class="form-procurement">
+        <div class="form__buttons">
+            <button type="submit" class="btn form__button">Найти</button>         </div>
+        <div class="form__controls">
+            <a class="formOpen form__close2">Свернуть форму</a>             <a class="form__clear" href="/procedures">Очистить форму</a>         </div>
+    </div>
+</form>
+
+<script>
+    $.datepicker.setDefaults($.datepicker.regional['ru']);     $("#datepubfrom").datepicker({showOtherMonths:true,selectOtherMonths:true});
+    $("#datepubto").datepicker({showOtherMonths:true,selectOtherMonths:true}); 
+    $("#dateendfrom").datepicker({showOtherMonths:true,selectOtherMonths:true});
+    $("#dateendto").datepicker({showOtherMonths:true,selectOtherMonths:true});
+
+    $('.form__group-selector').each(function() {
+        var selectorTiomeout,
+            selector = this;
+
+        $(this).mouseout(function() {
+            selectorTiomeout = setTimeout(function() {
+                $(selector).removeClass('active');
+                $(selector).find('.searchCustomer').val('');
+                $(selector).find('label').css('display', 'block')
+            }, 500);
+        });
+        $(this).mouseover(function() {
+            clearTimeout(selectorTiomeout);
+        });
+
+        $(this).find('.form__group-selector-input').click(function() {
+            var $parent = $(this).parent();
+            if ($parent.hasClass('active')) {
+                $parent.removeClass('active');
+                $parent.find('.searchCustomer').val('');
+                $parent.find('label').css('display', 'block');
+            } else {
+                $parent.addClass('active');
+            }
+        });
+
+        $(this).find('.form__group-selector-block label input').change(function() {
+            $label = $(this).parent();
+            if ($(this).prop('checked')) {
+                $label.addClass('checked');
+            } else {
+                $label.removeClass('checked');
+            }
+            selectorUpdate(selector);
+        });
+        selectorUpdate(selector);
+    });
+
+    function selectorUpdate(there) {
+        $hidden = $(there).find('input.form__group-selector-hidden');
+        $input = $(there).find('input.form__group-selector-input');
+        var names = [],
+            values = [];
+        $(there).find('.form__group-selector-block label input').each(function() {
+            if ($(this).prop('checked')) {
+                names.push($(this).prop('title'));
+                values.push($(this).val());
+            }
+        });
+        $hidden.val(values.join(';'));
+        $input.val(names.join('; '));
+    }
+
+    function disableEmpty(there) {
+        $(there).find('input, select').each(function() {
+            if ($(this).val() == '' || $(this).val() == $(this).data('placeholder')) {
+                $(this).attr('disabled', 'disabled');
+            }
+        });
+    }
+
+    $('.form__group label.checkbox').each(function() {
+        var input = $(this).find('input'),
+            label = $(this);
+        input.change(function() {
+            if (label.hasClass('disabled')) {
+                return false;
+            }
+            if (label.attr('rel')) {
+                if (label.hasClass('checked')) {
+                    label.removeClass('checked');
+                } else {
+                    label.addClass('checked');
+                }
+
+                var val = $(input).val();
+                var newVal = label.hasClass('checked') ? 'y' : '';
+                if (val != newVal) {
+                    $(input).val(newVal);
+                }
+            }
+        });
+    });
+</script>
+<br /><br />
+
+<div class="section-procurement__find-wrapper">
+    <div class="section-procurement__find-similar">
+            <span>Найдены процедуры в секциях:</span>                         <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">Государственные закупки</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(10256)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">Роснефть</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(3473)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">Интер РАО</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(102)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">223-ФЗ и Коммерческие закупки</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(287)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">РЖД</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(1)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">Газпром бурение</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(49)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">Продажа имущества</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(269)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">Продажа арестованного имущества</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(6)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">Интернет-магазин</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(3930)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">Роснефть - Запросы (Т)КП</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(5545)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">ТЭК Мосэнерго</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(22)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">СПб ГКУ «Управление заказчика»</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(2)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">Акционерное общество «Силовые машины»</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(7)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">Портал поставщиков Тюменской области</a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(8)</span>
+                            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart" class="section-procurement__find-section">Продажа и аренда гос. и муниципального имущества </a>&nbsp;
+        <span class="section-procurement__find-sectionAmount">(5)</span>
+                </div>
+</div>
+
+
+<ul class="pagination" role="navigation" aria-label="Pagination">
+    <li class="pagination__prev">
+            <a aria-label="Предыдущая страница"></a>         </li>
+            <li class="pagination__current">1</li>
+                            <li><a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&page=2" aria-label="Page 2">2</a></li>                 <li><a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&page=3" aria-label="Page 3">3</a></li>                             <li><a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&page=481" aria-label="Page 481">...</a></li>                 <li><a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&page=960" aria-label="Page 960">960</a></li>                 <li><a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&page=961" aria-label="Page 961">961</a></li>                             <li class="pagination__next">
+            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&page=2" aria-label="Следующая страница"></a>         </li>
+</ul>
+
+
+<div class="section-procurement__header-wrap">
+    <span class="section-procurement__number">Всего процедур: 24 013</span>     <div class="section-procurement__header">
+        <div class="section-procurement__header-sortWrapper">
+            <span class="section-procurement__header-sort">Сортировать по:</span>             <span class="section-procurement__header-sorting">
+                                                                        дате публикации
+                                                                        <div class="section-procurement__header-sorting-dropDownItems" id="dropDownItems3">
+                                    <a href="?q=%D0%B4%D0%BE%D0%BC&sort=relevance"
+                        class="section-procurement__header-sorting-dropDownItem ">актуальности</a>
+                                    <a href="?q=%D0%B4%D0%BE%D0%BC&sort=datestart"
+                        class="section-procurement__header-sorting-dropDownItem ">дате публикации</a>
+                                    <a href="?q=%D0%B4%D0%BE%D0%BC&sort=price"
+                        class="section-procurement__header-sorting-dropDownItem ">цене процедуры</a>
+                                </div>
+            </span>
+            <span class="section-procurement__header-sorting-order">
+                            <a href="?q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&order=asc">
+                    <svg class="order-arrow" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 21.825 21.825" xml:space="preserve">
+                        <path d="M16.791,13.254c0.444-0.444,1.143-0.444,1.587,0c0.429,0.444,0.429,1.143,0,1.587l-6.65,6.651
+                            c-0.206,0.206-0.492,0.333-0.809,0.333c-0.317,0-0.603-0.127-0.81-0.333l-6.65-6.651c-0.444-0.444-0.444-1.143,0-1.587
+                            s1.143-0.444,1.587,0l4.746,4.762V1.111C9.791,0.492,10.299,0,10.918,0c0.619,0,1.111,0.492,1.111,1.111v16.904L16.791,13.254z"/>
+                    </svg>
+                </a>
+                        </span>
+        </div>
+    </div>
+</div>
+<div class="section-procurement__header">
+    <div class="section-procurement__header-resultsWrapper">
+        <span class="section-procurement__header-results">Результатов на страницу:</span>         <span class="section-procurement__header-resultsNumber">
+            25
+            <div class="section-procurement__header-resultsNumber-dropDownItems  section-procurement__header-all-dropDownItems" id="dropDownItems">
+                                                                        <a href="?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&limit=50"
+                    class="section-procurement__header-resultsNumber-dropDownItem">50</a>
+                                                            <a href="?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&limit=100"
+                    class="section-procurement__header-resultsNumber-dropDownItem">100</a>
+                                                            <a href="?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&limit=500"
+                    class="section-procurement__header-resultsNumber-dropDownItem">500</a>
+                                        </div>
+        </span>
+    </div>
+    <div class="section-procurement__change-view">
+        <span class="section-procurement__header-sort">Отобразить страницу в формате:</span>             <a href="?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&theme=table"
+            class="btn" title="Отобразить страницу в формате таблицы">             <img src="/themes/tektorg/images/list.png" alt="таблица" />         </a>
+        </div>
+</div>
+
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2018-11/market-icon_0.png')" title="Интернет-магазин"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    97307
+                                </span>
+            </div>
+            <a href="/market/procedures/496603" class="section-procurement__item-title">Люксметр MASTECH MS6610 13-1215</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Ценовой запрос</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=Публичное Акционерное Общество &quot;НК &quot;Роснефть&quot; - МЗ &quot;Нефтепродукт&quot;">Публичное Акционерное Общество &quot;НК &quot;Роснефть&quot; - МЗ &quot;Нефтепродукт&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=26.51.53.160">Экспонометры и прочие приборы для измерения или контроля количества тепла, звука или света</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 09:39 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            23.09.2020 10:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       На рассмотрении поставщика.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/market/procedures/496603" data-title="Люксметр MASTECH MS6610 13-1215" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2018-11/market-icon_0.png')" title="Интернет-магазин"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    97303
+                                </span>
+            </div>
+            <a href="/market/procedures/496596" class="section-procurement__item-title">Трансформатор лабораторный</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Ценовой запрос</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=Публичное Акционерное Общество &quot;НК &quot;Роснефть&quot; - МЗ &quot;Нефтепродукт&quot;">Публичное Акционерное Общество &quot;НК &quot;Роснефть&quot; - МЗ &quot;Нефтепродукт&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=26.51.65.000">Приборы и аппаратура для автоматического регулирования или управления, гидравлические или пневматические</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 09:33 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            23.09.2020 10:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       На рассмотрении поставщика.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/market/procedures/496596" data-title="Трансформатор лабораторный" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2018-11/market-icon_0.png')" title="Интернет-магазин"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    97301
+                                </span>
+            </div>
+            <a href="/market/procedures/496593" class="section-procurement__item-title">Колбонагреватель WHM-1203 (X) 6Л;ДМ3</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Ценовой запрос</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=Публичное Акционерное Общество &quot;НК &quot;Роснефть&quot; - МЗ &quot;Нефтепродукт&quot;">Публичное Акционерное Общество &quot;НК &quot;Роснефть&quot; - МЗ &quot;Нефтепродукт&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=27.90.40.190">Оборудование электрическое прочее, не включенное в другие группировки</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 09:29 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            23.09.2020 10:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       На рассмотрении поставщика.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/market/procedures/496593" data-title="Колбонагреватель WHM-1203 (X) 6Л;ДМ3" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2018-11/market-icon_0.png')" title="Интернет-магазин"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    97300
+                                </span>
+            </div>
+            <a href="/market/procedures/496587" class="section-procurement__item-title">Фильтр сетчатый IS16-50 фланцевый 224 631</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Ценовой запрос</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=Публичное Акционерное Общество &quot;НК &quot;Роснефть&quot; - МЗ &quot;Нефтепродукт&quot;">Публичное Акционерное Общество &quot;НК &quot;Роснефть&quot; - МЗ &quot;Нефтепродукт&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=28.12.15.190">Гидроаппараты прочие и приборы</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 09:27 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            23.09.2020 10:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       На рассмотрении поставщика.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/market/procedures/496587" data-title="Фильтр сетчатый IS16-50 фланцевый 224 631" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2019-07/procurement-item-logo-rosneft.jpg')" title="Роснефть - Запросы (Т)КП"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    РН00906930
+                                </span>
+            </div>
+            <a href="/rosnefttkp/procedures/496611" class="section-procurement__item-title"> вагон-дом блочного исполнения для проживания 4-х человек</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Запрос (Т)КП</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=ООО &quot;РН-САХАЛИНМОРНЕФТЕГАЗ&quot;">ООО &quot;РН-САХАЛИНМОРНЕФТЕГАЗ&quot;</a>
+    </div>
+                <div class="section-procurement__item-description">
+        <span>ОКВЭД/ОКВЭД2:</span>               <a href="?okved2=25.11">Производство строительных металлических конструкций, изделий и их частей</a>.          </div>
+        <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=30.20.32.190">Вагоны специального назначения прочие</a>;               <a href="?okpd2=41.20.20.349">Сооружения нефтегазодобывающих предприятий прочие</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 09:26 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            24.09.2020 09:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Приём заявок.                                <span class="section-procurement__item-dateRemaining">
+                Осталось: 6 д. 23 ч. 13 мин.             </span>
+                  </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/rosnefttkp/procedures/496611" data-title=" вагон-дом блочного исполнения для проживания 4-х человек" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="service-list section-procurement__banners section-procurement__banners--2">
+      <div class="item banner-item">
+              <div class="item-img"><img src="https://www.tektorg.ru/sites/default/files/2020-07/akkred_rn_3_in_row.jpg" alt="аккредитация в РН"></div>
+                    <div class="item-name"><a href="/service/49">Аккредитация в ПАО НК &quot;Роснефть&quot;</a></div>
+              <div class="item-text"><p>Подготовка комплекта документов для аккредитации в ПАО НК “Роснефть”</p></div>
+        <div class="item-bottom">
+            <div class="item-btn btn"><a href="/service/49">Подробнее</a></div>         </div>
+    </div>
+      <div class="item banner-item">
+              <div class="item-img"><img src="https://www.tektorg.ru/sites/default/files/2019-09/banner_bg_big3.jpg" alt="Ускоренный доступ к торгам "></div>
+                    <div class="item-name"><a href="https://www.tektorg.ru/service/134">Ускоренный доступ к торгам</a></div>
+              <div class="item-text"><p>Зачисление в течении 2 часов денежных средств на ваш счет</p></div>
+        <div class="item-bottom">
+            <div class="item-btn btn"><a href="https://www.tektorg.ru/service/134">Подробнее</a></div>         </div>
+    </div>
+  </div>
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2018-11/market-icon_0.png')" title="Интернет-магазин"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    97297
+                                </span>
+            </div>
+            <a href="/market/procedures/496584" class="section-procurement__item-title">Оказание услуг по выполнению или организации выполнения транспортно-экспедиционных услуг</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Ценовой запрос</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=Публичное Акционерное Общество &quot;НК &quot;Роснефть&quot; - МЗ &quot;Нефтепродукт&quot;">Публичное Акционерное Общество &quot;НК &quot;Роснефть&quot; - МЗ &quot;Нефтепродукт&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=49.41.19.000">Услуги по перевозке грузов автомобильным транспортом прочие</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 09:24 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            22.09.2020 10:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       На рассмотрении поставщика.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/market/procedures/496584" data-title="Оказание услуг по выполнению или организации выполнения транспортно-экспедиционных услуг" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2018-11/market-icon_0.png')" title="Интернет-магазин"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    97286
+                                </span>
+            </div>
+            <a href="/market/procedures/496567" class="section-procurement__item-title">Закупка лабораторной посуды</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Ценовой запрос</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=Публичное Акционерное Общество &quot;НК &quot;Роснефть&quot; - МЗ &quot;Нефтепродукт&quot;">Публичное Акционерное Общество &quot;НК &quot;Роснефть&quot; - МЗ &quot;Нефтепродукт&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=23.19.23.110">Посуда для лабораторных целей стеклянная</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 09:17 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            23.09.2020 10:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       На рассмотрении поставщика.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/market/procedures/496567" data-title="Закупка лабораторной посуды" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2018-11/market-icon_0.png')" title="Интернет-магазин"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    97284
+                                </span>
+            </div>
+            <a href="/market/procedures/496551" class="section-procurement__item-title">Радиатор масляный для оснащения вагон-домов</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Ценовой запрос</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=Общество с ограниченной ответственностью &quot;Башнефть-Строй&quot;">Общество с ограниченной ответственностью &quot;Башнефть-Строй&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=27.51.26.110">Приборы отопительные электрические</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 09:11 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            18.09.2020 10:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       На рассмотрении поставщика.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/market/procedures/496551" data-title="Радиатор масляный для оснащения вагон-домов" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2019-07/procurement-item-logo-rosneft.jpg')" title="Роснефть - Запросы (Т)КП"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    РН00906898
+                                </span>
+            </div>
+            <a href="/rosnefttkp/procedures/496534" class="section-procurement__item-title">Закупка мебели для объекта «АБК» ООО «РН- Туапсинского НПЗ».</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Запрос (Т)КП</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ &quot;РН-ТУАПСИНСКИЙ НЕФТЕПЕРЕРАБАТЫВАЮЩИЙ ЗАВОД &quot;">ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ &quot;РН-ТУАПСИНСКИЙ НЕФТЕПЕРЕРАБАТЫВАЮЩИЙ ЗАВОД &quot;</a>
+    </div>
+                <div class="section-procurement__item-description">
+        <span>ОКВЭД/ОКВЭД2:</span>               <a href="?okved2=31.0">Производство мебели</a>.          </div>
+        <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=31.0">Мебель</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 08:45 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            25.09.2020 12:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Приём заявок.                                <span class="section-procurement__item-dateRemaining">
+                Осталось: 8 д. 2 ч. 13 мин.             </span>
+                  </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/rosnefttkp/procedures/496534" data-title="Закупка мебели для объекта «АБК» ООО «РН- Туапсинского НПЗ»." data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2018-11/market-icon_0.png')" title="Интернет-магазин"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    97259
+                                </span>
+            </div>
+            <a href="/market/procedures/496510" class="section-procurement__item-title">Холодильники для оснащения вагон-домов</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Ценовой запрос</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=Общество с ограниченной ответственностью &quot;Башнефть-Строй&quot;">Общество с ограниченной ответственностью &quot;Башнефть-Строй&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=27.51.11.110">Холодильники бытовые</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 08:38 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            18.09.2020 10:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       На рассмотрении поставщика.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/market/procedures/496510" data-title="Холодильники для оснащения вагон-домов" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="service-list section-procurement__banners section-procurement__banners--3">
+      <div class="item banner-item">
+              <div class="item-img"><img src="https://www.tektorg.ru/sites/default/files/2019-10/Education_3_in_row.jpg" alt="Обучение"></div>
+                    <div class="item-name"><a href="https://www.tektorg.ru/education">Еженедельные консультации для Поставщиков и Заказчиков</a></div>
+              <div class="item-text">Обучение представителей компаний-участников ведущими экспертами рынка</div>
+        <div class="item-bottom">
+            <div class="item-btn btn"><a href="https://www.tektorg.ru/education">Подробнее</a></div>         </div>
+    </div>
+      <div class="item banner-item">
+              <div class="item-img"><img src="https://www.tektorg.ru/sites/default/files/2019-10/KIM_3_in_row.jpg" alt="Интернет-магазин СР"></div>
+                    <div class="item-name"><a href="https://www.tektorg.ru/market">Интернет-магазин</a></div>
+              <div class="item-text"><p>Сотни тендеров. Упрощенное участие. Закупка у единственного источника.</p></div>
+        <div class="item-bottom">
+            <div class="item-btn btn"><a href="https://www.tektorg.ru/market">Подробнее</a></div>         </div>
+    </div>
+      <div class="item banner-item">
+              <div class="item-img"><img src="https://www.tektorg.ru/sites/default/files/2019-10/EDO_3_in_row.jpg" alt="ЭДО"></div>
+                    <div class="item-name"><a href="https://www.tektorg.ru/service/edo">Электронный документоооборот (ЭДО)</a></div>
+              <div class="item-text">Обмен любыми документами (актами, счетами-фактурами, УПД и др.) с контрагентами. Без бумаги, мгновенно, надежно.</div>
+        <div class="item-bottom">
+            <div class="item-btn btn"><a href="https://www.tektorg.ru/service/edo">Подробнее</a></div>         </div>
+    </div>
+  </div>
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2019-07/logo_s.jpg')" title="Государственные закупки"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    0373200586420000103
+                                </span>
+            </div>
+            <a href="/44-fz/procedures/496490" class="section-procurement__item-title">Электронный аукцион на оказание услуг по паспортизации систем вентиляции</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Аукцион</div>
+                                      <div class="section-procurement__item-totalPrice">480 666,68 ?</div>
+                                                </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=ГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ЗДРАВООХРАНЕНИЯ ГОРОДА МОСКВЫ &quot;ГОРОДСКАЯ ПОЛИКЛИНИКА № 2 ДЕПАРТАМЕНТА ЗДРАВООХРАНЕНИЯ ГОРОДА МОСКВЫ&quot;">ГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ЗДРАВООХРАНЕНИЯ ГОРОДА МОСКВЫ &quot;ГОРОДСКАЯ ПОЛИКЛИНИКА № 2 ДЕПАРТАМЕНТА ЗДРАВООХРАНЕНИЯ ГОРОДА МОСКВЫ&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=71.12.11.900">Услуги в виде инженерно-технических консультаций прочие</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 08:22 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            25.09.2020 09:00 GMT+3
+        </div>
+                    <div class="section-procurement__item-dateTo">
+            <b>Дата проведения торгов:</b>             29.09.2020 11:00 GMT+3
+        </div>
+                                  <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Подача заявок.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/44-fz/procedures/496490" data-title="Электронный аукцион на оказание услуг по паспортизации систем вентиляции" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2018-11/market-icon_0.png')" title="Интернет-магазин"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    97251
+                                </span>
+            </div>
+            <a href="/market/procedures/496481" class="section-procurement__item-title">Закупка закупок</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Без названия</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО «САРАТОВНЕФТЕПРОДУКТ»">ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО «САРАТОВНЕФТЕПРОДУКТ»</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=14.12.30.150">Рукавицы, перчатки производственные и профессиональные</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 08:20 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            18.09.2020 08:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Отменено заказчиком.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/market/procedures/496481" data-title="Закупка закупок" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2018-11/market-icon_0.png')" title="Интернет-магазин"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    96820
+                                </span>
+            </div>
+            <a href="/market/procedures/496474" class="section-procurement__item-title">Материалы для оснащения вагон-домов</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Ценовой запрос</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=Общество с ограниченной ответственностью &quot;Башнефть-Строй&quot;">Общество с ограниченной ответственностью &quot;Башнефть-Строй&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=25.12.10.000">Двери, окна и их рамы и пороги для дверей из металлов</a>;               <a href="?okpd2=25.99.29.190">Изделия прочие из недрагоценных металлов, не включенные в другие группировки</a>;               <a href="?okpd2=28.25.20.111">Вентиляторы осевые</a>;               <a href="?okpd2=29.32.30.390">Части и принадлежности для автотранспортных средств прочие, не включенные в другие группировки</a>;               <a href="?okpd2=25.99.11.120">Умывальники из черных металлов, меди или алюминия</a>;               <a href="?okpd2=22.29.29.000">Изделия пластмассовые прочие</a>;               <a href="?okpd2=27.51.27.000">Печи микроволновые</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 08:11 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            18.09.2020 08:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       На рассмотрении поставщика.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/market/procedures/496474" data-title="Материалы для оснащения вагон-домов" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2018-11/market-icon_0.png')" title="Интернет-магазин"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    97223
+                                </span>
+            </div>
+            <a href="/market/procedures/496439" class="section-procurement__item-title">Оказание услуг междугородней и международной связи</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Ценовой запрос</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=Публичное акционерное общество «РН-Западная Сибирь»">Публичное акционерное общество «РН-Западная Сибирь»</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=61.10.11.110">Услуги по предоставлению внутризоновых, междугородных и международных телефонных соединений</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 07:35 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            22.09.2020 12:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       На рассмотрении поставщика.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/market/procedures/496439" data-title="Оказание услуг междугородней и международной связи" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2018-11/market-icon_0.png')" title="Интернет-магазин"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    96543
+                                </span>
+            </div>
+            <a href="/market/procedures/496427" class="section-procurement__item-title">Оказание услуг по текущему ремонту электродвигателей</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Ценовой запрос</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ &quot;РН-Ремонт НПО&quot;">ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ &quot;РН-Ремонт НПО&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=33.14.11.000">Услуги по ремонту и техническому обслуживанию электродвигателей, генераторов, трансформаторов и распределительной и регулирующей аппаратуры для электричества</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 07:28 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            23.09.2020 16:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       На рассмотрении поставщика.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/market/procedures/496427" data-title="Оказание услуг по текущему ремонту электродвигателей" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="service-list section-procurement__banners section-procurement__banners--4">
+  </div>
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2019-07/logo_s.jpg')" title="Государственные закупки"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    0387200025420000250
+                                </span>
+            </div>
+            <a href="/44-fz/procedures/496391" class="section-procurement__item-title">Поставка расходного материала</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Запрос котировок в электронной форме</div>
+                                      <div class="section-procurement__item-totalPrice">124 309,70 ?</div>
+                                                </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ХАНТЫ-МАНСИЙСКОГО АВТОНОМНОГО ОКРУГА - ЮГРЫ &quot;НЕФТЕЮГАНСКАЯ РАЙОННАЯ БОЛЬНИЦА&quot;">БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ХАНТЫ-МАНСИЙСКОГО АВТОНОМНОГО ОКРУГА - ЮГРЫ &quot;НЕФТЕЮГАНСКАЯ РАЙОННАЯ БОЛЬНИЦА&quot;</a>
+    </div>
+                  <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 06:56 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            25.09.2020 06:00 GMT+3
+        </div>
+                          <div class="section-procurement__item-dateTo">
+            <b>Подведение итогов не позднее:</b>             28.09.2020 21:59 GMT+3
+        </div>
+                            <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Подача заявок.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/44-fz/procedures/496391" data-title="Поставка расходного материала" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2019-07/logo_s.jpg')" title="Государственные закупки"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    0387200007020000225
+                                </span>
+            </div>
+            <a href="/44-fz/procedures/496388" class="section-procurement__item-title">Поставка товаров хозяйственно - бытового назначения - крючки (нержавейка)</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Аукцион</div>
+                                      <div class="section-procurement__item-totalPrice">48 764,88 ?</div>
+                                                </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ХАНТЫ-МАНСИЙСКОГО АВТОНОМНОГО ОКРУГА - ЮГРЫ &quot;НИЖНЕВАРТОВСКАЯ ОКРУЖНАЯ КЛИНИЧЕСКАЯ ДЕТСКАЯ БОЛЬНИЦА&quot;">БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ХАНТЫ-МАНСИЙСКОГО АВТОНОМНОГО ОКРУГА - ЮГРЫ &quot;НИЖНЕВАРТОВСКАЯ ОКРУЖНАЯ КЛИНИЧЕСКАЯ ДЕТСКАЯ БОЛЬНИЦА&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=25.99.25.000">Застежки, оправы с застежками, пряжки, пряжки-застежки, крючки, колечки, петельки и аналогичные изделия из недрагоценных металлов, используемые для одежды, обуви, навесов, дамских сумочек, дорожных принадлежностей или прочих готовых изделий; трубчаты е или раздвоенные заклепки из недрагоценных металлов; бусины и блестки из недрагоценных металлов</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 06:51 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            25.09.2020 06:00 GMT+3
+        </div>
+                    <div class="section-procurement__item-dateTo">
+            <b>Дата проведения торгов:</b>             29.09.2020 07:40 GMT+3
+        </div>
+                                  <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Подача заявок.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/44-fz/procedures/496388" data-title="Поставка товаров хозяйственно - бытового назначения - крючки (нержавейка)" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2018-02/inter%20rao.jpg')" title="Интер РАО"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    ИР009217
+                                </span>
+            </div>
+            <a href="/interao/procedures/496384" class="section-procurement__item-title">1114/ОЗП-ТГ Ремонт и техническое обслуживание механизмов с гидроприводом транспортных средств Автотранспортного управления АО &quot;Томская генерация&quot; в 2021 году</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Запрос предложений</div>
+                                      <div class="section-procurement__item-totalPrice">640 000,00 ?</div>
+                            <div class="section-procurement__item-msp">Только для МСП</div>                                         </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=Общество с ограниченной ответственностью &quot;&quot;Интер РАО - Центр управления закупками&quot;&quot;">Общество с ограниченной ответственностью &quot;&quot;Интер РАО - Центр управления закупками&quot;&quot;</a>
+    </div>
+                <div class="section-procurement__item-description">
+        <span>ОКВЭД/ОКВЭД2:</span>               <a href="?okved2=33.2">Монтаж промышленных машин и оборудования</a>.          </div>
+        <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=33.12.19.000">Услуги по ремонту и техническому обслуживанию прочего оборудования общего назначения, не включенного в другие группировки</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 06:50 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            29.09.2020 06:00 GMT+3
+        </div>
+                          <div class="section-procurement__item-dateTo">
+            <b>Подведение итогов не позднее:</b>             29.10.2020 15:00 GMT+3
+        </div>
+                            <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Прием заявок.                                <span class="section-procurement__item-dateRemaining">
+                Осталось: 11 д. 20 ч. 13 мин.             </span>
+                  </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/interao/procedures/496384" data-title="1114/ОЗП-ТГ Ремонт и техническое обслуживание механизмов с гидроприводом транспортных средств Автотранспортного управления АО &quot;Томская генерация&quot; в 2021 году" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2019-07/logo_s.jpg')" title="Государственные закупки"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    0387200007020000224
+                                </span>
+            </div>
+            <a href="/44-fz/procedures/496366" class="section-procurement__item-title">Поставка сантехтоваров</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Аукцион</div>
+                                      <div class="section-procurement__item-totalPrice">27 466,40 ?</div>
+                                                </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ХАНТЫ-МАНСИЙСКОГО АВТОНОМНОГО ОКРУГА - ЮГРЫ &quot;НИЖНЕВАРТОВСКАЯ ОКРУЖНАЯ КЛИНИЧЕСКАЯ ДЕТСКАЯ БОЛЬНИЦА&quot;">БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ХАНТЫ-МАНСИЙСКОГО АВТОНОМНОГО ОКРУГА - ЮГРЫ &quot;НИЖНЕВАРТОВСКАЯ ОКРУЖНАЯ КЛИНИЧЕСКАЯ ДЕТСКАЯ БОЛЬНИЦА&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=20.30.22.170">Герметики</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 06:17 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            25.09.2020 06:00 GMT+3
+        </div>
+                    <div class="section-procurement__item-dateTo">
+            <b>Дата проведения торгов:</b>             29.09.2020 07:20 GMT+3
+        </div>
+                                  <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Подача заявок.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/44-fz/procedures/496366" data-title="Поставка сантехтоваров" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2019-07/logo_s.jpg')" title="Государственные закупки"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    0387200007020000223
+                                </span>
+            </div>
+            <a href="/44-fz/procedures/496365" class="section-procurement__item-title">Поставка крахмала</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Аукцион</div>
+                                      <div class="section-procurement__item-totalPrice">22 666,00 ?</div>
+                                                </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ХАНТЫ-МАНСИЙСКОГО АВТОНОМНОГО ОКРУГА - ЮГРЫ &quot;НИЖНЕВАРТОВСКАЯ ОКРУЖНАЯ КЛИНИЧЕСКАЯ ДЕТСКАЯ БОЛЬНИЦА&quot;">БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ХАНТЫ-МАНСИЙСКОГО АВТОНОМНОГО ОКРУГА - ЮГРЫ &quot;НИЖНЕВАРТОВСКАЯ ОКРУЖНАЯ КЛИНИЧЕСКАЯ ДЕТСКАЯ БОЛЬНИЦА&quot;</a>
+    </div>
+                  <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            17.09.2020 06:15 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            25.09.2020 06:00 GMT+3
+        </div>
+                    <div class="section-procurement__item-dateTo">
+            <b>Дата проведения торгов:</b>             29.09.2020 07:10 GMT+3
+        </div>
+                                  <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Подача заявок.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/44-fz/procedures/496365" data-title="Поставка крахмала" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2019-07/logo_s.jpg')" title="Государственные закупки"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    0354200018220000003
+                                </span>
+            </div>
+            <a href="/44-fz/procedures/496324" class="section-procurement__item-title">Закупка продуктов питания: фрукты свежие на 2020 год (среди субъектов малого предпринимательства, социально ориентированных некоммерческих организаций)</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Аукцион</div>
+                                      <div class="section-procurement__item-totalPrice">250 003,05 ?</div>
+                                                </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=БЮДЖЕТНОЕ СТАЦИОНАРНОЕ УЧРЕЖДЕНИЕ СОЦИАЛЬНОГО ОБСЛУЖИВАНИЯ ОРЛОВСКОЙ ОБЛАСТИ &quot;ИВАНОВСКИЙ СПЕЦИАЛЬНЫЙ ДОМ-ИНТЕРНАТ ДЛЯ ПРЕСТАРЕЛЫХ И ИНВАЛИДОВ&quot;">БЮДЖЕТНОЕ СТАЦИОНАРНОЕ УЧРЕЖДЕНИЕ СОЦИАЛЬНОГО ОБСЛУЖИВАНИЯ ОРЛОВСКОЙ ОБЛАСТИ &quot;ИВАНОВСКИЙ СПЕЦИАЛЬНЫЙ ДОМ-ИНТЕРНАТ ДЛЯ ПРЕСТАРЕЛЫХ И ИНВАЛИДОВ&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=01.22.12.000">Бананы</a>;               <a href="?okpd2=01.23.12.000">Лимоны и лаймы</a>;               <a href="?okpd2=01.23.13.000">Апельсины</a>;               <a href="?okpd2=01.24.10.000">Яблоки</a>;               <a href="?okpd2=01.24.21.000">Груши</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            16.09.2020 22:32 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            24.09.2020 09:00 GMT+3
+        </div>
+                    <div class="section-procurement__item-dateTo">
+            <b>Дата проведения торгов:</b>             25.09.2020 10:25 GMT+3
+        </div>
+                                  <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Подача заявок.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/44-fz/procedures/496324" data-title="Закупка продуктов питания: фрукты свежие на 2020 год (среди субъектов малого предпринимательства, социально ориентированных некоммерческих организаций)" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2019-07/logo_s.jpg')" title="Государственные закупки"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    0354200018220000002
+                                </span>
+            </div>
+            <a href="/44-fz/procedures/496323" class="section-procurement__item-title">Закупка продуктов питания: овощи свежие на 2020 год (среди субъектов малого предпринимательства, социально ориентированных некоммерческих организаций)</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Аукцион</div>
+                                      <div class="section-procurement__item-totalPrice">132 531,50 ?</div>
+                                                </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=БЮДЖЕТНОЕ СТАЦИОНАРНОЕ УЧРЕЖДЕНИЕ СОЦИАЛЬНОГО ОБСЛУЖИВАНИЯ ОРЛОВСКОЙ ОБЛАСТИ &quot;ИВАНОВСКИЙ СПЕЦИАЛЬНЫЙ ДОМ-ИНТЕРНАТ ДЛЯ ПРЕСТАРЕЛЫХ И ИНВАЛИДОВ&quot;">БЮДЖЕТНОЕ СТАЦИОНАРНОЕ УЧРЕЖДЕНИЕ СОЦИАЛЬНОГО ОБСЛУЖИВАНИЯ ОРЛОВСКОЙ ОБЛАСТИ &quot;ИВАНОВСКИЙ СПЕЦИАЛЬНЫЙ ДОМ-ИНТЕРНАТ ДЛЯ ПРЕСТАРЕЛЫХ И ИНВАЛИДОВ&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=01.13.12.120">Капуста белокочанная</a>;               <a href="?okpd2=01.13.41.110">Морковь столовая</a>;               <a href="?okpd2=01.13.43.110">Лук репчатый</a>;               <a href="?okpd2=01.13.49.110">Свекла столовая</a>;               <a href="?okpd2=01.13.51.120">Картофель столовый поздний</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            16.09.2020 22:18 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            24.09.2020 09:00 GMT+3
+        </div>
+                    <div class="section-procurement__item-dateTo">
+            <b>Дата проведения торгов:</b>             25.09.2020 10:15 GMT+3
+        </div>
+                                  <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Подача заявок.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/44-fz/procedures/496323" data-title="Закупка продуктов питания: овощи свежие на 2020 год (среди субъектов малого предпринимательства, социально ориентированных некоммерческих организаций)" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2019-07/procurement-item-logo-rosneft.jpg')" title="Роснефть - Запросы (Т)КП"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    РН00906789
+                                </span>
+            </div>
+            <a href="/rosnefttkp/procedures/496308" class="section-procurement__item-title">Закупка расходомеров для АО &quot;Новокуйбышевский НПЗ&quot; св. лот 195421</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Запрос (Т)КП</div>
+                                                                  </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ &quot;СИБИРСКАЯ ИНТЕРНЕТ КОМПАНИЯ&quot;">ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ &quot;СИБИРСКАЯ ИНТЕРНЕТ КОМПАНИЯ&quot;</a>
+    </div>
+                <div class="section-procurement__item-description">
+        <span>ОКВЭД/ОКВЭД2:</span>               <a href="?okved2=26.51.5">Производство приборов для контроля прочих физических величин</a>.          </div>
+        <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=26.51.52.130">Приборы для измерения или контроля давления жидкостей и газов</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            16.09.2020 19:33 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            23.09.2020 18:00 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Приём заявок.                                <span class="section-procurement__item-dateRemaining">
+                Осталось: 6 д. 8 ч. 13 мин.             </span>
+                  </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/rosnefttkp/procedures/496308" data-title="Закупка расходомеров для АО &quot;Новокуйбышевский НПЗ&quot; св. лот 195421" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2019-07/logo_s.jpg')" title="Государственные закупки"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    0332200014320000015
+                                </span>
+            </div>
+            <a href="/44-fz/procedures/496301" class="section-procurement__item-title">Приемник телевизионного сигнала</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Аукцион</div>
+                                      <div class="section-procurement__item-totalPrice">83 323,33 ?</div>
+                                                </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=ГОСУДАРСТВЕННОЕ КАЗЕННОЕ УЧРЕЖДЕНИЕ НИЖЕГОРОДСКОЙ ОБЛАСТИ &quot;ПРЕДСТАВИТЕЛЬСТВО ПРАВИТЕЛЬСТВА НИЖЕГОРОДСКОЙ ОБЛАСТИ ПРИ ПРАВИТЕЛЬСТВЕ РОССИЙСКОЙ ФЕДЕРАЦИИ&quot;">ГОСУДАРСТВЕННОЕ КАЗЕННОЕ УЧРЕЖДЕНИЕ НИЖЕГОРОДСКОЙ ОБЛАСТИ &quot;ПРЕДСТАВИТЕЛЬСТВО ПРАВИТЕЛЬСТВА НИЖЕГОРОДСКОЙ ОБЛАСТИ ПРИ ПРАВИТЕЛЬСТВЕ РОССИЙСКОЙ ФЕДЕРАЦИИ&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=26.40.20.122">Приемники телевизионные (телевизоры) цветного изображения с жидкокристаллическим экраном, плазменной панелью</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            16.09.2020 19:09 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            24.09.2020 14:00 GMT+3
+        </div>
+                    <div class="section-procurement__item-dateTo">
+            <b>Дата проведения торгов:</b>             28.09.2020 11:15 GMT+3
+        </div>
+                                  <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Подача заявок.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/44-fz/procedures/496301" data-title="Приемник телевизионного сигнала" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+<div class="section-procurement__item">
+    <div class="section-procurement__item-info">
+        <div class="section-procurement__item-information">
+            <div class="section-procurement__item-numbers">
+                                          <i class="section-procurement__item-logo" style="background-image:url('/sites/default/files/2019-07/logo_s.jpg')" title="Государственные закупки"></i>
+                                          <span>
+                                                    Номер закупки на сайте ЭТП:
+                    0332200014320000014
+                                </span>
+            </div>
+            <a href="/44-fz/procedures/496299" class="section-procurement__item-title">Картриджи к офисной технике</a>
+        </div>
+        <div class="section-procurement__item-prices">
+                              <div class="section-procurement__item-request-price">Аукцион</div>
+                                      <div class="section-procurement__item-totalPrice">151 672,74 ?</div>
+                                                </div>
+    </div>
+
+      <div class="section-procurement__item-description">
+        <span>Организатор:</span>         <a href="?q=ГОСУДАРСТВЕННОЕ КАЗЕННОЕ УЧРЕЖДЕНИЕ НИЖЕГОРОДСКОЙ ОБЛАСТИ &quot;ПРЕДСТАВИТЕЛЬСТВО ПРАВИТЕЛЬСТВА НИЖЕГОРОДСКОЙ ОБЛАСТИ ПРИ ПРАВИТЕЛЬСТВЕ РОССИЙСКОЙ ФЕДЕРАЦИИ&quot;">ГОСУДАРСТВЕННОЕ КАЗЕННОЕ УЧРЕЖДЕНИЕ НИЖЕГОРОДСКОЙ ОБЛАСТИ &quot;ПРЕДСТАВИТЕЛЬСТВО ПРАВИТЕЛЬСТВА НИЖЕГОРОДСКОЙ ОБЛАСТИ ПРИ ПРАВИТЕЛЬСТВЕ РОССИЙСКОЙ ФЕДЕРАЦИИ&quot;</a>
+    </div>
+                  <div class="section-procurement__item-description">
+        <span>ОКДП/ОКПД2:</span>               <a href="?okpd2=26.20.40.120">Элементы замены типовые устройств ввода и вывода</a>.          </div>
+      <div class="section-procurement__item-date">
+                  
+              <div class="section-procurement__item-dateTo">             <b>Дата публикации процедуры:</b>
+            16.09.2020 19:08 GMT+3
+        </div>
+                                        <div class="section-procurement__item-dateTo">
+            <b>Дата окончания приема заявок:</b>
+            24.09.2020 14:00 GMT+3
+        </div>
+                    <div class="section-procurement__item-dateTo">
+            <b>Дата проведения торгов:</b>             28.09.2020 11:05 GMT+3
+        </div>
+                                  <div class="section-procurement__item-dateTo">
+            <b>Статус:</b>                       Подача заявок.                            </div>
+              </div>
+    <div class="social-sharing">        Поделиться&nbsp;&nbsp;
+        <div class="ya-share2" data-url="https://www.tektorg.ru/44-fz/procedures/496299" data-title="Картриджи к офисной технике" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+    </div>
+</div>
+
+
+
+<ul class="pagination" role="navigation" aria-label="Pagination">
+    <li class="pagination__prev">
+            <a aria-label="Предыдущая страница"></a>         </li>
+            <li class="pagination__current">1</li>
+                            <li><a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&page=2" aria-label="Page 2">2</a></li>                 <li><a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&page=3" aria-label="Page 3">3</a></li>                             <li><a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&page=481" aria-label="Page 481">...</a></li>                 <li><a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&page=960" aria-label="Page 960">960</a></li>                 <li><a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&page=961" aria-label="Page 961">961</a></li>                             <li class="pagination__next">
+            <a href="/procedures?order=desc&amp;q=%D0%B4%D0%BE%D0%BC&amp;sort=datestart&page=2" aria-label="Следующая страница"></a>         </li>
+</ul>
+
+<script>
+    $(document).ready(function() {
+                    localStorage.setItem('to_list', 'Y');
+            });
+</script>
+
+                </div>
+            </section>
+        </div>
+    </section>
+</main>
+    <section class="banners">
+    <div class="banners__wrapper">
+        <div class="foot-images">
+                    <a href="/e-signature" class="foot-images-item">
+                                            <span class="item-img" style="background-image:url(/sites/default/files/2020-07/tt_ep.jpg)"></span>
+                                <span class="item-block">
+                    <span class="item-name">Электронная подпись для любых торгов за 1 час</span>
+                    <span class="item-desc">Оформление по 2 документам онлайн. 
+350 точек выдачи по всей России.</span>
+                                    <span class="item-bot">
+                        <u class="item-button">
+                                                    Получить
+                                                </u>
+                    </span>
+                                </span>
+                        </a>
+                    <a href="/service/bank_warranty?utm_source=site&amp;utm_medium=banner&amp;utm_campaign=promo_bg" class="foot-images-item">
+                                            <span class="item-img" style="background-image:url(/sites/default/files/2018-11/%D0%BD%D0%B8%D0%B6%D0%BD%D0%B8%D0%B9%20%D0%B1%D0%B0%D0%BD%D0%BD%D0%B5%D1%80%20%D0%91%D0%93.jpg)"></span>
+                                <span class="item-block">
+                    <span class="item-name">Банковские Гарантии</span>
+                    <span class="item-desc">Банковские гарантии на исполнение контракта от 2,5%
+
+Решение о выдаче за 30 мин по 3 документам. Все операции онлайн</span>
+                                    <span class="item-bot">
+                        <u class="item-button">
+                                                    Получить
+                                                </u>
+                    </span>
+                                </span>
+                        </a>
+                </div>
+    </div>
+</section>
+<section class="partners">
+    <div class="partners__wrapper">
+        <h3 class="partners__title"><a href="/partners">Наши партнеры</a></h3>         <div class="foot-partners-list">
+                                <a href="http://www.tppsurgut.ru/" target="_blank" class="foot-partners-item">
+                                        <img src="/sites/default/files/2018-08/%D0%A1%D0%A2%D0%9F%D0%9F_.jpg" alt="Сургутская торгово-промышленная палата" />
+                        </a>
+                                <a href="http://www.nestro.ru/ru/" target="_blank" class="foot-partners-item">
+                                        <img src="/sites/default/files/2017-10/l04.jpg" alt="АО «Зарубежнефть»  " />
+                        </a>
+                                <a href="http://corpmsp.ru/" target="_blank" class="foot-partners-item">
+                                        <img src="/sites/default/files/2017-10/l01.jpg" alt="Корпорация МСП" />
+                        </a>
+                                <a href="http://www.rzd.ru/" target="_blank" class="foot-partners-item">
+                                        <img src="/sites/default/files/2017-10/l02.jpg" alt="ОАО &quot;РЖД&quot; " />
+                        </a>
+                                <a href="http://www.interrao.ru/" target="_blank" class="foot-partners-item">
+                                        <img src="/sites/default/files/2017-10/l06.jpg" alt="Группа «Интер РАО» " />
+                        </a>
+                                <a href="http://www.burgaz.ru/" target="_blank" class="foot-partners-item">
+                                        <img src="/sites/default/files/2017-10/l03.jpg" alt="ООО «Газпром бурение» " />
+                        </a>
+                                <a href="https://www.rosneft.ru/" target="_blank" class="foot-partners-item">
+                                        <img src="/sites/default/files/2017-08/%D1%80%D0%BE%D1%81%D0%BD%D0%B5%D1%84%D1%82%D1%8C.png" alt="Роснефть" />
+                        </a>
+                                <a href="http://spimex.com/" target="_blank" class="foot-partners-item">
+                                        <img src="/sites/default/files/2019-04/logo_SPb_birja_%D0%A1%D0%9F%D0%B1%D0%9C%D0%A2%D0%A1%D0%91_%D0%B2%D0%BF%D0%BF%D0%BF%D0%BF%D0%BF%D0%BF%D0%BF%D0%BF%D0%BF%D0%BF%D0%BF%D0%BF%D0%B5%D1%80%D1%82%20%282%29_4.jpg" alt="СПбМТСБ" />
+                        </a>
+                </div>
+    </div>
+</section>
+
+<script src="/themes/tektorg/js/initOwlCarousel.js"></script>
+
+        <footer class="main-footer">
+    <div class="main-footer__wrapper">
+        <a href="/" class="main-footer__logo"><img src="/themes/tektorg/images/foot-logo.png" alt="ТЭК-торг"></a>         <ul class="main-footer__firstMenu">
+    <li>
+            <a href="/organizer" data-drupal-link-system-path="node/4082">Организаторам</a>
+        </li>
+    <li>
+            <a href="/suppliers" data-drupal-link-system-path="node/756">Поставщикам</a>
+        </li>
+    <li>
+            <a href="/partners" data-drupal-link-system-path="partners">Партнеры</a>
+        </li>
+    <li>
+            <a href="/education" data-drupal-link-system-path="education">Обучение</a>
+        </li>
+    <li>
+            <a href="/tariff" data-drupal-link-system-path="tariff">Тарифы</a>
+        </li>
+    <li>
+            <a href="/e-signature" data-drupal-link-system-path="e-signature">Получить ЭП</a>
+        </li>
+    <li>
+            <a href="/documents" data-drupal-link-system-path="documents">Документы</a>
+        </li>
+    <li>
+            <a href="/service" data-drupal-link-system-path="service">Услуги</a>
+        </li>
+</ul>
+        <ul class="main-footer__secondMenu">
+    <li class="active">
+            <span>Все секции</span>
+        </li>
+    <li>
+            <a href="/44-fz" data-drupal-link-system-path="node/2898">Государственные закупки</a>
+        </li>
+    <li>
+            <a href="/rosneft" data-drupal-link-system-path="node/8">Роснефть</a>
+        </li>
+    <li>
+            <a href="/interao" title="секция компании Интер РАО" data-drupal-link-system-path="node/875">Интер РАО</a>
+        </li>
+    <li>
+            <a href="/223-fz" data-drupal-link-system-path="node/75">223-ФЗ и Коммерческие закупки</a>
+        </li>
+    <li>
+            <a href="/rzd" data-drupal-link-system-path="node/26">РЖД</a>
+        </li>
+    <li>
+            <a href="/mosenergo" data-drupal-link-system-path="node/2991">ТЭК Мосэнерго</a>
+        </li>
+    <li>
+            <a href="/upravlenie_zakazchika" data-drupal-link-system-path="node/3592">Управление заказчика</a>
+        </li>
+    <li>
+            <a href="/silovyi_machine" data-drupal-link-system-path="node/3484">Силовые машины</a>
+        </li>
+    <li>
+            <a href="/gazprom" data-drupal-link-system-path="node/10">Газпром бурение</a>
+        </li>
+    <li>
+            <a href="/portal_tyumen" data-drupal-link-system-path="node/3267">Портал поставщиков Тюменской области</a>
+        </li>
+    <li>
+            <a href="/tenders" data-drupal-link-system-path="node/76">Продажа нефтепродуктов</a>
+        </li>
+    <li>
+            <a href="/sale" data-drupal-link-system-path="node/11">Продажа имущества</a>
+        </li>
+    <li>
+            <a href="/arrested-sale" data-drupal-link-system-path="node/3848">Продажа арестованного имущества</a>
+        </li>
+    <li>
+            <a href="/market" data-drupal-link-system-path="node/896">Интернет-магазин</a>
+        </li>
+    <li>
+            <a href="https://fin.tektorg.ru/orders/create">Финансовые сервисы</a>
+        </li>
+</ul>
+
+        <ul class="main-footer__thirdMenu">
+    <li>
+            <a href="/about" data-drupal-link-system-path="node/5">О компании</a>
+        </li>
+    <li>
+            <a href="/vacancy" data-drupal-link-system-path="vacancy">Вакансии</a>
+        </li>
+    <li>
+            <a href="/contacts" data-drupal-link-system-path="node/6">Контакты</a>
+        </li>
+    <li>
+            <a href="https://www.tektorg.ru/sites/default/files/2019-10/%D0%A0%D0%B5%D0%BA%D0%BB%D0%B0%D0%BC%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5%20%D0%A2%D0%AD%D0%9A-%D0%A2%D0%BE%D1%80%D0%B3.pdf">Реклама на сайте</a>
+        </li>
+</ul>
+
+        <div class="main-footer__contacts">
+            <div class="main-footer__leftContacts">
+                                                                                                                                                      
+                <div class="main-footer__leftContacts-col">
+                    <a href="/sites/default/files/Presentation%20TEK-Torg%20%28ver.2%29%20%D0%BE%D1%82%2004.02.19.pdf" target="_blank" class="main-footer__leftContacts-pdf">
+                        Скачать<br> презентацию                     </a>
+                </div>
+                            <div class="main-footer__leftContacts-col">
+                    <small>Мы в социальных сетях:</small>                     <a class="social" href="https://www.facebook.com/etptektorg" target="_blank" title="Facebook"><img src="/themes/tektorg/images/facebook-icon.svg" alt="Facebook" /></a>
+                    <a class="social" href="https://vk.com/etptektorg" target="_blank" title="ВКонтакте"><img src="/themes/tektorg/images/vk-icon.svg" alt="ВКонтакте" /></a>                     <a class="social" href="https://www.youtube.com/channel/UCeLnNU7xlGjp_0nVaDBUWOg" target="_blank" title="YouTube"><img src="/themes/tektorg/images/youtube-icon.svg" alt="YouTube" /></a>
+                </div>
+            </div>
+            <div class="main-footer__rightContacts">
+                <div class="main-footer__telephone">
+                                    <span><a href="tel:+7 (495) 734-81-18">+7 (495) 734-81-18</a></span>
+                                    <span><a href="tel:+7 (499) 705-81-18">+7 (499) 705-81-18</a></span>
+                                </div>
+                <div class="main-footer__soclinks">
+                    <a href="/help" tooltip="Центр поддержки"><i class="fas fa-question"></i></a>                                     <a href="skype:live:Tektorg?call" tooltip="live:Tektorg"><i class="fab fa-skype"></i></a>
+                                                    <a href="mailto:help@tektorg.ru" tooltip="help@tektorg.ru"><i class="fas fa-envelope"></i></a>
+                                    <a href="/themes/tektorg/files/tv.exe" tooltip="Удаленная техподдержка">                         <span class="fa-stack" style="margin-left: -2.2px;margin-top:-1px">
+                            <i class="fa fa-circle fa-inverse" style="margin-top: 3.5px;font-size:24px;"></i>
+                            <i class="fa fa-stack-1x fa-arrows-h" style="color:#214e8d;margin-top: -1px;"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <div class="copyright__wrapper">
+            <span class="copyright__text">
+                <p>&copy; 2020 ЭТП ТЭК-Торг. Все права защищены.</p>
+                                <p>Мы используем файлы «cookie» для функционирования сайта. Если вы не согласны с тем, чтобы мы использовали данный тип файлов, то вы должны соответствующим образом установить настройки вашего браузера или не использовать данный сайт.</p> 
+            </span>
+        </div>
+    </div>
+</footer>
+        
+        <script src="/themes/tektorg/js/addclasses.js?v=1.x"></script>
+<script src="/themes/tektorg/js/sliders.js?v=1.x"></script>
+<script src="/themes/tektorg/js/dropdowns.js?v=1.x"></script>
+
+                <script>(function(d){var s=d.createElement("script");s.async=true;s.charset="utf-8";s.src="https://app.blinger.io/uploads/widgets2/770.js";d.head.appendChild(s);})(window.document);</script>
+        <script>var customBlingerConfig = { settings: { showPowered: false } };</script>
+        </body>
+</html>

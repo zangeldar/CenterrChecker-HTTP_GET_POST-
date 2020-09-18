@@ -11,7 +11,7 @@ namespace UTender
     {
         override public string SiteName { get { return "Ю-Тендер"; } }
         override public string Type { get { return "uTender"; } }
-        override public string ServiceURL { get { return "http://www.utender.ru/"; } }
+        override public string SiteURL { get { return "http://www.utender.ru/"; } }
 
         override public string ReqParamTitle { get { return "&ctl00$ctl00$MainExpandableArea$phExpandCollapse$scPurchaseAllSearch$"; } }        
 
@@ -76,8 +76,7 @@ namespace UTender
 
         override public IResponse MakeResponse()
         {
-            return new UTenderResponse(this);
-            //throw new NotImplementedException("Making Response from request will be implemented later");
+            return new UTenderResponse(this);            
         }
     }
 }

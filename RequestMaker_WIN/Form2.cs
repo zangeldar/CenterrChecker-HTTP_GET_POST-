@@ -20,10 +20,11 @@ namespace RequestMaker_WIN
         }
 
         private void MyInitialize()
-        {
+        {            
             foreach (KeyValuePair<string, ETPStruct> item in MyConst.ETP)
             {
                 chListBox.Items.Add(item.Key);
+                //chListBox.Items.Add(item);                
             }
         }
 
@@ -44,10 +45,13 @@ namespace RequestMaker_WIN
         {
             foreach (var item in chListBox.CheckedItems)
             {
+                /*
+                if (!(item is KeyValuePair<string, ETPStruct>))
+                  continue;
+                WebProceed(((KeyValuePair<string, ETPStruct>)item).Key, searchBox.Text, (sender as Button).Name == "btnResp");
+                */
                 WebProceed(item.ToString(), searchBox.Text, (sender as Button).Name == "btnResp");
             }
-         
-            
         }
 
         private void WebProceed(string typeStr, string searchStr, bool needResponse)
@@ -120,6 +124,39 @@ namespace RequestMaker_WIN
                 AddLog("ОШИБКА: Произошла неизвестная ошибка!");
                 return;
             }
+        }
+        
+        private void BtnSelect_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < chListBox.Items.Count; i++)
+            {                
+                /*
+                if (!(chListBox.Items[i] is KeyValuePair<string, ETPStruct>))
+                    continue;
+                    */
+
+                switch ((sender as Button).Name)
+                {
+                    case "btnSelectAll":
+                        chListBox.SetItemChecked(i, true);
+                        break;
+                    case "btnSelectBuy":
+                        //chListBox.SetItemChecked(i, ((KeyValuePair<string, ETPStruct>)chListBox.Items[i]).Value.TorgType);                        
+                        chListBox.SetItemChecked(i, MyConst.ETP[chListBox.Items[i].ToString()].TorgType);
+                        break;
+                    case "btnSelectSell":
+                        //chListBox.SetItemChecked(i, !((KeyValuePair<string, ETPStruct>)chListBox.Items[i]).Value.TorgType);
+                        chListBox.SetItemChecked(i, !MyConst.ETP[chListBox.Items[i].ToString()].TorgType);
+                        break;
+                    case "btnSelectInvert":
+                        chListBox.SetItemChecked(i, !chListBox.GetItemChecked(i));
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
         }
     }
 }

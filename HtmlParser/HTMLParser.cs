@@ -43,7 +43,7 @@ namespace HtmlParser
 
         int IComparable<ProtoTag>.CompareTo(ProtoTag other)
         {
-            //throw new NotImplementedException();
+            
             if (other == null) return 1;
             return Level.CompareTo(other.Level);            
         }

@@ -162,8 +162,7 @@ namespace B2B
         }
 
         public override string ToString(bool html)
-        {
-            //throw new NotImplementedException();
+        {            
 
             string result = "";
             string formatStr = @"{1}" + ";" +

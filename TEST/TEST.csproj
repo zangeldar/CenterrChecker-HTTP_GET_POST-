@@ -19,6 +19,7 @@
     <ProjectReference Include="..\LotOnline.Tender\LotOnline.Tender.csproj" />
     <ProjectReference Include="..\LotOnline\LotOnline.csproj" />
     <ProjectReference Include="..\SberbankAST\SberbankAST.csproj" />
+    <ProjectReference Include="..\TekTorg\TekTorg.csproj" />
     <ProjectReference Include="..\TorgiASV\TorgiASV.csproj" />
     <ProjectReference Include="..\UTender\UTender.csproj" />
     <ProjectReference Include="..\ZakupkiGov\ZakupkiGov.csproj" />
