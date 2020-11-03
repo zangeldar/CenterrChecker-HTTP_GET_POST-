@@ -76,6 +76,8 @@ namespace RTSTender
         {
             lastError = null;
             initialised = false;
+            Cookies = "";
+            Token = "";
             getBlankResponse();
             return initialised;
         }
