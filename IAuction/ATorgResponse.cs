@@ -92,8 +92,8 @@ namespace IAuction
             result += rowStart;
             foreach (string item in tableHead)
                 result += rowSeparatorSt + item + rowSeparatorEn;
-
-            result += rowSeparatorEn;
+            //result += rowSeparatorEn;
+            result += rowEnd;
 
             foreach (ATorg item in NewRecords)
                 result += item.ToString(html);
