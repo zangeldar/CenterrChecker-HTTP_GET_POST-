@@ -32,7 +32,7 @@ namespace RTSTender
                             NoteUrl = inItem.Attributes["onclick"].Replace("window.open(\"", "").Replace("\",\"_blank\")", "");
                 }
             }
-            NoteUrl = baseUrl + NoteUrl;
+            NoteUrl = baseUrl + NoteUrl.Replace(baseUrl, "");
 
             tmpStr = tmpStr.Remove(tmpStr.LastIndexOf(sepStr));
             NoteStr = tmpStr.Replace("\n", "").Replace("\t", "");
@@ -45,7 +45,7 @@ namespace RTSTender
                     if (item.Attributes["href"] != "")
                         LotNameUrl = item.Attributes["href"];
             }
-            LotNameUrl = baseUrl + LotNameUrl;
+            LotNameUrl = baseUrl + LotNameUrl.Replace(baseUrl, "");
 
             foreach (Tag item in inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "card-item__about")))
             {
@@ -59,7 +59,7 @@ namespace RTSTender
                             LotNumberStr = inInItem.Value;
                 }
             }
-            LotNumberUrl = baseUrl + LotNumberUrl;
+            LotNumberUrl = baseUrl + LotNumberUrl.Replace(baseUrl, "");
 
             foreach (Tag item in inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "card-item__title")))
             {
@@ -183,8 +183,8 @@ namespace RTSTender
                         break;
                 }
             }
-            OrganisatorUrl = baseUrl + OrganisatorUrl;
-            RegionUrl = baseUrl + RegionUrl;
+            OrganisatorUrl = baseUrl + OrganisatorUrl.Replace(baseUrl, "");
+            RegionUrl = baseUrl + RegionUrl.Replace(baseUrl, "");
                         
             foreach (Tag item in inpTag.LookForChildTag("div", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "card-content__row parent")))
                 foreach (Tag inItem in item.LookForChildTag("table", true, new System.Collections.Generic.KeyValuePair<string, string>("class", "card-table")))
@@ -206,15 +206,15 @@ namespace RTSTender
 
             TableRowUrls = new string[]
             {
-                baseUrl + LotNumberUrl,
-                baseUrl + LotNameUrl,
-                baseUrl + OrganisatorUrl,
+                baseUrl + LotNumberUrl.Replace(baseUrl,""),
+                baseUrl + LotNameUrl.Replace(baseUrl,""),
+                baseUrl + OrganisatorUrl.Replace(baseUrl,""),
                 "",
-                baseUrl + RegionUrl,
+                baseUrl + RegionUrl.Replace(baseUrl,""),
                 "",
                 "",
                 "",
-                baseUrl + NoteUrl,
+                baseUrl + NoteUrl.Replace(baseUrl,""),
                 ""
             };
         }
